@@ -1,0 +1,37 @@
+// globals styles
+:root {
+    --primary-color : #9F1223,
+    --secundary-color : #E3008C,
+    --tertiary-color : #CB00D9
+}
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li,
+p {
+    margin: 0;
+    padding: 0;
+}
+* {
+    box-sizing: border-box;
+}
+.container {
+    width: 100%;
+    max-width: 1020px;
+    margin: 0 auto;
+}
+.card {
+    box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+    word-wrap: break-word;
+}

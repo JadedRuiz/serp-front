@@ -1,8 +1,14 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { LayoutModule } from '@presentation/layout/layout.module';
+import { CoreModule } from '@core/core.module';
+import { appEffects, appReducer } from '@domain/store';
 
 @NgModule({
   declarations: [
@@ -10,7 +16,12 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    LayoutModule,
+    CoreModule,
+    StoreModule.forRoot(appReducer),
+    EffectsModule.forRoot(appEffects),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
   providers: [],
   bootstrap: [AppComponent]
