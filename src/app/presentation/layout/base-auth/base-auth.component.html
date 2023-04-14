@@ -1,7 +1,17 @@
-<div class="auth">
-    <div class="auth_image">
-    </div>
-    <div class="auth_form">
-        <router-outlet></router-outlet>
-    </div>
-</div>
+<section class="hero is-fullheight bg-auth">
+  <div class="hero-body">
+      <div class="container">
+          <div class="column is-4 is-offset-4">
+              <div class="box" style="height: 400px;">
+                  <figure class="image is-128x128 mb-1 mx-auto" >
+                      <img class="" src="../../../../assets/img/logo_empresa.png">
+                  </figure>
+                  <router-outlet></router-outlet>
+              </div>
+          </div>
+          <p class="has-text-black has-text-centered mt-3">
+            Elaborado por <a class="has-text-link" href="www.serteza.com">@Serteza</a>
+          </p>
+      </div>
+  </div>
+</section>

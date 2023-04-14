@@ -1,41 +1,42 @@
-<div class="form">
-    <div class="form_header">
-        <img src="assets/img/logo_empresa.png" alt="">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
+  <div class="field">
+    <p class="control has-icons-left has-icons-right">
+      <input
+      class="input"
+      type="email"
+      placeholder="Email"
+      formControlName = "identifier"
+      >
+      <span class="icon is-small is-left">
+        <i class="fas fa-envelope"></i>
+      </span>
+      <span class="icon is-small is-right">
+        <i class="fas fa-check"></i>
+      </span>
+    </p>
+  </div>
+  <div class="field">
+    <p class="control has-icons-left">
+      <input
+      class="input"
+      type="password"
+      placeholder="Password"
+      formControlName = "password"
+      >
+      <span class="icon is-small is-left">
+        <i class="fas fa-lock"></i>
+      </span>
+    </p>
+  </div>
+  <div class="field">
+      <label class="checkbox">
+        <input type="checkbox">
+        Remember me
+      </label>
+  </div>
+  <div class="container">
+    <div class="column has-text-centered">
+      <button type="submit" class="button is-danger is-outlined">Iniciar sesión <i class="fa fa-sign-in ml-2" aria-hidden="true"></i></button>
     </div>
-    <div class="form_body">
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
-            <div class="field">
-                <label for="email" class="label">Correo</label>
-                <div class="control">
-                    <input
-                    type="email"
-                    name="email"
-                    class="input"
-                    formControlName = "identifier"
-                    autocomplete="off"
-                    />
-                </div>
-            </div>
-            <div class="field">
-                <label for="password" class="label">Contraseña</label>
-                <div class="control">
-                    <input
-                    type="password"
-                    name="password"
-                    class="input"
-                    formControlName = "identifier"
-                    autocomplete="off"
-                    />
-                </div>
-            </div>
-            <button type="submit" class="button is-success">
-                Login
-            </button>
-        </form>
-    </div>
-    <div class="form_footer">
-        <p>No tienes cuenta?
-            <a [routerLink]="'/auth/signup'">Registrarse</a>
-        </p>
-    </div>
-</div>
+  </div>
+</form>
