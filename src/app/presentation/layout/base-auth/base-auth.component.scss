@@ -4,29 +4,15 @@
     min-height: 100vh;
 
     &_image {
-        background-color: #f1f1f1;
-        padding: 4rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        &-logo {
-            width: 300px;
-
-            h2 {
-                text-align: center;
-                font-size: 24px;
-                color: var(--primary-color);
-                font-weight: 700;
-            }
-        }
+        background-image: url('../../../../assets/img/slider1.jpg');
+        background-size: cover;
+        background-position: center;
     }
 
     &_form {
         padding: 8rem;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        justify-content: center;
     }
 }
