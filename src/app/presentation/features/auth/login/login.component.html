@@ -1,42 +1,30 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
-  <div class="field">
-    <p class="control has-icons-left has-icons-right">
-      <input
-      class="input"
-      type="email"
-      placeholder="Email"
-      formControlName = "identifier"
-      >
+  <div class="field mb-4">
+    <div class="control has-icons-left has-icons-right">
+      <input class="input" type="text" placeholder="Ingresa tu usuario" formControlName = "user">
       <span class="icon is-small is-left">
-        <i class="fas fa-envelope"></i>
+        <i class="fas fa-user"></i>
       </span>
-      <span class="icon is-small is-right">
-        <i class="fas fa-check"></i>
-      </span>
-    </p>
+    </div>
+    <p class="help is-success is-hidden">Este usuario es valido</p>
   </div>
   <div class="field">
-    <p class="control has-icons-left">
-      <input
-      class="input"
-      type="password"
-      placeholder="Password"
-      formControlName = "password"
-      >
+    <div class="control has-icons-left has-icons-right">
+      <input class="input" type="text" placeholder="Ingresa tu contraseña" formControlName = "password">
       <span class="icon is-small is-left">
         <i class="fas fa-lock"></i>
       </span>
-    </p>
+    </div>
   </div>
   <div class="field">
       <label class="checkbox">
         <input type="checkbox">
-        Remember me
+        Recuerdame
       </label>
   </div>
   <div class="container">
     <div class="column has-text-centered">
-      <button type="submit" class="button is-danger is-outlined">Iniciar sesión <i class="fa fa-sign-in ml-2" aria-hidden="true"></i></button>
+      <button type="submit" class="button is-danger is-outlined">Iniciar sesión <i class="fas fa-caret-right fa-lg ml-2 mt-1 hover_df"></i></button>
     </div>
   </div>
 </form>
