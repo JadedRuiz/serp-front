@@ -1,7 +1,7 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()" class="form_login">
   <div class="field mb-4">
     <div class="control has-icons-left has-icons-right">
-      <input class="input" type="text" placeholder="Ingresa tu usuario" formControlName = "user">
+      <input class="input" type="email" placeholder="Ingresa tu usuario" formControlName = "user">
       <span class="icon is-small is-left">
         <i class="fas fa-user"></i>
       </span>
@@ -10,7 +10,7 @@
   </div>
   <div class="field">
     <div class="control has-icons-left has-icons-right">
-      <input class="input" type="text" placeholder="Ingresa tu contraseña" formControlName = "password">
+      <input class="input" type="password" placeholder="Ingresa tu contraseña" formControlName = "password">
       <span class="icon is-small is-left">
         <i class="fas fa-lock"></i>
       </span>

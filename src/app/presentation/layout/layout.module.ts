@@ -4,6 +4,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { BaseLoggedComponent } from './base-logged/base-logged.component';
 import { BaseAuthComponent } from './base-auth/base-auth.component';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -15,7 +16,8 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    BrowserAnimationsModule
   ]
 })
 export class LayoutModule { }

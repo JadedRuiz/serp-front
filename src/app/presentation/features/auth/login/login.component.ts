@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as Notiflix from 'notiflix';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,11 @@ export class LoginComponent {
     private _fb : FormBuilder
   ) {
     this.loginForm = this._initForm();
+    Notiflix.Notify.init({
+      width: '300px',
+      position: 'center-bottom',
+      closeButton: false
+    });
   }
   
   ngOnInit() : void { }
@@ -29,11 +35,20 @@ export class LoginComponent {
   }
 
   onSubmitForm(){
-    if(this.loginForm.invalid){
-      console.log("error");
+    Notiflix.Block.circle(".form_login");
+    if(this.loginForm.valid){
+      const data = { ... this.loginForm.value }
+      setTimeout(() => {
+        Notiflix.Block.remove(".form_login");
+        Notiflix.Notify.success("Te has logueado correctamente, redireccionando ...");
+        localStorage.setItem("token","sKKKASD10239AK120Djkahsda9s8d12jk");
+        location.href = "home";
+      }, 1000);
+      return;
     }
-
-    const data = { ... this.loginForm.value }
-    console.log(data);
+    setTimeout(() => {
+      Notiflix.Block.remove(".form_login");
+      Notiflix.Notify.warning("Primero llena los campos obligatorios");
+    }, 1000);
   }
 }
