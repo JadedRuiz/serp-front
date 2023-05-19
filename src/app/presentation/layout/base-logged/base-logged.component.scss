@@ -5,8 +5,18 @@
     height: 100% !important;
     background: #ECF0F3;
   }
+  .card_default {
+    border: none !important;
+    box-shadow: none !important;
+  }
   .d-none{
     display: none;
+  }
+  .d-flex{
+    display: inline-flex;
+  }
+  .ico14{
+    font-size: 14px;
   }
   nav.navbar {
     border-top: 4px solid #f34e4e;
@@ -39,11 +49,11 @@
   }
   .menu-list a:hover {
     background-color: transparent;
-    color: #276cda;
+    color: #F34E4E;
   }
   .menu-list a.is-active {
     background-color: transparent;
-    color: #276cda;
+    color: #F34E4E;
     font-weight: 700;
   }
   .card {
