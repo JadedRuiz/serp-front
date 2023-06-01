@@ -10,14 +10,18 @@ import { LayoutModule } from '@presentation/layout/layout.module';
 import { CoreModule } from '@core/core.module';
 import { appEffects, appReducer } from '@domain/store';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { CatalogoComponent } from './presentation/features/catalogo/catalogo.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CatalogoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     LayoutModule,
     CoreModule,
     StoreModule.forRoot(appReducer),
