@@ -25,14 +25,15 @@
         <div class="card-content">
           <div class="media">
             <div class="media-content">
-              <h2 class="title is-4">{{ item.title }}</h2>
-              <h3 class="subtitle is-6">{{ item.fam }}</h3>
+              <h2 class="title is-3">{{ item.title }}</h2>
+              <h3  class="subtitle is-5">{{ item.fam }}</h3>
             </div>
           </div>
-          <div class="content">
-            {{ item.description }}<br /><a (click)="openModal(item)" style="color: red;" >Ver Detalles</a>
+          <div class="content"> {{ item.description }}
+            <br />
+            <a (click)="openModal(item)" style="color: red;" >Ver Detalles</a>
             <br>
-            <span class="price"><strong>{{ item.price }}</strong></span>
+            <span class="card-price custom-align"><strong>{{ item.price }}</strong></span>
           </div>
         </div>
       </div>
@@ -53,16 +54,16 @@
           </figure>
         </div>
         <div class="media-content">
-          <p class="title">{{ selectedCard.title }}</p>
-          <p class="fam">{{ selectedCard.fam }}</p>
-          <p>{{ selectedCard.description }}</p>
+          <span>Nombre: </span><p class="title">{{ selectedCard.title }}</p>
+         <span>Familia: </span> <p class="fam">{{ selectedCard.fam }}</p>
+          <span>Descripción: </span><p>{{ selectedCard.description }}</p>
           <p><strong>Price: {{ selectedCard.price }}</strong></p>
         </div>
         <button style="margin-right: 4px;" class=" btn btn-danger"  type="submit">EDITAR</button>
         <button  class=" btn btn-warning"  type="submit">OTRO BOTON</button>
         </div>
       <table class="table is-bordered is-fullwidth">
-        <thead >
+        <thead>
           <tr>
             <th>Almacen</th>
             <th>Ubicacion</th>
