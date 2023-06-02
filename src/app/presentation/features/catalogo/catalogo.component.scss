@@ -1,0 +1,129 @@
+
+
+// Titulo
+.tit_cat{
+  font-size: 4em;
+  color: #333;
+  opacity: 0;
+  animation: fadeIn 2s ease-in-out forwards;
+text-align: center;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Estilos para los inputs y botones */
+.search-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  text-align: center;
+  background-color: #3432c2;
+  border-radius: 1em;
+  transition: opacity 1.4s ease-in-out;
+}
+
+.search-bar.sticky {
+  animation: fade-in 2.3s forwards;
+  opacity: 0;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.search-bar.sticky:not(.active) {
+  animation: fade-out 1.3s forwards;
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+
+/* Estilos para los inputs */
+.search-bar input:not([type="submit"]) {
+    margin: 4px;
+    padding: 10px;
+    border: none;
+    border-radius: 7px;
+    background-color: #dce0da;
+    transition: background-color 0.3s ease;
+  }
+  
+  // .search-bar input:not([type="submit"]):focus {
+  //   background-color: #b2f5c68e;
+  //   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+  // }
+
+  .search-bar button {
+    margin: 5px;
+    padding: 20px 40px;
+    border: none;
+    border-radius: 7px;
+    background-color: #4caf50;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.6s ease;
+  }
+  
+  .search-bar button:hover {
+    background-color: #e41010;
+  }
+  
+  .search-bar button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(243, 238, 238, 0.3);
+  }
+
+// CARD
+.card-price.custom-align {
+  text-align: right;
+}
+
+
+
+
+
+
+
+
+
+
+  /* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+  .search-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-bar input:not([type="submit"]) {
+    width: 100%;
+  }
+
+  .search-bar button {
+    width: 100%;
+  }
+}
+
+
+// MODAL
+
+
+
+  
+  
+  
+

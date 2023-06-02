@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoggedGuard } from '@core/guard/logged.guard';
 import { UnloggedGuard } from '@core/guard/unlogged.guard';
+import { CatalogoComponent } from '@presentation/features/catalogo/catalogo.component';
 import { BaseAuthComponent } from '@presentation/layout/base-auth/base-auth.component';
 import { BaseLoggedComponent } from '@presentation/layout/base-logged/base-logged.component';
 
@@ -31,7 +32,12 @@ const routes: Routes = [
           import('@presentation/features/home/home.module').then(
             (m) => m.HomeModule
           ),
+      },
+      {
+        path: 'catalogo',
+  component: CatalogoComponent
       }
+
     ]
   }
 ];
