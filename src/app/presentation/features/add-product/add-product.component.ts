@@ -20,6 +20,7 @@ export class AddProductComponent {
   imagenProducto: File | null = null;
 
   agregarProducto() {
+
     // Creando el objeto
     const nuevoProducto = {
       nombre: this.nombreProducto,
@@ -44,6 +45,7 @@ export class AddProductComponent {
   //Para visualizar la imagen =>
  
   selectedImage: string | ArrayBuffer | null = null;
+  
 
 onFileSelected(event: any) {
   const file = event.target.files[0];
