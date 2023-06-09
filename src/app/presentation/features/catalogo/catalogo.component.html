@@ -7,13 +7,13 @@
       <input type="text" placeholder="Productos" [(ngModel)]="searchTitle">
       <input type="text" placeholder="Familia" [(ngModel)]="searchFam">
       <button type="button" class="button" (click)="buscar()">BUSCAR</button>
-      <button type="button" class="button">AGREGAR PRODUCTO</button>
+      <button type="button" class="button" (click)="agregarProducto()">AGREGAR PRODUCTO</button>
       
        <!-- Sin Resultados -->
        <div *ngIf="noResults" style="color:rgb(253, 252, 252); font-size: 20px;">No se encontraron resultados.</div>
       </div>
        <hr/>
-  
+  <div class="container-fluid">
    <div class="columns is-multiline is-variable is-4">
     <div class="column is-one-quarter-desktop is-one-third-tablet is-full-mobile" *ngFor="let item of items">
       <div class="card">
@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>
-
+</div>
 
 
 <!-- Modal -->
@@ -74,18 +74,18 @@
         </thead>
         <tbody>
           <tr>
-            <td>Almacen 1</td>
+            <td>Norte</td>
             <td>Ubicacion 1</td>
             <td>$10.00</td>
-            <td>Pieza</td>
-            <td>Pieza</td>
+            <td>costal (20kg)</td>
+            <td>15%</td>
           </tr>
           <tr>
-            <td>Almacen 2</td>
+            <td>SurEste</td>
             <td>Ubicacion 2</td>
             <td>$15.00</td>
-            <td>Pieza</td>
-            <td>Pieza</td>
+            <td>kg</td>
+            <td>20%</td>
           </tr>
           <!--Argegar filas -->
         </tbody>

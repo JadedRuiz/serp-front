@@ -12,11 +12,15 @@ import { appEffects, appReducer } from '@domain/store';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { CatalogoComponent } from './presentation/features/catalogo/catalogo.component';
 import { FormsModule } from '@angular/forms';
+import { AddProductComponent } from './presentation/features/add-product/add-product.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CatalogoComponent
+    CatalogoComponent,
+    AddProductComponent
+    
+   
   ],
   imports: [
     BrowserModule,

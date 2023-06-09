@@ -15,11 +15,11 @@ import * as Notiflix from 'notiflix';
         })),
         transition(':leave', [
           style({transform: 'translateX(0)'}),
-          animate('500ms', style({transform: 'translateX(-100%)'}))
+          animate('700ms', style({transform: 'translateX(-100%)'}))
         ]),
         transition(':enter', [
           style({transform: 'translateX(-100%)' }),
-          animate('500ms', style({transform: 'translateX(0)'}))
+          animate('700ms', style({transform: 'translateX(0)'}))
         ])
       ]
     )

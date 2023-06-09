@@ -1,4 +1,5 @@
 import { Component,HostListener  } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 
@@ -9,6 +10,10 @@ import { Component,HostListener  } from '@angular/core';
   styleUrls: ['./catalogo.component.scss']
 })
 export class CatalogoComponent {
+
+
+  constructor(private router: Router) {}
+
 
   //  Lista de elementos 
   items = [
@@ -103,7 +108,6 @@ export class CatalogoComponent {
   ]
 
 
-
   allItems: any[] = [];
 
   isModalOpen = false;
@@ -143,6 +147,12 @@ export class CatalogoComponent {
   closeModal() {
     this.isModalOpen = false;
   }
+
+  //Para el boton agregar Producto.
+  agregarProducto() {
+    this.router.navigate(['./AddProduct']);
+  }
+  
 
 
 
