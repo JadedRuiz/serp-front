@@ -1,17 +1,17 @@
-<div class="orders-cart-container">
-  <button
-    type="button"
-    class="orders-cart-btn"
-    (click)="toggleOrdersVisibility()"
-  >
-    <!-- <ng-container *ngIf="!ordersVisibility; else CloseCart"> -->
-    <i class="fas fa-shopping-cart"></i>
-    <!-- </ng-container> -->
-    <!-- <ng-template #CloseCart> 
-      <i class="fas fa-times"></i>
-    </ng-template> -->
-  </button>
-  <div class="orders-cart" *ngIf="ordersVisibility">
+<button
+  type="button"
+  class="orders-cart-btn"
+  (click)="toggleOrdersVisibility()"
+>
+  <!-- <ng-container *ngIf="!ordersVisibility; else CloseCart"> -->
+  <i class="fas fa-shopping-cart"></i>
+  <!-- </ng-container> -->
+  <!-- <ng-template #CloseCart> 
+    <i class="fas fa-times"></i>
+  </ng-template> -->
+</button>
+<div class="orders-cart-container" *ngIf="ordersVisibility">
+  <div class="orders-cart">
     <div class="orders-cart__empty" *ngIf="isCartEmpty">
       <p class="orders-cart__empty__text">El carrito está vacío</p>
       <i class="bi bi-cart"></i>
@@ -75,7 +75,6 @@
     </div>
   </div>
   <app-orders-cart-modal
-    [modalVisibility]="modalVisibility"
     *ngIf="modalVisibility"
     (toggleModalVisibility) = "toggleModalVisibility()"
   ></app-orders-cart-modal>

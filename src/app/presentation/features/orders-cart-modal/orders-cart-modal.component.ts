@@ -15,7 +15,6 @@ interface adress {
 
 export class OrdersCartModalComponent {
 
-  @Input() modalVisibility: boolean = false;
   @Output() toggleModalVisibility = new EventEmitter()
 
 
