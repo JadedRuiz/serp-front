@@ -12,17 +12,24 @@ import { appEffects, appReducer } from '@domain/store';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { CatalogoComponent } from './presentation/features/catalogo/catalogo.component';
 import { FormsModule } from '@angular/forms';
-import { AddProductComponent } from './presentation/features/add-product/add-product.component';
+import { OrdersCartComponent } from './presentation/features/orders-cart/orders-cart.component';
+import { OrdersComponent } from './presentation/features/orders/orders.component';
+import { OrdersPlacedComponent } from './presentation/features/orders-placed/orders-placed.component';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { OrdersCartModalComponent } from './presentation/features/orders-cart-modal/orders-cart-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CatalogoComponent,
-    AddProductComponent
-    
-   
+    OrdersCartComponent,
+    OrdersComponent,
+    OrdersPlacedComponent,
+    OrdersCartModalComponent
   ],
+
   imports: [
+    AutocompleteLibModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

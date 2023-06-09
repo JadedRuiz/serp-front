@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as Notiflix from 'notiflix';
+import { Router } from '@angular/router';
+import { AuthService } from '@data/services/auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +15,9 @@ export class LoginComponent {
   loginForm : FormGroup;
 
   constructor(
-    private _fb : FormBuilder
+    private _fb : FormBuilder,
+    private router : Router,
+    private auth : AuthService
   ) {
     this.loginForm = this._initForm();
     Notiflix.Notify.init({
@@ -26,29 +31,25 @@ export class LoginComponent {
 
   private _initForm() {
     return this._fb.group({
-      user : [
-        '',
-        Validators.compose([Validators.required, Validators.email]),
-      ],
+      usuario : ['',Validators.required],
       password : ['', Validators.required]
     });
   }
 
   onSubmitForm(){
-    Notiflix.Block.circle(".form_login");
+    const data = { ... this.loginForm.value }
     if(this.loginForm.valid){
-      const data = { ... this.loginForm.value }
-      setTimeout(() => {
-        Notiflix.Block.remove(".form_login");
-        Notiflix.Notify.success("Te has logueado correctamente, redireccionando ...");
-        localStorage.setItem("token","sKKKASD10239AK120Djkahsda9s8d12jk");
-        location.href = "home";
-      }, 1000);
-      return;
+      this.auth.login(data)
+      .subscribe( (res : any) => {
+        if(res.ok){
+          Swal.fire('Bien hecho','Te has logueado correctamente, redireccionando ...');
+          localStorage.setItem("token","sKKKASD10239AK120Djkahsda9s8d12jk");
+          this.router.navigate(["home"]);
+        }else{
+          Notiflix.Block.remove(".form_login");
+          Notiflix.Notify.warning("Primero llena los campos obligatorios");
+        }
+      });
     }
-    setTimeout(() => {
-      Notiflix.Block.remove(".form_login");
-      Notiflix.Notify.warning("Primero llena los campos obligatorios");
-    }, 1000);
   }
 }

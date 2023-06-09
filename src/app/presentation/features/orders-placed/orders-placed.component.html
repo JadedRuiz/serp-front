@@ -1,0 +1,102 @@
+<article class="orders-placed__container">
+  <h3 class="orders-placed__title">PEDIDOS REALIZADOS</h3>
+  <div class="orders-placed__order">
+    <div class="orders-placed__order__section1">
+      <div class="orders-placed__order__section1--subsection1">
+        <p>Julio Enrique Méndez Hernández</p>
+        <span>Vendido por: Un vendedor</span>
+        <span>Ruta: La gran ruta</span>
+      </div>
+      <div class="orders-placed__order__section1--subsection2">
+        <span (click)="toggleOrderVisibility()">Pedido ID</span>
+      </div>
+    </div>
+    <div class="orders-placed__order__section2">
+      <div class="orders-placed__order__section2--subsection1">
+        <button>Surtir</button>
+        <button>Editar</button>
+        <button>Facturar</button>
+      </div>
+      <div class="orders-placed__order__section2--subsection2">
+        <span>Total: $102</span>
+      </div>
+    </div>
+  </div>
+  <div class="orders-placed__order">
+    <div class="orders-placed__order__section1">
+      <div class="orders-placed__order__section1--subsection1">
+        <p>Julio Enrique Méndez Hernández</p>
+        <span>Vendido por: Un vendedor</span>
+        <span>Ruta: La gran ruta</span>
+      </div>
+      <div class="orders-placed__order__section1--subsection2">
+        <span (click)="toggleOrderVisibility()">Pedido ID</span>
+      </div>
+    </div>
+    <div class="orders-placed__order__section2">
+      <div class="orders-placed__order__section2--subsection1">
+        <button>Surtir</button>
+        <button>Editar</button>
+        <button>Facturar</button>
+      </div>
+      <div class="orders-placed__order__section2--subsection2">
+        <span>Total: $102</span>
+      </div>
+    </div>
+  </div>
+  <div class="orders-placed__order">
+    <div class="orders-placed__order__section1">
+      <div class="orders-placed__order__section1--subsection1">
+        <p>Julio Enrique Méndez Hernández</p>
+        <span>Vendido por: Un vendedor</span>
+        <span>Ruta: La gran ruta</span>
+      </div>
+      <div class="orders-placed__order__section1--subsection2">
+        <span (click)="toggleOrderVisibility()">Pedido ID</span>
+      </div>
+    </div>
+    <div class="orders-placed__order__section2">
+      <div class="orders-placed__order__section2--subsection1">
+        <button>Surtir</button>
+        <button>Editar</button>
+        <button>Facturar</button>
+      </div>
+      <div class="orders-placed__order__section2--subsection2">
+        <span>Total: $102</span>
+      </div>
+    </div>
+  </div>
+  <div class="orders-placed__modal" *ngIf="orderVisibility">
+    <button
+      class="orders-placed__modal__close"
+      (click)="toggleOrderVisibility()"
+    >
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="orders-placed__modal__order">
+      <h2 class="title text-center">PEDIDO</h2>
+      <div class="orders-placed__modal__order__products">
+        <article
+          class="orders-placed__products__product"
+          *ngFor="let item of items"
+        >
+          <div class="d-flex flex-row">
+            <img
+              [src]="item.imageUrl"
+              alt="imagen de un producto"
+              class="orders-cart__product__image"
+            />
+            <section class="d-flex flex-column">
+              <span class="">{{ item.title }}</span>
+              <span class="">{{ item.fam }}</span>
+            </section>
+          </div>
+          <div class="orders-placed__product-price-box">
+            <span class="orders-placed__product-price">${{ item.price }}</span>
+          </div>
+        </article>
+      </div>
+      <button (click)="toggleOrderVisibility()">De acuerdo</button>
+    </div>
+  </div>
+</article>
