@@ -33,23 +33,23 @@ ul {
     position: fixed;
     right: 0;
     top: 75px;
-    width: 100%;
+    width: min(100%, 400px);
     height: 100%;
-    z-index: 101;
+    z-index: 2;
     display: flex;
     justify-content: center;
 }
 
 .orders-cart-btn {
-    position: absolute;
+    position: fixed;
     right: 10px;
-    top: 10px;
+    top: 85px;
     border: none;
     color: white;
     background-color: $base-color;
     padding: 3px 5px;
     border-radius: 10px;
-    z-index: 1;
+    z-index: 3;
 }
 
 .orders-cart {
