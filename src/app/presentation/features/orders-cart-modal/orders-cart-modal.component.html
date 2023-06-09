@@ -1,0 +1,72 @@
+<div class="orders-cart__modal">
+  <button
+    class="orders-cart__modal__close"
+    (click)="useToggleModalVisibility()"
+  >
+    <i class="fas fa-times"></i>
+  </button>
+  <div class="orders-cart__client" *ngIf="!isClientSelected">
+    <h3 class="title text-center">¿Para qué cliente es el pedido?</h3>
+    <!-- Autocomplete de clientes -->
+    <div class="ng-autocomplete">
+      <ng-autocomplete
+        [data]="clients"
+        [searchKeyword]="keyword"
+        placeholder="Busca y selecciona el cliente"
+        [itemTemplate]="itemTemplate"
+        [notFoundTemplate]="notFoundTemplate"
+        [minQueryLength]="3"
+        [historyListMaxNumber]="10"
+      >
+      </ng-autocomplete>
+      <ng-template #itemTemplate let-item>
+        <a [innerHTML]="item.name"></a>
+      </ng-template>
+      <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="notFound"></div>
+      </ng-template>
+    </div>
+    <!-- Termina Autocomplete -->
+    <div class="orders-cart__client__buttons">
+      <button
+        class="orders-cart__client__btn-cancel"
+        (click)="useToggleModalVisibility()"
+      >
+        Cancelar
+      </button>
+      <button
+        class="orders-cart__client__btn-confirm"
+        (click)="confirmClient()"
+      >
+        Confirmar
+      </button>
+    </div>
+  </div>
+  <div class="orders-cart__adresses" *ngIf="isClientSelected">
+    <h3 class="title text-center">Selecciona una dirección</h3>
+    <div class="orders-cart__adresses-container">
+      <div class="orders-cart__adresses-list">
+        <div class="orders-cart__adress" *ngFor="let adress of adresses">
+          <label>
+            <input
+              type="radio"
+              name="adress"
+              [(ngModel)]="adressSelected"
+              [value]="adress"
+            />
+            {{ adress.street }}, {{ adress.city }}
+          </label>
+        </div>
+      </div>
+    </div>
+    <span class="orders-cart__adresses-add">Añadir una dirección</span>
+    <button
+      class="orders-cart__adress-submit"
+      type="submit"
+      [disabled]="!adressSelected"
+      [routerLink]="['/pedidos-realizados']"
+    >
+      Continuar
+    </button>
+  </div>
+</div>

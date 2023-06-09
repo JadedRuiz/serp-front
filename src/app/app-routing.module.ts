@@ -1,8 +1,11 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoggedGuard } from '@core/guard/logged.guard';
 import { UnloggedGuard } from '@core/guard/unlogged.guard';
 import { CatalogoComponent } from '@presentation/features/catalogo/catalogo.component';
+import { OrdersCartComponent } from '@presentation/features/orders-cart/orders-cart.component';
+import { OrdersPlacedComponent } from '@presentation/features/orders-placed/orders-placed.component';
+import { OrdersComponent } from '@presentation/features/orders/orders.component';
 import { BaseAuthComponent } from '@presentation/layout/base-auth/base-auth.component';
 import { BaseLoggedComponent } from '@presentation/layout/base-logged/base-logged.component';
 
@@ -35,7 +38,15 @@ const routes: Routes = [
       },
       {
         path: 'catalogo',
-  component: CatalogoComponent
+        component: CatalogoComponent
+      },
+      {
+        path: 'pedidos',
+        component: OrdersComponent
+      },
+      {
+        path: 'pedidos-realizados',
+        component: OrdersPlacedComponent
       }
 
     ]
