@@ -2,21 +2,21 @@
 
 <div class="container">
   <h2>Agregar Producto</h2>
-  <form #productForm="ngForm">
+  <form #productForm="">
     <div class="form-group">
-      <input type="text" class="form-control" id="nombre" [(ngModel)]="nombreProducto" name="nombreProducto" placeholder="Nombre" required>
+      <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
       <div *ngIf="productForm.controls['nombreProducto']?.invalid && productForm.controls['nombreProducto'].touched" class="text-danger">Nombre requerido</div>
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" id="familia" [(ngModel)]="familiaProducto" name="familiaProducto" placeholder="Familia" required>
+      <input type="text" class="form-control" id="familia" placeholder="Familia" required>
       <div *ngIf="productForm.controls['familiaProducto']?.invalid && productForm.controls['familiaProducto'].touched" class="text-danger">Familia requerido</div>
     </div>
     <div class="form-group">
-      <textarea class="form-control" id="descripcion" [(ngModel)]="descripcionProducto" name="descripcionProducto" placeholder="Descripción" required></textarea>
+      <textarea class="form-control" id="descripcion" placeholder="Descripción" required></textarea>
       <div *ngIf="productForm.controls['descripcionProducto']?.invalid && productForm.controls['descripcionProducto'].touched" class="text-danger">Descripción requerida</div>
     </div>
     <div class="form-group">
-      <input type="number" class="form-control" id="precio" [(ngModel)]="precioProducto" name="precioProducto" placeholder="$$$" required>
+      <input type="number" class="form-control" id="precio" placeholder="$$$" required>
       <div *ngIf="productForm.controls['precioProducto']?.invalid && productForm.controls['precioProducto'].touched" class="text-danger">Campo requerido</div>
     </div>
     <div class="form-group">
