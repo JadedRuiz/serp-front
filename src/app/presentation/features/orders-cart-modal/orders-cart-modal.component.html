@@ -5,7 +5,7 @@
   >
     <i class="fas fa-times"></i>
   </button>
-  <div class="orders-cart__client" *ngIf="!isClientSelected">
+  <div class="orders-modal__client" *ngIf="!isClientSelected">
     <h3 class="title text-center">¿Para qué cliente es el pedido?</h3>
     <!-- Autocomplete de clientes -->
     <div class="ng-autocomplete">
@@ -42,7 +42,7 @@
       </button>
     </div>
   </div>
-  <div class="orders-cart__adresses" *ngIf="isClientSelected">
+  <div class="orders-modal__adresses" *ngIf="isClientSelected">
     <h3 class="title text-center">Selecciona una dirección</h3>
     <div class="orders-cart__adresses-container">
       <div class="orders-cart__adresses-list">

@@ -27,7 +27,8 @@ $base-color: #f34e4e;
     cursor: pointer;
 }
 
-.orders-cart__client, .orders-cart__adresses {
+.orders-modal__client,
+.orders-modal__adresses {
     background-color: white;
     border-radius: 10px;
     padding: 40px 10px 0 10px;
@@ -59,7 +60,8 @@ $base-color: #f34e4e;
     gap: 20px;
 }
 
-.orders-cart__client__btn-cancel, .orders-cart__client__btn-confirm {
+.orders-cart__client__btn-cancel,
+.orders-cart__client__btn-confirm {
     padding: 5px 10px;
     border: 1px solid;
     border-radius: 10px;
