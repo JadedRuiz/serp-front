@@ -27,10 +27,11 @@ const routes: Routes = [
       }
     ]
   },
+  
   {
     path: '',
     component: BaseLoggedComponent,
-    canActivate : [LoggedGuard],
+     canActivate : [LoggedGuard], //<= COMENTADA PARA PODER ACCEDER DESDE PATH 
     children: [
       {
         path: 'home',
@@ -59,6 +60,8 @@ const routes: Routes = [
     ]
   }
 ];
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes,{ useHash : true})],
