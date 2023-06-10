@@ -1,5 +1,7 @@
 import { Component,HostListener  } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '@data/services/auth/auth.service';
+import { CatalogoService } from '@data/services/catalogo/catalogo.service';
 
 
 
@@ -12,7 +14,8 @@ import { Router } from '@angular/router';
 export class CatalogoComponent {
 
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+    private catalgoo : CatalogoService) {}
 
 
   //  Lista de elementos 
@@ -119,10 +122,20 @@ export class CatalogoComponent {
   
   // Realizar una copia de los elementos completos
   ngOnInit() {
+    this.carga();
   this.allItems = [...this.items];
   }
+  //Manera de consumir services rest api
+   carga(){
+    this.catalgoo.obtenerPerfiles()
+    .subscribe(res => {
+      if(res.ok){
+        this.items = res.data;
+      }else{
 
-
+      }
+    })
+   }
     // Filtra los elementos del catálogo 
    buscar() {
     this.items = this.allItems.filter(item =>

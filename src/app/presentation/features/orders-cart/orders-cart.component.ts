@@ -18,6 +18,8 @@ interface item {
 
 export class OrdersCartComponent {
 
+  cs_btn = "fas fa-shopping-cart";
+
   constructor() {
     this.getSubtotal();
     this.getTotal();
@@ -25,11 +27,17 @@ export class OrdersCartComponent {
   }
 
   //Estado para manejar la visibilidad del carrito de pedidos
-  ordersVisibility: boolean = false;
+  ordersVisibility: boolean = true;
 
   //Función para manejar la visibilidad del carrito de pedidos
   toggleOrdersVisibility() {
-    this.ordersVisibility = !this.ordersVisibility;
+    if(this.ordersVisibility){
+      this.ordersVisibility = false;
+      this.cs_btn = "fas fa-times";
+    }else{
+      this.ordersVisibility = true;
+      this.cs_btn = "fas fa-shopping-cart";
+    }  
   }
 
   //Simulación de base de datos

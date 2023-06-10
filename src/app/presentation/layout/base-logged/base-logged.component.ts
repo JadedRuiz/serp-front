@@ -35,10 +35,10 @@ export class BaseLoggedComponent {
 
   ocultarMenu(){
     if(this.show_menu){
-      // this.column_size = "is-10";
+      this.column_size = "is-10";
       this.show_menu = false;
     }else{
-      // this.column_size = "is-12";
+      this.column_size = "is-12";
       this.show_menu = true;
     }
 
