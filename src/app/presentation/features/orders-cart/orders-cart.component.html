@@ -1,4 +1,4 @@
-<button
+<div
   type="button"
   class="orders-cart-btn"
   (click)="toggleOrdersVisibility()"
@@ -9,7 +9,7 @@
   <!-- <ng-template #CloseCart> 
     <i class="fas fa-times"></i>
   </ng-template> -->
-</button>
+</div>
 <div class="orders-cart-container" *ngIf="ordersVisibility">
   <div class="orders-cart">
     <div class="orders-cart__empty" *ngIf="isCartEmpty">
