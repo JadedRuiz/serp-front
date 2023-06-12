@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 interface item {
   id?: number,
@@ -27,16 +27,16 @@ export class OrdersCartComponent {
   }
 
   //Estado para manejar la visibilidad del carrito de pedidos
-  ordersVisibility: boolean = true;
+  ordersVisibility: boolean = false;
 
   //Función para manejar la visibilidad del carrito de pedidos
   toggleOrdersVisibility() {
     if(this.ordersVisibility){
       this.ordersVisibility = false;
-      this.cs_btn = "fas fa-times";
-    }else{
-      this.ordersVisibility = true;
       this.cs_btn = "fas fa-shopping-cart";
+    }else{
+      this.ordersVisibility = true;      
+      this.cs_btn = "fas fa-times";
     }  
   }
 
@@ -167,10 +167,11 @@ export class OrdersCartComponent {
     this.getSubtotal()
   }
 
-  modalVisibility = false
+  @Output() toggleModalVisibility = new EventEmitter()
 
-  toggleModalVisibility() {
-    this.modalVisibility = !this.modalVisibility
+  //Llamada a la función toggleModalVisibility que viene del componente catalogo
+  useToggleModalVisibility() {
+    this.toggleModalVisibility.emit()
   }
 
 }

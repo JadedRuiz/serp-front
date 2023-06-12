@@ -1,5 +1,9 @@
 <body>
-  <app-orders-cart></app-orders-cart>
+  <app-orders-cart (toggleModalVisibility)="toggleModalVisibility()"></app-orders-cart>
+  <app-orders-cart-modal
+  *ngIf="modalVisibility"
+  (toggleModalVisibility)="toggleModalVisibility()"
+></app-orders-cart-modal>
 <!-- Buscador -->
 <h1 class="tit_cat">Catalogo</h1>
 

@@ -130,7 +130,7 @@ export class CatalogoComponent {
     this.catalgoo.obtenerPerfiles()
     .subscribe(res => {
       if(res.ok){
-        this.items = res.data;
+        // this.items = res.data;
       }else{
 
       }
@@ -181,4 +181,11 @@ checkScroll() {
     this.isSticky = false;
   }
 }
+
+modalVisibility = false
+
+toggleModalVisibility() {
+  this.modalVisibility = !this.modalVisibility
+}
+
 }

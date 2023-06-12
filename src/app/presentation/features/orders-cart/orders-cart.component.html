@@ -1,11 +1,10 @@
-<div
+<button
   type="button"
   class="orders-cart-btn"
-  (click)="toggleOrdersVisibility()">
-    <i class="{{cs_btn}}" ></i>
+  (click)="toggleOrdersVisibility()"
+>
+  <i class="{{ cs_btn }}"></i>
 </button>
-
-
 
 <div class="orders-cart-container" *ngIf="ordersVisibility">
   <div class="orders-cart">
@@ -65,14 +64,10 @@
         <h3 class="">${{ total }}</h3>
       </div>
       <div class="orders-cart__checkout justify-content-center">
-        <button class="btn btn-danger" (click)="toggleModalVisibility()">
+        <button class="btn btn-danger" (click)="useToggleModalVisibility()">
           Finalizar pedido
         </button>
       </div>
     </div>
   </div>
-  <app-orders-cart-modal
-    *ngIf="modalVisibility"
-    (toggleModalVisibility) = "toggleModalVisibility()"
-  ></app-orders-cart-modal>
 </div>

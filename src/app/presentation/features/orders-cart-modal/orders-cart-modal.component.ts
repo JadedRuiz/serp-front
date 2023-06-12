@@ -17,8 +17,7 @@ export class OrdersCartModalComponent {
 
   @Output() toggleModalVisibility = new EventEmitter()
 
-
-  //Llamada a la función toggleModalVisibility que viene del componente orders-cart
+  //Llamada a la función toggleModalVisibility que viene del componente catalogo
   useToggleModalVisibility() {
     this.toggleModalVisibility.emit()
   }
