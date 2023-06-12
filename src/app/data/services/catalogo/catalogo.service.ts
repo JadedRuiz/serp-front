@@ -8,13 +8,13 @@ import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class CatalogoService {
 
   constructor(public http: HttpClient) { }
 
-  login(json : any){
-    let url = SERVER_API+"usuario/login";
-    return this.http.post( url, json )
+  obtenerPerfiles(){
+    let url = SERVER_API+"obtenerPerfiles";
+    return this.http.get( url )
       .pipe(map( (resp: any) => {
         return resp;
       }), catchError(err => {

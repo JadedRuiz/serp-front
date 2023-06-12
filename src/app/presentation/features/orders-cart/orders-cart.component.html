@@ -1,15 +1,12 @@
 <div
   type="button"
   class="orders-cart-btn"
-  (click)="toggleOrdersVisibility()"
->
-  <!-- <ng-container *ngIf="!ordersVisibility; else CloseCart"> -->
-  <i class="fas fa-shopping-cart"></i>
-  <!-- </ng-container> -->
-  <!-- <ng-template #CloseCart> 
-    <i class="fas fa-times"></i>
-  </ng-template> -->
-</div>
+  (click)="toggleOrdersVisibility()">
+    <i class="{{cs_btn}}" ></i>
+</button>
+
+
+
 <div class="orders-cart-container" *ngIf="ordersVisibility">
   <div class="orders-cart">
     <div class="orders-cart__empty" *ngIf="isCartEmpty">

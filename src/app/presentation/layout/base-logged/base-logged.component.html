@@ -15,8 +15,8 @@
 </nav>
 <!-- END NAV -->
 <div class="container-fluid contenido">
-    <div class="columns">
-        <div class="column is-2 slider" *ngIf="show_menu" [@enterAnimation]>
+    <div class="row">
+        <div class="col-2 is-2 slider" *ngIf="show_menu" [@enterAnimation]>
             <aside class="menu is-hidden-mobile">
                 <p class="menu-label">
                   INFORMACIÓN GENERAL
@@ -66,7 +66,7 @@
               </ul>
             </aside>
         </div>
-        <div class="column {{column_size}}">
+        <div class="col">
             <router-outlet></router-outlet>
         </div>
     </div>
