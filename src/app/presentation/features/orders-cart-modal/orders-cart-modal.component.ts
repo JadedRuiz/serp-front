@@ -23,10 +23,18 @@ export class OrdersCartModalComponent {
   }
 
   //Estado para manejar si ya se seleccionó un cliente
-  isClientSelected: boolean = false
+  selectClientModal: boolean = true
+  selectAdressModal: boolean = false
+  createAdressModal: boolean = false
 
   confirmClient() {
-    this.isClientSelected = true
+    this.selectClientModal = false
+    this.selectAdressModal = true
+  }
+
+  createAdress() {
+    this.selectAdressModal = false
+    this.createAdressModal = true
   }
 
   keyword: string = 'name'

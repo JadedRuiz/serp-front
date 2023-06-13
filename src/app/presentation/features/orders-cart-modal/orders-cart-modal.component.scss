@@ -1,5 +1,10 @@
 $base-color: #f34e4e;
 
+.title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
 .orders-cart__modal {
     position: fixed;
     top: 0;
@@ -28,10 +33,11 @@ $base-color: #f34e4e;
 }
 
 .orders-modal__client,
-.orders-modal__adresses {
+.orders-modal__adresses,
+.orders-cart__form-container {
     background-color: white;
     border-radius: 10px;
-    padding: 40px 10px 0 10px;
+    padding: 25px 10px 0 10px;
     justify-self: center;
     display: flex;
     flex-direction: column;
@@ -156,10 +162,74 @@ $base-color: #f34e4e;
     border-radius: 10px;
     color: blue;
     align-self: flex-end;
+
+    &:hover {
+        background: blue;
+        color: white;
+        transition: 300ms;
+    }
 }
 
-.orders-cart__adress-submit:hover {
-    background: blue;
-    color: white;
-    transition: 300ms;
+.orders-cart__form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    gap: 10px;
+
+    .orders-cart__form-section1,
+    .orders-cart__form-section2 {
+        display: flex;
+        width: 100%;
+        gap: 10px;
+
+        div {
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+        }
+
+        input {
+            border: 1px solid rgba(0, 0, 0, 0.500);
+            border-radius: 5px;
+            outline: none;
+            width: 100%;
+            padding: 2px 5px 2px 5px;
+        }
+    }
+
+    .orders-cart__form-section3 {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 3px;
+
+        div {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        input {
+            border: 1px solid rgba(0, 0, 0, 0.500);
+            border-radius: 5px;
+            outline: none;
+            width: 100%;
+            padding: 2px 5px 2px 5px;
+        }
+    }
+
+    button {
+        padding: 5px 10px;
+        border: 1px solid blue;
+        border-radius: 10px;
+        color: blue;
+        align-self: flex-end;
+        margin-top: 30px;
+
+        &:hover {
+            background: blue;
+            color: white;
+            transition: 300ms;
+        }
+    }
 }

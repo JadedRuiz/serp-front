@@ -5,7 +5,7 @@
   >
     <i class="fas fa-times"></i>
   </button>
-  <div class="orders-modal__client" *ngIf="!isClientSelected">
+  <div class="orders-modal__client" *ngIf="selectClientModal">
     <h3 class="title text-center">¿Para qué cliente es el pedido?</h3>
     <!-- Autocomplete de clientes -->
     <div class="ng-autocomplete">
@@ -42,7 +42,7 @@
       </button>
     </div>
   </div>
-  <div class="orders-modal__adresses" *ngIf="isClientSelected">
+  <div class="orders-modal__adresses" *ngIf="selectAdressModal">
     <h3 class="title text-center">Selecciona una dirección</h3>
     <div class="orders-cart__adresses-container">
       <div class="orders-cart__adresses-list">
@@ -59,7 +59,9 @@
         </div>
       </div>
     </div>
-    <span class="orders-cart__adresses-add">Añadir una dirección</span>
+    <span class="orders-cart__adresses-add" (click)="createAdress()"
+      >Añadir una dirección</span
+    >
     <button
       class="orders-cart__adress-submit"
       type="submit"
@@ -68,5 +70,41 @@
     >
       Continuar
     </button>
+  </div>
+  <div *ngIf="createAdressModal" class="orders-cart__form-container">
+    <h3 class="title text-center">Añadir una dirección nueva</h3>
+    <form class="orders-cart__form">
+      <div class="orders-cart__form-section1">
+        <div>
+          <label for="pais">País:</label>
+          <input type="text" id="pais" name="pais" required />
+        </div>
+        <div>
+          <label for="estado">Estado:</label>
+          <input type="text" id="estado" name="estado" required />
+        </div>
+      </div>
+      <div class="orders-cart__form-section2">
+        <div>
+          <label for="ciudad">Ciudad:</label>
+          <input type="text" id="ciudad" name="ciudad" required />
+        </div>
+        <div>
+          <label for="colonia">Colonia:</label>
+          <input type="text" id="colonia" name="colonia" required />
+        </div>
+      </div>
+      <div class="orders-cart__form-section3">
+        <div>
+          <label for="calle">Calle y Número:</label>
+          <input type="text" id="calle" name="calle" required />
+        </div>
+        <div>
+          <label for="codigoPostal">Código Postal:</label>
+          <input type="text" id="codigoPostal" name="codigoPostal" required />
+        </div>
+      </div>
+      <button type="submit">Crear dirección</button>
+    </form>
   </div>
 </div>
