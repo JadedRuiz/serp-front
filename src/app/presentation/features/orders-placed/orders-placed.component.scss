@@ -10,6 +10,8 @@ $title-font-size-mobile: 16px;
 $title-font-size-tablet: 18px;
 $title-font-size-desktop: 20px;
 
+$base-color: #f34e4e;
+
 .orders-placed__container {
     display: flex;
     flex-direction: column;
@@ -142,7 +144,8 @@ $title-font-size-desktop: 20px;
     cursor: pointer;
 }
 
-.orders-placed__modal__order {
+.orders-placed__modal__order,
+.orders-placed__modal__edit-order {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -150,26 +153,12 @@ $title-font-size-desktop: 20px;
     padding: 25px;
     border-radius: 10px;
     width: min(90%, 700px);
-
-    button {
-        margin-top: 10px;
-        padding: 5px 10px;
-        border: 1px solid steelblue;
-        color: steelblue;
-        border-radius: 10px;
-
-        &:hover {
-            background-color: steelblue;
-            color: white;
-            transition: 300ms;
-        }
-    }
 }
 
 .orders-placed__modal__order__products {
     height: 350px;
     width: 95%;
-    overflow-y: scroll;
+    overflow-y: auto;
     border: 1px solid rgba(0, 0, 0, 0.200);
     border-radius: 5px;
 
@@ -191,12 +180,92 @@ $title-font-size-desktop: 20px;
 
     img {
         width: 70px;
+        object-fit: contain;
     }
+}
+
+.orders-modal__product__quantity__box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+}
+
+.orders-modal__product__quantity {
+    font-weight: 500;
+}
+
+.btn-decrease, .btn-increase {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: 500;
+    color: white;
+    height: 20px;
+    width: 20px;
+    padding: 3px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    background-color: $base-color;
+    cursor: pointer;
+}
+
+.btn-quantity-off {
+    background-color: grey;
+    cursor: default;
+}
+
+.orders-modal__product__btn-delete {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+}
+
+.fa-trash {
+    color: $base-color;
+    cursor: pointer;
 }
 
 .orders-placed__product-price-box {
     display: flex;
     align-items: center;
+}
+
+.orders-placed__buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    button {
+        margin-top: 10px;
+        padding: 5px 10px;
+        border: 1px solid;
+        border-radius: 10px;
+    }
+
+    &--button1 {
+        border-color: orangered;
+        color: orangered;
+
+        &:hover {
+            background-color: orangered;
+            color: white;
+            transition: 300ms;
+        }
+    }
+
+    &--button2 {
+        border-color: steelblue;
+        color: steelblue;
+
+        &:hover {
+            background-color: steelblue;
+            color: white;
+            transition: 300ms;
+        }
+    }
 }
 
 @media (min-width: 768px) {
