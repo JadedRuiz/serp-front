@@ -120,22 +120,28 @@ export class CatalogoComponent {
   noResults: boolean = false;
   
   
+
+
   // Realizar una copia de los elementos completos
   ngOnInit() {
     this.carga();
   this.allItems = [...this.items];
   }
-  //Manera de consumir services rest api
+   //Manera de consumir services rest api
    carga(){
     this.catalgoo.obtenerPerfiles()
     .subscribe(res => {
       if(res.ok){
-        // this.items = res.data;
+        //this.items = res.data;  <= COMENTADO PARA VER LOS PLATANOS.
       }else{
 
       }
     })
    }
+
+
+
+
     // Filtra los elementos del catálogo 
    buscar() {
     this.items = this.allItems.filter(item =>
