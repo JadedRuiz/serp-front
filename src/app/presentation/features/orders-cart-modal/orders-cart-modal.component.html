@@ -27,7 +27,7 @@
       </ng-template>
     </div>
     <!-- Termina Autocomplete -->
-    <div class="orders-cart__client__buttons">
+    <div class="orders-cart__client__buttons mt-auto">
       <button
         class="orders-cart__client__btn-cancel"
         (click)="useToggleModalVisibility()"
@@ -59,52 +59,120 @@
         </div>
       </div>
     </div>
-    <span class="orders-cart__adresses-add" (click)="createAdress()"
+    <span class="orders-cart__adresses-add" (click)="openCreateAdress()"
       >Añadir una dirección</span
     >
-    <button
-      class="orders-cart__adress-submit"
-      type="submit"
-      [disabled]="!adressSelected"
-      [routerLink]="['/pedidos-realizados']"
-    >
-      Continuar
-    </button>
+    <div class="orders-cart__adress__buttons mt-auto">
+      <button
+        class="orders-cart__adress__btn-cancel"
+        (click)="  backToClientModal()"
+      >
+        Regresar
+      </button>
+      <button
+        class="orders-cart__adress__btn-submit"
+        type="submit"
+        [disabled]="!adressSelected"
+        [routerLink]="['/pedidos-realizados']"
+        (click)="consoleLog()"
+      >
+        Confirmar
+      </button>
+    </div>
   </div>
-  <div *ngIf="createAdressModal" class="orders-cart__form-container">
-    <h3 class="title text-center">Añadir una dirección nueva</h3>
-    <form class="orders-cart__form">
-      <div class="orders-cart__form-section1">
-        <div>
-          <label for="pais">País:</label>
-          <input type="text" id="pais" name="pais" required />
+  <div class="orders-modal__form bg-light rounded p-3"
+    *ngIf="createAdressModal"
+  >
+    <h3 class="title text-center mt-3">Añadir una dirección nueva</h3>
+    <form
+      class="d-flex flex-column container"
+      #createAddress="ngForm"
+      (ngSubmit)="createAdress(createAddress)"
+    >
+      <div class="row justify-content-between">
+        <div class="col-6">
+          <label for="country">País:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="country"
+            name="country"
+            required
+            [(ngModel)]="newAdress.country"
+          />
         </div>
-        <div>
-          <label for="estado">Estado:</label>
-          <input type="text" id="estado" name="estado" required />
+        <div class="col-6">
+          <label for="state">Estado:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="state"
+            name="state"
+            required
+            [(ngModel)]="newAdress.state"
+          />
         </div>
       </div>
-      <div class="orders-cart__form-section2">
+      <div class="">
         <div>
-          <label for="ciudad">Ciudad:</label>
-          <input type="text" id="ciudad" name="ciudad" required />
+          <label for="city">Ciudad:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="city"
+            name="city"
+            required
+            [(ngModel)]="newAdress.city"
+          />
         </div>
         <div>
-          <label for="colonia">Colonia:</label>
-          <input type="text" id="colonia" name="colonia" required />
+          <label for="colony">Colonia:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="colony"
+            name="colony"
+            required
+            [(ngModel)]="newAdress.colony"
+          />
         </div>
       </div>
-      <div class="orders-cart__form-section3">
+      <div class="">
         <div>
-          <label for="calle">Calle y Número:</label>
-          <input type="text" id="calle" name="calle" required />
+          <label for="street">Calle y Número:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="street"
+            name="street"
+            required
+            [(ngModel)]="newAdress.street"
+          />
         </div>
         <div>
-          <label for="codigoPostal">Código Postal:</label>
-          <input type="text" id="codigoPostal" name="codigoPostal" required />
+          <label for="zipcode">Código Postal:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="zipcode"
+            name="zipcode"
+            required
+            [(ngModel)]="newAdress.zipcode"
+          />
         </div>
       </div>
-      <button type="submit">Crear dirección</button>
+      <div class="row justify-content-between my-3">
+        <button
+          class="btn btn-danger col-5"
+          type="reset"
+          (click)="cancelCreateAdress()"
+        >
+          Cancelar
+        </button>
+        <button class="btn btn-primary col-5" type="submit">
+          Crear dirección
+        </button>
+      </div>
     </form>
   </div>
 </div>

@@ -1,12 +1,16 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, NgModule, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 interface adress {
   id?: number,
   userId?: number,
+  country?: string,
+  state?: string,
+  city?: string,
+  colony?: string,
   street?: string,
-  city?: string
+  zipcode?: number
 }
-
 @Component({
   selector: 'app-orders-cart-modal',
   templateUrl: './orders-cart-modal.component.html',
@@ -15,6 +19,8 @@ interface adress {
 
 export class OrdersCartModalComponent {
 
+
+  //MODAL BASE
   @Output() toggleModalVisibility = new EventEmitter()
 
   //Llamada a la función toggleModalVisibility que viene del componente catalogo
@@ -22,20 +28,9 @@ export class OrdersCartModalComponent {
     this.toggleModalVisibility.emit()
   }
 
-  //Estado para manejar si ya se seleccionó un cliente
+  //MODAL PARA SELECCIONAR UN CLIENTE
+  //Estado para manipular la visibilidad del modal de seleccionar cliente
   selectClientModal: boolean = true
-  selectAdressModal: boolean = false
-  createAdressModal: boolean = false
-
-  confirmClient() {
-    this.selectClientModal = false
-    this.selectAdressModal = true
-  }
-
-  createAdress() {
-    this.selectAdressModal = false
-    this.createAdressModal = true
-  }
 
   keyword: string = 'name'
   clients: {}[] = [
@@ -126,43 +121,110 @@ export class OrdersCartModalComponent {
     }
   ]
 
+  confirmClient() {
+    this.selectClientModal = false
+    this.selectAdressModal = true
+  }
+
+  //MODAL PARA SELECCIONAR UNA DIRECCIÓN
+  //Estado para manipular la visibilidad del modal de seleccionar dirección
+  selectAdressModal: boolean = false
+
   adressSelected: adress = {}
 
   adresses: adress[] = [
     {
+      id: 0,
+      userId: 0,
+      country: 'México',
+      state: 'Yucatán',
+      city: 'Umán',
+      colony: 'Umanos',
+      street: '40, 730',
+      zipcode: 94300
+    },
+    {
       id: 1,
       userId: 1,
-      street: 'Calle 29c, 716-a',
-      city: 'Mérida'
+      country: 'México',
+      state: 'Yucatán',
+      city: 'Mérida',
+      colony: 'Caucel',
+      street: '29c, 716-a',
+      zipcode: 97314
     },
     {
       id: 2,
       userId: 2,
-      street: 'Calle 30, 400',
-      city: 'Mérida'
+      country: 'México',
+      state: 'Yucatán',
+      city: 'Kanasín',
+      colony: 'Kanasines',
+      street: 'Calle 30, 512',
+      zipcode: 97300
     },
     {
       id: 3,
       userId: 3,
-      street: 'Calle 40, 512',
-      city: 'Mérida'
+      country: 'México',
+      state: 'Yucatán',
+      city: 'Kanasín',
+      colony: 'Kanasines',
+      street: 'Calle 66, 202',
+      zipcode: 97300
     },
     {
       id: 4,
-      userId: 2,
-      street: 'Calle 30, 400',
-      city: 'Mérida'
-    },
-    {
-      id: 5,
-      userId: 3,
-      street: 'Calle 40, 512',
-      city: 'Mérida'
+      userId: 4,
+      country: 'México',
+      state: 'Yucatán',
+      city: 'Mérida',
+      colony: 'Caucel',
+      street: 'Calle 10, 109',
+      zipcode: 97314
     },
   ]
 
-  consoleLog() {
-    console.log(this.adressSelected)
+  backToClientModal() {
+    this.selectClientModal = true
+    this.selectAdressModal = false
   }
 
+  consoleLog() {
+    console.warn(this.adressSelected)
+  }
+
+  //MODAL PARA CREAR UNA DIRECCIÓN
+  ////Estado para manipular la visibilidad del modal de crear dirección
+  createAdressModal: boolean = false
+  newAdress: adress = {
+  }
+
+  openCreateAdress() {
+    this.selectAdressModal = false
+    this.createAdressModal = true
+  }
+
+  cancelCreateAdress() {
+    this.selectAdressModal = true
+    this.createAdressModal = false
+  }
+
+  createAdress(form: NgForm) {
+    if (form.valid) {
+      this.newAdress = {
+        country: form.value.country,
+        state: form.value.state,
+        city: form.value.city,
+        colony: form.value.colony,
+        street: form.value.street,
+        zipcode: form.value.zipcode
+      };
+      const newAddressCopy = { ...this.newAdress };
+      this.adresses.push(newAddressCopy);
+    }
+    this.createAdressModal = false;
+    this.selectAdressModal = true;
+  }
 }
+

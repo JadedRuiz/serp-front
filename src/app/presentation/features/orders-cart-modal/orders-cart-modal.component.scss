@@ -37,7 +37,7 @@ $base-color: #f34e4e;
 .orders-cart__form-container {
     background-color: white;
     border-radius: 10px;
-    padding: 25px 10px 0 10px;
+    padding: 25px 10px 25px 10px;
     justify-self: center;
     display: flex;
     flex-direction: column;
@@ -59,42 +59,41 @@ $base-color: #f34e4e;
 }
 
 .orders-cart__client__buttons {
-    margin-top: 160px;
     margin-right: 10px;
     align-self: flex-end;
     display: flex;
     gap: 20px;
-}
 
-.orders-cart__client__btn-cancel,
-.orders-cart__client__btn-confirm {
-    padding: 5px 10px;
-    border: 1px solid;
-    border-radius: 10px;
-}
+    .orders-cart__client__btn-cancel,
+    .orders-cart__client__btn-confirm {
+        padding: 5px 10px;
+        border: 1px solid;
+        border-radius: 10px;
+    }
 
-.orders-cart__client__btn-cancel:hover {
-    background-color: $base-color;
-    color: white;
-    transition: 300ms;
-}
+    .orders-cart__client__btn-cancel {
+        background-color: transparent;
+        border-color: $base-color;
+        color: $base-color;
 
-.orders-cart__client__btn-confirm:hover {
-    background-color: blue;
-    color: white;
-    transition: 300ms;
-}
+        &:hover {
+            background-color: $base-color;
+            color: white;
+            transition: 500ms;
+        }
+    }
 
-.orders-cart__client__btn-cancel {
-    background-color: transparent;
-    border-color: $base-color;
-    color: $base-color;
-}
+    .orders-cart__client__btn-confirm {
+        background-color: transparent;
+        border-color: blue;
+        color: blue;
 
-.orders-cart__client__btn-confirm {
-    background-color: transparent;
-    border-color: blue;
-    color: blue;
+        &:hover {
+            background-color: blue;
+            color: white;
+            transition: 500ms;
+        }
+    }
 }
 
 .orders-cart__adresses-container {
@@ -108,7 +107,7 @@ $base-color: #f34e4e;
     flex-direction: column;
     align-items: center;
     overflow-y: scroll;
-    height: 200px;
+    height: 230px;
 }
 
 .orders-cart__adresses-list::-webkit-scrollbar {
@@ -125,7 +124,7 @@ $base-color: #f34e4e;
     background-color: white;
     width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.200);
-    padding: 15px 10px;
+    padding: 15.5px 10px;
     gap: 10px;
     cursor: pointer;
 
@@ -155,81 +154,48 @@ $base-color: #f34e4e;
     margin: 5px 0 0 30px;
 }
 
-.orders-cart__adress-submit {
-    margin: 10px 30px 30px 0;
-    padding: 5px 10px;
-    border: 1px solid blue;
-    border-radius: 10px;
-    color: blue;
+.orders-cart__adress__buttons {
+    margin-right: 10px;
     align-self: flex-end;
-
-    &:hover {
-        background: blue;
-        color: white;
-        transition: 300ms;
-    }
-}
-
-.orders-cart__form {
     display: flex;
-    flex-direction: column;
-    width: 90%;
-    gap: 10px;
+    gap: 20px;
 
-    .orders-cart__form-section1,
-    .orders-cart__form-section2 {
-        display: flex;
-        width: 100%;
-        gap: 10px;
-
-        div {
-            display: flex;
-            flex-direction: column;
-            width: 50%;
-        }
-
-        input {
-            border: 1px solid rgba(0, 0, 0, 0.500);
-            border-radius: 5px;
-            outline: none;
-            width: 100%;
-            padding: 2px 5px 2px 5px;
-        }
-    }
-
-    .orders-cart__form-section3 {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        gap: 3px;
-
-        div {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-
-        input {
-            border: 1px solid rgba(0, 0, 0, 0.500);
-            border-radius: 5px;
-            outline: none;
-            width: 100%;
-            padding: 2px 5px 2px 5px;
-        }
-    }
-
-    button {
+    .orders-cart__adress__btn-cancel,
+    .orders-cart__adress__btn-submit {
         padding: 5px 10px;
-        border: 1px solid blue;
+        border: 1px solid;
         border-radius: 10px;
+    }
+
+    .orders-cart__adress__btn-cancel {
+        border-color: $base-color;
+        color: $base-color;
+
+        &:hover {
+            background: $base-color;
+            color: white;
+            transition: 500ms;
+        }
+    }
+
+    .orders-cart__adress__btn-submit {
+        border-color: blue;
         color: blue;
-        align-self: flex-end;
-        margin-top: 30px;
 
         &:hover {
             background: blue;
             color: white;
-            transition: 300ms;
+            transition: 500ms;
         }
+    }
+}
+
+
+.orders-modal__form {
+    width: min(90%, 500px);
+    margin-top: 100px;
+
+    .btn {
+        padding: 0;
     }
 }

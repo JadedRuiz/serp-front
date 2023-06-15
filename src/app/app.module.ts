@@ -17,6 +17,7 @@ import { OrdersComponent } from './presentation/features/orders/orders.component
 import { OrdersPlacedComponent } from './presentation/features/orders-placed/orders-placed.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { OrdersCartModalComponent } from './presentation/features/orders-cart-modal/orders-cart-modal.component';
+import { ClientsComponent } from './presentation/features/clients/clients.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { OrdersCartModalComponent } from './presentation/features/orders-cart-mo
     OrdersCartComponent,
     OrdersComponent,
     OrdersPlacedComponent,
-    OrdersCartModalComponent
+    OrdersCartModalComponent,
+    ClientsComponent
   ],
 
   imports: [
