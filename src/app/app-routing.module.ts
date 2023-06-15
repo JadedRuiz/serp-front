@@ -16,37 +16,37 @@ const routes: Routes = [
   {
     path: 'auth',
     component: BaseAuthComponent,
-    canActivate : [UnloggedGuard],
+    canActivate: [UnloggedGuard],
     children: [
       {
         path: 'login',
-        loadChildren: () => 
+        loadChildren: () =>
           import('@presentation/features/auth/login/login.module').then(
             (m) => m.LoginModule
           ),
       }
     ]
   },
-  
+
   {
     path: '',
     component: BaseLoggedComponent,
-     canActivate : [LoggedGuard], //<= COMENTADA PARA PODER ACCEDER DESDE PATH 
+    canActivate: [LoggedGuard],
     children: [
       {
         path: 'home',
-        loadChildren: () => 
+        loadChildren: () =>
           import('@presentation/features/home/home.module').then(
             (m) => m.HomeModule
           ),
       },
       {
         path: 'catalogo',
-  component: CatalogoComponent
+        component: CatalogoComponent
       },
       {
-        path: 'AddProduct',
-  component: AddProductComponent
+        path: 'add-product',
+        component: AddProductComponent
       },
       {
         path: 'pedidos',
@@ -64,7 +64,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{ useHash : true})],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

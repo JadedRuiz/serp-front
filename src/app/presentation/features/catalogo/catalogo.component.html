@@ -4,8 +4,11 @@
   *ngIf="modalVisibility"
   (toggleModalVisibility)="toggleModalVisibility()"
 ></app-orders-cart-modal>
+
+
+
 <!-- Buscador -->
-<h1 class="tit_cat">Catalogo</h1>
+<h1 class="mb-2 tit_cat">Catalogo</h1>
 
       <div class="search-bar" [class.sticky]="isSticky" [class.active]="isSticky" >
       <input type="text" placeholder="Productos" [(ngModel)]="searchTitle">
@@ -14,7 +17,7 @@
       <button type="button" class="button" (click)="agregarProducto()">AGREGAR PRODUCTO</button>
       
        <!-- Sin Resultados -->
-       <div *ngIf="noResults" style="color:rgb(253, 252, 252); font-size: 20px;">No se encontraron resultados.</div>
+       <div *ngIf="noResults" style="  color:red; font-size: 40px;">No se encontraron resultados.</div>
       </div>
        <hr/>
   <div class="container-fluid">
