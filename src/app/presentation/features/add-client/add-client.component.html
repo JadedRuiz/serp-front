@@ -1,93 +1,220 @@
 <div class="add-client">
   <div class="add-client-container">
     <h2 class="title text-center m-0">Añadir un cliente</h2>
-    <div class="add-client__data-form row">
-      <h3 class="subtitle">Datos</h3>
-      <div class="add-client__data-form__section1 col-12 col-md-6">
-        <div>
-          <label for="">Clave del cliente</label>
-          <input class="form-control" type="text" />
+    <form
+      class="add-client__form"
+      #createClient="ngForm"
+      (ngSubmit)="onSubmitForm(createClient)"
+    >
+      <div class="add-client__data-form row">
+        <h3 class="subtitle">Datos</h3>
+        <div class="add-client__data-form__section1 col-12 col-md-6">
+          <div>
+            <label for="clientKey">Clave del cliente</label>
+            <input
+              class="form-control"
+              type="text"
+              name="clientKey"
+              id="clientKey"
+              required
+              [(ngModel)]="newClient.clientKey"
+            />
+          </div>
+          <div>
+            <label for="client">Cliente</label>
+            <input
+              class="form-control"
+              type="text"
+              name="client"
+              id="client"
+              required
+              [(ngModel)]="newClient.client"
+            />
+          </div>
+          <div>
+            <label for="rfc">RFC</label>
+            <input
+              class="form-control"
+              type="text"
+              name="rfc"
+              id="rfc"
+              required
+              [(ngModel)]="newClient.rfc"
+            />
+          </div>
         </div>
-        <div>
-          <label for="">Cliente</label>
-          <input class="form-control" type="text" />
-        </div>
-        <div>
-          <label for="">RFC</label>
-          <input class="form-control" type="text" />
-        </div>
-      </div>
-      <div class="add-client__data-form__section2 col-12 col-md-6">
-        <div>
-          <label for="">Nombre comercial</label>
-          <input class="form-control" type="text" />
-        </div>
-        <div>
-          <label for="">Descuentos</label>
-          <input class="form-control" type="text" />
-        </div>
-      </div>
-    </div>
-    <div class="add-client__address-form row">
-      <h3 class="subtitle">Dirección</h3>
-      <div class="add-client__address-form__section1 col-12 col-md-6">
-        <div>
-          <label for="">Nombre</label>
-          <input class="form-control" type="text" />
-        </div>
-        <div>
-          <label for="">Calle</label>
-          <input class="form-control" type="text" />
-        </div>
-        <div>
-          <label for="">Número Interior</label>
-          <input class="form-control" type="text" />
-        </div>
-        <div>
-          <label for="">Número Exterior</label>
-          <input class="form-control" type="text" />
-        </div>
-        <div>
-          <label for="">Cruzamiento 1</label>
-          <input class="form-control" type="text" />
-        </div>
-        <div>
-          <label for="">Cruzamiento 2</label>
-          <input class="form-control" type="text" />
-        </div>
-      </div>
-      <div class="add-client__address-form__section2 col-12 col-md-6">
-        <div>
-          <label for="">Colonia</label>
-          <input class="form-control" type="text" />
-        </div>
-        <div>
-          <label for="">Ciudad</label>
-          <input class="form-control" type="text" />
-        </div>
-        <div>
-          <label for="">Municipio</label>
-          <input class="form-control" type="text" />
-        </div>
-        <div>
-          <label for="">Estado</label>
-          <input class="form-control" type="text" />
-        </div>
-        <div>
-          <label for="">Código Postal</label>
-          <input class="form-control" type="text" />
-        </div>
-        <div>
-          <label for="">Localización</label>
-          <input class="form-control" type="text" />
+        <div class="add-client__data-form__section2 col-12 col-md-6">
+          <div>
+            <label for="commercialName">Nombre comercial</label>
+            <input
+              class="form-control"
+              type="text"
+              name="commercialName"
+              id="commercialName"
+              required
+              [(ngModel)]="newClient.commercialName"
+            />
+          </div>
+          <div>
+            <label for="discounts">Descuentos</label>
+            <input
+              class="form-control"
+              type="text"
+              name="discounts"
+              id="discounts"
+              required
+              [(ngModel)]="newClient.discounts"
+            />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="d-flex w-100 justify-content-between">
-      <button class="btn btn-danger" [routerLink]="['/clientes']">
-        Cancelar
-      </button>
-      <button class="btn btn-primary align-self-end">Añadir cliente</button>
-    </div>
+      <div class="add-client__address-form row">
+        <h3 class="subtitle">Dirección</h3>
+        <div class="add-client__address-form__section1 col-12 col-md-6">
+          <div>
+            <label for="name">Nombre</label>
+            <input
+              class="form-control"
+              type="text"
+              name="name"
+              id="name"
+              required
+              [(ngModel)]="newAddress.name"
+            />
+          </div>
+          <div>
+            <label for="street">Calle</label>
+            <input
+              class="form-control"
+              type="text"
+              name="street"
+              id="street"
+              required
+              [(ngModel)]="newAddress.street"
+            />
+          </div>
+          <div>
+            <label for="numInt">Número Interior</label>
+            <input
+              class="form-control"
+              type="text"
+              name="numInt"
+              id="numInt"
+              required
+              [(ngModel)]="newAddress.numInt"
+            />
+          </div>
+          <div>
+            <label for="numExt">Número Exterior</label>
+            <input
+              class="form-control"
+              type="text"
+              name="numExt"
+              id="numExt"
+              required
+              [(ngModel)]="newAddress.numExt"
+            />
+          </div>
+          <div>
+            <label for="cross">Cruzamiento 1</label>
+            <input
+              class="form-control"
+              type="text"
+              name="cross"
+              id="cross"
+              required
+              [(ngModel)]="newAddress.cross"
+            />
+          </div>
+          <div>
+            <label for="cross2">Cruzamiento 2</label>
+            <input
+              class="form-control"
+              type="text"
+              name="cross2"
+              id="cross2"
+              required
+              [(ngModel)]="newAddress.cross2"
+            />
+          </div>
+        </div>
+        <div class="add-client__address-form__section2 col-12 col-md-6">
+          <div>
+            <label for="colony">Colonia</label>
+            <input
+              class="form-control"
+              type="text"
+              name="colony"
+              id="colony"
+              required
+              [(ngModel)]="newAddress.colony"
+            />
+          </div>
+          <div>
+            <label for="city">Ciudad</label>
+            <input
+              class="form-control"
+              type="text"
+              name="city"
+              id="city"
+              required
+              [(ngModel)]="newAddress.city"
+            />
+          </div>
+          <div>
+            <label for="municipality">Municipio</label>
+            <input
+              class="form-control"
+              type="text"
+              name="municipality"
+              id="municipality"
+              required
+              [(ngModel)]="newAddress.municipality"
+            />
+          </div>
+          <div>
+            <label for="state">Estado</label>
+            <input
+              class="form-control"
+              type="text"
+              name="state"
+              id="state"
+              required
+              [(ngModel)]="newAddress.state"
+            />
+          </div>
+          <div>
+            <label for="zipcode">Código Postal</label>
+            <input
+              class="form-control"
+              type="text"
+              name="zipcode"
+              id="zipcode"
+              required
+              [(ngModel)]="newAddress.zipcode"
+            />
+          </div>
+          <div>
+            <label for="location">Localización</label>
+            <input
+              class="form-control"
+              type="text"
+              name="location"
+              id="location"
+              required
+              [(ngModel)]="newAddress.location"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="d-flex w-100 justify-content-between">
+        <button class="btn btn-danger" [routerLink]="['/clientes']">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary align-self-end">
+          Añadir cliente
+        </button>
+      </div>
+    </form>
   </div>
 </div>

@@ -18,18 +18,27 @@
             max-width: 500px;
         }
 
-        .add-client__data-form,
-        .add-client__address-form {
-            background-color: white;
+        .add-client__form {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
             width: 100%;
-            padding: 20px;
-            border: 1px solid rgb(0, 0, 0, 0.200);
-            border-radius: 10px;
+            align-items: center;
 
-            .subtitle {
-                font-weight: bold;
+            .add-client__data-form,
+            .add-client__address-form {
+                background-color: white;
+                width: 100%;
+                padding: 20px;
+                border: 1px solid rgb(0, 0, 0, 0.200);
+                border-radius: 10px;
+
+                .subtitle {
+                    font-weight: bold;
+                }
             }
         }
+
 
         .btn {
             margin-bottom: 30px;
