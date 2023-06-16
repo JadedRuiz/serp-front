@@ -1,5 +1,10 @@
 import { Component  } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  DataUrl,
+   NgxImageCompressService,
+  UploadResponse,
+} from 'ngx-image-compress';
+
 
 
 @Component({
@@ -10,57 +15,36 @@ import { Router } from '@angular/router';
 
 export class AddProductComponent {
 
+  imgResultBeforeCompress: DataUrl = '';
+  imgResultAfterCompress: DataUrl = '';
+  imgResultAfterResize: DataUrl = '';
+  imgResultUpload: DataUrl = '';
+  imgResultAfterResizeMax: DataUrl = '';
 
-  constructor(private router: Router) {}
+  constructor(private imageCompress: NgxImageCompressService) {}
 
-  nombreProducto: string = '';
-  familiaProducto: string = '';
-  descripcionProducto: string = '';
-  precioProducto: number = 0;
-  imagenProducto: File | null = null;
+  uploadAndResize() {
+    return this.imageCompress
+      .uploadFile()
+      .then(({ image, orientation }: UploadResponse) => {
+        console.warn('Tamaño Inicial:', this.imageCompress.byteCount(image));
+        console.warn('comprimida y re dimencionada a 400x');
 
-  agregarProducto() {
-
-    // Creando el objeto
-    const nuevoProducto = {
-      nombre: this.nombreProducto,
-      familia: this.familiaProducto,
-      descripcion: this.descripcionProducto,
-      precio: this.precioProducto,
-      imagen: this.imagenProducto
-    };
-
-    // BD??
-
-    // Reiniciar los valores del formulario
-    this.nombreProducto = '';
-    this.familiaProducto = '';
-    this.descripcionProducto = '';
-    this.precioProducto = 0;
-    this.imagenProducto = null;
+        this.imageCompress
+          .compressFile(image, orientation, 50, 50, 400, 400)
+          .then((result: DataUrl) => {
+            this.imgResultAfterResize = result;
+            
+            console.warn(
+              'FINAL:',
+              this.imageCompress.byteCount(result)
+            );
+          
+          });
+      });
   }
-
-
-
-  //Para visualizar la imagen =>
- 
-  selectedImage: string | ArrayBuffer | null = null;
   
 
-onFileSelected(event: any) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.selectedImage = reader.result as string;
-    };
-    reader.readAsDataURL(file);
-  }
-}
-
-atras() {
-  this.router.navigate(['./catalogo']);
 }
 
 
-}

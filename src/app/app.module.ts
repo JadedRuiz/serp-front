@@ -1,5 +1,6 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,8 +18,9 @@ import { OrdersComponent } from './presentation/features/orders/orders.component
 import { OrdersPlacedComponent } from './presentation/features/orders-placed/orders-placed.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { OrdersCartModalComponent } from './presentation/features/orders-cart-modal/orders-cart-modal.component';
-import { ClientsComponent } from './presentation/features/clients/clients.component';
-import { AddClientComponent } from './presentation/features/add-client/add-client.component';
+import { AddProductComponent } from '@presentation/features/add-product/add-product.component';
+import { NgxImageCompressService } from 'ngx-image-compress';
+
 
 @NgModule({
   declarations: [
@@ -28,12 +30,13 @@ import { AddClientComponent } from './presentation/features/add-client/add-clien
     OrdersComponent,
     OrdersPlacedComponent,
     OrdersCartModalComponent,
-    ClientsComponent,
-    AddClientComponent
+    AddProductComponent
   ],
+
 
   imports: [
     AutocompleteLibModule,
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -43,7 +46,7 @@ import { AddClientComponent } from './presentation/features/add-client/add-clien
     EffectsModule.forRoot(appEffects),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [NgxImageCompressService,{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

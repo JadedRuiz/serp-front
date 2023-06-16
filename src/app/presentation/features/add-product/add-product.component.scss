@@ -1,29 +1,12 @@
-.container {
-    max-width: 400px;
-    margin: 0 auto;
+
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
+
+
+.form-group {
+  label {
+    margin: 0.5em 0 0 0;
+    font-weight: 500;
   }
-  
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  .form-control {
-    padding: 0.5rem;
-  }
-  
-  textarea.form-control {
-    height: 100px;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    color: #fff;
-  }
-  
-  //Visualizador de imagen =>
-  .preview-image {
-    max-width: 200px;
-    max-height: 200px;
-    margin-top: 10px;
-  }
-  
+}
+
+
