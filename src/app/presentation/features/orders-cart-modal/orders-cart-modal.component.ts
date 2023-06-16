@@ -1,4 +1,4 @@
-import { Component, EventEmitter, NgModule, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 interface adress {

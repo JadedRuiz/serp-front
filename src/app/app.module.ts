@@ -20,6 +20,8 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { OrdersCartModalComponent } from './presentation/features/orders-cart-modal/orders-cart-modal.component';
 import { AddProductComponent } from '@presentation/features/add-product/add-product.component';
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { ClientsComponent } from '@presentation/features/clients/clients.component';
+import { AddClientComponent } from '@presentation/features/add-client/add-client.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { NgxImageCompressService } from 'ngx-image-compress';
     OrdersComponent,
     OrdersPlacedComponent,
     OrdersCartModalComponent,
-    AddProductComponent
+    AddProductComponent,
+    ClientsComponent,
+    AddClientComponent
   ],
 
 
