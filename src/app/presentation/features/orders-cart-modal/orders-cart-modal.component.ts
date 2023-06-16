@@ -1,15 +1,20 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-interface adress {
-  id?: number,
-  userId?: number,
-  country?: string,
-  state?: string,
-  city?: string,
-  colony?: string,
+interface Address {
+  idAddress?: number,
+  name?: string,
   street?: string,
-  zipcode?: number
+  numInt?: number,
+  numExt?: number,
+  cross?: string,
+  cross2?: string,
+  colony?: string,
+  city?: string,
+  municipality?: string,
+  state?: string,
+  zipcode?: number,
+  location?: string
 }
 @Component({
   selector: 'app-orders-cart-modal',
@@ -122,108 +127,143 @@ export class OrdersCartModalComponent {
 
   confirmClient() {
     this.selectClientModal = false
-    this.selectAdressModal = true
+    this.selectAddressModal = true
   }
 
   //MODAL PARA SELECCIONAR UNA DIRECCIÓN
   //Estado para manipular la visibilidad del modal de seleccionar dirección
-  selectAdressModal: boolean = false
+  selectAddressModal: boolean = false
 
-  adressSelected: adress = {}
+  addressSelected: Address = {}
 
-  adresses: adress[] = [
+  addresses: Address[] = [
     {
-      id: 0,
-      userId: 0,
-      country: 'México',
-      state: 'Yucatán',
-      city: 'Umán',
-      colony: 'Umanos',
-      street: '40, 730',
-      zipcode: 94300
+      idAddress: 0,
+      name: 'Casa',
+      street: 'Calle Principal',
+      numInt: 0,
+      numExt: 10,
+      cross: 'Avenida Central',
+      cross2: 'Avenida Norte',
+      colony: 'Centro',
+      city: 'Ciudad de México',
+      municipality: 'Cuauhtémoc',
+      state: 'Ciudad de México',
+      zipcode: 12345,
+      location: 'Residencial'
     },
     {
-      id: 1,
-      userId: 1,
-      country: 'México',
-      state: 'Yucatán',
-      city: 'Mérida',
-      colony: 'Caucel',
-      street: '29c, 716-a',
-      zipcode: 97314
+      idAddress: 1,
+      name: 'Trabajo',
+      street: 'Avenida Comercial',
+      numExt: 20,
+      numInt: 5,
+      cross: 'Calle Industrial',
+      cross2: 'Boulevard Tecnológico',
+      colony: 'Industrial',
+      city: 'Monterrey',
+      municipality: 'Monterrey',
+      state: 'Nuevo León',
+      zipcode: 67890,
+      location: 'Oficina'
     },
     {
-      id: 2,
-      userId: 2,
-      country: 'México',
-      state: 'Yucatán',
-      city: 'Kanasín',
-      colony: 'Kanasines',
-      street: 'Calle 30, 512',
-      zipcode: 97300
+      idAddress: 2,
+      name: 'Vacaciones',
+      street: 'Playa Paraíso',
+      colony: 'Costa Azul',
+      city: 'Cancún',
+      municipality: 'Benito Juárez',
+      state: 'Quintana Roo',
+      zipcode: 54321,
+      location: 'Frente al mar'
     },
     {
-      id: 3,
-      userId: 3,
-      country: 'México',
-      state: 'Yucatán',
-      city: 'Kanasín',
-      colony: 'Kanasines',
-      street: 'Calle 66, 202',
-      zipcode: 97300
+      idAddress: 3,
+      name: 'Apartamento',
+      street: 'Avenida Principal',
+      numExt: 15,
+      colony: 'Centro',
+      city: 'Guadalajara',
+      municipality: 'Guadalajara',
+      state: 'Jalisco',
+      zipcode: 98765,
+      location: 'Residencial'
     },
     {
-      id: 4,
-      userId: 4,
-      country: 'México',
-      state: 'Yucatán',
-      city: 'Mérida',
-      colony: 'Caucel',
-      street: 'Calle 10, 109',
-      zipcode: 97314
+      idAddress: 4,
+      name: 'Oficina',
+      street: 'Calle Comercial',
+      numExt: 8,
+      cross: 'Avenida Industrial',
+      colony: 'Industrial',
+      city: 'Tijuana',
+      municipality: 'Tijuana',
+      state: 'Baja California',
+      zipcode: 43210,
+      location: 'Centro empresarial'
     },
-  ]
+    {
+      idAddress: 5,
+      name: 'Segunda Casa',
+      street: 'Avenida Playa',
+      numExt: 25,
+      cross: 'Calle Marina',
+      colony: 'Costa Dorada',
+      city: 'Puerto Vallarta',
+      municipality: 'Puerto Vallarta',
+      state: 'Jalisco',
+      zipcode: 13579,
+      location: 'Vacacional'
+    }
+  ];
 
   backToClientModal() {
     this.selectClientModal = true
-    this.selectAdressModal = false
+    this.selectAddressModal = false
   }
 
   consoleLog() {
-    console.warn(this.adressSelected)
+    console.warn(this.addressSelected)
   }
 
   //MODAL PARA CREAR UNA DIRECCIÓN
   ////Estado para manipular la visibilidad del modal de crear dirección
-  createAdressModal: boolean = false
-  newAdress: adress = {
+  createAddressModal: boolean = false
+  newAddress: Address = {
   }
 
-  openCreateAdress() {
-    this.selectAdressModal = false
-    this.createAdressModal = true
+  openCreateAddress() {
+    this.selectAddressModal = false
+    this.createAddressModal = true
   }
 
-  cancelCreateAdress() {
-    this.selectAdressModal = true
-    this.createAdressModal = false
+  cancelCreateAddress() {
+    this.selectAddressModal = true
+    this.createAddressModal = false
   }
 
-  createAdress(form: NgForm) {
+  createNewAddress(form: NgForm) {
     if (form.valid) {
-      this.newAdress = {
-        country: form.value.country,
-        state: form.value.state,
-        city: form.value.city,
-        colony: form.value.colony,
+      this.newAddress = {
+        name: form.value.name,
         street: form.value.street,
-        zipcode: form.value.zipcode
+        numInt: form.value.numInt,
+        numExt: form.value.numExt,
+        cross: form.value.cross,
+        cross2: form.value.cross2,
+        colony: form.value.colony,
+        city: form.value.city,
+        municipality: form.value.municipality,
+        state: form.value.state,
+        zipcode: form.value.zipcode,
+        location: form.value.location
       };
-      const newAddressCopy = { ...this.newAdress };
-      this.adresses.push(newAddressCopy);
+      const newAdddressCopy = { ...this.newAddress };
+      this.addresses.push(newAdddressCopy);
     }
-    this.createAdressModal = false;
-    this.selectAdressModal = true;
+    this.createAddressModal = false;
+    this.selectAddressModal = true;
   }
 }
 
