@@ -22,6 +22,7 @@ import { AddProductComponent } from '@presentation/features/add-product/add-prod
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { ClientsComponent } from '@presentation/features/clients/clients.component';
 import { AddClientComponent } from '@presentation/features/add-client/add-client.component';
+import { SearchFamComponent } from './presentation/features/search-fam/search-fam.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { AddClientComponent } from '@presentation/features/add-client/add-client
     OrdersCartModalComponent,
     AddProductComponent,
     ClientsComponent,
-    AddClientComponent
+    AddClientComponent,
+    SearchFamComponent
   ],
 
 

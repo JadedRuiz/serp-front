@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { SERVER_API } from 'src/config/config';
+import { SERVER_API, SERV_FAM, } from 'src/config/config';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators'; 
+import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 
@@ -24,5 +24,5 @@ export class CatalogoService {
   }
 
 
-  
+
 }
