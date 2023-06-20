@@ -26,7 +26,6 @@ text-align: center;
   top: 0;
   z-index: 1;
   text-align: center;
-  background-color: #3432c285;
   border-radius: 1em;
   transition: opacity .4s ease-in-out;
 }
@@ -60,7 +59,7 @@ text-align: center;
     background-color: #dce0da;
     transition: background-color 0.3s ease;
   }
-  
+
   // .search-bar input:not([type="submit"]):focus {
   //   background-color: #b2f5c68e;
   //   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
@@ -71,16 +70,16 @@ text-align: center;
     padding: 20px 40px;
     border: none;
     border-radius: 7px;
-    background-color: #4caf50;
+    background-color: #F6DF6B;
     color: white;
     font-weight: bold;
     transition: background-color 0.6s ease;
   }
-  
+
   .search-bar button:hover {
-    background-color: #e41010;
+    background-color: #D94B4B;
   }
-  
+
   .search-bar button:focus {
     outline: none;
     box-shadow: 0 0 0 2px rgba(243, 238, 238, 0.3);
@@ -122,7 +121,7 @@ text-align: center;
 
 
 
-  
-  
-  
+
+
+
 

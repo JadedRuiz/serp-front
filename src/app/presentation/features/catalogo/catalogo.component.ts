@@ -18,9 +18,9 @@ export class CatalogoComponent {
     private catalgoo : CatalogoService) {}
 
 
-  //  Lista de elementos 
+  //  Lista de elementos
   items = [
-   
+
     {
       imageUrl: '../../../../assets/imgCat/fruts.jpeg',
       title: 'Platanos',
@@ -63,7 +63,7 @@ export class CatalogoComponent {
       description: 'Los platanos son rosas y esta sera una descripcion',
       price: '$16.00'
     },
-        
+
     {
       imageUrl: '../../../../assets/imgCat/fruts.jpeg',
       title: 'Bola',
@@ -78,7 +78,7 @@ export class CatalogoComponent {
       description: 'Los platanos son rosas y esta sera una descripcion',
       price: '$16.00'
     },
-        
+
     {
       imageUrl: '../../../../assets/imgCat/fruts.jpeg',
       title: 'Bola',
@@ -93,7 +93,7 @@ export class CatalogoComponent {
       description: 'Los platanos son rosas y esta sera una descripcion',
       price: '$16.00'
     },
-        
+
     {
       imageUrl: '../../../../assets/imgCat/fruts.jpeg',
       title: 'Bola',
@@ -108,7 +108,7 @@ export class CatalogoComponent {
       description: 'Los platanos son rosas y esta sera una descripcion',
       price: '$16.00'
     },
-        
+
   ]
 
 
@@ -121,8 +121,8 @@ export class CatalogoComponent {
   searchTitle: string = '';
   searchFam: string = '';
   noResults: boolean = false;
-  
-  
+
+
 
 
   // Realizar una copia de los elementos completos
@@ -136,7 +136,7 @@ export class CatalogoComponent {
     this.catalgoo.obtenerPerfiles()
     .subscribe(res => {
       if(res.ok){
-        //this.items = res.data;  //<= COMENTADO PARA VER LOS PLATANOS.
+       // this.items = res.data;  //<= COMENTADO PARA VER LOS PLATANOS.
       }else{
 
       }
@@ -146,7 +146,7 @@ export class CatalogoComponent {
    }
 
 
-    // Filtra los elementos del catálogo 
+    // Filtra los elementos del catálogo
    buscar() {
     this.items = this.allItems.filter(item =>
       item.title.includes(this.searchTitle) && item.fam.includes(this.searchFam)
@@ -175,7 +175,7 @@ export class CatalogoComponent {
   agregarProducto() {
     this.router.navigate(['./add-product']);
   }
-  
+
 
 
 
