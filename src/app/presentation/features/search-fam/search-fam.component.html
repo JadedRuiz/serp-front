@@ -1,29 +1,50 @@
+
+
 <div class="container shadow">
-    <div class="col-4">
-      <label for="exampleDataList" class="title form-label">Buscar Familia</label>
-      <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Familia...">
-      <datalist id="datalistOptions">
-        <option value="Cárnicos">
-        <option value="Lácteos">
-        <option value="Panificación">
-        <option value="Salsas">
-      </datalist>
-    </div>
-    <div class="m-1 d-md-flex justify-content-md-end">
-      <button class="m-3 btn btn-primary" >Agregar Familia</button>
-      </div>
-<div class="container m-2">
-  <div class="row">
+<h1 class="text-center title">Familias</h1>
+
+
+
+<div class="col col-md-6">
+
+  <div class="m-2 input-group md-2">
+    <input type="text" class="form-control" placeholder="Buscar Familia"
+    aria-label="Buscar Familia" aria-describedby="button-addon2">
+    <button class="btn btn-primary" type="button" > <i class="bi bi-search">  </i>  BUSCAR </button>
+  </div>
+
+</div>
+
+
+<div class=" d-md-flex justify-content-md-end">
+  <button type="button" class="m-2 btn btn-warning" >Agregar Familia</button>
+  </div>
+
+    <div class="container m-2">
+    <div class="row">
     <div class="col-sm-6 mb-3 mb-sm-0" *ngFor="let familia of familias" >
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{familia.familia}} </h5>
           <p class="card-text">{{familia.id_comprador}}</p>
-          <a href="#" class="mt-2 btn btn-primary">Editar</a>
+
+          <div class=" d-md-flex justify-content-md-end">
+            <a href="#" class="me-2 p-0btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+
+          <button type="button" class="btn btn-danger" data-bs-toggle active="button" aria-pressed="true"
+          style="
+          --bs-btn-padding-y: .25rem;
+         --bs-btn-padding-x: .5rem;
+          --bs-btn-font-size: .65rem;">
+            Desabilitar
+          </button>
         </div>
+
+      </div>
       </div>
     </div>
 
-
-
   </div>
+
+
+</div>

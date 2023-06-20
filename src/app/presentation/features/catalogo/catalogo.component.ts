@@ -136,7 +136,7 @@ export class CatalogoComponent {
     this.catalgoo.obtenerPerfiles()
     .subscribe(res => {
       if(res.ok){
-        this.items = res.data;  //<= COMENTADO PARA VER LOS PLATANOS.
+       // this.items = res.data;  //<= COMENTADO PARA VER LOS PLATANOS.
       }else{
 
       }
