@@ -33,7 +33,7 @@ $base-color: #f34e4e;
 }
 
 .orders-modal__client,
-.orders-modal__adresses,
+.orders-modal__addresses,
 .orders-cart__form-container {
     background-color: white;
     border-radius: 10px;
@@ -96,13 +96,13 @@ $base-color: #f34e4e;
     }
 }
 
-.orders-cart__adresses-container {
+.orders-cart__addresses-container {
     width: 90%;
     border: 1px solid rgba(0, 0, 0, 0.200);
     border-radius: 5px;
 }
 
-.orders-cart__adresses-list {
+.orders-cart__addresses-list {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -110,16 +110,16 @@ $base-color: #f34e4e;
     height: 230px;
 }
 
-.orders-cart__adresses-list::-webkit-scrollbar {
+.orders-cart__addresses-list::-webkit-scrollbar {
     width: 4px;
 }
 
-.orders-cart__adresses-list::-webkit-scrollbar-thumb {
+.orders-cart__addresses-list::-webkit-scrollbar-thumb {
     background-color: rgb(196, 196, 196);
     border-radius: 10px;
 }
 
-.orders-cart__adress {
+.orders-cart__address {
     display: flex;
     background-color: white;
     width: 100%;
@@ -142,11 +142,11 @@ $base-color: #f34e4e;
     }
 }
 
-.orders-cart__adress:hover {
+.orders-cart__address:hover {
     background-color: rgb(214, 214, 214);
 }
 
-.orders-cart__adresses-add {
+.orders-cart__addresses-add {
     text-decoration: underline;
     color: steelblue;
     cursor: pointer;
@@ -154,20 +154,20 @@ $base-color: #f34e4e;
     margin: 5px 0 0 30px;
 }
 
-.orders-cart__adress__buttons {
+.orders-cart__address__buttons {
     margin-right: 10px;
     align-self: flex-end;
     display: flex;
     gap: 20px;
 
-    .orders-cart__adress__btn-cancel,
-    .orders-cart__adress__btn-submit {
+    .orders-cart__address__btn-cancel,
+    .orders-cart__address__btn-submit {
         padding: 5px 10px;
         border: 1px solid;
         border-radius: 10px;
     }
 
-    .orders-cart__adress__btn-cancel {
+    .orders-cart__address__btn-cancel {
         border-color: $base-color;
         color: $base-color;
 
@@ -178,7 +178,7 @@ $base-color: #f34e4e;
         }
     }
 
-    .orders-cart__adress__btn-submit {
+    .orders-cart__address__btn-submit {
         border-color: blue;
         color: blue;
 
