@@ -88,7 +88,7 @@
       (ngSubmit)="createNewAddress(createAddress)"
     >
       <div class="orders-modal__address-form row">
-        <div class="orders-modal__address-form__section1 col-12 col-md-6">
+        <div class="orders-modal__address-form__section1 col-12 col-md-6 row">
           <div>
             <label for="name">Nombre</label>
             <input
@@ -111,7 +111,7 @@
               [(ngModel)]="newAddress.street"
             />
           </div>
-          <div>
+          <div class="col-6 col-md-12">
             <label for="numInt">Número Interior</label>
             <input
               class="form-control"
@@ -122,7 +122,7 @@
               [(ngModel)]="newAddress.numInt"
             />
           </div>
-          <div>
+          <div class="col-6 col-md-12">
             <label for="numExt">Número Exterior</label>
             <input
               class="form-control"
@@ -156,8 +156,8 @@
             />
           </div>
         </div>
-        <div class="orders-modal__address-form__section2 col-12 col-md-6">
-          <div>
+        <div class="orders-modal__address-form__section2 col-12 col-md-6 row">
+          <div class="col-6 col-md-12">
             <label for="colony">Colonia</label>
             <input
               class="form-control"
@@ -168,7 +168,7 @@
               [(ngModel)]="newAddress.colony"
             />
           </div>
-          <div>
+          <div class="col-6 col-md-12">
             <label for="city">Ciudad</label>
             <input
               class="form-control"
@@ -179,7 +179,7 @@
               [(ngModel)]="newAddress.city"
             />
           </div>
-          <div>
+          <div class="col-8 col-md-12">
             <label for="municipality">Municipio</label>
             <input
               class="form-control"
@@ -190,7 +190,7 @@
               [(ngModel)]="newAddress.municipality"
             />
           </div>
-          <div>
+          <div class="col-4 col-md-12">
             <label for="state">Estado</label>
             <input
               class="form-control"
