@@ -22,7 +22,7 @@ import { FamiliaService } from '@data/services/sfamilia/familia.service';
 export class SearchFamComponent {
 
 
-  familias: { familia: string, id_comprador: number }[] = [];
+  familias: { familia: string, id_familia: number }[] = [];
  // miComprador = window.sessionStorage["comprador_gl"];
   miComprador = 1;
 

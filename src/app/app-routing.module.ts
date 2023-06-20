@@ -9,6 +9,7 @@ import { ClientsComponent } from '@presentation/features/clients/clients.compone
 import { OrdersCartComponent } from '@presentation/features/orders-cart/orders-cart.component';
 import { OrdersPlacedComponent } from '@presentation/features/orders-placed/orders-placed.component';
 import { OrdersComponent } from '@presentation/features/orders/orders.component';
+import { RoutesComponent } from '@presentation/features/routes/routes.component';
 import { SearchFamComponent } from '@presentation/features/search-fam/search-fam.component';
 import { BaseAuthComponent } from '@presentation/layout/base-auth/base-auth.component';
 import { BaseLoggedComponent } from '@presentation/layout/base-logged/base-logged.component';
@@ -70,6 +71,10 @@ const routes: Routes = [
       {
         path: 'buscador',
         component: SearchFamComponent
+      },
+      {
+        path: 'rutas',
+        component: RoutesComponent
       }
     ]
   }
