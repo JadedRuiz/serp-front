@@ -8,6 +8,7 @@
   --color-base: #F6DF6B;
   --hover-base: #D94B4B;
   --color-secundario: #d27a2e;
+  --danger-color: #500000;
 }
 
 body {
@@ -61,15 +62,30 @@ p {
   }
 }
 
-.search-btn {
+.general-btn, .danger-btn, .search-btn, .add-btn {
   padding: 10px 20px;
   border: none;
   border-radius: 7px;
-  background-color: var(--color-base);
   color: white;
-  font-weight: bold;
+  font-weight: 500;
   transition: background-color 0.6s ease;
+  max-width: 200px;
+}
 
+.general-btn {
+  background-color: var(--color-base);
+
+  &:hover {
+    background-color: var(--hover-base);
+  }
+}
+
+.danger-btn {
+  background-color: var(--danger-color);
+}
+
+.search-btn {
+  background-color: var(--color-base);
 
   &:hover {
     background-color: var(--hover-base);
@@ -77,16 +93,21 @@ p {
 }
 
 .add-btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 7px;
   text-transform: uppercase;
   background-color: var(--color-secundario);
-  color: white;
-  font-weight: 500;
 
   &:hover {
-    transition: 500ms;
-    background-image: linear-gradient(16deg, #dfa12e 0%, #d27a2e 64%, #a3231a 100%);
+    background-color: var(--hover-base);
   }
+}
+
+.icon-btn {
+  background-color: var(--color-secundario);
+  padding: 2px 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
 }

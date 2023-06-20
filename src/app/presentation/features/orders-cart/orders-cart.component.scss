@@ -1,7 +1,5 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
 
-$base-color: #f34e4e;
-
 a {
     text-decoration: none;
     color: inherit;
@@ -10,24 +8,6 @@ a {
 ul {
     padding: 0;
 }
-
-@keyframes slidein {
-    from {
-      margin-left: 100%;
-      width: 300%;
-    }
-
-    75% {
-      font-size: 300%;
-      margin-left: 25%;
-      width: 150%;
-    }
-
-    to {
-      margin-left: 0%;
-      width: 100%;
-    }
-  }
 
 .orders-cart-container {
     position: fixed;
@@ -44,11 +24,6 @@ ul {
     position: fixed;
     right: 10px;
     top: 85px;
-    border: none;
-    color: white;
-    background-color: $base-color;
-    padding: 3px 5px;
-    border-radius: 10px;
     z-index: 3;
 }
 
@@ -143,7 +118,7 @@ ul {
     outline: none;
     border: none;
     border-radius: 10px;
-    background-color: $base-color;
+    background-color: var(--color-secundario);
     cursor: pointer;
 }
 
@@ -160,7 +135,7 @@ ul {
 }
 
 .fa-trash {
-    color: $base-color;
+    color: var(--color-secundario);
     cursor: pointer;
 }
 
@@ -178,9 +153,7 @@ ul {
 }
 
 .btn-danger {
-    background-color: $base-color;
+    background-color: var(--color-secundario);
+    border: none;
 }
 
-.margin-top-20 {
-    margin-top: 20px;
-}

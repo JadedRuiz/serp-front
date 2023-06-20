@@ -1,6 +1,6 @@
 <div class="orders-cart__modal">
   <button
-    class="orders-cart__modal__close"
+    class="orders-cart__modal__close icon-btn"
     (click)="useToggleModalVisibility()"
   >
     <i class="fas fa-times"></i>
@@ -27,15 +27,15 @@
       </ng-template>
     </div>
     <!-- Termina Autocomplete -->
-    <div class="orders-cart__client__buttons mt-auto">
+    <div class="orders-cart__client__buttons  mt-auto">
       <button
-        class="orders-cart__client__btn-cancel"
+        class="orders-cart__client__btn-cancel danger-btn"
         (click)="useToggleModalVisibility()"
       >
         Cancelar
       </button>
       <button
-        class="orders-cart__client__btn-confirm"
+        class="orders-cart__client__btn-confirm general-btn"
         (click)="confirmClient()"
       >
         Confirmar
@@ -62,181 +62,4 @@
     <span class="orders-cart__addresses-add" (click)="openCreateAddress()"
       >Añadir una dirección</span
     >
-    <div class="orders-cart__address__buttons mt-auto">
-      <button
-        class="orders-cart__address__btn-cancel"
-        (click)="backToClientModal()"
-      >
-        Regresar
-      </button>
-      <button
-        class="orders-cart__address__btn-submit"
-        type="submit"
-        [disabled]="!addressSelected"
-        [routerLink]="['/pedidos-realizados']"
-        (click)="consoleLog()"
-      >
-        Confirmar
-      </button>
-    </div>
-  </div>
-  <div class="orders-modal__form bg-light rounded p-3" *ngIf="createAddressModal">
-    <h3 class="title text-center mt-3">Añadir una dirección nueva</h3>
-    <form
-      class="d-flex flex-column container"
-      #createAddress="ngForm"
-      (ngSubmit)="createNewAddress(createAddress)"
-    >
-      <div class="orders-modal__address-form row">
-        <div class="orders-modal__address-form__section1 col-12 col-md-6 row">
-          <div>
-            <label for="name">Nombre</label>
-            <input
-              class="form-control"
-              type="text"
-              name="name"
-              id="name"
-              required
-              [(ngModel)]="newAddress.name"
-            />
-          </div>
-          <div>
-            <label for="street">Calle</label>
-            <input
-              class="form-control"
-              type="text"
-              name="street"
-              id="street"
-              required
-              [(ngModel)]="newAddress.street"
-            />
-          </div>
-          <div class="col-6 col-md-12">
-            <label for="numInt">Número Interior</label>
-            <input
-              class="form-control"
-              type="text"
-              name="numInt"
-              id="numInt"
-              required
-              [(ngModel)]="newAddress.numInt"
-            />
-          </div>
-          <div class="col-6 col-md-12">
-            <label for="numExt">Número Exterior</label>
-            <input
-              class="form-control"
-              type="text"
-              name="numExt"
-              id="numExt"
-              required
-              [(ngModel)]="newAddress.numExt"
-            />
-          </div>
-          <div>
-            <label for="cross">Cruzamiento 1</label>
-            <input
-              class="form-control"
-              type="text"
-              name="cross"
-              id="cross"
-              required
-              [(ngModel)]="newAddress.cross"
-            />
-          </div>
-          <div>
-            <label for="cross2">Cruzamiento 2</label>
-            <input
-              class="form-control"
-              type="text"
-              name="cross2"
-              id="cross2"
-              required
-              [(ngModel)]="newAddress.cross2"
-            />
-          </div>
-        </div>
-        <div class="orders-modal__address-form__section2 col-12 col-md-6 row">
-          <div class="col-6 col-md-12">
-            <label for="colony">Colonia</label>
-            <input
-              class="form-control"
-              type="text"
-              name="colony"
-              id="colony"
-              required
-              [(ngModel)]="newAddress.colony"
-            />
-          </div>
-          <div class="col-6 col-md-12">
-            <label for="city">Ciudad</label>
-            <input
-              class="form-control"
-              type="text"
-              name="city"
-              id="city"
-              required
-              [(ngModel)]="newAddress.city"
-            />
-          </div>
-          <div class="col-8 col-md-12">
-            <label for="municipality">Municipio</label>
-            <input
-              class="form-control"
-              type="text"
-              name="municipality"
-              id="municipality"
-              required
-              [(ngModel)]="newAddress.municipality"
-            />
-          </div>
-          <div class="col-4 col-md-12">
-            <label for="state">Estado</label>
-            <input
-              class="form-control"
-              type="text"
-              name="state"
-              id="state"
-              required
-              [(ngModel)]="newAddress.state"
-            />
-          </div>
-          <div>
-            <label for="zipcode">Código Postal</label>
-            <input
-              class="form-control"
-              type="text"
-              name="zipcode"
-              id="zipcode"
-              required
-              [(ngModel)]="newAddress.zipcode"
-            />
-          </div>
-          <div>
-            <label for="location">Localización</label>
-            <input
-              class="form-control"
-              type="text"
-              name="location"
-              id="location"
-              required
-              [(ngModel)]="newAddress.location"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="row justify-content-between my-3">
-        <button
-          class="btn btn-danger col-5"
-          type="reset"
-          (click)="cancelCreateAddress()"
-        >
-          Cancelar
-        </button>
-        <button class="btn btn-primary col-5" type="submit">
-          Crear dirección
-        </button>
-      </div>
-    </form>
-  </div>
 </div>
