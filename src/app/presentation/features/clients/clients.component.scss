@@ -3,19 +3,11 @@
     width: 100%;
 
     &__first-section {
-    
-        button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .icon-btn {
             position: absolute;
-            right: 5px;
-            padding: 5px 10px 5px 10px;
-            font-size: 12px;
-            border-radius: 50px;
-            width: 30px;
-            background-color: red;
-            color: white;
+            right: 10px;
+            top: 10px;
+            width: 50px;
         }
     }
 }

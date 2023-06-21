@@ -5,6 +5,7 @@
   --tertiary-color: #CB00D9;
 
   //Paleta de colores para la aplicación
+  --bg-color: #fff; 
   --color-base: #F6DF6B;
   --hover-base: #D94B4B;
   --color-secundario: #d27a2e;
@@ -15,7 +16,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
-  background-color: #f8f8f8;
+  background-color: var(--bg-color);
   margin: 0;
   padding: 0;
 }
