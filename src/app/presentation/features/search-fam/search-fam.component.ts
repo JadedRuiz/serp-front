@@ -55,6 +55,10 @@ buscarFamilias() {
   );
 }
 
+editarFamilia(familia:any){
+
+  this.router.navigate(['/editar-familia', familia.id_familia]);
+}
 
 
 }

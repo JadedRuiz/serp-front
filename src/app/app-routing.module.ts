@@ -14,6 +14,7 @@ import { SearchFamComponent } from '@presentation/features/search-fam/search-fam
 import { BaseAuthComponent } from '@presentation/layout/base-auth/base-auth.component';
 import { BaseLoggedComponent } from '@presentation/layout/base-logged/base-logged.component';
 
+import { EditarFamComponent } from '@presentation/features/search-fam/editar-fam/editar-fam.component';
 
 
 const routes: Routes = [

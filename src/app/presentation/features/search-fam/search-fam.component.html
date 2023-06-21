@@ -1,52 +1,91 @@
 <div class="search-fam-container container shadow">
   <h1 class="text-center title">FAMILIAS</h1>
 
-  <div class="search-fam__search-bar">
-    <div class="d-flex">
-      <input
-        class="search-input"
-        type="text"
-        placeholder="Buscar Familia"
-        aria-label="Buscar Familia"
-        aria-describedby="button-addon2"
-      />
-      <button class="search-btn" type="button">
-        <i class="bi bi-search"> </i> BUSCAR
-      </button>
-    </div>
-    <button type="button" class="add-btn">Agregar Familia</button>
+
+<div class="container shadow">
+<h1 class="text-center title">Familias</h1>
+
+
+
+<div class="col col-md-6">
+
+  <div class="m-2 input-group md-2">
+    <input type="text" class="form-control" placeholder="Buscar Familia"
+    aria-label="Buscar Familia" aria-describedby="button-addon2">
+    <button class="btn btn-primary" type="button" > <i class="bi bi-search">  </i>  BUSCAR </button>
+  </div>
+
+</div>
+
+
+<div class=" d-md-flex justify-content-md-end" >
+  <button type="button" class="m-2 btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Agregar Familia</button>
   </div>
 
   <div class="container m-2">
     <div class="row">
-      <div class="col-sm-6 mb-3 mb-sm-0" *ngFor="let familia of familias">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ familia.familia }}</h5>
-            <p class="card-text">{{ familia.id_familia }}</p>
+    <div class="col-sm-6 mb-3 mb-sm-0" *ngFor="let familia of familias" >
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{familia.familia}} </h5>
+          <p class="card-text">{{familia.familia}}</p>
 
-            <div class="d-md-flex justify-content-md-end">
-              <a href="#" class="me-2 p-0btn btn-primary"
-                ><i class="bi bi-pencil-square"></i
-              ></a>
+          <div class=" d-md-flex justify-content-md-end">
+            <a href="#" class="me-2 p-0btn btn-primary"><i class="bi bi-pencil-square"></i></a>
 
-              <button
-                type="button"
-                class="btn btn-danger"
-                data-bs-toggle
-                active="button"
-                aria-pressed="true"
-                style="
-                  --bs-btn-padding-y: 0.25rem;
-                  --bs-btn-padding-x: 0.5rem;
-                  --bs-btn-font-size: 0.65rem;
-                "
-              >
-                Desabilitar
-              </button>
-            </div>
-          </div>
+          <button type="button" class="btn btn-danger" data-bs-toggle active="button" aria-pressed="true"
+          style="
+          --bs-btn-padding-y: .25rem;
+         --bs-btn-padding-x: .5rem;
+          --bs-btn-font-size: .65rem;">
+            Desabilitar
+          </button>
         </div>
+
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
