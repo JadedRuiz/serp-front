@@ -21,7 +21,7 @@ export class FamiliaService {
 
   editarFam(familia: any) {
     return this.http.post<any>(
-      'https://serp-inventarios.serteza.com/public/api/familias/guardarFamilias',
+      'https://serp-inventarios.serteza.com/public/api/familias/guardarFamilia',
       familia
     );
   }
