@@ -1,4 +1,4 @@
-$base-color: #f34e4e;
+@import '../breakpoints.scss';
 
 .title {
     font-size: 24px;
@@ -22,14 +22,6 @@ $base-color: #f34e4e;
     position: absolute;
     top: 85px;
     right: 10px;
-    background-color: $base-color;
-    padding: 2px 10px;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
 }
 
 .orders-modal__client,
@@ -64,36 +56,36 @@ $base-color: #f34e4e;
     display: flex;
     gap: 20px;
 
-    .orders-cart__client__btn-cancel,
-    .orders-cart__client__btn-confirm {
-        padding: 5px 10px;
-        border: 1px solid;
-        border-radius: 10px;
-    }
+    // .orders-cart__client__btn-cancel,
+    // .orders-cart__client__btn-confirm {
+    //     padding: 5px 10px;
+    //     border: 1px solid;
+    //     border-radius: 10px;
+    // }
 
-    .orders-cart__client__btn-cancel {
-        background-color: transparent;
-        border-color: $base-color;
-        color: $base-color;
+    // .orders-cart__client__btn-cancel {
+    //     background-color: transparent;
+    //     border-color: var(--color-secundario);
+    //     color: var(--color-secundario);
 
-        &:hover {
-            background-color: $base-color;
-            color: white;
-            transition: 500ms;
-        }
-    }
+    //     &:hover {
+    //         background-color: var(--color-secundario);
+    //         color: white;
+    //         transition: 500ms;
+    //     }
+    // }
 
-    .orders-cart__client__btn-confirm {
-        background-color: transparent;
-        border-color: blue;
-        color: blue;
+    // .orders-cart__client__btn-confirm {
+    //     background-color: transparent;
+    //     border-color: var(--color-base);
+    //     color: var(--color-base);
 
-        &:hover {
-            background-color: blue;
-            color: white;
-            transition: 500ms;
-        }
-    }
+    //     &:hover {
+    //         background-color: var(--color-base);
+    //         color: white;
+    //         transition: 500ms;
+    //     }
+    // }
 }
 
 .orders-cart__addresses-container {
@@ -168,22 +160,22 @@ $base-color: #f34e4e;
     }
 
     .orders-cart__address__btn-cancel {
-        border-color: $base-color;
-        color: $base-color;
+        border-color: var(--color-secundario);
+        color: var(--color-secundario);
 
         &:hover {
-            background: $base-color;
+            background: var(--color-secundario);
             color: white;
             transition: 500ms;
         }
     }
 
     .orders-cart__address__btn-submit {
-        border-color: blue;
-        color: blue;
+        border-color: var(--color-base);
+        color: var(--color-base);
 
         &:hover {
-            background: blue;
+            background: var(--color-base);
             color: white;
             transition: 500ms;
         }
@@ -195,7 +187,22 @@ $base-color: #f34e4e;
     width: min(90%, 500px);
     margin-top: 100px;
 
-    .btn {
-        padding: 0;
+    form {
+        padding: 10px;
+
+        .btn {
+            padding: 0;
+        }
+
+        .row {
+            padding: 0;
+            justify-content: space-around;
+
+            @include sm {
+                justify-content: center;
+            }
+        }
+
     }
+
 }

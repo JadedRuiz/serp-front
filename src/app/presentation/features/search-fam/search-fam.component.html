@@ -1,3 +1,5 @@
+<div class="search-fam-container container shadow">
+  <h1 class="text-center title">FAMILIAS</h1>
 
 
 <div class="container shadow">
@@ -20,25 +22,31 @@
   <button type="button" class="m-2 btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Agregar Familia</button>
   </div>
 
-    <div class="container m-2">
+  <div class="container m-2">
     <div class="row">
     <div class="col-sm-6 mb-3 mb-sm-0" *ngFor="let familia of familias" >
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{familia.familia}} </h5>
-          <p class="card-text">{{familia.id_familia}}</p>
+          <p class="card-text">{{familia.familia}}</p>
 
           <div class=" d-md-flex justify-content-md-end">
-            <a href="#" class="me-2 p-0btn btn-primary" (click)="editarFamilia(familia)"><i class="bi bi-pencil-square"></i></a>
+            <a href="#" class="me-2 p-0btn btn-primary"><i class="bi bi-pencil-square"></i></a>
 
+          <button type="button" class="btn btn-danger" data-bs-toggle active="button" aria-pressed="true"
+          style="
+          --bs-btn-padding-y: .25rem;
+         --bs-btn-padding-x: .5rem;
+          --bs-btn-font-size: .65rem;">
+            Desabilitar
+          </button>
         </div>
+
       </div>
       </div>
     </div>
   </div>
 </div>
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
