@@ -1,12 +1,10 @@
-
-
 // Titulo
-.tit_cat{
+.tit_cat {
   font-size: 4em;
   color: #333;
   opacity: 0;
   animation: fadeIn 2s ease-in-out forwards;
-text-align: center;
+  text-align: center;
 }
 
 @keyframes fadeIn {
@@ -14,6 +12,7 @@ text-align: center;
     opacity: 0;
     transform: translateY(-20px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -28,6 +27,9 @@ text-align: center;
   text-align: center;
   border-radius: 1em;
   transition: opacity .4s ease-in-out;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .search-bar.sticky {
@@ -36,8 +38,13 @@ text-align: center;
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .search-bar.sticky:not(.active) {
@@ -45,45 +52,34 @@ text-align: center;
 }
 
 @keyframes fade-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
 
 /* Estilos para los inputs */
-.search-bar input:not([type="submit"]) {
-    margin: 4px;
-    padding: 10px;
-    border: none;
-    border-radius: 7px;
-    background-color: #dce0da;
-    transition: background-color 0.3s ease;
-  }
+// .search-bar input:not([type="submit"]) {
+//     margin: 4px;
+//     padding: 10px;
+//     border: none;
+//     border-radius: 7px;
+//     background-color: #dce0da;
+//     transition: background-color 0.3s ease;
+//   }
 
-  // .search-bar input:not([type="submit"]):focus {
-  //   background-color: #b2f5c68e;
-  //   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
-  // }
+// .search-bar input:not([type="submit"]):focus {
+//   background-color: #b2f5c68e;
+//   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+// }
 
-  .search-bar button {
-    margin: 5px;
-    padding: 20px 40px;
-    border: none;
-    border-radius: 7px;
-    background-color: #F6DF6B;
-    color: white;
-    font-weight: bold;
-    transition: background-color 0.6s ease;
-  }
-
-  .search-bar button:hover {
-    background-color: #D94B4B;
-  }
-
-  .search-bar button:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(243, 238, 238, 0.3);
-  }
+.add-btn {
+  max-width: 400px;
+}
 
 // CARD
 .card-price.custom-align {
@@ -99,7 +95,7 @@ text-align: center;
 
 
 
-  /* Estilos para dispositivos móviles */
+/* Estilos para dispositivos móviles */
 @media (max-width: 768px) {
   .search-bar {
     display: flex;
@@ -118,10 +114,3 @@ text-align: center;
 
 
 // MODAL
-
-
-
-
-
-
-

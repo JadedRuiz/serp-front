@@ -65,7 +65,7 @@
   </div>
   <div class="orders-placed__modal" *ngIf="modalVisibility">
     <button
-      class="orders-placed__modal__close"
+      class="icon-btn"
       (click)="closeModal()"
     >
       <i class="fas fa-times"></i>
@@ -94,8 +94,8 @@
         </article>
       </div>
       <div class="orders-placed__buttons">
-        <button class="orders-placed__buttons--button1" (click)="openEditOrderVisibility()">Editar</button>
-        <button class="orders-placed__buttons--button2" (click)="toggleModalVisibility()">De acuerdo</button>
+        <button class="general-btn" (click)="openEditOrderVisibility()">Editar</button>
+        <button class="general-btn" (click)="toggleModalVisibility()">De acuerdo</button>
       </div>
     </div>
     <div class="orders-placed__modal__edit-order" *ngIf="editOrderVisibility">
@@ -141,8 +141,8 @@
         </article>
       </div>
       <div class="orders-placed__buttons">
-        <button class="orders-placed__buttons--button1" [routerLink]="['/catalogo']">Añadir más productos</button>
-        <button class="orders-placed__buttons--button2" (click)="saveEditedOrder()">Guardar</button>
+        <button class="general-btn" [routerLink]="['/catalogo']">Añadir más productos</button>
+        <button class="general-btn" (click)="saveEditedOrder()">Guardar</button>
       </div>
     </div>
   </div>

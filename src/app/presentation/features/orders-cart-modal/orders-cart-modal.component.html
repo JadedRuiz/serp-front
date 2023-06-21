@@ -27,7 +27,7 @@
       </ng-template>
     </div>
     <!-- Termina Autocomplete -->
-    <div class="orders-cart__client__buttons  mt-auto">
+    <div class="orders-cart__client__buttons mt-auto">
       <button
         class="orders-cart__client__btn-cancel danger-btn"
         (click)="useToggleModalVisibility()"
@@ -59,7 +59,9 @@
         </div>
       </div>
     </div>
-    <span class="orders-cart__addresses-add" (click)="openCreateAddress()"
-      >Añadir una dirección</span
-    >
+    <div class="orders-cart__address__buttons">
+      <button class="danger-btn" (click)="backToClientModal()">Regresar</button>
+      <button class="general-btn" [routerLink]="['/pedidos-realizados']">Continuar</button>
+    </div>
+  </div>
 </div>

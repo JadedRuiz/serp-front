@@ -223,10 +223,6 @@ export class OrdersCartModalComponent {
     this.selectAddressModal = false
   }
 
-  consoleLog() {
-    console.warn(this.addressSelected)
-  }
-
   //MODAL PARA CREAR UNA DIRECCIÓN
   ////Estado para manipular la visibilidad del modal de crear dirección
   createAddressModal: boolean = false

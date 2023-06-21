@@ -26,7 +26,7 @@ export class CatalogoComponent {
       title: 'Platanos',
       fam: 'Frutas',
       description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '$14..00'
+      price: '$14.00'
     },
     {
       imageUrl: '../../../../assets/imgCat/fruts.jpeg',

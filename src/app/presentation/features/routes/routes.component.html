@@ -6,24 +6,23 @@
       <input
         class="search-input"
         type="text"
-        placeholder="Buscar Ruta"
-        aria-label="Buscar Ruta"
+        placeholder="Buscar ruta"
+        aria-label="Buscar ruta"
         aria-describedby="button-addon2"
       />
       <button class="search-btn" type="button">
         <i class="bi bi-search"> </i> BUSCAR
       </button>
     </div>
-    <button type="button" class="add-btn">Agregar Ruta</button>
+    <button type="button" class="add-btn">AGREGAR RUTA</button>
   </div>
 
-  <div class="container m-2">
+  <div class="container m-2" *ngFor="let route of routes">
     <div class="row">
       <div class="col-sm-6 mb-3 mb-sm-0">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title title">Nombre de Ruta</h5>
-            <p class="card-text">Dirección a llegar</p>
+            <h5 class="card-title title">{{route.ruta}}</h5>
             <div class="d-md-flex justify-content-md-end">
               <a href="#" class="me-2 p-0btn btn-primary"
                 ><i class="bi bi-pencil-square"></i

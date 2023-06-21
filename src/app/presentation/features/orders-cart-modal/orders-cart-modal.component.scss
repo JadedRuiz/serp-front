@@ -147,6 +147,7 @@
 }
 
 .orders-cart__address__buttons {
+    margin-top: auto;
     margin-right: 10px;
     align-self: flex-end;
     display: flex;
@@ -157,28 +158,6 @@
         padding: 5px 10px;
         border: 1px solid;
         border-radius: 10px;
-    }
-
-    .orders-cart__address__btn-cancel {
-        border-color: var(--color-secundario);
-        color: var(--color-secundario);
-
-        &:hover {
-            background: var(--color-secundario);
-            color: white;
-            transition: 500ms;
-        }
-    }
-
-    .orders-cart__address__btn-submit {
-        border-color: var(--color-base);
-        color: var(--color-base);
-
-        &:hover {
-            background: var(--color-base);
-            color: white;
-            transition: 500ms;
-        }
     }
 }
 

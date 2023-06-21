@@ -118,7 +118,7 @@ ul {
     outline: none;
     border: none;
     border-radius: 10px;
-    background-color: var(--color-secundario);
+    background-color: var(--color-base);
     cursor: pointer;
 }
 
@@ -135,7 +135,7 @@ ul {
 }
 
 .fa-trash {
-    color: var(--color-secundario);
+    color: var(--color-base);
     cursor: pointer;
 }
 
@@ -153,7 +153,7 @@ ul {
 }
 
 .btn-danger {
-    background-color: var(--color-secundario);
+    background-color: var(--color-base);
     border: none;
 }
 
