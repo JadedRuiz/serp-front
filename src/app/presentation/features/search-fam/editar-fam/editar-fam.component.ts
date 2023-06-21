@@ -24,6 +24,7 @@ export class EditarFamComponent implements OnInit {
     private famService: FamiliaService,
     private formBuilder: FormBuilder
   ) {
+    
     this.familiaForm.id_familia = parseInt(this.router_params.snapshot.paramMap.get('idFamilia')+"");
   }
 
@@ -37,7 +38,7 @@ export class EditarFamComponent implements OnInit {
     });
   }
 
- 
+
 
   guardarCambios() {
     if (this.familiaForm.familia != "") {
