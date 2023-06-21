@@ -23,6 +23,9 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 import { ClientsComponent } from '@presentation/features/clients/clients.component';
 import { AddClientComponent } from '@presentation/features/add-client/add-client.component';
 import { SearchFamComponent } from './presentation/features/search-fam/search-fam.component';
+import { EditarFamComponent } from './presentation/features/search-fam/editar-fam/editar-fam.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -36,7 +39,8 @@ import { SearchFamComponent } from './presentation/features/search-fam/search-fa
     AddProductComponent,
     ClientsComponent,
     AddClientComponent,
-    SearchFamComponent
+    SearchFamComponent,
+    EditarFamComponent,
   ],
 
 
@@ -46,6 +50,7 @@ import { SearchFamComponent } from './presentation/features/search-fam/search-fa
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     LayoutModule,
     CoreModule,
     StoreModule.forRoot(appReducer),

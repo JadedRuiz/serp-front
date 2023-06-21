@@ -1,0 +1,12 @@
+<h1 class="title text-center">Editar Familia</h1>
+<div class="container">
+  <div class="row">
+  <form [formGroup]="familiaForm" (ngSubmit)="guardarCambios()">
+    <div class="form-group col-4">
+      <label for="familia"><b>Familia:</b> {{familiaId}}</label>
+      <input type="text" class="form-control " id="familia" formControlName="familia">
+    </div>
+    <button type="submit" class=" m-2 col-2 btn btn-primary">Guardar Cambios</button>
+  </form>
+</div>
+</div>

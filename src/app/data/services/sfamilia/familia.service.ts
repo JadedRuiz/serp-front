@@ -1,16 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {  SERV_FAM } from 'src/config/config';
-
-
-
+import { SERV_FAM } from 'src/config/config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FamiliaService {
-
   constructor(private http: HttpClient) { }
 
   obtenerFamilias(): Observable<any> {
@@ -20,9 +16,13 @@ export class FamiliaService {
       familia: '',
       token: '012354SDSDS01'
     };
-
     return this.http.post<any>(SERV_FAM, parametros);
   }
 
-
+  editarFam(familia: any) {
+    return this.http.post<any>(
+      'https://serp-inventarios.serteza.com/public/api/familias/guardarFamilias',
+      familia
+    );
+  }
 }
