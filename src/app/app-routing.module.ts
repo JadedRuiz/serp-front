@@ -46,6 +46,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'hobuscadorme',
+        loadChildren: () =>
+          import('@presentation/features/search-fam/search-fam.module').then(
+            (m) => m.SearchModule
+          ),
+      },
+      {
         path: 'catalogo',
         component: CatalogoComponent
       },
@@ -72,6 +79,10 @@ const routes: Routes = [
       {
         path: 'buscador',
         component: SearchFamComponent
+      },
+      {
+        path: 'editar-familia/:idFamilia',
+        component: EditarFamComponent
       },
       {
         path: 'rutas',

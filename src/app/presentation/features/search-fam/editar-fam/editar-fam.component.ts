@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FamiliaService } from '@data/services/sfamilia/familia.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -9,46 +9,40 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./editar-fam.component.scss']
 })
 export class EditarFamComponent implements OnInit {
-  familiaForm!: FormGroup;
-  familiaId!: number;
+  forms_validation! : FormGroup;
+  familiaForm = {
+    familia : "",
+    id_familia: 0,
+    id_comprador: 1,
+    token: '012354SDSDS01',
+    id_usuario: 1,
+    activo: 1
+  } ;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
+    private router_params : ActivatedRoute,
     private famService: FamiliaService,
     private formBuilder: FormBuilder
-  ) {}
+  ) {
+    this.familiaForm.id_familia = parseInt(this.router_params.snapshot.paramMap.get('idFamilia')+"");
+  }
 
   ngOnInit() {
     this.initForm();
-    this.getFamiliaId();
   }
 
   initForm() {
-    this.familiaForm = this.formBuilder.group({
+    this.forms_validation = this.formBuilder.group({
       familia: ['', Validators.required]
     });
   }
 
-  getFamiliaId() {
-    this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-      this.familiaId = id !== null ? +id : 0;
-    });
-  }
+ 
 
   guardarCambios() {
-    if (this.familiaForm.valid) {
-      const familia = {
-        familia: this.familiaForm.controls['familia'].value,
-        id_familia: this.familiaId,
-        id_comprador: 1,
-        token: '012354SDSDS01',
-        id_usuario: 1,
-        activo: 1
-      };
+    if (this.familiaForm.familia != "") {
 
-      this.famService.editarFam(familia).subscribe({
+      this.famService.editarFam(this.familiaForm).subscribe({
         next: (response) => {
           if (response.ok === 'true') {
             console.log('Familia editada exitosamente:', response.data.message);

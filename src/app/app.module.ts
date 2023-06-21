@@ -12,7 +12,7 @@ import { CoreModule } from '@core/core.module';
 import { appEffects, appReducer } from '@domain/store';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { CatalogoComponent } from './presentation/features/catalogo/catalogo.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrdersCartComponent } from './presentation/features/orders-cart/orders-cart.component';
 import { OrdersComponent } from './presentation/features/orders/orders.component';
 import { OrdersPlacedComponent } from './presentation/features/orders-placed/orders-placed.component';
@@ -23,13 +23,8 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 import { ClientsComponent } from '@presentation/features/clients/clients.component';
 import { AddClientComponent } from '@presentation/features/add-client/add-client.component';
 import { SearchFamComponent } from './presentation/features/search-fam/search-fam.component';
-<<<<<<< HEAD
-import { EditarFamComponent } from './presentation/features/search-fam/editar-fam/editar-fam.component';
-import { ReactiveFormsModule } from '@angular/forms';
-
-=======
 import { RoutesComponent } from './presentation/features/routes/routes.component';
->>>>>>> b933460eb0b6b3b11564fda8a86d577d0b31db11
+
 
 
 @NgModule({
@@ -43,12 +38,7 @@ import { RoutesComponent } from './presentation/features/routes/routes.component
     AddProductComponent,
     ClientsComponent,
     AddClientComponent,
-    SearchFamComponent,
-<<<<<<< HEAD
-    EditarFamComponent,
-=======
     RoutesComponent
->>>>>>> b933460eb0b6b3b11564fda8a86d577d0b31db11
   ],
 
 
