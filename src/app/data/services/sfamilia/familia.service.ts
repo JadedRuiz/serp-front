@@ -25,4 +25,10 @@ export class FamiliaService {
       familia
     );
   }
+
+agregarFam(){
+  
+
+}
+
 }

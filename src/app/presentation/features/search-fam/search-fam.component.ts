@@ -25,6 +25,10 @@ export class SearchFamComponent {
   familias: { familia: string, id_familia: number }[] = [];
  // miComprador = window.sessionStorage["comprador_gl"];
   miComprador = 1;
+isModalOpen = false;
+searchText: string = '';
+
+
 
   constructor(
     private router:Router,
@@ -60,6 +64,15 @@ editarFamilia(familia:any){
   this.router.navigate(['/editar-familia', familia.id_familia]);
 }
 
+
+
+openModal(){
+  this.isModalOpen =  true;
+}
+
+closeModal(){
+  this.isModalOpen = false;
+}
 
 }
 

@@ -7,7 +7,7 @@
 
   <div class="m-2 input-group md-2">
     <input type="text" class="form-control" placeholder="Buscar Familia"
-    aria-label="Buscar Familia" aria-describedby="button-addon2">
+    aria-label="Buscar Familia" aria-describedby="button-addon2" [(ngModel)]="searchText">
     <button class="btn btn-primary" type="button" > <i class="bi bi-search">  </i>  BUSCAR </button>
   </div>
 
@@ -15,17 +15,17 @@
 
 
 <div class=" d-md-flex justify-content-md-end" >
-  <button type="button" class="m-2 btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Agregar Familia</button>
+  <a type="button" class="m-2 btn btn-warning" (click)="openModal()" >Agregar Familia</a>
   </div>
 
   <div class="container m-2">
-    <div class="row">
-    <div class="col-sm-6 mb-3 mb-sm-0" *ngFor="let familia of familias" >
-      <div class="card">
+    <div class="row ">
+      <div class="col-sm-6 mb-3 mb-sm-0" *ngFor="let familia of familias">
+        <div class="" *ngIf="familia.familia.toLowerCase().includes(searchText.toLowerCase())" >
+         <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{familia.familia}} </h5>
+          <h5 class="card-title">{{familia.familia | uppercase}} </h5>
           <p class="card-text">{{familia.id_familia}}</p>
-
           <div class=" d-md-flex justify-content-md-end">
             <a style="cursor: pointer;" class="me-2 p-0btn btn-primary" (click)="editarFamilia(familia)"><i class="bi bi-pencil-square"></i></a>
           <button type="button" class="btn btn-danger" data-bs-toggle active="button" aria-pressed="true"
@@ -40,23 +40,29 @@
       </div>
       </div>
     </div>
+    </div>
   </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal shadow" [class.is-active]="isModalOpen">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Familia</h1>
+        <a type="button" class="btn-close" (click)="closeModal()"></a>
       </div>
       <div class="modal-body">
-        ...
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="">Nueva Familia</span>
+          </div>
+          <input type="text" class="form-control" >
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Cancelar</button>
+        <button type="button" class="btn btn-primary" >Guardar</button>
       </div>
     </div>
   </div>
