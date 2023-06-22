@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FamiliaService } from '@data/services/sfamilia/familia.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
+
+
 
 @Component({
   selector: 'app-editar-fam',
@@ -21,10 +24,11 @@ export class EditarFamComponent implements OnInit {
 
   constructor(
     private router_params : ActivatedRoute,
+    private router: Router,
     private famService: FamiliaService,
     private formBuilder: FormBuilder
   ) {
-    
+
     this.familiaForm.id_familia = parseInt(this.router_params.snapshot.paramMap.get('idFamilia')+"");
   }
 
@@ -45,16 +49,23 @@ export class EditarFamComponent implements OnInit {
 
       this.famService.editarFam(this.familiaForm).subscribe({
         next: (response) => {
-          if (response.ok === 'true') {
+          if (response.ok == 'true')
+          {
             console.log('Familia editada exitosamente:', response.data.message);
-            // redireccionar
-          } else {
+            Swal.fire('Éxito', response.data.message, 'success').then(() => {
+              this.router.navigate(['/buscador'])
+            });
+          } else
+          {
+            Swal.fire('Error', 'al editar la familia', 'error');
             console.error('Error al editar la familia:', response.data.message);
           }
         },
         error: (error) => {
+          Swal.fire('Error', 'al editar la familia', 'error');
           console.error('Error al editar la familia:', error);
         }
+
       });
     }
   }
