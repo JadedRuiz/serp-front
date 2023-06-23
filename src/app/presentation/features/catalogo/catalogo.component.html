@@ -19,12 +19,19 @@
        <!-- Sin Resultados -->
       </div>
       <div class="text-center" *ngIf="noResults" style="  color:red; font-size: 40px;">No se encontraron resultados.</div>
-
        <hr/>
-  <div class="container-fluid">
+
+
+       <div class="container-fluid">
    <div class="columns is-multiline is-variable is-4">
     <div class="column is-one-quarter-desktop is-one-third-tablet is-full-mobile" *ngFor="let item of items">
       <div class="card">
+        <a
+        type="button"
+        class="mt-1 me-1 align-self-end btn_h "
+        (click)="agregarProductoCarrito(item)"
+        >+</a>
+
         <div class="card-image">
           <figure class="imageF is-16by9">
             <img [src]="item.imageUrl" alt="Producto">
@@ -34,24 +41,24 @@
           <div class="media">
             <div class="media-content">
               <h2 class="title is-3">{{ item.title }}</h2>
-              <h3  class="subtitle is-5">{{ item.fam }}</h3>
+              <h3  class=" subtitle is-5">{{ item.fam }}</h3>
             </div>
           </div>
-          <div class="content"> {{ item.description }}
+          <div class="content mt-0"> {{ item.description }}
             <br />
-            <a (click)="openModal(item)" style="color: var(--color-base);" >Ver Detalles</a>
+            <a (click)="openModal(item)" style="color: var(--color-terciario)" >Ver Detalles</a>
             <br>
             <span class="card-price custom-align"><strong>{{ item.price }}</strong></span>
           </div>
         </div>
-        <button
-        class="align-self-end btn btn-danger mr-3 mb-3"
-        (click)="agregarProductoCarrito(item)"
-        >+</button>
+
+
+
       </div>
     </div>
   </div>
-</div>
+
+       </div>
 
 
 <!-- Modal -->

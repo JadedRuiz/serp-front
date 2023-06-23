@@ -61,21 +61,25 @@
   }
 }
 
+.btn_h {
+  display: inline-block;
+  width: 33px;
+  height: 33px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 50%;
+  background-color: var(--color-base);
+  color: white;
+  font-weight: bold;
+  font-size: 26px;
+  text-decoration: none;
+}
 
-/* Estilos para los inputs */
-// .search-bar input:not([type="submit"]) {
-//     margin: 4px;
-//     padding: 10px;
-//     border: none;
-//     border-radius: 7px;
-//     background-color: #dce0da;
-//     transition: background-color 0.3s ease;
-//   }
+.btn_h:hover {
+  background-color: var(--hover-base);
+}
 
-// .search-bar input:not([type="submit"]):focus {
-//   background-color: #b2f5c68e;
-//   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
-// }
+
 
 .add-btn {
   max-width: 400px;
