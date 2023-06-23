@@ -2,14 +2,14 @@
 :root {
   --primary-color: #9F1223;
   --secondary-color: #E3008C;
-  --tertiary-color: #CB00D9; 
+  --tertiary-color: #CB00D9;
 
 
   //Paleta de colores para la aplicación
-  --bg-color: #ffffff; 
-  --color-base: #d27a2e;
-  --hover-base: #D94B4B;
-  --color-secundario: #F6DF6B;
+  --bg-color: #F1F2F5;
+  --color-base: #41e94c;
+  --hover-base:  #FBB60A;
+  --color-secundario: #41e94c;
   --color-terciario: #D94B4B;
   --danger-color: #500000;
 }
@@ -57,7 +57,7 @@ p {
   padding: 10px;
   border: none;
   border-radius: 7px;
-  background-color: #dce0da;
+  background-color: #dce0daa4;
   transition: background-color 0.3s ease;
   outline: none;
 }
@@ -67,7 +67,7 @@ p {
   border: none;
   border-radius: 7px;
   color: white;
-  font-weight: 500;
+  font-weight: 700;
   transition: background-color 0.6s ease;
   max-width: 200px;
 }

@@ -8,17 +8,18 @@
 
 
 <!-- Buscador -->
-<h1 class="mb-2 tit_cat">PRODUCTOS</h1>
+<h1 class="mb-2 title text-center m-4">PRODUCTOS</h1>
 
       <div class="search-bar" [class.sticky]="isSticky" [class.active]="isSticky" >
       <input type="text" class="search-input" placeholder="Productos" [(ngModel)]="searchTitle">
       <input type="text" class="search-input" placeholder="Familia" [(ngModel)]="searchFam">
       <button type="button" class="search-btn" (click)="buscar()">BUSCAR</button>
       <button type="button" class="add-btn" (click)="agregarProducto()">AGREGAR PRODUCTO</button>
-      
+
        <!-- Sin Resultados -->
-       <div *ngIf="noResults" style="  color:red; font-size: 40px;">No se encontraron resultados.</div>
       </div>
+      <div class="text-center" *ngIf="noResults" style="  color:red; font-size: 40px;">No se encontraron resultados.</div>
+
        <hr/>
   <div class="container-fluid">
    <div class="columns is-multiline is-variable is-4">
@@ -43,7 +44,7 @@
             <span class="card-price custom-align"><strong>{{ item.price }}</strong></span>
           </div>
         </div>
-        <button 
+        <button
         class="align-self-end btn btn-danger mr-3 mb-3"
         (click)="agregarProductoCarrito(item)"
         >+</button>
@@ -108,7 +109,7 @@
 
 
 
-  
+
 
 
   <!-- Logica para la animación de la barra de busqueda -->
@@ -117,7 +118,7 @@
     $(window).scroll(function() {
       var scrollTop = $(window).scrollTop();
       var searchBar = $('.search-bar');
-      
+
       if (scrollTop > 0) {
         searchBar.addClass('sticky');
       } else {
@@ -126,4 +127,4 @@
     });
   </script>
 </body>
- 
+
