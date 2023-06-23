@@ -1,8 +1,71 @@
-<div class="clients">
-    <div class="clients__first-section row">
-        <h2 class="title text-center">CLIENTES</h2>
-        <button class="icon-btn" [routerLink]="['/añadir-cliente']">
-            <i class="fas fa-user-plus"></i>
-        </button>
+<div class="clients-container container shadow row">
+  <h1 class="text-center title">CLIENTES</h1>
+
+  <div class="clients__search-bar">
+    <div class="d-flex">
+      <input
+        class="search-input"
+        type="text"
+        placeholder="Buscar cliente"
+        aria-label="Buscar cliente"
+        aria-describedby="button-addon2"
+      />
+      <button class="search-btn" type="button">
+        <i class="bi bi-search"> </i> BUSCAR
+      </button>
     </div>
+    <button type="button" class="add-btn" [routerLink]="['/añadir-cliente']">
+      AGREGAR CLIENTE
+    </button>
+  </div>
+
+  <div class="clients">
+    <div class="row">
+      <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">Nombre comercial</h2>
+            <div class="d-md-flex justify-content-md-end">
+              <a href="#" class="me-2 p-0btn btn-primary"
+                ><i class="bi bi-pencil-square"></i
+              ></a>
+
+              <button
+                type="button"
+                class="btn btn-danger"
+                data-bs-toggle
+                active="button"
+                aria-pressed="true"
+                style="
+                  --bs-btn-padding-y: 0.25rem;
+                  --bs-btn-padding-x: 0.5rem;
+                  --bs-btn-font-size: 0.65rem;
+                "
+                (click)="toggleModalVisibility()"
+              >
+                Ver más
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="clients__client-modal" *ngIf="modalVisibility">
+    <button class="icon-btn" (click)="closeModal()">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="client-modal__container">
+      <h2 class="title text-center">CLIENTE</h2>
+      <div class="orders-placed__buttons">
+        <button class="general-btn">
+          Editar
+        </button>
+        <button class="general-btn" (click)="toggleModalVisibility()">
+          De acuerdo
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

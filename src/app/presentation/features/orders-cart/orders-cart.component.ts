@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { CatalogoService } from '@data/services/catalogo/catalogo.service';
 
 interface item {
   id?: number,
@@ -18,9 +19,16 @@ interface item {
 
 export class OrdersCartComponent {
 
-  cs_btn = "fas fa-shopping-cart";
+  constructor(
+    private catalgoo: CatalogoService,
+  ) {
 
-  constructor() {
+  }
+
+  ngOnInit():void {
+    this.catalgoo.disparadorDeProductos.subscribe(data => {
+      console.log(data)
+    })
     this.getSubtotal();
     this.getTotal();
     this.noItems();
@@ -31,13 +39,11 @@ export class OrdersCartComponent {
 
   //Función para manejar la visibilidad del carrito de pedidos
   toggleOrdersVisibility() {
-    if(this.ordersVisibility){
+    if (this.ordersVisibility) {
       this.ordersVisibility = false;
-      this.cs_btn = "fas fa-shopping-cart";
-    }else{
-      this.ordersVisibility = true;      
-      this.cs_btn = "fas fa-times";
-    }  
+    } else {
+      this.ordersVisibility = true;
+    }
   }
 
   //Simulación de base de datos

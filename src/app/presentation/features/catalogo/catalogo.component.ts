@@ -201,4 +201,7 @@ toggleModalVisibility() {
   this.modalVisibility = !this.modalVisibility
 }
 
+agregarProductoCarrito(item:any) {
+  this.catalgoo.disparadorDeProductos.emit(item)
+}
 }

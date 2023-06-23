@@ -7,4 +7,15 @@ import { Component } from '@angular/core';
 })
 export class ClientsComponent {
 
+  modalVisibility: boolean = false
+  
+  toggleModalVisibility() {
+    this.modalVisibility = !this.modalVisibility
+  }
+
+  closeModal() {
+    this.modalVisibility = false
+  }
+
+
 }

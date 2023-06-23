@@ -1,4 +1,4 @@
-<div class="routes-container container shadow">
+<div class="routes-container container shadow row">
   <h1 class="text-center title">RUTAS</h1>
 
   <div class="routes__search-bar">
@@ -9,20 +9,21 @@
         placeholder="Buscar ruta"
         aria-label="Buscar ruta"
         aria-describedby="button-addon2"
+        [(ngModel)]="searchRoute"
       />
-      <button class="search-btn" type="button">
+      <button class="search-btn" type="button" (click)="filtrarRutas()">
         <i class="bi bi-search"> </i> BUSCAR
       </button>
     </div>
     <button type="button" class="add-btn">AGREGAR RUTA</button>
   </div>
 
-  <div class="container m-2" *ngFor="let route of routes">
+  <div class="routes">
     <div class="row">
-      <div class="col-sm-6 mb-3 mb-sm-0">
+      <div class="col-sm-6 mb-3 mb-sm-0"  *ngFor="let route of filteredRoutes">
         <div class="card">
           <div class="card-body">
-            <h2 class="card-title ">{{route.ruta | uppercase}}</h2>
+            <h2 class="card-title">{{route.ruta | uppercase}}</h2>
             <div class="d-md-flex justify-content-md-end">
               <a href="#" class="me-2 p-0btn btn-primary"
                 ><i class="bi bi-pencil-square"></i
@@ -47,5 +48,6 @@
         </div>
       </div>
     </div>
+      <h3 class="title text-center mt-3" *ngIf="resultsNotFound">No se encontraron resultados</h3>
   </div>
 </div>
