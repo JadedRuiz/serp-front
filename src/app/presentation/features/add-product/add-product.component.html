@@ -60,17 +60,35 @@
   </form>
 
   <!-- IMAGENES -->
-  <div class="col-6 p-2">
-    <div *ngFor="let image of uploadedImages">
+  <div class="col-6 d-flex flex-column align-items-center justify-content-center">
+    <div *ngIf="uploadedImages.length > 0" class="text-center mp-3">
       <img
-        class="img-fluid img-thumbnail"
-        [src]="image"
+        class="img-fluid"
+        [src]="uploadedImages[uploadedImages.length -1]"
         alt="Imagen comprimida"
+        [style.width.px]="250"
+        [style.height.px]="250"
+      />
+    </div>
+
+  <!-- MINIATURAS -->
+  <div class="d-flex flex-wrap justify-content-center mt-2">
+    <div *ngFor="let image of uploadedImages; let i = index" class="mr-2 mb-2" >
+      <img
+      style="cursor: pointer;"
+        class="img-thumbnail"
+        [src]="image"
+        alt="miniatura"
+        [style.width.px]="55"
+        [style.height.px]="55"
+        (click)="displayImage(i)"
       />
     </div>
   </div>
 
-  <div>
+
+  <!-- BOTONES -->
+  <div class="2">
     <button type="submit" class="m-2 btn btn-primary">Guardar</button>
     <button type="button" class="m-2 btn btn-danger">Cancelar</button>
     <button
