@@ -1,9 +1,7 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
 @import "../breakpoints.scss";
 
-.search-fam-container {
-    padding: 20px;
-}
+
 
 .search-fam__search-bar {
     display: flex;
@@ -19,11 +17,13 @@
         gap: 10px;
         border-radius: 0px 10px 10px 0px;
     }
-    
+
     @include xs {
-    flex-direction: column;    
+    flex-direction: column;
     align-items: center;
     gap: 30px;
     }
+
+   
 
 }
