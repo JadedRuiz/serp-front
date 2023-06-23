@@ -2,6 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FamiliaService } from '@data/services/sfamilia/familia.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable, throwError } from 'rxjs';
+import Swal from 'sweetalert2';
+import * as Notiflix from 'notiflix';
+
 
 @Component({
   selector: 'app-editar-fam',
@@ -21,10 +25,11 @@ export class EditarFamComponent implements OnInit {
 
   constructor(
     private router_params : ActivatedRoute,
+    private router: Router,
     private famService: FamiliaService,
     private formBuilder: FormBuilder
   ) {
-    
+
     this.familiaForm.id_familia = parseInt(this.router_params.snapshot.paramMap.get('idFamilia')+"");
   }
 
@@ -43,19 +48,29 @@ export class EditarFamComponent implements OnInit {
   guardarCambios() {
     if (this.familiaForm.familia != "") {
 
-      this.famService.editarFam(this.familiaForm).subscribe({
-        next: (response) => {
-          if (response.ok === 'true') {
-            console.log('Familia editada exitosamente:', response.data.message);
-            // redireccionar
-          } else {
-            console.error('Error al editar la familia:', response.data.message);
-          }
-        },
-        error: (error) => {
-          console.error('Error al editar la familia:', error);
+      let respuesta = this.famService.editarFam(this.familiaForm);
+      respuesta.subscribe( (resp : any) => {
+        if(resp.ok){
+          console.log('Familia editada exitosamente:', resp.data.message);
+            Swal.fire("REGISTRO GUARDADO", resp.data["id_familia"], 'success').then(() => {
+              this.router.navigate(['/buscador'])
+           });
+        }else{
+          if(resp.ok == false){
+            Swal.fire("REGISTRO CON ERROR "+resp.data["message"], "ERROR", 'error').then(() => {
+              this.router.navigate(['/buscador'])
+           });
+
+        }else{
+          Swal.fire("REGISSTRO CON ERROR");}
+        
         }
       });
+
+
+
+
+
     }
   }
 

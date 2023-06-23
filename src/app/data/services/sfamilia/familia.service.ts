@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { SERV_FAM } from 'src/config/config';
+import Swal from 'sweetalert2';
+import {map,catchError} from 'rxjs/operators'
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +23,22 @@ export class FamiliaService {
   }
 
   editarFam(familia: any) {
-    return this.http.post<any>(
-      'https://serp-inventarios.serteza.com/public/api/familias/guardarFamilia',
-      familia
-    );
+
+      let url = 'https://serp-inventarios.serteza.com/public/api/familias/guardarFamilia';
+
+
+      return this.http.post( url, familia )
+      .pipe(map( (resp: any) => {
+        return resp;
+      }), catchError(err => {
+        Swal.fire("Ha ocurrido un error", err.error.message, 'error');
+        return throwError(err);
+      }));
   }
+
+agregarFam(){
+
+
+
+}
 }
