@@ -15,43 +15,40 @@
             <div>
                 <span>RFC:</span>
                 <form action="/rutadatos" method="get">
-                    <input placeholder="CADS020404SC4" disabled> 
+                    <input #inputProvForm value="CADS020404SC4" placeholder="RFC" disabled> 
                 </form>
             </div>
 
             <div>
                 <span>Razón Social:</span>
                 <form action="/rutadatos" method="get">
-                    <input placeholder="Serteza" disabled> 
+                    <input #inputProvForm value="Serteza" placeholder="Razón Social" disabled> 
                 </form>
             </div>
 
             <div >
                 <span>Teléfono:</span>
                 <form action="/rutadatos" method="get">
-                    <input placeholder="9993523366" disabled>
+                    <input #inputProvForm value="9993523366" placeholder="Teléfono" disabled>
                 </form>
             </div>
 
             <div>
                 <span>Descuento:</span>
                 <form action="/rutadatos" method="get">
-                    <input placeholder="50%" disabled> 
+                    <input #inputProvForm value="50%" placeholder="Descuento" disabled> 
                 </form>
             </div>
             <div>
                 <span>Dirección:</span>
                 <form action="/rutadatos" method="get">
-                    <input placeholder="Calle 17 Núm. 200 entre 20 y 22 col. brisas" disabled> 
+                    <input #inputProvForm value="Calle 17 #111 entre 10 y 12 col. Brisas" placeholder="Dirección" disabled> 
                 </form>
             </div>
         </section>
         <div class="proveedores_botones">
-            <button class="danger-btn" type="reset">Salir</button>
-            <div class="botones_divisor">
-                <button class="general-btn" type="button">Editar</button>
-                <button class="general-btn" type="submit">Guardar</button>
-            </div>
+                <button class="general-btn" type="button" (click)="editarProveedor()">Editar</button>
+                <button class="general-btn" type="submit" (click)="modificarProveedor()">Guardar</button>
         </div>
     </div>
 </div>
