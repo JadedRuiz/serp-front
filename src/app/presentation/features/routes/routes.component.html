@@ -1,7 +1,7 @@
 <div class="routes-container container shadow row">
   <h1 class="text-center title">RUTAS</h1>
 
-  <div class="routes__search-bar">
+  <div class="routes__search-bar col col-md-6">
     <div class="d-flex">
       <input
         class="search-input"
@@ -14,8 +14,11 @@
       <button class="search-btn" type="button" (click)="filtrarRutas()">
         <i class="bi bi-search"> </i> BUSCAR
       </button>
-    </div>
-    <button type="button" class="add-btn">AGREGAR RUTA</button>
+    </div >
+  </div>
+
+  <div class=" d-md-flex justify-content-md-end">
+    <button type="button" class="mb-2 add-btn">AGREGAR RUTA</button>
   </div>
 
   <div class="routes">

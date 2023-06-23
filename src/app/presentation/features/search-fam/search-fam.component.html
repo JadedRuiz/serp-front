@@ -6,16 +6,20 @@
 <div class="col col-md-6">
 
   <div class="m-2 input-group md-2">
-    <input type="text" class="form-control" placeholder="Buscar Familia"
-    aria-label="Buscar Familia" aria-describedby="button-addon2" [(ngModel)]="searchText">
-    <button class="btn btn-primary" type="button" > <i class="bi bi-search">  </i>  BUSCAR </button>
+    <input
+    type="text"
+    class="form-control search-input"
+    placeholder="Buscar Familia"
+    aria-label="Buscar Familia"
+    [(ngModel)]="searchText">
+    <button class="btn search-btn" type="button" > <i class="bi bi-search">  </i>  BUSCAR </button>
   </div>
 
 </div>
 
 
 <div class=" d-md-flex justify-content-md-end" >
-  <a type="button" class="m-2 btn btn-warning" (click)="openModal()" >Agregar Familia</a>
+  <a type="button" class="m-2 btn general-btn" (click)="openModal()" >Agregar Familia</a>
   </div>
 
   <div class="container m-2">
