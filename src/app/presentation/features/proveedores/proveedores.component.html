@@ -1,0 +1,57 @@
+<div class="proveedores container shadow row">
+    <div class="proveedores-container">
+        <h1 class="text-center title">PROVEEDORES</h1>
+        <div class="proveedores__search-bar">
+            <div class="d-flex">
+                <input class="search-input" type="text" placeholder="Buscar proveedores" aria-label="Buscar proveedores"
+                    aria-describedby="button-addon2" />
+                <button class="search-btn" type="button">
+                    <i class="bi bi-search"> </i> BUSCAR
+                </button>
+            </div>
+            <button type="button" class="add-btn">AGREGAR PROVEEDOR</button>
+        </div>
+        <section class="proveedores_catalogo">
+            <div>
+                <span>RFC:</span>
+                <form action="/rutadatos" method="get">
+                    <textarea placeholder="CADS020404SC4" disabled></textarea>
+                </form>
+            </div>
+
+            <div>
+                <span>Razón Social:</span>
+                <form action="/rutadatos" method="get">
+                    <textarea placeholder="Serteza" disabled></textarea>
+                </form>
+            </div>
+
+            <div >
+                <span>Teléfono:</span>
+                <form action="/rutadatos" method="get">
+                    <textarea placeholder="9993523366" disabled></textarea>
+                </form>
+            </div>
+
+            <div>
+                <span>Descuento:</span>
+                <form action="/rutadatos" method="get">
+                    <textarea placeholder="50%" disabled></textarea>
+                </form>
+            </div>
+            <div>
+                <span>Dirección:</span>
+                <form action="/rutadatos" method="get">
+                    <textarea placeholder="Calle 17 Núm. 200 entre 20 y 22 col. brisas" disabled></textarea>
+                </form>
+            </div>
+        </section>
+        <div class="proveedores_botones">
+            <button class="danger-btn" type="reset">Salir</button>
+            <div class="botones_divisor">
+                <button class="general-btn" type="button">Editar</button>
+                <button class="general-btn" type="submit">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
