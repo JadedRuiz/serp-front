@@ -5,7 +5,10 @@ import { Observer } from 'rxjs';
 
 import { Router } from '@angular/router';
 import { AuthService } from '@data/services/auth/auth.service';
-import { FamiliaService } from '@data/services/sfamilia/familia.service';
+import { FamiliasService } from 'src/app/services/familias/familias.service';
+import { Familia } from 'src/app/models/familias.model';
+import { NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 
 
@@ -32,9 +35,11 @@ searchText: string = '';
 
   constructor(
     private router:Router,
-    private famService: FamiliaService,
+    private famService: FamiliasService,
     private http : HttpClient) {}
 
+
+familia: Familia = new Familia(0, 1, '', '')
 
 ngOnInit(){
   this.buscarFamilias();
@@ -59,11 +64,49 @@ buscarFamilias() {
   );
 }
 
-editarFamilia(familia:any){
-
-  this.router.navigate(['/editar-familia', familia.id_familia]);
+editarFamilia(familia: any){
+  console.log(familia);
+  this.familia = familia;
 }
 
+
+
+guardarFamilia(f: NgForm){
+if (f.invalid){
+  return;
+}
+if(this.familia.id_familia){
+  this.famService.editarFam(this.familia.id_familia, this.familia)
+  .subscribe(objeto =>{
+
+  });
+}else{
+  this.famService.agregarFam(this.familia).subscribe(objeto  =>{
+    console.log(objeto);
+    this.famService.obtenerFamilias();
+    });
+}
+console.log(this.familia);
+
+
+}
+deleteFamily(id: number){
+  Swal.fire({
+    title: 'Do you want to save the changes?',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: 'Save',
+    denyButtonText: `Don't save`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      this.famService.deleteFamily(id).subscribe(objeto  =>{
+        console.log(objeto);
+        this.famService.obtenerFamilias();
+        })
+    }
+  })
+}
 
 
 openModal(){

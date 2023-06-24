@@ -3,20 +3,21 @@
 
 
 
-<div class="col col-md-6">
-
-  <div class="m-2 input-group md-2">
+<div class="routes__search-bar col col-md-6">
+  <div class="d-flex">
     <input
-    type="text"
-    class="form-control search-input"
-    placeholder="Buscar Familia"
-    aria-label="Buscar Familia"
-    [(ngModel)]="searchText">
-    <button class="btn search-btn" type="button" > <i class="bi bi-search">  </i>  BUSCAR </button>
-  </div>
-
+      class="search-input"
+      type="text"
+      placeholder="Buscar familia"
+      aria-label="Buscar famlia"
+      aria-describedby="button-addon2"
+      [(ngModel)]="searchText"
+    />
+    <button class="search-btn" type="button" >
+      <i class="bi bi-search"> </i> BUSCAR
+    </button>
+  </div >
 </div>
-
 
 <div class=" d-md-flex justify-content-md-end" >
   <a type="button" class="m-2 btn general-btn" (click)="openModal()" >AGREGAR FAMILIA</a>
@@ -31,8 +32,8 @@
           <h5 class="card-title">{{familia.familia | uppercase}} </h5>
           <p class="card-text">{{familia.id_familia}}</p>
           <div class=" d-md-flex justify-content-md-end">
-            <a style="cursor: pointer;" class="me-2 p-0btn btn-primary" (click)="editarFamilia(familia)"><i class="bi bi-pencil-square"></i></a>
-          <button type="button" class="btn btn-danger" data-bs-toggle active="button" aria-pressed="true"
+            <a style="cursor: pointer;" class="me-2 p-0btn btn-primary" (click)="openModal()" (click)="editarFamilia(familia)"><i class="bi bi-pencil-square"></i></a>
+          <button type="button" class="btn btn-danger" data-bs-toggle active="button" aria-pressed="true"  (click)="deleteFamily(familia.id_familia)"
           style="
           --bs-btn-padding-y: .25rem;
          --bs-btn-padding-x: .5rem;
@@ -49,25 +50,28 @@
 </div>
 
 <!-- Modal -->
-<div class="modal shadow" [class.is-active]="isModalOpen">
+<div class="modal shadow-card" [class.is-active]="isModalOpen">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Familia</h1>
         <a type="button" class="btn-close" (click)="closeModal()"></a>
       </div>
-      <div class="modal-body">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="">Nueva Familia</span>
+      <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarFamilia(f)" >
+        <div class="modal-body">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="">Nueva Familia</span>
+            </div>
+            <input [(ngModel)]="familia.familia" name="familia" type="text" class="form-control" required >
           </div>
-          <input type="text" class="form-control" >
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Cancelar</button>
-        <button type="button" class="btn btn-primary" >Guardar</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn danger-btn" data-bs-dismiss="modal" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="btn general-btn" >Guardar</button>
+        </div>
+      </form>
+
     </div>
   </div>
 </div>
