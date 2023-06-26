@@ -3,67 +3,111 @@
     <h2 class="title text-center m-0">Añadir un cliente</h2>
     <form
       class="add-client__form"
-      #createClient="ngForm"
-      (ngSubmit)="onSubmitForm(createClient)"
+      #clientForm="ngForm"
+      (ngSubmit)="guardarCliente(clientForm)"
     >
       <div class="add-client__data-form row">
         <h3 class="subtitle">Datos</h3>
         <div class="add-client__data-form__section1 col-12 col-md-6">
           <div>
-            <label for="clientKey">Clave del cliente</label>
+            <label for="cliente">Cliente</label>
             <input
               class="form-control"
               type="text"
-              name="clientKey"
-              id="clientKey"
+              name="cliente"
+              id="cliente"
               required
-              [(ngModel)]="newClient.clientKey"
+              [(ngModel)]="client.cliente"
             />
           </div>
           <div>
-            <label for="client">Cliente</label>
+            <label for="contacto">Contacto</label>
             <input
               class="form-control"
               type="text"
-              name="client"
-              id="client"
+              name="contacto"
+              id="contacto"
               required
-              [(ngModel)]="newClient.client"
+              [(ngModel)]="client.contacto"
             />
           </div>
           <div>
-            <label for="rfc">RFC</label>
+            <label for="RFC">RFC</label>
             <input
               class="form-control"
               type="text"
-              name="rfc"
-              id="rfc"
+              name="RFC"
+              id="RFC"
               required
-              [(ngModel)]="newClient.rfc"
+              [(ngModel)]="client.RFC"
             />
           </div>
         </div>
         <div class="add-client__data-form__section2 col-12 col-md-6">
           <div>
-            <label for="commercialName">Nombre comercial</label>
+            <label for="celular">Celular</label>
             <input
               class="form-control"
               type="text"
-              name="commercialName"
-              id="commercialName"
+              name="celular"
+              id="celular"
               required
-              [(ngModel)]="newClient.commercialName"
+              [(ngModel)]="client.celular"
             />
           </div>
           <div>
-            <label for="discounts">Descuentos</label>
+            <label for="telefono">Teléfono</label>
             <input
               class="form-control"
               type="text"
-              name="discounts"
-              id="discounts"
+              name="telefono"
+              id="telefono"
               required
-              [(ngModel)]="newClient.discounts"
+              [(ngModel)]="client.telefono"
+            />
+          </div>
+          <div>
+            <label for="correo">Correo</label>
+            <input
+              class="form-control"
+              type="text"
+              name="correo"
+              id="correo"
+              required
+              [(ngModel)]="client.correo"
+            />
+          </div>
+          <div>
+            <label for="descuento1">Descuento 1</label>
+            <input
+              class="form-control"
+              type="text"
+              name="descuento1"
+              id="descuento1"
+              required
+              [(ngModel)]="client.descuento1"
+            />
+          </div>
+          <div>
+            <label for="descuento2">Descuento 2</label>
+            <input
+              class="form-control"
+              type="text"
+              name="descuento2"
+              id="descuento2"
+              required
+              [(ngModel)]="client.descuento2"
+            />
+          </div>
+          <div>
+            <label for="descuento3">Descuento 3</label>
+            <input
+              class="form-control"
+              type="text"
+              name="descuento3"
+              id="descuento3"
+              required
+              [(ngModel)]="client.descuento3"
             />
           </div>
         </div>
@@ -71,50 +115,7 @@
       <div class="add-client__address-form row">
         <h3 class="subtitle">Dirección</h3>
         <div class="add-client__address-form__section1 col-12 col-md-6">
-          <div>
-            <label for="name">Nombre</label>
-            <input
-              class="form-control"
-              type="text"
-              name="name"
-              id="name"
-              required
-              [(ngModel)]="newAddress.name"
-            />
-          </div>
-          <div>
-            <label for="street">Calle</label>
-            <input
-              class="form-control"
-              type="text"
-              name="street"
-              id="street"
-              required
-              [(ngModel)]="newAddress.street"
-            />
-          </div>
-          <div>
-            <label for="numInt">Número Interior</label>
-            <input
-              class="form-control"
-              type="text"
-              name="numInt"
-              id="numInt"
-              required
-              [(ngModel)]="newAddress.numInt"
-            />
-          </div>
-          <div>
-            <label for="numExt">Número Exterior</label>
-            <input
-              class="form-control"
-              type="text"
-              name="numExt"
-              id="numExt"
-              required
-              [(ngModel)]="newAddress.numExt"
-            />
-          </div>
+       
           <div>
             <label for="cross">Cruzamiento 1</label>
             <input

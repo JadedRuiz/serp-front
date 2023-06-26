@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ClientsService } from '@data/services/clients/clients.service';
+import { ClientsService } from 'src/app/services/clients/clients.service';
 
 @Component({
   selector: 'app-clients',
@@ -14,7 +14,7 @@ export class ClientsComponent {
   {}
 
     ngOnInit() {
-      this.obtenerRutas()
+      this.obtenerClientes()
     }
 
   clients:any[] = []
@@ -29,7 +29,7 @@ export class ClientsComponent {
   }
 
 
-  obtenerRutas() {
+  obtenerClientes() {
     this.clientService.obtenerClientes().subscribe(
       (response) => {
         if (response.ok) {
