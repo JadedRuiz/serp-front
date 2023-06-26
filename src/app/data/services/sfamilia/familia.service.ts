@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { SERV_FAM } from 'src/config/config';
 import Swal from 'sweetalert2';
 import {map,catchError} from 'rxjs/operators'
+import { Familia } from 'src/app/models/familias.model';
 
 
 @Injectable({
@@ -36,9 +37,5 @@ export class FamiliaService {
       }));
   }
 
-agregarFam(){
 
-
-
-}
 }
