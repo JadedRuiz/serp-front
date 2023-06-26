@@ -11,9 +11,9 @@ import { NgForm } from '@angular/forms';
 })
 
 export class RoutesComponent {
-  routes: any[] = [];
+  routes: {ruta: string, id_ruta: number}[] = [];
   searchRoute: string = '';
-  filteredRoutes: any[] = [];
+  filteredRoutes: {ruta: string, id_ruta: number}[] = [];
   resultsNotFound: boolean = false;
   isModalOpen: boolean = false
 
@@ -70,9 +70,10 @@ export class RoutesComponent {
     }
   }
 
-  editarRuta(route: Route) {
-    this.openModal()
-    this.route = route
+  editarRuta(route: any) {
+    this.openModal();
+    console.log(route);
+    this.route = route;
   }
 
   guardarRuta(routeForm: NgForm) {
@@ -80,20 +81,21 @@ export class RoutesComponent {
       return;
     }
     if (this.route.id_ruta) {
-      console.log(this.route.id_ruta)
+      console.log(this.route.id_ruta);
       this.routeService.editarRuta(this.route.id_ruta, this.route)
         .subscribe(objeto => {
-
         })
-        this.closeModal()
-    } 
-    // else {
-    //   this.routeService.agregarRuta(this.route).subscribe(resp => {
-    //     this.routeService.obtenerRutas()
-    //     this.closeModal()
-    //     // console.log(resp)
-    //   })
-    // }
-    console.log(this.route)
+        this.closeModal();
+    }
+    else {
+      this.routeService.agregarRuta(this.route).subscribe(objeto => {
+        console.log('este soy yo'+ objeto);
+        this.routeService.obtenerRutas();
+        this.closeModal();
+      })
+    }
+  console.log(this.route);
+
   }
+
 }

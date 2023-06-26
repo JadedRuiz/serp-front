@@ -76,6 +76,7 @@ if (f.invalid){
   return;
 }
 if(this.familia.id_familia){
+  console.log('numero de ID = ' + this.familia.id_familia);
   this.famService.editarFam(this.familia.id_familia, this.familia)
   .subscribe(objeto =>{
   });
@@ -83,15 +84,15 @@ if(this.familia.id_familia){
 
 }else{
   this.famService.agregarFam(this.familia).subscribe(objeto  =>{
-    console.log(objeto);
+    console.log('consol OBJETO' + objeto);
     this.famService.obtenerFamilias();
     this.closeModal();
     });
 }
 console.log(this.familia);
-
-
 }
+
+
 deleteFamily(id: number){
   Swal.fire({
     title: '¿Quieres desactivar esta Familia?',

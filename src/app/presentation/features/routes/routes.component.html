@@ -23,10 +23,11 @@
 
   <div class="routes">
     <div class="row">
-      <div class="col-sm-6 mb-3 mb-sm-0" *ngFor="let route of filteredRoutes">
+      <div class="col-sm-4 mb-3 mb-sm-0" *ngFor="let route of filteredRoutes">
         <div class="card">
           <div class="card-body">
             <h2 class="card-title">{{ route.ruta | uppercase }}</h2>
+            <h2 class="card-title">{{ route.id_ruta }}</h2>
             <div class="d-md-flex justify-content-md-end">
               <a class="me-2 p-0btn btn-primary" (click)="editarRuta(route)"
                 ><i class="bi bi-pencil-square"></i
@@ -70,20 +71,22 @@
       <form
         #routeForm="ngForm"
         ngNativeValidate
-        (ngSubmit)="guardarRuta(routeForm)"
-      >
+        (ngSubmit)="guardarRuta(routeForm)">
         <div class="modal-body">
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text" id="">Nueva Ruta</span>
             </div>
-            <input
+            <div class="input-group">
+              <input
               [(ngModel)]="route.ruta"
               name="ruta"
               type="text"
               class="form-control"
               required
             />
+            </div>
+
           </div>
         </div>
         <div class="modal-footer">
@@ -92,9 +95,7 @@
             class="btn danger-btn"
             data-bs-dismiss="modal"
             (click)="closeModal()"
-          >
-            Cancelar
-          </button>
+          >Cancelar</button>
           <button type="submit" class="btn general-btn">Guardar</button>
         </div>
       </form>

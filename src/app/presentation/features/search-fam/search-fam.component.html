@@ -32,7 +32,8 @@
           <h2 class="card-text"> <b>Nombre:</b> {{familia.familia | uppercase}} </h2>
           <h4 class="card-title"> <b>ID:</b> {{familia.id_familia }}</h4>
           <div class=" d-md-flex justify-content-md-end">
-            <a style="cursor: pointer;" class="me-2 p-0btn btn-primary" (click)="openModal()" (click)="editarFamilia(familia)"><i class="bi bi-pencil-square"></i></a>
+            <a style="cursor: pointer;" class="me-2 p-0btn btn-primary" (click)="openModal()" (click)="editarFamilia(familia)"
+            ><i class="bi bi-pencil-square"></i></a>
 
             <button
           type="button"
@@ -67,7 +68,7 @@
         <div class="modal-body">
           <div class="input-group">
             <div class="input-group-prepend">
-              <span class="input-group-text" id=""><b>Nueva familia</b></span>
+              <span class=" mb-2 input-group-text" id=""><b>Nueva familia</b></span>
             </div>
           </div>
           <div class="input-group">
