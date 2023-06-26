@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ClientsService } from '@data/services/clients/clients.service';
 
 @Component({
   selector: 'app-clients',
@@ -7,6 +8,16 @@ import { Component } from '@angular/core';
 })
 export class ClientsComponent {
 
+  constructor(
+    private clientService: ClientsService
+  ) 
+  {}
+
+    ngOnInit() {
+      this.obtenerRutas()
+    }
+
+  clients:any[] = []
   modalVisibility: boolean = false
   
   toggleModalVisibility() {
@@ -17,5 +28,21 @@ export class ClientsComponent {
     this.modalVisibility = false
   }
 
+
+  obtenerRutas() {
+    this.clientService.obtenerClientes().subscribe(
+      (response) => {
+        if (response.ok) {
+          this.clients = response.data;
+          console.log(this.clients)
+        } else {
+          console.log('Ocurrió un error', response.message);
+        }
+      },
+      (error) => {
+        console.log('Error de conexión', error)
+      }
+    );
+  }
 
 }
