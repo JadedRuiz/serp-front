@@ -92,11 +92,11 @@ console.log(this.familia);
 }
 deleteFamily(id: number){
   Swal.fire({
-    title: 'Do you want to save the changes?',
+    title: '¿Quieres desactivar esta Familia?',
     showDenyButton: true,
     showCancelButton: true,
-    confirmButtonText: 'Save',
-    denyButtonText: `Don't save`,
+    confirmButtonText: 'Activar',
+    denyButtonText: `Desactivar`,
   }).then((result) => {
     /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {

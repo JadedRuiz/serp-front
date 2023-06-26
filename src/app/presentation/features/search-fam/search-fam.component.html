@@ -33,7 +33,13 @@
           <p class="card-text">{{familia.id_familia}}</p>
           <div class=" d-md-flex justify-content-md-end">
             <a style="cursor: pointer;" class="me-2 p-0btn btn-primary" (click)="openModal()" (click)="editarFamilia(familia)"><i class="bi bi-pencil-square"></i></a>
-          <button type="button" class="btn btn-danger" data-bs-toggle active="button" aria-pressed="true"  (click)="deleteFamily(familia.id_familia)"
+
+            <button
+          type="button"
+          class="btn btn-danger"
+          data-bs-toggle active="button"
+          aria-pressed="true"
+          (click)="deleteFamily(familia.id_familia)"
           style="
           --bs-btn-padding-y: .25rem;
          --bs-btn-padding-x: .5rem;
