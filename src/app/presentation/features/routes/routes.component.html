@@ -14,21 +14,21 @@
       <button class="search-btn" type="button" (click)="filtrarRutas()">
         <i class="bi bi-search"> </i> BUSCAR
       </button>
-    </div >
+    </div>
   </div>
 
-  <div class=" d-md-flex justify-content-md-end">
-    <button type="button" class="mb-2 add-btn">AGREGAR RUTA</button>
+  <div class="d-md-flex justify-content-md-end">
+    <button type="button" class="mb-2 add-btn" (click)="openModal()">AGREGAR RUTA</button>
   </div>
 
   <div class="routes">
     <div class="row">
-      <div class="col-sm-6 mb-3 mb-sm-0"  *ngFor="let route of filteredRoutes">
+      <div class="col-sm-6 mb-3 mb-sm-0" *ngFor="let route of filteredRoutes">
         <div class="card">
           <div class="card-body">
-            <h2 class="card-title">{{route.ruta | uppercase}}</h2>
+            <h2 class="card-title">{{ route.ruta | uppercase }}</h2>
             <div class="d-md-flex justify-content-md-end">
-              <a href="#" class="me-2 p-0btn btn-primary"
+              <a class="me-2 p-0btn btn-primary" (click)="editarRuta(route)"
                 ><i class="bi bi-pencil-square"></i
               ></a>
 
@@ -44,13 +44,60 @@
                   --bs-btn-font-size: 0.65rem;
                 "
               >
-                Desabilitar
+                Desabilitar {{route.id_ruta}}
               </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-      <h3 class="title text-center mt-3" *ngIf="resultsNotFound">No se encontraron resultados</h3>
+    <h3 class="title text-center mt-3" *ngIf="resultsNotFound">
+      No se encontraron resultados
+    </h3>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal shadow-card" [class.is-active]="isModalOpen">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Agregar Ruta
+        </h1>
+        <a type="button" class="btn-close" (click)="closeModal()"></a>
+      </div>
+      <form
+        #routeForm="ngForm"
+        ngNativeValidate
+        (ngSubmit)="guardarRuta(routeForm)"
+      >
+        <div class="modal-body">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="">Nueva Ruta</span>
+            </div>
+            <input
+              [(ngModel)]="route.ruta"
+              name="ruta"
+              type="text"
+              class="form-control"
+              required
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn danger-btn"
+            data-bs-dismiss="modal"
+            (click)="closeModal()"
+          >
+            Cancelar
+          </button>
+          <button type="submit" class="btn general-btn">Guardar</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
