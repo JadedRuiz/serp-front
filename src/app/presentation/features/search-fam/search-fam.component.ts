@@ -25,7 +25,7 @@ import Swal from 'sweetalert2';
 export class SearchFamComponent {
 
 
-  familias: { familia: string, id_familia: number }[] = [];
+  familias: { familia: string, id_familia: number}[] = [];
  // miComprador = window.sessionStorage["comprador_gl"];
   miComprador = 1;
 isModalOpen = false;
@@ -78,12 +78,14 @@ if (f.invalid){
 if(this.familia.id_familia){
   this.famService.editarFam(this.familia.id_familia, this.familia)
   .subscribe(objeto =>{
-
   });
+  this.closeModal();
+
 }else{
   this.famService.agregarFam(this.familia).subscribe(objeto  =>{
     console.log(objeto);
     this.famService.obtenerFamilias();
+    this.closeModal();
     });
 }
 console.log(this.familia);
@@ -94,7 +96,7 @@ deleteFamily(id: number){
   Swal.fire({
     title: '¿Quieres desactivar esta Familia?',
     showDenyButton: true,
-    showCancelButton: true,
+    showCancelButton: false,
     confirmButtonText: 'Activar',
     denyButtonText: `Desactivar`,
   }).then((result) => {
@@ -115,6 +117,12 @@ openModal(){
 
 closeModal(){
   this.isModalOpen = false;
+  this.familia = {
+    id_comprador : 0,
+    familia: '',
+    token: '',
+    id_familia: 0
+  };
 }
 
 }
