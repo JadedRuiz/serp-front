@@ -18,15 +18,30 @@ export class AddClientComponent {
 
   clients: Client[] = []
   addresses: Address[] = []
-  newAddress: Address = {}
 
-  client: Client = new Client(0, 0, 0, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, {})
+  client: Client = new Client(0, 0, 1, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, {
+    id_direccion: 0,
+    descripcion: '',
+    calle: '',
+    numero_interior: '',
+    numero_exterior: '',
+    cruzamiento_uno: '',
+    cruzamiento_dos: '',
+    codigo_postal: 0,
+    colonia: '',
+    localidad: '',
+    municipio: '',
+    estado: '',
+    longitud: '',
+    latitud: '',
+    activo: 0,
+  })
 
   guardarCliente(clientForm: NgForm) {
     if (clientForm.invalid) {
       return;
     }
-    if (this.client) {
+    if (this.client.id_cliente) {
       this.clientService.editarCliente(this.client.id_cliente, this.client)
         .subscribe(objeto => {
 
@@ -35,6 +50,7 @@ export class AddClientComponent {
       this.clientService.agregarCliente(this.client).subscribe(objeto => {
         console.log(objeto)
         this.clientService.obtenerClientes
+        console.log(clientForm.value)
       })
     }
   }

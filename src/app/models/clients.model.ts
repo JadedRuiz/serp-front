@@ -8,7 +8,7 @@ export class Client {
         public token: string,
         public cliente: string,
         public contacto: string,
-        public RFC: string,
+        public rfc: string,
         public celular: string,
         public telefono: string,
         public correo: string,
