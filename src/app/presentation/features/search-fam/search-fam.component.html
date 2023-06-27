@@ -3,7 +3,7 @@
 
 
 
-<div class="routes__search-bar col col-md-6">
+<div class="search-fam__search-bar col ">
   <div class="d-flex">
     <input
       class="search-input"
@@ -11,9 +11,9 @@
       placeholder="Buscar familia"
       aria-label="Buscar famlia"
       aria-describedby="button-addon2"
-      [(ngModel)]="searchText"
+      [(ngModel)]="searchFam"
     />
-    <button class="search-btn" type="button" >
+    <button class="search-btn" type="button" (click)="filtrarFamilias()" >
       <i class="bi bi-search"> </i> BUSCAR
     </button>
   </div >
@@ -22,30 +22,27 @@
 <div class=" d-md-flex justify-content-md-end" >
   <a type="button" class="m-2 btn general-btn" (click)="openModal()" >AGREGAR FAMILIA</a>
   </div>
-
   <div class="container m-2">
     <div class="row ">
-      <div class="col-md-4 mb-3 mb-sm-0" *ngFor="let familia of familias" >
-        <div class="" *ngIf="familia.familia.toLowerCase().includes(searchText.toLowerCase())">
-         <div class="card">
+      <div class="col-md-4 mb-3 mb-sm-0" *ngFor="let familia of filteredFam" >
+         <div  id="fam-card" class="card" [class.active]="familia.familiaIsActive" >
         <div class="card-body">
+          <a style="cursor: pointer;" class="me-2 d-md-flex justify-content-md-end" (click)="openModal()" (click)="editarFamilia(familia)"><i id="pin" class="bi bi-pencil-square"></i></a>
           <h2 class="card-text"> <b>Nombre:</b> {{familia.familia | uppercase}} </h2>
           <h4 class="card-title"> <b>ID:</b> {{familia.id_familia }}</h4>
           <div class=" d-md-flex justify-content-md-end">
-            <a style="cursor: pointer;" class="me-2 p-0btn btn-primary" (click)="openModal()" (click)="editarFamilia(familia)"
-            ><i class="bi bi-pencil-square"></i></a>
-
             <button
           type="button"
-          class="btn btn-danger"
-          data-bs-toggle active="button"
-          aria-pressed="true"
-          (click)="deleteFamily(familia.id_familia)"
+          class="btn"
+          [ngClass]="getFamStatusClass(familia.activo)"
+          [attr.aria-pressed]="familia.activo === 1 ? 'true' : 'false'"
+          (click)="deshabilitarFamilia(familia.id_familia, familia.activo)"
           style="
           --bs-btn-padding-y: .25rem;
          --bs-btn-padding-x: .5rem;
-          --bs-btn-font-size: .65rem;">
-            Desabilitar
+          --bs-btn-font-size: 1rem;">
+            {{ getFamStatusText(familia.activo) }}
+
           </button>
         </div>
 
