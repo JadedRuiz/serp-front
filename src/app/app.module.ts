@@ -21,7 +21,6 @@ import { OrdersCartModalComponent } from './presentation/features/orders-cart-mo
 import { AddProductComponent } from '@presentation/features/add-product/add-product.component';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { ClientsComponent } from '@presentation/features/clients/clients.component';
-import { AddClientComponent } from '@presentation/features/add-client/add-client.component';
 import { RoutesComponent } from './presentation/features/routes/routes.component';
 import { ProveedoresComponent } from './presentation/features/proveedores/proveedores.component';
 
@@ -37,7 +36,6 @@ import { ProveedoresComponent } from './presentation/features/proveedores/provee
     OrdersCartModalComponent,
     AddProductComponent,
     ClientsComponent,
-    AddClientComponent,
     RoutesComponent,
     ProveedoresComponent
   ],

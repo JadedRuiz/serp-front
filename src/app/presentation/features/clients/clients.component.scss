@@ -24,21 +24,74 @@
             outline: 0.5px solid var(--color-base);
             box-shadow: 0px 5px 10px 0px var(--color-base);
             transition: 300ms;
-          }
+        }
     }
 
 
 
     @include xs {
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
     }
 
 }
 
 .clients {
     width: 100%;
+}
+
+.client__form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    align-items: center;
+
+    .client__form-tabs {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .general-btn.active {
+            background-color: orange;
+        }
+
+        .client__data-form,
+        .client__address-form {
+            background-color: white;
+            width: 100%;
+            padding: 20px;
+            border: 1px solid rgb(0, 0, 0, 0.200);
+            border-radius: 10px;
+            display: none;
+
+            .subtitle {
+                font-weight: bold;
+            }
+        }
+
+        .client__data-form.active,
+        .client__address-form.active {
+            display: flex;
+        }
+    }
+
+
+
+    .client__location {
+        border: 1px solid rgb(0, 0, 0, 0.200);
+        gap: 10px;
+        width: min(95%, 450px);
+        height: 300px;
+        align-self: flex-start;
+
+        iframe {
+            // width: min(95%, 450);
+            width: 100%;
+            height: 100%;
+        }
+    }
 }
 
 .clients__client-modal {
@@ -60,7 +113,7 @@
     }
 }
 
-.client-modal__container{
+.client-modal__container {
     display: flex;
     flex-direction: column;
     align-items: center;
