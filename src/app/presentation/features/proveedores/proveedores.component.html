@@ -9,46 +9,180 @@
                     <i class="bi bi-search"> </i> BUSCAR
                 </button>
             </div>
+            <div class="status">
+                <div *ngIf="status" class="status-inactive">
+                    <span>
+                        Estado:
+                    </span>
+                    <div> </div>
+                </div>
+                <div *ngIf="!status" class="status-active">
+                    <span>
+                        Estado:
+                    </span>
+                    <div></div>
+                </div>
+            </div>
             <button type="button" class="add-btn">AGREGAR PROVEEDOR</button>
         </div>
-        <section class="proveedores_catalogo">
-            <div>
-                <span>RFC:</span>
-                <form action="/rutadatos" method="get">
-                    <input #inputProvForm value="CADS020404SC4" placeholder="RFC" disabled> 
-                </form>
-            </div>
 
-            <div>
-                <span>Razón Social:</span>
-                <form action="/rutadatos" method="get">
-                    <input #inputProvForm value="Serteza" placeholder="Razón Social" disabled> 
-                </form>
-            </div>
+        <!-- agregando tabs -->
+        <div class="contenedor">
+            <ul class="ul">
+                <li #li (click)="prueba()" class="li activo">Datos</li>
+                <li #li (click)="prueba()" class="li ">Domicilio</li>
+            </ul>
+            <div class="subcontenedor">
+                <div #bloque class="bloque activo">
+                    <section class="proveedores_catalogo">
+                        <div>
+                            <div>
+                                <span>Proveedor:</span>
+                                <form action="/rutadatos" method="get">
+                                    <input #inputProvForm value="Samuel Catzin" placeholder="Proveedor" disabled>
+                                </form>
+                            </div>
+                            <div>
+                                <span>Nombre Comercial:</span>
+                                <form action="/rutadatos" method="get">
+                                    <input #inputProvForm value="Serteza" placeholder="Nombre Comercial" disabled>
+                                </form>
+                            </div>
+                            <div>
+                                <span>Contacto:</span>
+                                <form action="/rutadatos" method="get">
+                                    <input #inputProvForm value="Descripción del contacto"
+                                        placeholder="Descripción del contacto" disabled>
+                                </form>
+                            </div>
+                            <span>RFC:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="CADS020404SC4" placeholder="RFC" disabled>
+                            </form>
+                        </div>
+                        <div>
+                            <span>Celular:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="9993523366" placeholder="Celular" disabled>
+                            </form>
+                        </div>
+                        <div>
+                            <span>Teléfono:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="9991960228" placeholder="Teléfono" disabled>
+                            </form>
+                        </div>
+                        <div>
+                            <span>Correo:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="catzinx@gmail.com" placeholder="Correo" disabled>
+                            </form>
+                        </div>
+                        <div>
+                            <span>Descuento 1:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="50%" placeholder="Descuento" disabled>
+                            </form>
+                        </div>
+                        <div>
+                            <span>Descuento 2:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="0%" placeholder="Descuento" disabled>
+                            </form>
+                        </div>
+                        <div>
+                            <span>Descuento 3:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="0%" placeholder="Descuento" disabled>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+                <div #bloque class="bloque">
+                    <section class="proveedores_catalogo">
+                        <div>
+                            <span>Descripción:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="CASA-BODEGA" placeholder="Descripción" disabled>
+                            </form>
+                        </div>
 
-            <div >
-                <span>Teléfono:</span>
-                <form action="/rutadatos" method="get">
-                    <input #inputProvForm value="9993523366" placeholder="Teléfono" disabled>
-                </form>
-            </div>
+                        <div>
+                            <span>Calle:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="17" placeholder="Calle" disabled>
+                            </form>
+                        </div>
 
-            <div>
-                <span>Descuento:</span>
-                <form action="/rutadatos" method="get">
-                    <input #inputProvForm value="50%" placeholder="Descuento" disabled> 
-                </form>
+                        <div>
+                            <span>Número Interior:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="S/N" placeholder="N. Int." disabled>
+                            </form>
+                        </div>
+
+                        <div>
+                            <span>Número Exterior:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="290" placeholder="N. Ext." disabled>
+                            </form>
+                        </div>
+                        <div>
+                            <span>Cruzamiento Uno:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="32" placeholder="Cruzamiento 1" disabled>
+                            </form>
+                        </div>
+                        <div>
+                            <span>Cruzamiento Dos:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="34" placeholder="Cruzamiento 2" disabled>
+                            </form>
+                        </div>
+                        <div>
+                            <span>Código Postal:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="97138" placeholder="C.P." disabled>
+                            </form>
+                        </div>
+                        <div>
+                            <span>Colonia:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="Fracc. La florida" placeholder="Col." disabled>
+                            </form>
+                        </div>
+                        <div>
+                            <span>Localidad:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="Mérida" placeholder="Localidad" disabled>
+                            </form>
+                        </div>
+                        <div>
+                            <span>Municipio:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="Mérida" placeholder="Municipio" disabled>
+                            </form>
+                        </div>
+                        <div>
+                            <span>Estado:</span>
+                            <form action="/rutadatos" method="get">
+                                <input #inputProvForm value="Yucatán" placeholder="Estado" disabled>
+                            </form>
+                        </div>
+                    </section>
+                </div>
             </div>
-            <div>
-                <span>Dirección:</span>
-                <form action="/rutadatos" method="get">
-                    <input #inputProvForm value="Calle 17 #111 entre 10 y 12 col. Brisas" placeholder="Dirección" disabled> 
-                </form>
-            </div>
-        </section>
+        </div>
+        <!-- fin de las tabs -->
+
+
         <div class="proveedores_botones">
-                <button class="general-btn" type="button" (click)="editarProveedor()">Editar</button>
-                <button class="general-btn" type="submit" (click)="modificarProveedor()">Guardar</button>
+            <button id="estadoBoton" class="danger-btn" (click)="cambiarEstado()">
+                <span *ngIf="status">Activar</span>
+                <span *ngIf="!status">Desactivar</span>
+            </button>
+            <button class="general-btn" type="button" (click)="editarProveedor()">Editar</button>
+            <button class="general-btn" type="submit" (click)="modificarProveedor()">Guardar</button>
         </div>
     </div>
 </div>
