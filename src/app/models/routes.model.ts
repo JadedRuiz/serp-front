@@ -4,5 +4,8 @@ export class Route {
         public id_comprador: number,
         public ruta: string,
         public token: string,
+        public id_usuario: number,
+        public activo: number
+
     ) {}
 }

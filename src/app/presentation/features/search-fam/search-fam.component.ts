@@ -27,7 +27,7 @@ export class SearchFamComponent {
 
   familias: { familia: string, id_familia: number}[] = [];
  // miComprador = window.sessionStorage["comprador_gl"];
-  miComprador = 1;
+miComprador = 1;
 isModalOpen = false;
 searchText: string = '';
 
@@ -125,6 +125,8 @@ closeModal(){
     id_familia: 0
   };
 }
+
+
 
 }
 

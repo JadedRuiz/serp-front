@@ -25,8 +25,8 @@
 
   <div class="container m-2">
     <div class="row ">
-      <div class="col-md-4 mb-3 mb-sm-0" *ngFor="let familia of familias">
-        <div class="" *ngIf="familia.familia.toLowerCase().includes(searchText.toLowerCase())" >
+      <div class="col-md-4 mb-3 mb-sm-0" *ngFor="let familia of familias" >
+        <div class="" *ngIf="familia.familia.toLowerCase().includes(searchText.toLowerCase())">
          <div class="card">
         <div class="card-body">
           <h2 class="card-text"> <b>Nombre:</b> {{familia.familia | uppercase}} </h2>
@@ -68,7 +68,7 @@
         <div class="modal-body">
           <div class="input-group">
             <div class="input-group-prepend">
-              <span class=" mb-2 input-group-text" id=""><b>Nueva familia</b></span>
+              <span class=" mb-2 input-group-text" id="">Nueva familia</span>
             </div>
           </div>
           <div class="input-group">

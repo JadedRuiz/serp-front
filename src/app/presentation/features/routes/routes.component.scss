@@ -41,3 +41,19 @@
 .routes {
     width: 100%;
 }
+
+#route-card.active {
+  color: brown;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.btn-danger {
+  background-color: #ee0914;
+  color: #fff;
+}
+
+

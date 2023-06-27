@@ -46,7 +46,7 @@ export class FamiliasService {
     }))
   }
 
-  
+
   deleteFamily(id: number){
     let url = "https://serp-inventarios.serteza.com/public/api/familias/guardarFamilia/" + id;
 

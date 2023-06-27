@@ -23,29 +23,25 @@
 
   <div class="routes">
     <div class="row">
-      <div class="col-sm-4 mb-3 mb-sm-0" *ngFor="let route of filteredRoutes">
-        <div class="card">
+      <div  class="col-sm-4 mb-3 mb-sm-0"  *ngFor="let route of filteredRoutes">
+        <div id="route-card" class="card" [class.active]="route.routeIsActive">
           <div class="card-body">
-            <h2 class="card-title">{{ route.ruta | uppercase }}</h2>
-            <h2 class="card-title">{{ route.id_ruta }}</h2>
+            <h2 class="card-title">Ruta: <b>{{ route.ruta | uppercase }}</b></h2>
+            <h2 class="card-title">ID: <b>{{ route.id_ruta }}</b></h2>
+            <h2 class="card-title">Act: <b>{{ route.activo }}</b></h2>
             <div class="d-md-flex justify-content-md-end">
               <a class="me-2 p-0btn btn-primary" (click)="editarRuta(route)"
                 ><i class="bi bi-pencil-square"></i
               ></a>
-
               <button
-                type="button"
-                class="btn btn-danger"
-                data-bs-toggle
-                active="button"
-                aria-pressed="true"
-                style="
-                  --bs-btn-padding-y: 0.25rem;
-                  --bs-btn-padding-x: 0.5rem;
-                  --bs-btn-font-size: 0.65rem;
-                "
-              >
-                Desabilitar {{route.id_ruta}}
+              type="button"
+              class="btn"
+              [ngClass]="getRouteStatusClass(route.activo)"
+              [attr.aria-pressed]="route.activo === 1 ? 'true' : 'false'"
+              (click)="deshabilitarRuta(route.id_ruta, route.activo)"
+              style="--bs-btn-padding-y: 0.25rem; --bs-btn-padding-x: 0.5rem; --bs-btn-font-size: 0.65rem;"
+            >
+            {{ getRouteStatusText(route.activo) }}
               </button>
             </div>
           </div>
@@ -75,7 +71,7 @@
         <div class="modal-body">
           <div class="input-group">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="">Nueva Ruta</span>
+              <span class="input-group-text mb-1" id="">Nueva Ruta</span>
             </div>
             <div class="input-group">
               <input
