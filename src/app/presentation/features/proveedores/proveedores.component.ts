@@ -1,4 +1,8 @@
-import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Address } from 'src/app/models/addresses.model';
+import { Proveedor } from 'src/app/models/proveedores.model';
+import { ProveedoresService } from 'src/app/services/proveedores/proveedores.service';
 
 @Component({
   selector: 'app-proveedores',
@@ -6,6 +10,14 @@ import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angu
   styleUrls: ['./proveedores.component.scss']
 })
 export class ProveedoresComponent {
+
+  constructor(
+    private provService: ProveedoresService
+  ){}
+
+  ngOnInit() {
+    this.obtenerProveedores()
+  }
 
   @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
 
@@ -35,26 +47,90 @@ export class ProveedoresComponent {
     }
   }
 
-  @ViewChildren('li') elementos!: QueryList<ElementRef>
-  @ViewChildren('bloque') bloques!: QueryList<ElementRef>
+proveedores: Proveedor[] = []
+addresses: Address[] = []
+modalVisibility: boolean = false
 
-  prueba() {
-    this.elementos.forEach((elemento, i) => {
-      this.elementos.forEach(elemento => {
-        elemento.nativeElement.classList.remove('activo')
-      })
-      console.log(elemento)
-      elemento.nativeElement.classList.add('activo')
-    }
-    )
+proveedor: Proveedor = new Proveedor(0, 1, 0, '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, {
+  id_direccion: 0,
+  descripcion: '',
+  calle: '',
+  numero_interior: '',
+  numero_exterior: '',
+  cruzamiento_uno: '',
+  cruzamiento_dos: '',
+  codigo_postal: 0,
+  colonia: '',
+  localidad: '',
+  municipio: '',
+  estado: '',
+  longitud: '',
+  latitud: '',
+  activo: 0,
+})
 
-    this.bloques.forEach(bloque => {
-      this.bloques.forEach(bloque => {
-        bloque.nativeElement.classList.remove('activo')
-      })
-      bloque.nativeElement.classList.add('activo')
-    }
-    )
+toggleModalVisibility() {
+  this.modalVisibility = !this.modalVisibility
+}
+
+closeModal() {
+  this.modalVisibility = false
+}
+
+section: number = 1
+
+tab(section: number) {
+  if (section === 1) {
+    this.section = 1
+  } 
+  else if (section === 2) {
+    this.section = 2
   }
+}
 
+
+obtenerProveedores() {
+  this.provService.obtenerProveedores().subscribe(
+    (response) => {
+      if (response.ok) {
+        this.proveedores = response.data;
+        console.log(this.proveedores)
+      } else {
+        console.log('Ocurrió un error', response.message);
+      }
+    },
+    (error) => {
+      console.log('Error de conexión', error)
+    }
+  );
+}
+
+guardarProveedor(proveedorForm: NgForm) {
+  if (proveedorForm.invalid) {
+    return;
+  }
+  if (this.proveedor.id_proveedor) {
+    this.provService.editarProveedor(this.proveedor.id_proveedor, this.proveedor)
+      .subscribe(objeto => { })
+  } else {
+    this.provService.agregarProveedor(this.proveedor).subscribe(objeto => {
+      console.log(objeto)
+      this.provService.obtenerProveedores
+      console.log(proveedorForm.value)
+    })
+  }
+}
+searchProveedor: string = ''
+filteredProveedor: any[] = []
+
+buscarProveedor() {
+  if (this.searchProveedor === '') {
+    return;
+  } 
+  else {
+    this.filteredProveedor = this.proveedores.filter((proveedor) =>
+      proveedor.proveedor.toLowerCase().includes(this.searchProveedor.toLowerCase())
+    );
+  }
+}
 }

@@ -1,10 +1,15 @@
 <div class="proveedores container shadow row">
     <div class="proveedores-container">
-        <h1 class="text-center title">PROVEEDORES</h1>
+        <h1 class="text-center title">Proveedores</h1>
         <div class="proveedores__search-bar">
             <div class="d-flex">
-                <input class="search-input" type="text" placeholder="Buscar proveedores" aria-label="Buscar proveedores"
-                    aria-describedby="button-addon2" />
+                <input
+                class="search-input" 
+                type="text" 
+                placeholder="Buscar proveedores" 
+                aria-label="Buscar proveedores"
+                aria-describedby="button-addon2" 
+                />
                 <button class="search-btn" type="button">
                     <i class="bi bi-search"> </i> BUSCAR
                 </button>
@@ -23,158 +28,315 @@
                     <div></div>
                 </div>
             </div>
-            <button type="button" class="add-btn">AGREGAR PROVEEDOR</button>
+            <button type="button" class="add-btn">
+            AGREGAR PROVEEDOR
+            </button>
         </div>
-
-        <!-- agregando tabs -->
-        <div class="contenedor">
-            <ul class="ul">
-                <li #li (click)="prueba()" class="li activo">Datos</li>
-                <li #li (click)="prueba()" class="li ">Domicilio</li>
-            </ul>
-            <div class="subcontenedor">
-                <div #bloque class="bloque activo">
-                    <section class="proveedores_catalogo">
-                        <div>
-                            <div>
-                                <span>Proveedor:</span>
-                                <form action="/rutadatos" method="get">
-                                    <input #inputProvForm value="Samuel Catzin" placeholder="Proveedor" disabled>
-                                </form>
-                            </div>
-                            <div>
-                                <span>Nombre Comercial:</span>
-                                <form action="/rutadatos" method="get">
-                                    <input #inputProvForm value="Serteza" placeholder="Nombre Comercial" disabled>
-                                </form>
-                            </div>
-                            <div>
-                                <span>Contacto:</span>
-                                <form action="/rutadatos" method="get">
-                                    <input #inputProvForm value="Descripción del contacto"
-                                        placeholder="Descripción del contacto" disabled>
-                                </form>
-                            </div>
-                            <span>RFC:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="CADS020404SC4" placeholder="RFC" disabled>
-                            </form>
-                        </div>
-                        <div>
-                            <span>Celular:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="9993523366" placeholder="Celular" disabled>
-                            </form>
-                        </div>
-                        <div>
-                            <span>Teléfono:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="9991960228" placeholder="Teléfono" disabled>
-                            </form>
-                        </div>
-                        <div>
-                            <span>Correo:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="catzinx@gmail.com" placeholder="Correo" disabled>
-                            </form>
-                        </div>
-                        <div>
-                            <span>Descuento 1:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="50%" placeholder="Descuento" disabled>
-                            </form>
-                        </div>
-                        <div>
-                            <span>Descuento 2:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="0%" placeholder="Descuento" disabled>
-                            </form>
-                        </div>
-                        <div>
-                            <span>Descuento 3:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="0%" placeholder="Descuento" disabled>
-                            </form>
-                        </div>
-                    </section>
-                </div>
-                <div #bloque class="bloque">
-                    <section class="proveedores_catalogo">
-                        <div>
-                            <span>Descripción:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="CASA-BODEGA" placeholder="Descripción" disabled>
-                            </form>
-                        </div>
-
-                        <div>
-                            <span>Calle:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="17" placeholder="Calle" disabled>
-                            </form>
-                        </div>
-
-                        <div>
-                            <span>Número Interior:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="S/N" placeholder="N. Int." disabled>
-                            </form>
-                        </div>
-
-                        <div>
-                            <span>Número Exterior:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="290" placeholder="N. Ext." disabled>
-                            </form>
-                        </div>
-                        <div>
-                            <span>Cruzamiento Uno:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="32" placeholder="Cruzamiento 1" disabled>
-                            </form>
-                        </div>
-                        <div>
-                            <span>Cruzamiento Dos:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="34" placeholder="Cruzamiento 2" disabled>
-                            </form>
-                        </div>
-                        <div>
-                            <span>Código Postal:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="97138" placeholder="C.P." disabled>
-                            </form>
-                        </div>
-                        <div>
-                            <span>Colonia:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="Fracc. La florida" placeholder="Col." disabled>
-                            </form>
-                        </div>
-                        <div>
-                            <span>Localidad:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="Mérida" placeholder="Localidad" disabled>
-                            </form>
-                        </div>
-                        <div>
-                            <span>Municipio:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="Mérida" placeholder="Municipio" disabled>
-                            </form>
-                        </div>
-                        <div>
-                            <span>Estado:</span>
-                            <form action="/rutadatos" method="get">
-                                <input #inputProvForm value="Yucatán" placeholder="Estado" disabled>
-                            </form>
-                        </div>
-                    </section>
-                </div>
+        <form
+        class="proveedor__form"
+        #provForm="ngForm"
+        (ngSubmit)="guardarProveedor(provForm)"
+      >
+        <div class="proveedor__form-tabs">
+          <div class="d-flex w-100 align-items-start">
+              <div
+              class="tab"
+              [class.active]="section === 1"
+              (click)="tab(1)">
+              Datos del cliente
             </div>
+            <div
+              class="tab"
+              [class.active]="section === 2"
+              (click)="tab(2)"
+            >
+              Dirección del cliente
+            </div>
+          </div>
+          <div class="proveedor__data-form row" [class.active]="section === 1">
+            <h3 class="subtitle">Datos</h3>
+            <div class="proveedor__data-form__section1 col-12 col-md-6">
+              <div>
+                <label for="cliente">Cliente</label>
+                <input
+                class="form-control"
+                  type="text"
+                  name="cliente"
+                  id="cliente"
+                  required
+                  [(ngModel)]="proveedor.proveedor"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div>
+                <label for="contacto">Contacto</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="contacto"
+                  id="contacto"
+                  required
+                  [(ngModel)]="proveedor.contacto"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div>
+                <label for="rfc">RFC</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="rfc"
+                  id="rfc"
+                  required
+                  [(ngModel)]="proveedor.rfc"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div>
+                <label for="celular">Celular</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="celular"
+                  id="celular"
+                  required
+                  [(ngModel)]="proveedor.celular"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div>
+                <label for="telefono">Teléfono</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="telefono"
+                  id="telefono"
+                  required
+                  [(ngModel)]="proveedor.telefono"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="proveedor__data-form__section2 col-12 col-md-6">
+              <div>
+                <label for="correo">Correo</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="correo"
+                  id="correo"
+                  required
+                  [(ngModel)]="proveedor.correo"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div>
+                <label for="descuento1">Descuento 1</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="descuento1"
+                  id="descuento1"
+                  required
+                  [(ngModel)]="proveedor.descuento1"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div>
+                <label for="descuento2">Descuento 2</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="descuento2"
+                  id="descuento2"
+                  required
+                  [(ngModel)]="proveedor.descuento2"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div>
+                <label for="descuento3">Descuento 3</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="descuento3"
+                  id="descuento3"
+                  required
+                  [(ngModel)]="proveedor.descuento3"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+          <div class="proveedor__address-form row" [class.active]="section === 2">
+            <h3 class="subtitle">Dirección</h3>
+            <div class="proveedor__address-form__section1 col-12 col-md-6">
+              <div>
+                <label for="descripcion">Descripción</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="descripcion"
+                  id="descripcion"
+                  required
+                  [(ngModel)]="proveedor.domicilio.descripcion"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div>
+                <label for="calle">Calle</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="calle"
+                  id="calle"
+                  required
+                  [(ngModel)]="proveedor.domicilio.calle"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div>
+                <label for="numero_interior">Número interior</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="numero_interior"
+                  id="numero_interior"
+                  required
+                  [(ngModel)]="proveedor.domicilio.numero_interior"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div>
+                <label for="numero_exterior">Número exterior</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="numero_exterior"
+                  id="numero_exterior"
+                  required
+                  [(ngModel)]="proveedor.domicilio.numero_exterior"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div>
+                <label for="cruzamiento_uno">Cruzamiento 1</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="cruzamiento_uno"
+                  id="cruzamiento_uno"
+                  required
+                  [(ngModel)]="proveedor.domicilio.cruzamiento_uno"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div>
+                <label for="cruzamiento_dos">Cruzamiento 2</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="cruzamiento_dos"
+                  id="cruzamiento_dos"
+                  required
+                  [(ngModel)]="proveedor.domicilio.cruzamiento_dos"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="proveedor__address-form__section2 col-12 col-md-6">
+              <div>
+                <label for="codigo_postal">Código Postal</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="codigo_postal"
+                  id="codigo_postal"
+                  required
+                  [(ngModel)]="proveedor.domicilio.codigo_postal"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div>
+                <label for="colonia">Colonia</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="colonia"
+                  id="colonia"
+                  required
+                  [(ngModel)]="proveedor.domicilio.colonia"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div>
+                <label for="localidad">Localidad</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="localidad"
+                  id="localidad"
+                  required
+                  [(ngModel)]="proveedor.domicilio.localidad"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div>
+                <label for="municipio">Municipio</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="municipio"
+                  id="municipio"
+                  required
+                  [(ngModel)]="proveedor.domicilio.municipio"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div>
+                <label for="estado">Estado</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="estado"
+                  id="estado"
+                  required
+                  [(ngModel)]="proveedor.domicilio.estado"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- fin de las tabs -->
-
+       <!-- BOTONES: CANCELAR, SIGUIENTE Y AÑADIR CLIENTE 
+        <div class="d-flex w-100 justify-content-between">
+          <button class="danger-btn" [routerLink]="['/Proveedores']">Cancelar</button>
+          <button class="proveedor__form-next general-btn align-self-end" [class.active]="section === 1" (click)="tab(2)">Siguiente</button>
+          <button type="submit" class="proveedor__form-save general-btn align-self-end" [class.active]="section === 2">
+            Añadir cliente
+          </button>
+        </div> -->
+      </form>  
 
         <div class="proveedores_botones">
             <button id="estadoBoton" class="danger-btn" (click)="cambiarEstado()">
