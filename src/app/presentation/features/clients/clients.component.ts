@@ -95,4 +95,18 @@ export class ClientsComponent {
     }
   }
 
+  searchClient: string = ''
+  filteredClients: any[] = []
+
+  buscarCliente() {
+    if (this.searchClient === '') {
+      return;
+    } 
+    else {
+      this.filteredClients = this.clients.filter((client) =>
+        client.cliente.toLowerCase().includes(this.searchClient.toLowerCase())
+      );
+    }
+  }
+
 }
