@@ -76,14 +76,15 @@
         width: 100%;
 
         .tab {
-            border-radius: 5px 5px 5px 0;
+            border-radius: 5px 5px 0px 0;
             font-weight: 500;
             border: 1px solid rgb(0, 0, 0, 0.2);
             padding: 5px;
+            border: 0.5px solid rgba(0, 0, 0, 0.103);
             cursor: pointer;
 
             &.active {
-                background-color: orange;
+                background-color: #fe910b1f;
 
             }
         }
