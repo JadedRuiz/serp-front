@@ -78,6 +78,7 @@ filtrarFamilias(){
 if (this.searchFam === ''){
   this.filteredFam = this.familias;
 }else {
+  
   console.log(this.searchFam)
   this.filteredFam = this.familias.filter((familia) =>
 familia.familia.toLowerCase().includes(this.searchFam.toLowerCase())
@@ -108,29 +109,11 @@ console.log(this.familia);
 }
 
 
-deleteFamily(id: number){
-  Swal.fire({
-    title: '¿Quieres desactivar esta Familia?',
-    showDenyButton: true,
-    showCancelButton: false,
-    confirmButtonText: 'Activar',
-    denyButtonText: `Desactivar`,
-  }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
-    if (result.isConfirmed) {
-      this.famService.deleteFamily(id).subscribe(objeto  =>{
-        console.log(objeto);
-        this.famService.obtenerFamilias();
-        })
-    }
-  })
-}
 
 //Activar Familia
 deshabilitarFamilia(id_familia: number, activo: number){
-this.famService.desactivarFamilia(id_familia).subscribe((objeto)=>{
+this.famService.desactivarFamilia(id_familia, activo).subscribe((objeto)=>{
 this.buscarFamilias();
-console.log(this.familia);
 });
 }
 
@@ -144,6 +127,7 @@ getFamStatusText(activo: number): string {
 
 openModal(){
   this.isModalOpen =  true;
+
 }
 
 closeModal(){

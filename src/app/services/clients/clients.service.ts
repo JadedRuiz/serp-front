@@ -31,7 +31,7 @@ export class ClientsService {
     return this.http.post<any>(SERV_ADDRESSES, parametros)
   }
 
-  editarCliente(id: number, cliente: any) {
+  editarCliente(id: number, cliente: Client) {
 
       let url = 'https://serp-inventarios.serteza.com/public/api/clientes/guardarCliente';
 
@@ -55,6 +55,16 @@ export class ClientsService {
       return resp.data
     }))
   }
+  agregarDireccion(cliente:Client){
+    let url = "https://serp-inventarios.serteza.com/public/api/clientes/guardarCliente"
 
-  
+    return this.http.post(url, cliente)
+    .pipe(map((resp: any) => {
+      console.log(resp);
+      Swal.fire('Cliente creado exitosamente', '', 'success')
+      return resp.data
+    }))
+  }
+
+
 }

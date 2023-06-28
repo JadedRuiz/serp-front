@@ -12,7 +12,7 @@
         [(ngModel)]="searchClient"
         (ngModelChange)="buscarCliente()"
       />
-      <ul class="search-list" *ngIf="autocompleteClients.length > 0">
+      <ul class="search-list" *ngIf="searchList">
         <li
           class="search-list__element"
           *ngFor="let client of autocompleteClients"
@@ -26,8 +26,7 @@
       AGREGAR CLIENTE
     </button>
   </div>
-  <form
-    class="client__form"
+  <form class="client__form añadir"
     #clientForm="ngForm"
     (ngSubmit)="guardarCliente(clientForm)"
     *ngIf="!isClientSelected"
@@ -47,7 +46,7 @@
           <div>
             <label for="cliente">Cliente</label>
             <input
-              class="form-control"
+              class="form-control form-label"
               type="text"
               name="cliente"
               id="cliente"
@@ -58,7 +57,7 @@
           <div>
             <label for="contacto">Contacto</label>
             <input
-              class="form-control"
+              class="form-control form-label"
               type="text"
               name="contacto"
               id="contacto"
@@ -69,7 +68,7 @@
           <div>
             <label for="rfc">RFC</label>
             <input
-              class="form-control"
+              class="form-control form-label"
               type="text"
               name="rfc"
               id="rfc"
@@ -80,7 +79,7 @@
           <div>
             <label for="celular">Celular</label>
             <input
-              class="form-control"
+              class="form-control form-label"
               type="text"
               name="celular"
               id="celular"
@@ -91,8 +90,8 @@
           <div>
             <label for="telefono">Teléfono</label>
             <input
-              class="form-control"
-              type="text"
+              class="form-control form-label"
+              type="tel"
               name="telefono"
               id="telefono"
               required
@@ -104,8 +103,8 @@
           <div>
             <label for="correo">Correo</label>
             <input
-              class="form-control"
-              type="text"
+              class="form-control form-label"
+              type="email"
               name="correo"
               id="correo"
               required
@@ -115,7 +114,7 @@
           <div>
             <label for="descuento1">Descuento 1</label>
             <input
-              class="form-control"
+              class="form-control form-label"
               type="text"
               name="descuento1"
               id="descuento1"
@@ -126,7 +125,7 @@
           <div>
             <label for="descuento2">Descuento 2</label>
             <input
-              class="form-control"
+              class="form-control form-label"
               type="text"
               name="descuento2"
               id="descuento2"
@@ -137,7 +136,7 @@
           <div>
             <label for="descuento3">Descuento 3</label>
             <input
-              class="form-control"
+              class="form-control form-label"
               type="text"
               name="descuento3"
               id="descuento3"
@@ -153,67 +152,67 @@
           <div>
             <label for="descripcion">Descripción</label>
             <input
-              class="form-control"
+              class="form-control form-label"
               type="text"
               name="descripcion"
               id="descripcion"
               required
-              [(ngModel)]="client.domicilio.descripcion"
+              [(ngModel)]="address.descripcion"
             />
           </div>
           <div>
             <label for="calle">Calle</label>
             <input
-              class="form-control"
+              class="form-control form-label"
               type="text"
               name="calle"
               id="calle"
               required
-              [(ngModel)]="client.domicilio.calle"
+              [(ngModel)]="address.calle"
             />
           </div>
           <div>
             <label for="numero_interior">Número interior</label>
             <input
-              class="form-control"
+              class="form-control form-label"
               type="text"
               name="numero_interior"
               id="numero_interior"
               required
-              [(ngModel)]="client.domicilio.numero_interior"
+              [(ngModel)]="address.numero_interior"
             />
           </div>
           <div>
             <label for="numero_exterior">Número exterior</label>
             <input
-              class="form-control"
+              class="form-control form-label"
               type="text"
               name="numero_exterior"
               id="numero_exterior"
               required
-              [(ngModel)]="client.domicilio.numero_exterior"
+              [(ngModel)]="address.numero_exterior"
             />
           </div>
           <div>
             <label for="cruzamiento_uno">Cruzamiento 1</label>
             <input
-              class="form-control"
+              class="form-control form-label"
               type="text"
               name="cruzamiento_uno"
               id="cruzamiento_uno"
               required
-              [(ngModel)]="client.domicilio.cruzamiento_uno"
+              [(ngModel)]="address.cruzamiento_uno"
             />
           </div>
           <div>
             <label for="cruzamiento_dos">Cruzamiento 2</label>
             <input
-              class="form-control"
+              class="form-control form-label"
               type="text"
               name="cruzamiento_dos"
               id="cruzamiento_dos"
               required
-              [(ngModel)]="client.domicilio.cruzamiento_dos"
+              [(ngModel)]="address.cruzamiento_dos"
             />
           </div>
         </div>
@@ -221,12 +220,12 @@
           <div>
             <label for="codigo_postal">Código Postal</label>
             <input
-              class="form-control"
+              class="form-control form-label"
               type="text"
               name="codigo_postal"
               id="codigo_postal"
               required
-              [(ngModel)]="client.domicilio.codigo_postal"
+              [(ngModel)]="address.codigo_postal"
             />
           </div>
           <div>
@@ -237,7 +236,7 @@
               name="colonia"
               id="colonia"
               required
-              [(ngModel)]="client.domicilio.colonia"
+              [(ngModel)]="address.colonia"
             />
           </div>
           <div>
@@ -248,7 +247,7 @@
               name="localidad"
               id="localidad"
               required
-              [(ngModel)]="client.domicilio.localidad"
+              [(ngModel)]="address.localidad"
             />
           </div>
           <div>
@@ -259,7 +258,7 @@
               name="municipio"
               id="municipio"
               required
-              [(ngModel)]="client.domicilio.municipio"
+              [(ngModel)]="address.municipio"
             />
           </div>
           <div>
@@ -270,7 +269,7 @@
               name="estado"
               id="estado"
               required
-              [(ngModel)]="client.domicilio.estado"
+              [(ngModel)]="address.estado"
             />
           </div>
         </div>
@@ -306,8 +305,7 @@
       </button>
     </div>
   </form>
-  <form
-    class="client__form"
+  <form class="client__form mostrar"
     #clientForm="ngForm"
     (ngSubmit)="guardarCliente(clientForm)"
     *ngFor="let client of selectedClient"
@@ -426,6 +424,9 @@
               [(ngModel)]="client.descuento3"
             />
           </div>
+        <div  type="button"
+        class=" mt-3 ext-center btn general-btn"
+        (click)="guardarCliente(clientForm)">Editar</div>
         </div>
       </div>
       <div
@@ -454,7 +455,7 @@
               name="descripcion"
               id="descripcion"
               required
-              [(ngModel)]="client.domicilio.descripcion"
+              [(ngModel)]="address.descripcion"
             />
           </div>
           <div>
@@ -465,7 +466,7 @@
               name="calle"
               id="calle"
               required
-              [(ngModel)]="client.domicilio.calle"
+              [(ngModel)]="address.calle"
             />
           </div>
           <div>
@@ -476,7 +477,7 @@
               name="numero_interior"
               id="numero_interior"
               required
-              [(ngModel)]="client.domicilio.numero_interior"
+              [(ngModel)]="address.numero_interior"
             />
           </div>
           <div>
@@ -487,7 +488,7 @@
               name="numero_exterior"
               id="numero_exterior"
               required
-              [(ngModel)]="client.domicilio.numero_exterior"
+              [(ngModel)]="address.numero_exterior"
             />
           </div>
           <div>
@@ -498,7 +499,7 @@
               name="cruzamiento_uno"
               id="cruzamiento_uno"
               required
-              [(ngModel)]="client.domicilio.cruzamiento_uno"
+              [(ngModel)]="address.cruzamiento_uno"
             />
           </div>
           <div>
@@ -509,7 +510,7 @@
               name="cruzamiento_dos"
               id="cruzamiento_dos"
               required
-              [(ngModel)]="client.domicilio.cruzamiento_dos"
+              [(ngModel)]="address.cruzamiento_dos"
             />
           </div>
         </div>
@@ -522,7 +523,7 @@
               name="codigo_postal"
               id="codigo_postal"
               required
-              [(ngModel)]="client.domicilio.codigo_postal"
+              [(ngModel)]="address.codigo_postal"
             />
           </div>
           <div>
@@ -533,7 +534,7 @@
               name="colonia"
               id="colonia"
               required
-              [(ngModel)]="client.domicilio.colonia"
+              [(ngModel)]="address.colonia"
             />
           </div>
           <div>
@@ -544,7 +545,7 @@
               name="localidad"
               id="localidad"
               required
-              [(ngModel)]="client.domicilio.localidad"
+              [(ngModel)]="address.localidad"
             />
           </div>
           <div>
@@ -555,7 +556,7 @@
               name="municipio"
               id="municipio"
               required
-              [(ngModel)]="client.domicilio.municipio"
+              [(ngModel)]="address.municipio"
             />
           </div>
           <div>
@@ -566,7 +567,7 @@
               name="estado"
               id="estado"
               required
-              [(ngModel)]="client.domicilio.estado"
+              [(ngModel)]="address.estado"
             />
           </div>
         </div>
