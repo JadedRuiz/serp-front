@@ -12,6 +12,7 @@ export class Client {
         public celular: string,
         public telefono: string,
         public correo: string,
+        public direccion :string,
         public id_ruta: number,
         public id_regimenfiscal: number,
         public descuento1: number,

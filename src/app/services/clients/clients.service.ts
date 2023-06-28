@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Client } from 'src/app/models/clients.model';
-import { SERV_CLIENTS } from 'src/config/config';
+import { SERV_ADDRESSES, SERV_CLIENTS } from 'src/config/config';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -13,12 +13,22 @@ export class ClientsService {
 
   obtenerClientes(): Observable<any> {
     const parametros = {
-      id_cliente_direccion: 0,
+      id_cliente: 0,
       id_comprador: 1,
       cliente: '',
       token: '012354SDSDS01'
     };
     return this.http.post<any>(SERV_CLIENTS, parametros);
+  }
+
+  obtenerDirecciones(id_cliente_direccion:number): Observable<any> {
+    const parametros = {
+      id_cliente_direccion: id_cliente_direccion,
+      id_comprador: 1,
+      cliente: '',
+      token: '012354SDSDS01'
+    }
+    return this.http.post<any>(SERV_ADDRESSES, parametros)
   }
 
   editarCliente(id: number, cliente: any) {

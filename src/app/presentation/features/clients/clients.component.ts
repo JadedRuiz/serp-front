@@ -16,15 +16,14 @@ export class ClientsComponent {
   ) { }
 
   ngOnInit() {
-    this.obtenerClientes()
   }
 
   clients: Client[] = []
   addresses: Address[] = []
-  modalVisibility: boolean = false
 
-  client: Client = new Client(0, 0, 1, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, {
+  client: Client = new Client(0, 0, 1, '', '', '', '', '', '', '','', 0, 0, 0, 0, 0, 0, 0, {
     id_direccion: 0,
+    direccion: '',
     descripcion: '',
     calle: '',
     numero_interior: '',
@@ -41,20 +40,12 @@ export class ClientsComponent {
     activo: 0,
   })
 
-  toggleModalVisibility() {
-    this.modalVisibility = !this.modalVisibility
-  }
-
-  closeModal() {
-    this.modalVisibility = false
-  }
-
   section: number = 1
 
   tab(section: number) {
     if (section === 1) {
       this.section = 1
-    } 
+    }
     else if (section === 2) {
       this.section = 2
     }
@@ -77,6 +68,22 @@ export class ClientsComponent {
     );
   }
 
+  obtenerDirecciones(id_cliente_direccion:number) {
+    this.clientService.obtenerDirecciones(id_cliente_direccion).subscribe(
+      (response) => {
+        if (response.ok) {
+          this.addresses = response.data;
+          console.log(this.addresses)
+        } else {
+          console.log('Ocurrió un error', response.message);
+        }
+      },
+      (error) => {
+        console.log('Error de conexión', error)
+      }
+    )
+  }
+
   guardarCliente(clientForm: NgForm) {
     if (clientForm.invalid) {
       return;
@@ -96,17 +103,34 @@ export class ClientsComponent {
   }
 
   searchClient: string = ''
-  filteredClients: any[] = []
+  autocompleteClients: any[] = []
+  selectedClient: any[] = []
+  isClientSelected: boolean = false
+  addClientVisibility: boolean = false
 
   buscarCliente() {
-    if (this.searchClient === '') {
-      return;
-    } 
+    if (this.searchClient.length < 3) {
+      this.autocompleteClients = [];
+    }
     else {
-      this.filteredClients = this.clients.filter((client) =>
+      this.obtenerClientes()
+      this.autocompleteClients = this.clients.filter((client) =>
         client.cliente.toLowerCase().includes(this.searchClient.toLowerCase())
       );
     }
   }
 
+  seleccionarCliente(id_cliente:number, id_cliente_direccion:number) {
+    if(id_cliente) {
+      this.selectedClient = this.autocompleteClients.filter(aclient => aclient.id_cliente === id_cliente)
+      this.isClientSelected = true
+      this.obtenerDirecciones(id_cliente_direccion)
+    } else {
+      this.selectedClient= []
+    }
+  }
+
+  toggleAddClientVisibility() {
+    this.addClientVisibility = !this.addClientVisibility
+  }
 }
