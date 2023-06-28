@@ -67,7 +67,7 @@ updateRouteStatus() {
   });
 }
 
-
+//FILTRO
   filtrarRutas() {
     if (this.searchRoute === '') {
       this.filteredRoutes = this.routes;
@@ -132,7 +132,7 @@ updateRouteStatus() {
   }
 
 
-//Activo
+//Activar RUTA
   deshabilitarRuta(id_ruta: number, activo: number) {
     this.routeService.desactivarRuta(id_ruta).subscribe((objeto) => {
       this.obtenerRutas();

@@ -4,5 +4,6 @@ export class Familia{
     public id_comprador: number ,
     public familia: string ,
     public token: string,
+    public activo: number
     ){}
 }

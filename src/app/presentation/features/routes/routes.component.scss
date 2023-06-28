@@ -13,6 +13,7 @@
 
         .search-input {
             border-radius: 10px 0px 0px 10px;
+            width: 27rem;
         }
 
         .search-btn {
@@ -34,6 +35,9 @@
     flex-direction: column;
     align-items: center;
     gap: 30px;
+    div {
+      width: 100%; /* Ajusta el ancho al 100% */
+  }
     }
 
 }
@@ -42,9 +46,12 @@
     width: 100%;
 }
 
-#route-card.active {
-  color: brown;
+#pin {
+  font-size: 1.2rem;
+  color: #2b09ee;
+  position: absolute;
 }
+
 
 .btn-success {
   background-color: #28a745;

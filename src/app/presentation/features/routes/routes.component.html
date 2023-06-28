@@ -1,7 +1,7 @@
 <div class="routes-container container shadow row">
   <h1 class="text-center title">RUTAS</h1>
 
-  <div class="routes__search-bar col col-md-6">
+  <div class="routes__search-bar col">
     <div class="d-flex">
       <input
         class="search-input"
@@ -26,20 +26,17 @@
       <div  class="col-sm-4 mb-3 mb-sm-0"  *ngFor="let route of filteredRoutes">
         <div id="route-card" class="card" [class.active]="route.routeIsActive">
           <div class="card-body">
-            <h2 class="card-title">Ruta: <b>{{ route.ruta | uppercase }}</b></h2>
-            <h2 class="card-title">ID: <b>{{ route.id_ruta }}</b></h2>
-            <h2 class="card-title">Act: <b>{{ route.activo }}</b></h2>
+              <a class="me-2 d-md-flex justify-content-md-end" (click)="editarRuta(route)"><i id="pin" class="bi bi-pencil-square"></i></a>
+              <h2 class="card-title">Ruta: <b>{{ route.ruta | uppercase }}</b></h2>
+            <h2 class="card-ID">ID: <b>{{ route.id_ruta }}</b></h2>
             <div class="d-md-flex justify-content-md-end">
-              <a class="me-2 p-0btn btn-primary" (click)="editarRuta(route)"
-                ><i class="bi bi-pencil-square"></i
-              ></a>
               <button
               type="button"
               class="btn"
               [ngClass]="getRouteStatusClass(route.activo)"
               [attr.aria-pressed]="route.activo === 1 ? 'true' : 'false'"
               (click)="deshabilitarRuta(route.id_ruta, route.activo)"
-              style="--bs-btn-padding-y: 0.25rem; --bs-btn-padding-x: 0.5rem; --bs-btn-font-size: 0.65rem;"
+              style="--bs-btn-padding-y: 0.25rem; --bs-btn-padding-x: 0.5rem; --bs-btn-font-size: 1rem;"
             >
             {{ getRouteStatusText(route.activo) }}
               </button>
