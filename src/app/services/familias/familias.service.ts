@@ -45,6 +45,8 @@ export class FamiliasService {
       return resp.data
     }))
   }
+
+
   deleteFamily(id: number){
     let url = "https://serp-inventarios.serteza.com/public/api/familias/guardarFamilia/" + id;
 
@@ -55,4 +57,10 @@ export class FamiliasService {
       return resp.data
     }))
   }
+
+desactivarFamilia(id_familia:number){
+  let url = 'https://serp-inventarios.serteza.com/public/api/familias/activarFamilia?id_familia=' + id_familia;
+  return this.http.post(url,'')
+}
+
 }

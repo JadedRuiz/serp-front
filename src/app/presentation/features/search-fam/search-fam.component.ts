@@ -23,13 +23,14 @@ import Swal from 'sweetalert2';
 
 
 export class SearchFamComponent {
-
-
-  familias: { familia: string, id_familia: number }[] = [];
  // miComprador = window.sessionStorage["comprador_gl"];
-  miComprador = 1;
+
+familias: { familia: string, id_familia: number}[] = [];
+miComprador = 1;
 isModalOpen = false;
-searchText: string = '';
+
+searchFam: string = '';
+filteredFam: any [] = [];
 
 
 
@@ -39,7 +40,7 @@ searchText: string = '';
     private http : HttpClient) {}
 
 
-familia: Familia = new Familia(0, 1, '', '')
+familia: Familia = new Familia(0, 1, '', '', 0)
 
 ngOnInit(){
   this.buscarFamilias();
@@ -54,6 +55,9 @@ buscarFamilias() {
 
       if (response.ok === true) {
         this.familias = response.data;
+        this.filteredFam = this.familias;
+
+
       } else {
         console.log('Ocurrió un error:', response.message);
       }
@@ -69,32 +73,46 @@ editarFamilia(familia: any){
   this.familia = familia;
 }
 
-
+//Filtro
+filtrarFamilias(){
+if (this.searchFam === ''){
+  this.filteredFam = this.familias;
+}else {
+  console.log(this.searchFam)
+  this.filteredFam = this.familias.filter((familia) =>
+familia.familia.toLowerCase().includes(this.searchFam.toLowerCase())
+  );
+  //this.noResults();
+}
+}
 
 guardarFamilia(f: NgForm){
 if (f.invalid){
   return;
 }
 if(this.familia.id_familia){
+  console.log('numero de ID = ' + this.familia.id_familia);
   this.famService.editarFam(this.familia.id_familia, this.familia)
   .subscribe(objeto =>{
-
   });
+  this.closeModal();
+
 }else{
   this.famService.agregarFam(this.familia).subscribe(objeto  =>{
-    console.log(objeto);
+    console.log('consol OBJETO' + objeto);
     this.famService.obtenerFamilias();
+    this.closeModal();
     });
 }
 console.log(this.familia);
-
-
 }
+
+
 deleteFamily(id: number){
   Swal.fire({
     title: '¿Quieres desactivar esta Familia?',
     showDenyButton: true,
-    showCancelButton: true,
+    showCancelButton: false,
     confirmButtonText: 'Activar',
     denyButtonText: `Desactivar`,
   }).then((result) => {
@@ -108,6 +126,21 @@ deleteFamily(id: number){
   })
 }
 
+//Activar Familia
+deshabilitarFamilia(id_familia: number, activo: number){
+this.famService.desactivarFamilia(id_familia).subscribe((objeto)=>{
+this.buscarFamilias();
+console.log(this.familia);
+});
+}
+
+getFamStatusClass(activo: number): string {
+  return activo == 1? 'btn-success' : 'btn-danger';
+}
+
+getFamStatusText(activo: number): string {
+  return activo == 1? 'Activo' : 'Desactivado';
+}
 
 openModal(){
   this.isModalOpen =  true;
@@ -115,7 +148,16 @@ openModal(){
 
 closeModal(){
   this.isModalOpen = false;
+  this.familia = {
+    id_comprador : 0,
+    familia: '',
+    token: '',
+    id_familia: 0,
+    activo: 0
+  };
 }
+
+
 
 }
 

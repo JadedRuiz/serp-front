@@ -2,7 +2,6 @@ import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoggedGuard } from '@core/guard/logged.guard';
 import { UnloggedGuard } from '@core/guard/unlogged.guard';
-import { AddClientComponent } from '@presentation/features/add-client/add-client.component';
 import { AddProductComponent } from '@presentation/features/add-product/add-product.component';
 import { CatalogoComponent } from '@presentation/features/catalogo/catalogo.component';
 import { ClientsComponent } from '@presentation/features/clients/clients.component';
@@ -14,7 +13,6 @@ import { SearchFamComponent } from '@presentation/features/search-fam/search-fam
 import { BaseAuthComponent } from '@presentation/layout/base-auth/base-auth.component';
 import { BaseLoggedComponent } from '@presentation/layout/base-logged/base-logged.component';
 
-import { EditarFamComponent } from '@presentation/features/search-fam/editar-fam/editar-fam.component';
 import { ProveedoresComponent } from '@presentation/features/proveedores/proveedores.component';
 
 
@@ -74,16 +72,8 @@ const routes: Routes = [
         component: ClientsComponent
       },
       {
-        path: 'añadir-cliente',
-        component: AddClientComponent
-      },
-      {
         path: 'buscador',
         component: SearchFamComponent
-      },
-      {
-        path: 'editar-familia/:idFamilia',
-        component: EditarFamComponent
       },
       {
         path: 'rutas',
