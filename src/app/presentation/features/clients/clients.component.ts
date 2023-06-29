@@ -125,6 +125,7 @@ export class ClientsComponent {
   }
 
   editarDireccion(id_direccion: number) {
+    console.log("Soy el objeto de la dirección que seleccionaste", this.addressSelected)
     this.addressSelected = this.addresses.filter(address => address.id_direccion == id_direccion)[0]
     this.addAddressVisibility = true
   }
@@ -151,18 +152,17 @@ export class ClientsComponent {
   }
 
   guardarDireccion(addressForm: NgForm) {
-
+    console.log(this.addressSelected)
     //Ya lo validaste arriba
-    if (this.address.id_direccion) {
+    if (this.addressSelected.id_cliente_direccion) {
       this.clientService
-        .editarDireccion(this.address.id_direccion, this.address)
+        .editarDireccion(this.addressSelected.id_cliente_direccion, this.addressSelected)
         .subscribe((objeto) => {
           console.log(objeto);
         });
     } else {
       this.clientService.agregarDireccion(this.address).subscribe((objeto) => {
         console.log(objeto);
-        console.log(this.client);
         // this.buscarCliente();
         //this.clientService.obtenerClientes();
         // console.log(clientForm.value);
