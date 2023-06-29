@@ -38,12 +38,13 @@
         </div>
         <div class="form-label">
           <label class="label-label" for="inputFamilia">Familia</label>
-          <input
-            type="text"
-            class="form-control"
-            id="inputFamilia"
-            placeholder="..."
-          />
+          <select  type="text"
+          class="form-control"
+          id="inputFamilia"
+          placeholder="..." >
+          <option value={{familia.familia}} *ngFor="let familia of familias" >
+          </option>
+          </select>
         </div>
         <div class="form-label">
           <label for="inputProveedor">Unidad de medida</label>
@@ -71,12 +72,15 @@
         </div>
         <div class="row">
           <div class="form-label col-md-4">
-            <label for="inputFamilia">Descuento 1</label>
+            <label for="inputFamilia">Sat</label>
             <input
-              type="text"
+              type="numero"
+              name="prodserv"
               class="form-control"
               id="inputFamilia"
               placeholder="..."
+              required
+              [(ngModel)]="item.id_prodserv_sat"
             />
           </div>
           <div class="form-label col-md-4">
