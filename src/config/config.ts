@@ -9,7 +9,7 @@ const token_cp  = "c9a268f4-1791-4926-9177-e23f62de2eb7";
 
 const API_FAM = "https://serp-inventarios.serteza.com/public/api/familias/consultarFamilias";
 const API_ROUTES = "https://serp-inventarios.serteza.com/public/api/rutas/consultarRutas";
-const API_CLIENTS = "https://serp-inventarios.serteza.com/public/api/clientes/consultarClientes"
+const API_CLIENTS = "https://serp-inventarios.serteza.com/public/api/clientes/buscarClientes"
 const API_ADDRESSES = "https://serp-inventarios.serteza.com/public/api/clientes/buscarDireccionesCliente"
 
 export const SERVER_CP = API_CP;

@@ -16,6 +16,7 @@ export class ClientsComponent {
 
   clients: Client[] = [];
   addresses: Address[] = [];
+  response: any = {}
 
   client: Client = new Client(
     0,
@@ -39,8 +40,25 @@ export class ClientsComponent {
   );
 
   address: Address = new Address(
-    0, '', '', '', '', '', '', '', 0, '', '', '', '', '', '', 0
-  )
+    0,
+    this.response,
+    0,
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    0,
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    0
+  );
 
   section: number = 1;
 
@@ -84,6 +102,16 @@ export class ClientsComponent {
     );
   }
 
+  submit(clientForm: NgForm) {
+    this.guardarCliente(clientForm).then(
+      console.log(this.response),
+      this.guardarDireccion(clientForm)
+      )
+    // if (this.id_cliente) {
+    //   this.guardarDireccion(clientForm);
+    
+  }
+
   guardarCliente(clientForm: NgForm) {
     if (clientForm.invalid) {
       console.log('666');
@@ -97,9 +125,33 @@ export class ClientsComponent {
         });
     } else {
       this.clientService.agregarCliente(this.client).subscribe((objeto) => {
-        console.log(objeto);
+        console.log(this.client);
         this.clientService.obtenerClientes();
-        console.log(clientForm.value);
+        this.response = objeto;
+        console.log(objeto);
+        console.log(this.response);
+      });
+    }
+    return this.response
+  }
+
+  guardarDireccion(addressForm: NgForm) {
+    if (addressForm.invalid) {
+      console.log('666');
+      return;
+    }
+    if (this.address.id_direccion) {
+      this.clientService
+        .editarDireccion(this.address.id_direccion, this.address)
+        .subscribe((objeto) => {
+          console.log(objeto);
+        });
+    } else {
+      this.clientService.agregarDireccion(this.address).subscribe((objeto) => {
+        console.log(objeto);
+        console.log(this.client);
+        this.clientService.obtenerClientes();
+        // console.log(clientForm.value);
       });
     }
   }

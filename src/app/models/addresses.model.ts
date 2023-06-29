@@ -1,5 +1,7 @@
 export class Address {
     constructor(
+        public id_cliente_direccion: number,
+        public id_cliente: number,
         public id_direccion: number,
         public direccion: string,
         public descripcion: string,

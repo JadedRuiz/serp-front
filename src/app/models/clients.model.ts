@@ -1,5 +1,3 @@
-import { Address } from "./addresses.model";
-
 export class Client {
     constructor(
         public id_cliente_direccion: number,
@@ -12,7 +10,7 @@ export class Client {
         public celular: string,
         public telefono: string,
         public correo: string,
-        public direccion :string,
+        public direccion :string,   
         public id_ruta: number,
         public id_regimenfiscal: number,
         public descuento1: number,
