@@ -4,6 +4,8 @@ import { DataUrl, NgxImageCompressService, UploadResponse,} from 'ngx-image-comp
 import { Product } from 'src/app/models/products.model';
 import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
 import { NgForm } from '@angular/forms';
+import { FamiliaService } from '@data/services/sfamilia/familia.service';
+import { Familia } from 'src/app/models/familias.model';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -23,7 +25,12 @@ export class AddProductComponent {
   constructor(
     private router: Router,
     private imageCompress: NgxImageCompressService,
-    private productService: CatalogoService) {}
+    private productService: CatalogoService,
+    private familiaService: FamiliaService) {}
+
+    ngOnInit() {
+      this.obtenerFamilias()
+    }
 
   items: Product[] = [];
   //  Lista de elementos
@@ -52,9 +59,16 @@ export class AddProductComponent {
   );
 
 
+  familias: Familia[] = []
 
+
+obtenerFamilias(){
+  this.familiaService.obtenerFamilias().subscribe((objeto) => {
+    this.familias = objeto.data;
+    console.log(this.familias);
+})
+}
 //Para Productos
-
 guardarArticulo(productForm: NgForm){
     this.productService.agregarProducto(this.item).subscribe((objeto) => {
       console.log(objeto);
