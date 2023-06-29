@@ -23,7 +23,7 @@ import Swal from 'sweetalert2';
 
 
 export class SearchFamComponent {
- // miComprador = window.sessionStorage["comprador_gl"];
+  //miComprador = window.sessionStorage["comprador_gl"];
 
 familias: { familia: string, id_familia: number}[] = [];
 miComprador = 1;
@@ -78,7 +78,7 @@ filtrarFamilias(){
 if (this.searchFam === ''){
   this.filteredFam = this.familias;
 }else {
-  
+
   console.log(this.searchFam)
   this.filteredFam = this.familias.filter((familia) =>
 familia.familia.toLowerCase().includes(this.searchFam.toLowerCase())

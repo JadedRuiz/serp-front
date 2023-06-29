@@ -1,66 +1,143 @@
-<div class="p-2 shadow container row">
+<div class="p-2 shadow container">
 
   <!-- FORMULARIO -->
-  <form class="col-6 p-2">
-    <div class="form-row">
-      <h1 class="title text-center">Agregar Producto</h1>
-      <div class="form-group col">
-        <label for="inputNombre">NOMBRE</label>
-        <input
-          type="text"
+  <form class="form-group"
+  #productForm="ngForm"
+  (ngSubmit)="guardarArticulo(productForm)"
+  >
+    <div class="row">
+      <h1 class="title text-center">Nuevo Producto</h1>
+      <div class="col-md-6">
+        <div class="form-label col-md-4">
+          <label for="inputAlmacen">ALMACEN</label>
+          <select
+          id="inputAlmacen"
           class="form-control"
-          id="inputNombre"
-          placeholder="Producto"
-        />
-      </div>
-      <div class="form-group col">
-        <label for="inputFamilia">FAMILIA</label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputFamilia"
-          placeholder="'Lacteos'"
-        />
-      </div>
-      <div class="form-group col">
-        <label for="inputProveedor">Proveedor</label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputProveedor"
-          placeholder="'CDIs'"
-        />
-      </div>
-    </div>
-    <div class="form-group col-4">
-      <label for="inputAlmacen">ALMACEN</label>
-      <i class="bi bi-caret-down-fill"></i>
+          name="almacen"
+          required
+          [(ngModel)]="item.id_almacen"
 
-      <select id="inputAlmacen" class="form-control">
-        <option selected>Norte</option>
-        <option>Sur</option>
-        <option>Este</option>
-        <option>Oeste</option>
-      </select>
-    </div>
-    <div class="form-group col-3">
-      <label for="inputPrecio">PRECIO</label>
-      <input
-        type="number"
-        class="form-control"
-        id="inputPrecio"
-        placeholder="99.99"
-      />
-    </div>
-    <div class="form-group">
-      <div class="form-check">
-        <input class="mt-3 form-check-input" type="checkbox" id="gridCheck" />
-        <label class="form-check-label" for="gridCheck"> Existencia </label>
+          >
+            <option selected>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
+        <div class="form-label">
+          <label for="inputNombre">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            name="articulo"
+            id="inputNombre"
+            required
+            placeholder="..."
+            [(ngModel)]="item.articulo"
+          />
+        </div>
+        <div class="form-label">
+          <label class="label-label" for="inputFamilia">Familia</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputFamilia"
+            placeholder="..."
+          />
+        </div>
+        <div class="form-label">
+          <label for="inputProveedor">Unidad de medida</label>
+          <input
+            type="number"
+            class="form-control"
+            id="inputProveedor"
+            placeholder="..."
+            required
+            name="medida"
+            [(ngModel)]="item.id_medida"
+          />
+        </div>
+        <div class="form-label">
+          <label for="inputPrecio">PRECIO</label>
+          <input
+            type="number"
+            class="form-control"
+            name="precio_venta"
+            id="inputPrecio"
+            placeholder="..."
+            required
+            [(ngModel)]="item.precio_venta"
+          />
+        </div>
+        <div class="row">
+          <div class="form-label col-md-4">
+            <label for="inputFamilia">Descuento 1</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputFamilia"
+              placeholder="..."
+            />
+          </div>
+          <div class="form-label col-md-4">
+            <label for="inputFamilia">Descuento 2</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputFamilia"
+              placeholder="..."
+            />
+          </div>
+          <div class="form-label col-md-4">
+            <label for="inputFamilia">Descuento 3</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputFamilia"
+              placeholder="..."
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-label">
+          <label for="inputFamilia">Minimo</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputFamilia"
+            placeholder="..."
+          />
+        </div>
+        <div class="form-label">
+          <label for="inputFamilia">Maximo</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputFamilia"
+            placeholder="..."
+          />
+        </div>
+        <div class="form-label">
+          <label for="inputFamilia">Reorden</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputFamilia"
+            placeholder="..."
+          />
+        </div>
       </div>
     </div>
+    <button type="submit" class="m-2 btn search-btn">Guardar</button>
+
   </form>
 
-  <!-- IMAGENES -->
+
+<div class="row">
+  <div class="col">
+     <!-- IMAGENES -->
   <div class="col-6 d-flex flex-column align-items-center justify-content-center">
     <div *ngIf="uploadedImages.length > 0" class="text-center mp-3">
       <img
@@ -90,7 +167,6 @@
 
   <!-- BOTONES -->
   <div class="2">
-    <button type="submit" class="m-2 btn search-btn">Guardar</button>
     <button
       class="m-2 btn general-btn"
       (click)="uploadAndResize()"
@@ -101,4 +177,6 @@
     <button type="button" class="m-2 btn danger-btn" [routerLink]="['/home']">Cancelar</button>
 
   </div>
+  </div>
+</div>
 </div>

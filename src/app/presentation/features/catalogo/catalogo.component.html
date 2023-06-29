@@ -9,7 +9,7 @@
   <input type="text" class="search-input" placeholder="Productos" [(ngModel)]="searchTitle">
   <input type="text" class="search-input" placeholder="Familia" [(ngModel)]="searchFam">
   <button type="button" class="b search-btn" (click)="buscar()">BUSCAR</button>
-  <button type="button" class="b add-btn" (click)="agregarProducto()">AGREGAR</button>
+  <button type="button" class="b add-btn" (click)="addProducto()">AGREGAR</button>
 </div>
 
 <div class="text-center" *ngIf="noResults" style="  color:red; font-size: 40px;">No se encontraron resultados.</div>
@@ -18,30 +18,25 @@
 
 <div class="container-fluid">
   <div class="columns is-multiline is-variable is-4">
-    <div class="column is-one-quarter-desktop is-one-third-tablet is-full-mobile" *ngFor="let item of items">
-      <div class="card">
-        <a type="button" class="mt-1 me-1 align-self-end btn_h " (click)="agregarProductoCarrito(item)">+</a>
+    <div class="column is-one-quarter-desktop is-one-third-tablet is-full-mobile" *ngFor="let articulo of articulos">
 
-        <div class="card-image">
-          <figure class="imageF is-16by9">
-            <img [src]="item.imageUrl" alt="Producto">
-          </figure>
-        </div>
+        <div class="card">
+        <a type="button" class="mt-1 me-1 align-self-end btn_h " (click)="agregarProductoCarrito(item)">+</a>
+            <img src="https://via.placeholder.com/300" alt="Producto">
         <div class="card-content">
           <div class="media">
             <div class="media-content">
-              <h1 class="title mb-1">{{ item.title }}</h1>
-              <h2 class="subtitle mb-0 mt-1">{{ item.fam }}</h2>
-              <span class="mb-0"><b>100 / 25 / 75</b></span>
+              <h1 class="title mb-1">{{ articulo.articulo }}</h1>
+              <h2 class="subtitle mb-0 mt-1">{{ articulo.familia}}</h2>
+              <span class="mb-0"><b> 10 / 20 / 30</b></span>
               <br>
-              <span><b>Unidad</b> (50.00 kilos)</span>
+              <span><b>Unidad</b>  {{articulo.medida}}</span>
             </div>
           </div>
-          <a class="" (click)="openModal(item)" style="color: var(--color-terciario)">Ver Detalles</a>
-          <span class="card-price ms-4"><strong>{{ item.price }}</strong></span>
+          <a class="" (click)="openModal(articulo)" style="color: var(--color-terciario)">Ver Detalles</a>
+          <span class="card-price ms-4"><strong>{{ articulo.precio_venta  | currency: 'MEX'}}</strong></span>
         </div>
       </div>
-    </div>
   </div>
 
 </div>
@@ -55,14 +50,14 @@
       <div class="media">
         <div class="media-left">
           <figure class="image ">
-            <img [src]="selectedCard.imageUrl" alt="Producto">
+            <img src="https://via.placeholder.com/200" alt="Producto">
           </figure>
         </div>
         <div class="media-content">
           <span>Nombre: </span>
-          <p class="title">{{ selectedCard.title }}</p>
-          <p class="fam"> Familia: <b>{{ selectedCard.fam }}</b></p>
-          <p>Price: <b>{{ selectedCard.price }}</b></p>
+          <p class="title">{{ selectedCard.articulo }}</p>
+          <p class="fam"> Familia: <b>{{ selectedCard.familia }}</b></p>
+          <p>Price: <b>{{ selectedCard.precio_venta | currency: 'MEX' }}</b></p>
         </div>
         <button class=" btn general-btn" type="submit">EDITAR</button>
       </div>

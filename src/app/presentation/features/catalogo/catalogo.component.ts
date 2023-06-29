@@ -1,118 +1,46 @@
-import { Component,HostListener  } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@data/services/auth/auth.service';
+import { Product } from 'src/app/models/products.model';
 import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
-
-
-
+import { Articulo } from 'src/app/models/articulo.model';
 
 @Component({
   selector: 'app-catalogo',
   templateUrl: './catalogo.component.html',
-  styleUrls: ['./catalogo.component.scss']
+  styleUrls: ['./catalogo.component.scss'],
 })
 export class CatalogoComponent {
+  constructor(private router: Router, private catalgoo: CatalogoService) {}
 
+  articulos: Articulo[] = [];
+  articulo: Articulo = new Articulo(0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '');
 
-  constructor(private router: Router,
-    private catalgoo : CatalogoService) {}
-
-
+  items: Product[] = [];
   //  Lista de elementos
-  items = [
-
-    {
-      imageUrl: '../../../../assets/imgCat/fruts.jpeg',
-      title: 'Platanos',
-      fam: 'Frutas',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '$14.00'
-    },
-    {
-      imageUrl: '../../../../assets/imgCat/fruts.jpeg',
-      title: 'Panela',
-      fam: 'Quesos',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '$17.00'
-    },
-    {
-      imageUrl: '../../../../assets/imgCat/fruts.jpeg',
-      title: 'Leche',
-      fam: 'Lacteos',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '$16.00'
-    },
-    {
-      imageUrl: '../../../../assets/imgCat/fruts.jpeg',
-      title: 'Pera',
-      fam: 'Frutas',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '$14.00'
-    },
-    {
-      imageUrl: '../../../../assets/imgCat/fruts.jpeg',
-      title: 'Bola',
-      fam: 'Quesos',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '$17.00'
-    },
-    {
-      imageUrl: '../../../../assets/imgCat/fruts.jpeg',
-      title: 'Entera',
-      fam: 'Lacteos',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '$16.00'
-    },
-
-    {
-      imageUrl: '../../../../assets/imgCat/fruts.jpeg',
-      title: 'Bola',
-      fam: 'Quesos',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '$17.00'
-    },
-    {
-      imageUrl: '../../../../assets/imgCat/fruts.jpeg',
-      title: 'Entera',
-      fam: 'Lacteos',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '$16.00'
-    },
-
-    {
-      imageUrl: '../../../../assets/imgCat/fruts.jpeg',
-      title: 'Bola',
-      fam: 'Quesos',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '$17.00'
-    },
-    {
-      imageUrl: '../../../../assets/imgCat/fruts.jpeg',
-      title: 'Entera',
-      fam: 'Lacteos',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '$16.00'
-    },
-
-    {
-      imageUrl: '../../../../assets/imgCat/fruts.jpeg',
-      title: 'Bola',
-      fam: 'Quesos',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '$17.00'
-    },
-    {
-      imageUrl: '../../../../assets/imgCat/fruts.jpeg',
-      title: 'Entera',
-      fam: 'Lacteos',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '$16.00'
-    },
-
-  ]
-
-
-
+  item: Product = new Product(
+    0,
+    1,
+    '',
+    '',
+    0,
+    0,
+    0,
+    0,
+    16,
+    '',
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  );
 
   allItems: any[] = [];
 
@@ -122,44 +50,38 @@ export class CatalogoComponent {
   searchFam: string = '';
   noResults: boolean = false;
 
-
-
-
   // Realizar una copia de los elementos completos
   ngOnInit() {
     this.carga();
-  this.allItems = [...this.items];
+    this.allItems = [...this.items];
   }
 
-   //Manera de consumir services rest api
-   carga(){
-    this.catalgoo.obtenerPerfiles()
-    .subscribe(res => {
-      if(res.ok){
-        this.items = res.data;  //<= COMENTADO PARA VER LOS PLATANOS.
-      }else{
-
+  //Manera de consumir services rest api
+  carga() {
+    this.catalgoo.obtenerPerfiles().subscribe((res) => {
+      if (res.ok) {
+        this.articulos = res.data; //<= COMENTADO PARA VER LOS PLATANOS.
+      } else {
       }
-        console.log(res.data);
+      console.log(res.data);
+    });
+  }
 
-    })
-   }
-
-
-    // Filtra los elementos del catálogo
-   buscar() {
-    this.items = this.allItems.filter(item =>
-      item.title.includes(this.searchTitle) && item.fam.includes(this.searchFam)
+  // Filtra los elementos del catálogo
+  buscar() {
+    this.items = this.allItems.filter(
+      (item) =>
+        item.title.includes(this.searchTitle) &&
+        item.fam.includes(this.searchFam)
     );
     this.noResults = this.items.length === 0;
   }
 
-    // Restaura los elementos completos desde la copia
+  // Restaura los elementos completos desde la copia
   resetCatalogo() {
     this.items = [...this.allItems];
     this.noResults = false;
   }
-
 
   // Para el Modal
   openModal(item: any) {
@@ -171,37 +93,36 @@ export class CatalogoComponent {
     this.isModalOpen = false;
   }
 
-  //Para el boton agregar Producto.
-  agregarProducto() {
+  //Para el boton .
+  addProducto() {
     this.router.navigate(['./add-product']);
+
   }
-
-
-
-
-
 
   // Para la barra de busqueda
-isSticky: boolean = false;
+  isSticky: boolean = false;
 
-
-@HostListener('window:scroll', ['$event'])
-checkScroll() {
-  const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-  if (scrollPosition > 0) {
-    this.isSticky = true;
-  } else {
-    this.isSticky = false;
+  @HostListener('window:scroll', ['$event'])
+  checkScroll() {
+    const scrollPosition =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+    if (scrollPosition > 0) {
+      this.isSticky = true;
+    } else {
+      this.isSticky = false;
+    }
   }
-}
 
-modalVisibility = false
+  modalVisibility = false;
 
-toggleModalVisibility() {
-  this.modalVisibility = !this.modalVisibility
-}
+  toggleModalVisibility() {
+    this.modalVisibility = !this.modalVisibility;
+  }
 
-agregarProductoCarrito(item:any) {
-  this.catalgoo.disparadorDeProductos.emit(item)
-}
+  agregarProductoCarrito(item: any) {
+    this.catalgoo.disparadorDeProductos.emit(item);
+  }
 }

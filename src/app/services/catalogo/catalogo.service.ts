@@ -26,7 +26,7 @@ export class CatalogoService {
 
   agregarProducto(producto: Product) {
     let url =
-      'https://serp-inventarios.serteza.com/public/api/clientes/guardarArticulo';
+      'https://serp-inventarios.serteza.com/public/api/articulos/guardarArticulo';
 
     return this.http.post(url, producto).pipe(
       map((resp: any) => {

@@ -37,7 +37,9 @@ export class RoutesComponent {
 
   //Activo
   routeIsActive: boolean = false;
-//Este metodo
+
+
+//Obtener Rutas
   obtenerRutas() {
     this.routeService.obtenerRutas().subscribe(
       (response) => {
@@ -66,6 +68,7 @@ updateRouteStatus() {
     }
   });
 }
+
 
 //FILTRO
   filtrarRutas() {

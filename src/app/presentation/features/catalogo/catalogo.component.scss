@@ -61,7 +61,7 @@
   }
 }
 
-//BOTON +
+//BOTON => ' + '  <=
 .btn_h {
   display: inline-block;
   width: 33px;
@@ -74,6 +74,7 @@
   font-weight: bold;
   font-size: 26px;
   text-decoration: none;
+  position: absolute;
 }
 
 .btn_h:hover {
