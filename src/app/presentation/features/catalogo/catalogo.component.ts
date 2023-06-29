@@ -1,7 +1,7 @@
 import { Component,HostListener  } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@data/services/auth/auth.service';
-import { CatalogoService } from '@data/services/catalogo/catalogo.service';
+import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
 
 
 
@@ -136,7 +136,7 @@ export class CatalogoComponent {
     this.catalgoo.obtenerPerfiles()
     .subscribe(res => {
       if(res.ok){
-       // this.items = res.data;  //<= COMENTADO PARA VER LOS PLATANOS.
+        this.items = res.data;  //<= COMENTADO PARA VER LOS PLATANOS.
       }else{
 
       }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { CatalogoService } from '@data/services/catalogo/catalogo.service';
+import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
 
 interface item {
   id?: number,
