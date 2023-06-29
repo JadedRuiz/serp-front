@@ -89,6 +89,7 @@ updateRouteStatus() {
 
   editarRuta(route: any) {
     this.openModal();
+    console.log(route)
     this.route = route;
   }
 
