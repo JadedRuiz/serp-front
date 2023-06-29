@@ -89,7 +89,6 @@ updateRouteStatus() {
 
   editarRuta(route: any) {
     this.openModal();
-    console.log(route);
     this.route = route;
   }
 
@@ -105,7 +104,6 @@ updateRouteStatus() {
       this.closeModal();
     } else {
       this.routeService.agregarRuta(this.route).subscribe((objeto) => {
-        console.log('este soy yo' + objeto);
         this.routeService.obtenerRutas();
         this.closeModal();
       });
@@ -124,7 +122,6 @@ updateRouteStatus() {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.routeService.eliminarRuta(id).subscribe((objeto) => {
-          console.log(objeto);
           this.routeService.obtenerRutas();
         });
       }
@@ -134,7 +131,7 @@ updateRouteStatus() {
 
 //Activar RUTA
   deshabilitarRuta(id_ruta: number, activo: number) {
-    this.routeService.desactivarRuta(id_ruta).subscribe((objeto) => {
+    this.routeService.desactivarRuta(id_ruta,activo).subscribe((objeto) => {
       this.obtenerRutas();
       console.log(this.route);
     });
@@ -146,7 +143,7 @@ updateRouteStatus() {
   }
 
   getRouteStatusText(activo: number): string {
-    return activo == 1 ? 'Activado' : 'Desactivado';
+    return activo == 1 ? 'ACTIVADA' : 'DESACTIVADA';
   }
 }
 

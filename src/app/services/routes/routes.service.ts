@@ -63,9 +63,21 @@ export class RoutesService {
     );
   }
 
-  desactivarRuta(id_ruta:number) {
+  desactivarRuta(id_ruta:number, activo:number) {
     let url = 'https://serp-inventarios.serteza.com/public/api/rutas/activarRuta?id_ruta=' + id_ruta;
-    return this.http.post(url, '')
+    return this.http.post(url, '').pipe(
+      map((resp: any) => {
+        let mensaje = activo == 0 ? 'ACTIVADA' : 'DESACTIVADA' ;
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: `La ruta fue ${mensaje}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return resp.data;
+      })
+    );
   }
 }
 
