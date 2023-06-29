@@ -52,7 +52,10 @@ addresses: Address[] = []
 modalVisibility: boolean = false
 
 proveedor: Proveedor = new Proveedor(0, 1, 0, '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, {
+  id_cliente_direccion: 0,
+  id_cliente: 0,
   id_direccion: 0,
+  direccion: '',
   descripcion: '',
   calle: '',
   numero_interior: '',
