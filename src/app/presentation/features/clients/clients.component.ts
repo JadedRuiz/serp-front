@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { window } from 'rxjs';
 import { Address } from 'src/app/models/addresses.model';
 import { Client } from 'src/app/models/clients.model';
 import { ClientsService } from 'src/app/services/clients/clients.service';
@@ -9,14 +10,21 @@ import { ClientsService } from 'src/app/services/clients/clients.service';
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.scss'],
 })
-export class ClientsComponent {
-  constructor(private clientService: ClientsService) {}
 
-  ngOnInit() {}
+export class ClientsComponent {
+
+  //miComprador = window.sessionStorage["comprador_gl"];
+  miComprador = 1;
+  miToken = "";
+  miPefil = "ADMINISTRADOR";
+  miUsuario = 1;
+
+  constructor(private clientService: ClientsService) { }
+
+  ngOnInit() { }
 
   clients: Client[] = [];
   addresses: Address[] = [];
-  response: any = {}
 
   client: Client = new Client(
     0,
@@ -41,7 +49,7 @@ export class ClientsComponent {
 
   address: Address = new Address(
     0,
-    this.response,
+    0,
     0,
     '',
     '',
@@ -71,7 +79,13 @@ export class ClientsComponent {
   }
 
   obtenerClientes() {
-    this.clientService.obtenerClientes().subscribe(
+    let json = {
+      id_cliente: 0,
+      id_comprador: this.miComprador,
+      cliente: '',
+      token: this.miToken
+    }
+    this.clientService.obtenerClientes(json).subscribe(
       (response) => {
         if (response.ok) {
           this.clients = response.data;
@@ -86,7 +100,7 @@ export class ClientsComponent {
     );
   }
 
-  obtenerDirecciones(id_cliente_direccion: number) {
+  obtenerDireccion(id_cliente_direccion: number) {
     this.clientService.obtenerDirecciones(id_cliente_direccion).subscribe(
       (response) => {
         if (response.ok) {
@@ -102,44 +116,43 @@ export class ClientsComponent {
     );
   }
 
-  submit(clientForm: NgForm) {
-    this.guardarCliente(clientForm).then(
-      console.log(this.response),
-      this.guardarDireccion(clientForm)
-      )
-    // if (this.id_cliente) {
-    //   this.guardarDireccion(clientForm);
-    
+  // submit(clientForm: NgForm) {
+  //   this.guardarCliente(clientForm);
+  // }
+
+  editarCliente(cliente: any) {
+    console.log(cliente)
+  }
+
+  editarDireccion(id_direccion: number) {
+    this.addressSelected = this.addresses.filter(address => address.id_direccion == id_direccion)[0]
+    this.addAddressVisibility = true
   }
 
   guardarCliente(clientForm: NgForm) {
     if (clientForm.invalid) {
-      console.log('666');
+      console.log('nada')
       return;
     }
-    if (this.client.id_cliente) {
+    if (this.selectedClient.length > 0) {
+      console.log(this.selectedClient)
       this.clientService
-        .editarCliente(this.client.id_cliente, this.client)
+        .editarCliente(this.selectedClient[0].id_cliente, this.selectedClient[0])
         .subscribe((objeto) => {
           console.log(objeto);
+          console.log(this.selectedClient[0])
         });
     } else {
       this.clientService.agregarCliente(this.client).subscribe((objeto) => {
-        console.log(this.client);
-        this.clientService.obtenerClientes();
-        this.response = objeto;
-        console.log(objeto);
-        console.log(this.response);
+        this.address.id_cliente = objeto.id_cliente;
+        this.guardarDireccion(clientForm);
       });
     }
-    return this.response
   }
 
   guardarDireccion(addressForm: NgForm) {
-    if (addressForm.invalid) {
-      console.log('666');
-      return;
-    }
+
+    //Ya lo validaste arriba
     if (this.address.id_direccion) {
       this.clientService
         .editarDireccion(this.address.id_direccion, this.address)
@@ -150,18 +163,40 @@ export class ClientsComponent {
       this.clientService.agregarDireccion(this.address).subscribe((objeto) => {
         console.log(objeto);
         console.log(this.client);
-        this.clientService.obtenerClientes();
+        // this.buscarCliente();
+        //this.clientService.obtenerClientes();
         // console.log(clientForm.value);
       });
     }
   }
 
+
+  //SECCIÓN PARA MANEJAR LA BÚSQUEDA DE CLIENTES Y LOS CLIENTES FILTRADOS
   searchClient: string = '';
   autocompleteClients: any[] = [];
-  selectedClient: any[] = [];
+  selectedClient: Client[] = [];
   isClientSelected: boolean = false;
-  addClientVisibility: boolean = false;
+  addAddressVisibility: boolean = false;
   searchList: boolean = false;
+  addressSelected: Address = new Address(
+    0,
+    0,
+    0,
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    0,
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    0)
 
   buscarCliente() {
     if (this.searchClient.length <= 3) {
@@ -175,20 +210,27 @@ export class ClientsComponent {
     }
   }
 
-  seleccionarCliente(id_cliente: number, id_cliente_direccion: number) {
+  seleccionarCliente(id_cliente: number) {
     if (id_cliente) {
       this.selectedClient = this.autocompleteClients.filter(
         (aclient) => aclient.id_cliente === id_cliente
       );
+      console.log(this.selectedClient)
       this.isClientSelected = true;
-      this.obtenerDirecciones(id_cliente_direccion);
+      this.obtenerDireccion(id_cliente);
       this.searchList = false;
     } else {
       this.selectedClient = [];
     }
   }
 
-  toggleAddClientVisibility() {
-    this.addClientVisibility = !this.addClientVisibility;
+  toggleAddAddressVisibility() {
+    this.addAddressVisibility = !this.addAddressVisibility;
   }
+
+  toggleIsClientSelected() {
+    this.isClientSelected = !this.isClientSelected
+  }
+
 }
+
