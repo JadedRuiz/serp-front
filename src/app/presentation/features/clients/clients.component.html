@@ -454,7 +454,7 @@
                 name="descripcion"
                 id="descripcion"
                 required
-                [(ngModel)]="address.descripcion"
+                [(ngModel)]="addressSelected.descripcion"
               />
             </div>
             <div>
@@ -465,7 +465,7 @@
                 name="calle"
                 id="calle"
                 required
-                [(ngModel)]="address.calle"
+                [(ngModel)]="addressSelected.calle"
               />
             </div>
             <div>
@@ -476,7 +476,7 @@
                 name="numero_interior"
                 id="numero_interior"
                 required
-                [(ngModel)]="address.numero_interior"
+                [(ngModel)]="addressSelected.numero_interior"
               />
             </div>
             <div>
@@ -487,7 +487,7 @@
                 name="numero_exterior"
                 id="numero_exterior"
                 required
-                [(ngModel)]="address.numero_exterior"
+                [(ngModel)]="addressSelected.numero_exterior"
               />
             </div>
             <div>
@@ -498,7 +498,7 @@
                 name="cruzamiento_uno"
                 id="cruzamiento_uno"
                 required
-                [(ngModel)]="address.cruzamiento_uno"
+                [(ngModel)]="addressSelected.cruzamiento_uno"
               />
             </div>
             <div>
@@ -509,7 +509,7 @@
                 name="cruzamiento_dos"
                 id="cruzamiento_dos"
                 required
-                [(ngModel)]="address.cruzamiento_dos"
+                [(ngModel)]="addressSelected.cruzamiento_dos"
               />
             </div>
           </div>
@@ -522,7 +522,7 @@
                 name="codigo_postal"
                 id="codigo_postal"
                 required
-                [(ngModel)]="address.codigo_postal"
+                [(ngModel)]="addressSelected.codigo_postal"
               />
             </div>
             <div>
@@ -533,7 +533,7 @@
                 name="colonia"
                 id="colonia"
                 required
-                [(ngModel)]="address.colonia"
+                [(ngModel)]="addressSelected.colonia"
               />
             </div>
             <div>
@@ -544,7 +544,7 @@
                 name="localidad"
                 id="localidad"
                 required
-                [(ngModel)]="address.localidad"
+                [(ngModel)]="addressSelected.localidad"
               />
             </div>
             <div>
@@ -555,7 +555,7 @@
                 name="municipio"
                 id="municipio"
                 required
-                [(ngModel)]="address.municipio"
+                [(ngModel)]="addressSelected.municipio"
               />
             </div>
             <div>
@@ -566,11 +566,11 @@
                 name="estado"
                 id="estado"
                 required
-                [(ngModel)]="address.estado"
+                [(ngModel)]="addressSelected.estado"
               />
             </div>
           </div>
-          <button type="submit" class="general-btn">Guardar</button>
+          <button type="submit" class="general-btn mt-3 align-self-end">Guardar</button>
         </form>
       </div>
       <!-- SECCION DIRECCIONES -->
