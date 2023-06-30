@@ -48,7 +48,8 @@ export class CatalogoComponent {
   selectedCard: any;
   searchTitle: string = '';
   searchFam: string = '';
-  noResults: boolean = false;
+  resultsNotFound: boolean = false;
+  filteredItems: any[] = [];
 
   // Realizar una copia de los elementos completos
   ngOnInit() {
@@ -61,6 +62,7 @@ export class CatalogoComponent {
     this.catalgoo.obtenerPerfiles().subscribe((res) => {
       if (res.ok) {
         this.articulos = res.data; //<= COMENTADO PARA VER LOS PLATANOS.
+        this.filteredItems = this.articulos;
       } else {
       }
       console.log(res.data);
@@ -69,18 +71,29 @@ export class CatalogoComponent {
 
   // Filtra los elementos del catálogo
   buscar() {
-    this.items = this.allItems.filter(
-      (item) =>
-        item.title.includes(this.searchTitle) &&
-        item.fam.includes(this.searchFam)
-    );
-    this.noResults = this.items.length === 0;
+    if (this.searchTitle === ''  && this.searchFam === '') {
+      this.filteredItems = this.articulos;
+    } else {
+      this.filteredItems = this.articulos.filter(articulo =>
+        articulo.articulo.toLowerCase().includes(this.searchTitle.toLowerCase())
+        && articulo.familia.toLowerCase().includes(this.searchFam.toLowerCase())
+      );
+    } this.noResults()
   }
+
+  noResults() {
+    if (this.filteredItems.length === 0) {
+      this.resultsNotFound = true;
+    } else {
+      this.resultsNotFound = false;
+    }
+  }
+
 
   // Restaura los elementos completos desde la copia
   resetCatalogo() {
     this.items = [...this.allItems];
-    this.noResults = false;
+    this.resultsNotFound = false;
   }
 
   // Para el Modal
@@ -96,7 +109,6 @@ export class CatalogoComponent {
   //Para el boton .
   addProducto() {
     this.router.navigate(['./add-product']);
-
   }
 
   // Para la barra de busqueda

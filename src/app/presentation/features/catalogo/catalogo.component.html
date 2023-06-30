@@ -12,13 +12,13 @@
   <button type="button" class="b add-btn" (click)="addProducto()">AGREGAR</button>
 </div>
 
-<div class="text-center" *ngIf="noResults" style="  color:red; font-size: 40px;">No se encontraron resultados.</div>
+<div class="text-center" *ngIf="resultsNotFound" style="  color:red; font-size: 40px;">No se encontraron resultados.</div>
 <hr />
 
 
 <div class="container-fluid">
   <div class="columns is-multiline is-variable is-4">
-    <div class="column is-one-quarter-desktop is-one-third-tablet is-full-mobile" *ngFor="let articulo of articulos">
+    <div class="column is-one-quarter-desktop is-one-third-tablet is-full-mobile" *ngFor="let articulo of filteredItems">
 
         <div class="card">
         <a type="button" class="mt-1 me-1 align-self-end btn_h " (click)="agregarProductoCarrito(item)">+</a>

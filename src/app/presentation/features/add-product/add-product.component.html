@@ -40,9 +40,12 @@
           <label class="label-label" for="inputFamilia">Familia</label>
           <select  type="text"
           class="form-control"
-          id="inputFamilia"
-          placeholder="..." >
-          <option value={{familia.familia}} *ngFor="let familia of familias" >
+          title="familia"
+          name="familia"
+          placeholder="..."
+          [(ngModel)]="item.id_familia" >
+          <option name="familia" value={{familia.id_familia}} *ngFor="let familia of familias"
+          >{{familia.familia}}
           </option>
           </select>
         </div>

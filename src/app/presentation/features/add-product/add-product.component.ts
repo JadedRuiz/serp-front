@@ -21,7 +21,6 @@ export class AddProductComponent {
   imageCount: number = 0;
 
 
-
   constructor(
     private router: Router,
     private imageCompress: NgxImageCompressService,

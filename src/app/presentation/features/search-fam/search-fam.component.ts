@@ -28,7 +28,7 @@ export class SearchFamComponent {
 familias: { familia: string, id_familia: number}[] = [];
 miComprador = 1;
 isModalOpen = false;
-
+resultsNotFound: boolean = false;
 searchFam: string = '';
 filteredFam: any [] = [];
 
@@ -83,8 +83,17 @@ if (this.searchFam === ''){
   this.filteredFam = this.familias.filter((familia) =>
 familia.familia.toLowerCase().includes(this.searchFam.toLowerCase())
   );
-  //this.noResults();
+  this.noResults();
 }
+}
+
+
+noResults() {
+  if (this.filteredFam.length === 0) {
+    this.resultsNotFound = true;
+  } else {
+    this.resultsNotFound = false;
+  }
 }
 
 guardarFamilia(f: NgForm){

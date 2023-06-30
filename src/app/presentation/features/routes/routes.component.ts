@@ -111,26 +111,11 @@ updateRouteStatus() {
         this.routeService.obtenerRutas();
         this.closeModal();
       });
+      this.routeService.obtenerRutas();
     }
     console.log(this.route);
   }
 
-  deleteRuta(id: number) {
-    Swal.fire({
-      title: '¿Quieres desactivar esta Ruta?',
-      showDenyButton: true,
-      showCancelButton: false,
-      confirmButtonText: 'Activar',
-      denyButtonText: `Desactivar`,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        this.routeService.eliminarRuta(id).subscribe((objeto) => {
-          this.routeService.obtenerRutas();
-        });
-      }
-    });
-  }
 
 
 //Activar RUTA
