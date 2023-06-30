@@ -156,7 +156,7 @@ export class ClientsComponent {
     //Ya lo validaste arriba
     if (this.addressSelected.id_cliente_direccion) {
       this.clientService
-        .editarDireccion(this.addressSelected.id_cliente_direccion, this.addressSelected)
+        .editarDireccion(this.addressSelected.id_direccion, this.addressSelected)
         .subscribe((objeto) => {
           console.log(objeto);
         });
@@ -230,6 +230,8 @@ export class ClientsComponent {
 
   toggleIsClientSelected() {
     this.isClientSelected = !this.isClientSelected
+    this.tab(1)
+    this.toggleAddAddressVisibility()
   }
 
 }
