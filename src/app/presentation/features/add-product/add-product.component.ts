@@ -19,6 +19,7 @@ export class AddProductComponent {
   imgResultAfterResize: DataUrl = '';
   uploadedImages: string[] = [];
   imageCount: number = 0;
+  precioMasIva : number = 0;
 
 
   constructor(
@@ -60,7 +61,6 @@ export class AddProductComponent {
 
   familias: Familia[] = []
 
-
 obtenerFamilias(){
   this.familiaService.obtenerFamilias().subscribe((objeto) => {
     this.familias = objeto.data;
@@ -74,6 +74,14 @@ guardarArticulo(productForm: NgForm){
       this.productService.obtenerPerfiles();
       console.log(productForm.value);
     });
+}
+
+//Calcular Iva
+calcularPrecioMasIva(){
+const precioVenta = this.item.precio_venta;
+const tasaIVA = this.item.tasa_iva;
+const resultado = (precioVenta * (1 + tasaIVA / 100)).toFixed(2);
+  this.precioMasIva = Number(resultado);
 }
 
 

@@ -8,7 +8,8 @@
     <div class="row">
       <h1 class="title text-center">Nuevo Producto</h1>
       <div class="col-md-6">
-        <div class="form-label col-md-4">
+        <div class="row">
+        <div class="form-label col-md-3">
           <label for="inputAlmacen">ALMACEN</label>
           <select
           id="inputAlmacen"
@@ -24,7 +25,22 @@
             <option>4</option>
           </select>
         </div>
-        <div class="form-label">
+
+        <div class="form-label col-md-2">
+          <label for="inputFamilia">Sat</label>
+          <input
+            type="numero"
+            name="prodserv"
+            class="form-control"
+            id="inputFamilia"
+            value="1"
+            required
+            [(ngModel)]="item.id_prodserv_sat"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-label col-md-4">
           <label for="inputNombre">Nombre</label>
           <input
             type="text"
@@ -36,7 +52,7 @@
             [(ngModel)]="item.articulo"
           />
         </div>
-        <div class="form-label">
+        <div class="form-label col-md-4">
           <label class="label-label" for="inputFamilia">Familia</label>
           <select  type="text"
           class="form-control"
@@ -49,7 +65,8 @@
           </option>
           </select>
         </div>
-        <div class="form-label">
+      </div>
+        <div class="form-label col-md-4">
           <label for="inputProveedor">Unidad de medida</label>
           <input
             type="number"
@@ -61,8 +78,9 @@
             [(ngModel)]="item.id_medida"
           />
         </div>
-        <div class="form-label">
-          <label for="inputPrecio">PRECIO</label>
+        <div class="row">
+        <div class="form-label col-md-3">
+          <label for="inputPrecio">Precio venta</label>
           <input
             type="number"
             class="form-control"
@@ -71,11 +89,31 @@
             placeholder="..."
             required
             [(ngModel)]="item.precio_venta"
+            (change)="calcularPrecioMasIva()"
           />
         </div>
+        <div class=" text-center form-label col-md-2">
+          <label  for="inputFamilia">IVA</label>
+          <input
+            type="numero"
+            name="IVA"
+            class="form-control"
+            id="inputFamilia"
+            placeholder="p.ej: 16%"
+            required
+            [(ngModel)]="item.tasa_iva"
+            (change)="calcularPrecioMasIva()"
+          />
+        </div>
+        <div class="form-label col-md-3 text-center">
+          <label><b>Precio final</b></label>
+        <span>{{precioMasIva | number:'1.2-2'}}</span>
+
+      </div>
         <div class="row">
-          <div class="form-label col-md-4">
-            <label for="inputFamilia">Sat</label>
+        <h1 class="">Descuentos</h1>
+          <div class="form-label col-md-2">
+            <label for="inputFamilia">1</label>
             <input
               type="numero"
               name="prodserv"
@@ -83,11 +121,11 @@
               id="inputFamilia"
               placeholder="..."
               required
-              [(ngModel)]="item.id_prodserv_sat"
+              [(ngModel)]="item.descuento1"
             />
           </div>
-          <div class="form-label col-md-4">
-            <label for="inputFamilia">Descuento 2</label>
+          <div class="form-label col-md-2">
+            <label for="inputFamilia">2</label>
             <input
               type="text"
               class="form-control"
@@ -95,8 +133,8 @@
               placeholder="..."
             />
           </div>
-          <div class="form-label col-md-4">
-            <label for="inputFamilia">Descuento 3</label>
+          <div class="form-label col-md-2">
+            <label for="inputFamilia">3</label>
             <input
               type="text"
               class="form-control"
@@ -107,8 +145,9 @@
         </div>
       </div>
 
-      <div class="col-md-6">
-        <div class="form-label">
+      <div class="row ">
+        <h5 class="fs-5 mt-2 ">Existencias</h5>
+        <div class="col-md-3 form-label">
           <label for="inputFamilia">Minimo</label>
           <input
             type="text"
@@ -117,7 +156,7 @@
             placeholder="..."
           />
         </div>
-        <div class="form-label">
+        <div class="col-md-3 form-label">
           <label for="inputFamilia">Maximo</label>
           <input
             type="text"
@@ -126,7 +165,7 @@
             placeholder="..."
           />
         </div>
-        <div class="form-label">
+        <div class="col-md-3 form-label">
           <label for="inputFamilia">Reorden</label>
           <input
             type="text"
@@ -135,12 +174,26 @@
             placeholder="..."
           />
         </div>
+
+        </div>
       </div>
     </div>
     <button type="submit" class="m-2 btn search-btn">Guardar</button>
-
   </form>
 
+
+<!-- BOTONES -->
+<div class="2">
+  <button
+    class="m-2 btn general-btn"
+    (click)="uploadAndResize()"
+    [disabled]="imageCount >= 5"
+  >
+    Subir imagen
+  </button>
+  <button type="button" class="m-2 btn danger-btn" [routerLink]="['/home']">Cancelar</button>
+
+</div>
 
 <div class="row">
   <div class="col">
@@ -172,18 +225,7 @@
   </div>
 
 
-  <!-- BOTONES -->
-  <div class="2">
-    <button
-      class="m-2 btn general-btn"
-      (click)="uploadAndResize()"
-      [disabled]="imageCount >= 5"
-    >
-      Subir imagen
-    </button>
-    <button type="button" class="m-2 btn danger-btn" [routerLink]="['/home']">Cancelar</button>
 
-  </div>
   </div>
 </div>
 </div>
