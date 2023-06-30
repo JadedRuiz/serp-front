@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { window } from 'rxjs';
 import { Address } from 'src/app/models/addresses.model';
 import { Client } from 'src/app/models/clients.model';
 import { ClientsService } from 'src/app/services/clients/clients.service';
@@ -100,12 +99,11 @@ export class ClientsComponent {
     );
   }
 
-  obtenerDireccion(id_cliente_direccion: number) {
-    this.clientService.obtenerDirecciones(id_cliente_direccion).subscribe(
+  obtenerDireccion(id_cliente: number) {
+    this.clientService.obtenerDirecciones(id_cliente).subscribe(
       (response) => {
         if (response.ok) {
           this.addresses = response.data;
-          console.log(this.addresses);
         } else {
           console.log('Ocurrió un error', response.message);
         }
@@ -116,18 +114,11 @@ export class ClientsComponent {
     );
   }
 
-  // submit(clientForm: NgForm) {
-  //   this.guardarCliente(clientForm);
-  // }
-
-  editarCliente(cliente: any) {
-    console.log(cliente)
-  }
-
-  editarDireccion(id_direccion: number) {
-    console.log("Soy el objeto de la dirección que seleccionaste", this.addressSelected)
-    this.addressSelected = this.addresses.filter(address => address.id_direccion == id_direccion)[0]
+  editarDireccion(id_cliente_direccion: number) {
+    console.log(id_cliente_direccion)
+    this.addressSelected = this.addresses.filter(address => address.id_cliente_direccion == id_cliente_direccion)[0]
     this.addAddressVisibility = true
+    console.log("Soy el objeto de la dirección que seleccionaste", this.addressSelected)
   }
 
   guardarCliente(clientForm: NgForm) {
@@ -152,20 +143,20 @@ export class ClientsComponent {
   }
 
   guardarDireccion(addressForm: NgForm) {
-    console.log(this.addressSelected)
-    //Ya lo validaste arriba
-    if (this.addressSelected.id_cliente_direccion) {
+    if (addressForm.invalid) {
+      console.log('nada')
+      return;
+    }
+    if (this.addressSelected.id_direccion) {
+      console.log(this.addressSelected.id_direccion)
       this.clientService
         .editarDireccion(this.addressSelected.id_direccion, this.addressSelected)
         .subscribe((objeto) => {
           console.log(objeto);
         });
     } else {
-      this.clientService.agregarDireccion(this.address).subscribe((objeto) => {
-        console.log(objeto);
-        // this.buscarCliente();
-        //this.clientService.obtenerClientes();
-        // console.log(clientForm.value);
+      this.clientService.agregarDireccion(this.addressSelected).subscribe((resp) => {
+        console.log("Tu petición dice", resp);
       });
     }
   }
@@ -215,10 +206,11 @@ export class ClientsComponent {
       this.selectedClient = this.autocompleteClients.filter(
         (aclient) => aclient.id_cliente === id_cliente
       );
-      console.log(this.selectedClient)
       this.isClientSelected = true;
       this.obtenerDireccion(id_cliente);
       this.searchList = false;
+      this.addressSelected.id_cliente = id_cliente
+      this.tab(1)
     } else {
       this.selectedClient = [];
     }

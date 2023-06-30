@@ -35,7 +35,7 @@ const routes: Routes = [
   {
     path: '',
     component: BaseLoggedComponent,
-    canActivate: [LoggedGuard],
+    // canActivate: [LoggedGuard],
     children: [
       {
         path: 'home',
