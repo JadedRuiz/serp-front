@@ -26,7 +26,7 @@ export class LoginComponent {
       closeButton: false
     });
   }
-  
+
   ngOnInit() : void { }
 
   private _initForm() {
@@ -37,19 +37,20 @@ export class LoginComponent {
   }
 
   onSubmitForm(){
-    const data = { ... this.loginForm.value }
-    if(this.loginForm.valid){
-      this.auth.login(data)
-      .subscribe( (res : any) => {
-        if(res.ok){
-          Swal.fire('Bien hecho','Te has logueado correctamente, redireccionando ...');
+    Swal.fire('Bien hecho','Te has logueado correctamente, redireccionando ...');
           localStorage.setItem("token","sKKKASD10239AK120Djkahsda9s8d12jk");
           this.router.navigate(["home"]);
-        }else{
-          Notiflix.Block.remove(".form_login");
-          Notiflix.Notify.warning("Primero llena los campos obligatorios");
-        }
-      });
-    }
+    // const data = { ... this.loginForm.value }
+    // if(this.loginForm.valid){
+    //   this.auth.login(data)
+    //   .subscribe( (res : any) => {
+    //     if(res.ok){
+
+    //     }else{
+    //       Notiflix.Block.remove(".form_login");
+    //       Notiflix.Notify.warning("Primero llena los campos obligatorios");
+    //     }
+    //   });
+    // }
   }
 }
