@@ -6,6 +6,13 @@ import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
 import { NgForm } from '@angular/forms';
 import { FamiliaService } from '@data/services/sfamilia/familia.service';
 import { Familia } from 'src/app/models/familias.model';
+import { AlmacenService } from 'src/app/services/almacenes/almacen.service';
+import { Almacen } from 'src/app/models/alamacen.model';
+import { MedidaService } from'src/app/services/medidas/medida.service';
+import { Medida } from 'src/app/models/medidas.model';
+
+
+
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -26,10 +33,14 @@ export class AddProductComponent {
     private router: Router,
     private imageCompress: NgxImageCompressService,
     private productService: CatalogoService,
-    private familiaService: FamiliaService) {}
+    private familiaService: FamiliaService,
+    private almacenService: AlmacenService,
+    private medidaService: MedidaService) {}
 
     ngOnInit() {
       this.obtenerFamilias()
+      this.obtenerAlamacenes()
+      this.obtenermedidas()
     }
 
   items: Product[] = [];
@@ -42,8 +53,8 @@ export class AddProductComponent {
     0,
     0,
     0,
+    1,
     0,
-    16,
     '',
     1,
     1,
@@ -59,14 +70,34 @@ export class AddProductComponent {
   );
 
 
-  familias: Familia[] = []
 
+//para familias
+  familias: Familia[] = []
 obtenerFamilias(){
   this.familiaService.obtenerFamilias().subscribe((objeto) => {
     this.familias = objeto.data;
     console.log(this.familias);
 })
 }
+
+//para Unidad de medida
+medidas : Medida [] = []
+obtenermedidas(){
+this.medidaService.obtenerMedidas().subscribe((objeto)=>{
+  this.medidas = objeto.data;
+  console.log(this.medidas);
+})
+}
+
+//para Almacen
+almacenes : Almacen [] = []
+obtenerAlamacenes(){
+  this.almacenService.obtenerAlamacenes().subscribe((objeto) => {
+    this.almacenes = objeto.data;
+    console.log(this.almacenes);
+})
+}
+
 //Para Productos
 guardarArticulo(productForm: NgForm){
     this.productService.agregarProducto(this.item).subscribe((objeto) => {
@@ -76,11 +107,20 @@ guardarArticulo(productForm: NgForm){
     });
 }
 
-//Calcular Iva
+//Calcular Iva y aplicar descuentos
 calcularPrecioMasIva(){
 const precioVenta = this.item.precio_venta;
+const descuento1 = this.item.descuento1;
+const descuento2 = this.item.descuento2;
+const descuento3 = this.item.descuento3;
 const tasaIVA = this.item.tasa_iva;
-const resultado = (precioVenta * (1 + tasaIVA / 100)).toFixed(2);
+
+//aplica el descuento
+const precioDescuento1 = precioVenta - (precioVenta * descuento1 / 100);
+const precioDescuento2 = precioDescuento1 - (precioDescuento1 * descuento2 / 100);
+const precioDescuento3 = precioDescuento2 - (precioDescuento2 * descuento3 / 100);
+
+const resultado = (precioDescuento3 * (1 + tasaIVA / 100)).toFixed(2);
   this.precioMasIva = Number(resultado);
 }
 

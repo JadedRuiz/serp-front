@@ -9,36 +9,22 @@
       <h1 class="title text-center">Nuevo Producto</h1>
       <div class="col-md-6">
         <div class="row">
-        <div class="form-label col-md-3">
-          <label for="inputAlmacen">ALMACEN</label>
-          <select
-          id="inputAlmacen"
-          class="form-control"
-          name="almacen"
-          required
-          [(ngModel)]="item.id_almacen"
 
-          >
-            <option selected>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
+        <div class="form-label col-md-4">
+          <label class="label-label" for="inputAlmacen">Almacen</label>
+          <select  type="text"
+          class="form-control"
+          title="alamacen"
+          name="alamacen"
+          placeholder="..."
+          [(ngModel)]="item.id_almacen" >
+          <option name="alamcen" value={{almacen.id_almacen}} *ngFor="let almacen of almacenes"
+          >{{almacen.almacen}}
+          </option>
           </select>
         </div>
 
-        <div class="form-label col-md-2">
-          <label for="inputFamilia">Sat</label>
-          <input
-            type="numero"
-            name="prodserv"
-            class="form-control"
-            id="inputFamilia"
-            value="1"
-            required
-            [(ngModel)]="item.id_prodserv_sat"
-          />
-        </div>
-      </div>
+            </div>
       <div class="row">
         <div class="form-label col-md-4">
           <label for="inputNombre">Nombre</label>
@@ -52,6 +38,7 @@
             [(ngModel)]="item.articulo"
           />
         </div>
+
         <div class="form-label col-md-4">
           <label class="label-label" for="inputFamilia">Familia</label>
           <select  type="text"
@@ -66,18 +53,21 @@
           </select>
         </div>
       </div>
-        <div class="form-label col-md-4">
-          <label for="inputProveedor">Unidad de medida</label>
-          <input
-            type="number"
-            class="form-control"
-            id="inputProveedor"
-            placeholder="..."
-            required
-            name="medida"
-            [(ngModel)]="item.id_medida"
-          />
-        </div>
+
+      <div class="form-label col-md-4">
+        <label class="label-label" for="inputFamilia">Medidas</label>
+        <select  type="text"
+        class="form-control"
+        title="medida"
+        name="medida"
+        placeholder="..."
+        [(ngModel)]="item.id_medida" >
+        <option name="medida" value={{medida.id_medida}} *ngFor="let medida of medidas"
+        >{{medida.medida}}
+        </option>
+        </select>
+      </div>
+
         <div class="row">
         <div class="form-label col-md-3">
           <label for="inputPrecio">Precio venta</label>
@@ -116,12 +106,13 @@
             <label for="inputFamilia">1</label>
             <input
               type="numero"
-              name="prodserv"
+              name="descuento1"
               class="form-control"
               id="inputFamilia"
               placeholder="..."
               required
               [(ngModel)]="item.descuento1"
+            (change)="calcularPrecioMasIva()"
             />
           </div>
           <div class="form-label col-md-2">
@@ -130,7 +121,10 @@
               type="text"
               class="form-control"
               id="inputFamilia"
+              name="descuento2"
               placeholder="..."
+              [(ngModel)]="item.descuento2"
+            (change)="calcularPrecioMasIva()"
             />
           </div>
           <div class="form-label col-md-2">
@@ -138,8 +132,11 @@
             <input
               type="text"
               class="form-control"
+              name="descuento3"
               id="inputFamilia"
               placeholder="..."
+              [(ngModel)]="item.descuento3"
+            (change)="calcularPrecioMasIva()"
             />
           </div>
         </div>

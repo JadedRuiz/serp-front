@@ -12,6 +12,8 @@ const API_ROUTES = "https://serp-inventarios.serteza.com/public/api/rutas/consul
 const API_CLIENTS = "https://serp-inventarios.serteza.com/public/api/clientes/buscarClientes"
 const API_ADDRESSES = "https://serp-inventarios.serteza.com/public/api/clientes/buscarDireccionesCliente"
 const API_PROV = "https://serp-inventarios.serteza.com/public/api/proveedores/consultarProveedores"
+const API_ALMACEN = "https://serp-inventarios.serteza.com/public/api/almacenes/consultarAlmacenes";
+const API_MEDIDAS = "https://serp-inventarios.serteza.com/public/api/medidas/consultarMedidas"
 
 export const SERVER_CP = API_CP;
 export const COLOR = CLASS_COLOR;
@@ -23,5 +25,7 @@ export const SERV_ROUTES = API_ROUTES;
 export const SERV_CLIENTS = API_CLIENTS
 export const SERV_ADDRESSES = API_ADDRESSES;
 export const SERV_PROV = API_PROV
+export const SERV_ALMACEN = API_ALMACEN;
+export const SERV_MEDIDAS = API_MEDIDAS;
 
 
