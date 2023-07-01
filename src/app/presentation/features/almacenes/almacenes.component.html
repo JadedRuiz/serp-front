@@ -1,12 +1,12 @@
 <div class="proveedores container shadow row">
     <div class="proveedores-container">
-        <h1 class="text-center title">Proveedores</h1>
+        <h1 class="text-center title">Almacenes</h1>
         <div class="proveedores__search-bar">
             <div class="d-flex">
                 <input
                 class="search-input" 
                 type="text" 
-                placeholder="Buscar proveedores" 
+                placeholder="Buscar Almacen" 
                 aria-label="Buscar proveedores"
                 aria-describedby="button-addon2" 
                 />
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <button type="button" class="add-btn">
-            AGREGAR PROVEEDOR
+            AGREGAR ALMACEN
             </button>
         </div>
         <form
@@ -43,21 +43,21 @@
               class="tab"
               [class.active]="section === 1"
               (click)="tab(1)">
-              Datos del Proveedor
+              Datos del Almacen
             </div>
             <div
               class="tab"
               [class.active]="section === 2"
               (click)="tab(2)"
             >
-              Dirección del Proveedor
+              Dirección del Almacen
             </div>
           </div>
           <div class="proveedor__data-form row" [class.active]="section === 1">
             <h3 class="subtitle">Datos</h3>
             <div class="proveedor__data-form__section1 col-12 col-md-6">
               <div>
-                <label for="cliente">Descripción del Proveedor</label>
+                <label for="cliente">Descripcion del Almacen</label>
                 <input
                 class="form-control"
                   type="text"
@@ -70,7 +70,7 @@
                 />
               </div>
               <div>
-                <label for="contacto">Contacto</label>
+                <label for="contacto">Responsable</label>
                 <input
                   class="form-control"
                   type="text"
@@ -83,7 +83,7 @@
                 />
               </div>
               <div>
-                <label for="rfc">RFC</label>
+                <label for="rfc">Empresa</label>
                 <input
                   class="form-control"
                   type="text"
@@ -95,7 +95,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <!-- <div>
                 <label for="celular">Celular</label>
                 <input
                   class="form-control"
@@ -122,8 +122,8 @@
                 />
               </div>
             </div>
-            <div class="proveedor__data-form__section2 col-12 col-md-6">
-              <div>
+            <div class="proveedor__data-form__section2 col-12 col-md-6"> -->
+              <!-- <div>
                 <label for="correo">Correo</label>
                 <input
                   class="form-control"
@@ -174,7 +174,7 @@
                   #inputProvForm
                   disabled
                 />
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="proveedor__address-form row" [class.active]="section === 2">

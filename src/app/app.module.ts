@@ -23,6 +23,7 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 import { ClientsComponent } from '@presentation/features/clients/clients.component';
 import { RoutesComponent } from './presentation/features/routes/routes.component';
 import { ProveedoresComponent } from './presentation/features/proveedores/proveedores.component';
+import { AlmacenesComponent } from './presentation/features/almacenes/almacenes.component';
 
 
 
@@ -37,7 +38,8 @@ import { ProveedoresComponent } from './presentation/features/proveedores/provee
     AddProductComponent,
     ClientsComponent,
     RoutesComponent,
-    ProveedoresComponent
+    ProveedoresComponent,
+    AlmacenesComponent
   ],
 
 
