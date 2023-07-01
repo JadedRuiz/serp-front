@@ -14,6 +14,7 @@ import { BaseAuthComponent } from '@presentation/layout/base-auth/base-auth.comp
 import { BaseLoggedComponent } from '@presentation/layout/base-logged/base-logged.component';
 
 import { ProveedoresComponent } from '@presentation/features/proveedores/proveedores.component';
+import { AlmacenesComponent } from '@presentation/features/almacenes/almacenes.component';
 
 
 const routes: Routes = [
@@ -82,7 +83,11 @@ const routes: Routes = [
       {
         path: 'prov',
         component: ProveedoresComponent
-      }
+      },
+      {
+      path: 'almacen',
+      component: AlmacenesComponent
+    },
     ]
   }
 ];
