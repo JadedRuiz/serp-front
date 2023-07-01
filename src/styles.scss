@@ -60,7 +60,7 @@ p {
   background-color: #dce0daa4;
   transition: background-color 0.3s ease;
   outline: none;
-  width: 400px;
+  width: min(80%, 400px);
 }
 
 .general-btn, .danger-btn, .search-btn, .add-btn {

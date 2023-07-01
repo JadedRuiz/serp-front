@@ -9,18 +9,16 @@ import { ClientsService } from 'src/app/services/clients/clients.service';
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.scss'],
 })
-
 export class ClientsComponent {
-
   //miComprador = window.sessionStorage["comprador_gl"];
   miComprador = 1;
-  miToken = "";
-  miPefil = "ADMINISTRADOR";
+  miToken = '';
+  miPefil = 'ADMINISTRADOR';
   miUsuario = 1;
 
-  constructor(private clientService: ClientsService) { }
+  constructor(private clientService: ClientsService) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   clients: Client[] = [];
   addresses: Address[] = [];
@@ -82,13 +80,12 @@ export class ClientsComponent {
       id_cliente: 0,
       id_comprador: this.miComprador,
       cliente: '',
-      token: this.miToken
-    }
+      token: this.miToken,
+    };
     this.clientService.obtenerClientes(json).subscribe(
       (response) => {
         if (response.ok) {
           this.clients = response.data;
-          console.log(this.clients);
         } else {
           console.log('Ocurrió un error', response.message);
         }
@@ -115,28 +112,29 @@ export class ClientsComponent {
   }
 
   editarDireccion(id_cliente_direccion: number) {
-    console.log(id_cliente_direccion)
-    this.addressSelected = this.addresses.filter(address => address.id_cliente_direccion == id_cliente_direccion)[0]
-    this.addAddressVisibility = true
-    console.log("Soy el objeto de la dirección que seleccionaste", this.addressSelected)
+    this.addressSelected = this.addresses.filter(
+      (address) => address.id_cliente_direccion == id_cliente_direccion
+    )[0];
+    this.addAddressVisibility = true;
   }
 
   guardarCliente(clientForm: NgForm) {
     if (clientForm.invalid) {
-      console.log('nada')
       return;
     }
     if (this.selectedClient.length > 0) {
-      console.log(this.selectedClient)
       this.clientService
-        .editarCliente(this.selectedClient[0].id_cliente, this.selectedClient[0])
-        .subscribe((objeto) => {
-          console.log(objeto);
-          console.log(this.selectedClient[0])
-        });
+        .editarCliente(
+          this.selectedClient[0].id_cliente,
+          this.selectedClient[0]
+        )
+        .subscribe((objeto) => {});
     } else {
+      console.log(this.client)
       this.clientService.agregarCliente(this.client).subscribe((objeto) => {
-        this.address.id_cliente = objeto.id_cliente;
+        console.log(objeto)
+        this.addressSelected.id_cliente = objeto.id_cliente;
+        console.log(this.addressSelected)
         this.guardarDireccion(clientForm);
       });
     }
@@ -144,23 +142,25 @@ export class ClientsComponent {
 
   guardarDireccion(addressForm: NgForm) {
     if (addressForm.invalid) {
-      console.log('nada')
       return;
     }
     if (this.addressSelected.id_direccion) {
-      console.log(this.addressSelected.id_direccion)
       this.clientService
-        .editarDireccion(this.addressSelected.id_direccion, this.addressSelected)
-        .subscribe((objeto) => {
-          console.log(objeto);
-        });
+        .editarDireccion(
+          this.addressSelected.id_direccion,
+          this.addressSelected
+        )
+        .subscribe((objeto) =>
+          this.clientService.obtenerDirecciones(this.addressSelected.id_cliente)
+        );
+      this.offAddAddressVisibility();
     } else {
-      this.clientService.agregarDireccion(this.addressSelected).subscribe((resp) => {
-        console.log("Tu petición dice", resp);
-      });
+      this.clientService
+        .agregarDireccion(this.addressSelected)
+        .subscribe((resp) => {
+        });
     }
   }
-
 
   //SECCIÓN PARA MANEJAR LA BÚSQUEDA DE CLIENTES Y LOS CLIENTES FILTRADOS
   searchClient: string = '';
@@ -187,7 +187,8 @@ export class ClientsComponent {
     '',
     '',
     '',
-    0)
+    0
+  );
 
   buscarCliente() {
     if (this.searchClient.length <= 3) {
@@ -209,22 +210,64 @@ export class ClientsComponent {
       this.isClientSelected = true;
       this.obtenerDireccion(id_cliente);
       this.searchList = false;
-      this.addressSelected.id_cliente = id_cliente
-      this.tab(1)
+      this.addressSelected.id_cliente = id_cliente;
+      this.tab(1);
     } else {
       this.selectedClient = [];
     }
   }
 
-  toggleAddAddressVisibility() {
-    this.addAddressVisibility = !this.addAddressVisibility;
+  onAddAddressVisibility() {
+    this.addAddressVisibility = true
   }
 
-  toggleIsClientSelected() {
-    this.isClientSelected = !this.isClientSelected
-    this.tab(1)
-    this.toggleAddAddressVisibility()
+  offAddAddressVisibility() {
+    this.addAddressVisibility = false
   }
 
+  addClient() {
+    this.isClientSelected = false;
+    this.tab(1);
+    this.offAddAddressVisibility();
+    // this.client = new Client(
+    //   0,
+    //   0,
+    //   1,
+    //   '',
+    //   '',
+    //   '',
+    //   '',
+    //   '',
+    //   '',
+    //   '',
+    //   '',
+    //   0,
+    //   0,
+    //   0,
+    //   0,
+    //   0,
+    //   0,
+    //   0
+    // );
+    // this.address = new Address (
+    //   0,
+    //   0,
+    //   0,
+    //   '',
+    //   '',
+    //   '',
+    //   '',
+    //   '',
+    //   '',
+    //   '',
+    //   0,
+    //   '',
+    //   '',
+    //   '',
+    //   '',
+    //   '',
+    //   '',
+    //   0
+    // )
+  }
 }
-
