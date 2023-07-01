@@ -76,7 +76,6 @@ export class AddProductComponent {
 obtenerFamilias(){
   this.familiaService.obtenerFamilias().subscribe((objeto) => {
     this.familias = objeto.data;
-    console.log(this.familias);
 })
 }
 
@@ -85,7 +84,6 @@ medidas : Medida [] = []
 obtenermedidas(){
 this.medidaService.obtenerMedidas().subscribe((objeto)=>{
   this.medidas = objeto.data;
-  console.log(this.medidas);
 })
 }
 
@@ -94,7 +92,6 @@ almacenes : Almacen [] = []
 obtenerAlamacenes(){
   this.almacenService.obtenerAlamacenes().subscribe((objeto) => {
     this.almacenes = objeto.data;
-    console.log(this.almacenes);
 })
 }
 
@@ -103,7 +100,6 @@ guardarArticulo(productForm: NgForm){
     this.productService.agregarProducto(this.item).subscribe((objeto) => {
       console.log(objeto);
       this.productService.obtenerPerfiles();
-      console.log(productForm.value);
     });
 }
 

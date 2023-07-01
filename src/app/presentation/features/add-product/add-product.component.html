@@ -1,16 +1,42 @@
 <div class="p-2 shadow container">
 
   <!-- FORMULARIO -->
+  <div class="container shadow">
   <form class="form-group"
   #productForm="ngForm"
   (ngSubmit)="guardarArticulo(productForm)"
   >
     <div class="row">
-      <h1 class="title text-center">Nuevo Producto</h1>
-      <div class="col-md-6">
-        <div class="row">
+      <h1 class="mt-2 title text-center">Nuevo Producto</h1>
+      <div class="col">
 
-        <div class="form-label col-md-4">
+        <div id="producto" class="row text-center">
+          <div class="form-label col-md-3">
+            <label for="inputNombre">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              name="articulo"
+              id="inputNombre"
+              required
+              placeholder="Producto..."
+              [(ngModel)]="item.articulo"
+            />
+          </div>
+          <div class="form-label col-md-3">
+            <label class="label-label" for="inputFamilia">Familia</label>
+            <select  type="text"
+            class="form-control"
+            title="familia"
+            name="familia"
+            placeholder="..."
+            [(ngModel)]="item.id_familia" >
+            <option name="familia" value={{familia.id_familia}} *ngFor="let familia of familias"
+            >{{familia.familia}}
+            </option>
+            </select>
+          </div>
+        <div class="form-label col-md-3">
           <label class="label-label" for="inputAlmacen">Almacen</label>
           <select  type="text"
           class="form-control"
@@ -23,53 +49,25 @@
           </option>
           </select>
         </div>
-
-            </div>
-      <div class="row">
-        <div class="form-label col-md-4">
-          <label for="inputNombre">Nombre</label>
-          <input
-            type="text"
-            class="form-control"
-            name="articulo"
-            id="inputNombre"
-            required
-            placeholder="..."
-            [(ngModel)]="item.articulo"
-          />
-        </div>
-
-        <div class="form-label col-md-4">
-          <label class="label-label" for="inputFamilia">Familia</label>
+        <div class="form-label col-md-3">
+          <label class="label-label" for="inputFamilia">Medidas</label>
           <select  type="text"
           class="form-control"
-          title="familia"
-          name="familia"
+          title="medida"
+          name="medida"
           placeholder="..."
-          [(ngModel)]="item.id_familia" >
-          <option name="familia" value={{familia.id_familia}} *ngFor="let familia of familias"
-          >{{familia.familia}}
+          [(ngModel)]="item.id_medida" >
+          <option name="medida" value={{medida.id_medida}} *ngFor="let medida of medidas"
+          >{{medida.medida}}
           </option>
           </select>
         </div>
-      </div>
+       </div>
 
-      <div class="form-label col-md-4">
-        <label class="label-label" for="inputFamilia">Medidas</label>
-        <select  type="text"
-        class="form-control"
-        title="medida"
-        name="medida"
-        placeholder="..."
-        [(ngModel)]="item.id_medida" >
-        <option name="medida" value={{medida.id_medida}} *ngFor="let medida of medidas"
-        >{{medida.medida}}
-        </option>
-        </select>
-      </div>
+        <div id="precio" class="row text-center">
+          <h2 class=" mt-2 fs-3">Precio</h2>
 
-        <div class="row">
-        <div class="form-label col-md-3">
+        <div class="form-label col-md-2">
           <label for="inputPrecio">Precio venta</label>
           <input
             type="number"
@@ -82,68 +80,66 @@
             (change)="calcularPrecioMasIva()"
           />
         </div>
-        <div class=" text-center form-label col-md-2">
-          <label  for="inputFamilia">IVA</label>
+        <div class=" text-center form-label col-md-1">
+          <label  for="inputFamilia">% IVA</label>
           <input
             type="numero"
             name="IVA"
             class="form-control"
             id="inputFamilia"
-            placeholder="p.ej: 16%"
+            placeholder="%"
             required
             [(ngModel)]="item.tasa_iva"
             (change)="calcularPrecioMasIva()"
           />
         </div>
-        <div class="form-label col-md-3 text-center">
-          <label><b>Precio final</b></label>
-        <span>{{precioMasIva | number:'1.2-2'}}</span>
 
+      <div class="form-label col-md-2">
+        <label for="inputFamilia">Descuento</label>
+        <input
+          type="numero"
+          name="descuento1"
+          class="form-control"
+          id="inputFamilia"
+          placeholder="..."
+          required
+          [(ngModel)]="item.descuento1"
+        (change)="calcularPrecioMasIva()"
+        />
       </div>
-        <div class="row">
-        <h1 class="">Descuentos</h1>
-          <div class="form-label col-md-2">
-            <label for="inputFamilia">1</label>
-            <input
-              type="numero"
-              name="descuento1"
-              class="form-control"
-              id="inputFamilia"
-              placeholder="..."
-              required
-              [(ngModel)]="item.descuento1"
-            (change)="calcularPrecioMasIva()"
-            />
-          </div>
-          <div class="form-label col-md-2">
-            <label for="inputFamilia">2</label>
-            <input
-              type="text"
-              class="form-control"
-              id="inputFamilia"
-              name="descuento2"
-              placeholder="..."
-              [(ngModel)]="item.descuento2"
-            (change)="calcularPrecioMasIva()"
-            />
-          </div>
-          <div class="form-label col-md-2">
-            <label for="inputFamilia">3</label>
-            <input
-              type="text"
-              class="form-control"
-              name="descuento3"
-              id="inputFamilia"
-              placeholder="..."
-              [(ngModel)]="item.descuento3"
-            (change)="calcularPrecioMasIva()"
-            />
-          </div>
-        </div>
+      <div class="form-label col-md-2">
+        <label for="inputFamilia">Descuento</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputFamilia"
+          name="descuento2"
+          placeholder="..."
+          [(ngModel)]="item.descuento2"
+        (change)="calcularPrecioMasIva()"
+        />
       </div>
+      <div class="form-label col-md-2">
+        <label for="inputFamilia">Descuento</label>
+        <input
+          type="text"
+          class="form-control"
+          name="descuento3"
+          id="inputFamilia"
+          placeholder="..."
+          [(ngModel)]="item.descuento3"
+        (change)="calcularPrecioMasIva()"
+        />
+      </div>
+      <div id="precioFinal" class=" col-md-3 ">
+        <label><b>Precio final</b></label>
+      <span> {{precioMasIva | number:'1.2-2'}}</span>
+    </div>
+       </div>
 
-      <div class="row ">
-        <h5 class="fs-5 mt-2 ">Existencias</h5>
+       <div id="existencias" class="row text-center align-items-center justify-content-center d-flex">
+
+        <h5 class="fs-3 mt-2 ">Existencias</h5>
         <div class="col-md-3 form-label">
           <label for="inputFamilia">Minimo</label>
           <input
@@ -171,13 +167,15 @@
             placeholder="..."
           />
         </div>
-
         </div>
       </div>
     </div>
-    <button type="submit" class="m-2 btn search-btn">Guardar</button>
-  </form>
+    <div id="botonGuardar" class="text-center">
+    <button type="submit" class="m-2 col-md-3 btn search-btn">Guardar</button>
+    </div>
 
+  </form>
+</div>
 
 <!-- BOTONES -->
 <div class="2">
@@ -224,5 +222,6 @@
 
 
   </div>
+</div>
 </div>
 </div>
