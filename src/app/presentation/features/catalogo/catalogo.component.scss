@@ -33,7 +33,7 @@
   display: flex;
   justify-content: center;
   gap: 10px;
-  
+
 }
 
 // .search-bar.sticky {
@@ -85,6 +85,7 @@
   background-color: var(--hover-base);
 }
 
+
 .add-btn {
   max-width: 400px;
 }
@@ -129,3 +130,11 @@
 
 
 // MODAL
+#modalProducto{
+  height: 600px;
+  width: auto;
+  img{
+    height: 200px;
+    width: 300px;
+  }
+}

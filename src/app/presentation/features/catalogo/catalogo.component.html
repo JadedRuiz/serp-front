@@ -42,7 +42,7 @@
 
 
 <!-- Modal -->
-<div class="modal" [class.is-active]="isModalOpen">
+<div id="modalProducto" class="modal" [class.is-active]="isModalOpen">
   <div class="modal-background"></div>
   <div class="modal-content" *ngIf="selectedCard">
     <div class="box">
@@ -53,7 +53,6 @@
           </figure>
         </div>
         <div class="media-content">
-          <span>Nombre: </span>
           <p class="title">{{ selectedCard.articulo }}</p>
           <p class="fam"> Familia: <b>{{ selectedCard.familia }}</b></p>
           <p>Price: <b>{{ selectedCard.precio_venta | currency: 'MEX' }}</b></p>
