@@ -33,6 +33,7 @@ export class ClientsService {
 
       return this.http.post( url, cliente )
       .pipe(map( (resp: any) => {
+        Swal.fire('Cliente editado exitosamente', '', 'success')
         return resp;
       }), catchError(err => {
         Swal.fire("Ha ocurrido un error", err.error.message, 'error');
@@ -57,6 +58,7 @@ export class ClientsService {
 
     return this.http.post( url, direccion )
     .pipe(map( (resp: any) => {
+      Swal.fire('Dirección editada exitosamente', '', 'success')
       return resp;
     }), catchError(err => {
       Swal.fire("Ha ocurrido un error", err.error.message, 'error');
@@ -70,7 +72,7 @@ export class ClientsService {
     return this.http.post(url, direccion)
     .pipe(map((resp: any) => {
       console.log(resp);
-      Swal.fire('Cliente creado exitosamente', '', 'success')
+      Swal.fire('Dirección creada exitosamente', '', 'success')
       return resp.data
     }))
   }

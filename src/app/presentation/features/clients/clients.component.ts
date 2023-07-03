@@ -16,13 +16,15 @@ export class ClientsComponent {
   miPefil = 'ADMINISTRADOR';
   miUsuario = 1;
 
-  constructor(private clientService: ClientsService) {}
+  constructor(private clientService: ClientsService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
+  //VARIABLES PARA CADA LLAMADA A LA API
   clients: Client[] = [];
   addresses: Address[] = [];
 
+  //CLIENTE QUE SE UTILIZARÁ AL CREAR UNO NUEVO 
   client: Client = new Client(
     0,
     0,
@@ -41,9 +43,10 @@ export class ClientsComponent {
     0,
     0,
     0,
-    0
+    1
   );
 
+  //DIRECCIÓN QUE SE UTILIZARÁ AL CREAR UN CLIENTE NUEVO
   address: Address = new Address(
     0,
     0,
@@ -62,11 +65,13 @@ export class ClientsComponent {
     '',
     '',
     '',
-    0
+    1
   );
 
+  //VARIABLE PARA DEFINIR LA SECCIÓN ACTUAL DE LAS TABS
   section: number = 1;
 
+  //FUNCIÓN PARA ALTERNAR ENTRE TABS Y RESETEAR LA TAB ACTUAL EN CIERTOS CASOS
   tab(section: number) {
     if (section === 1) {
       this.section = 1;
@@ -75,6 +80,8 @@ export class ClientsComponent {
     }
   }
 
+
+  //LLAMADA A LOS CLIENTES
   obtenerClientes() {
     let json = {
       id_cliente: 0,
@@ -96,6 +103,7 @@ export class ClientsComponent {
     );
   }
 
+  //LLAMADA A LAS DIRECCIONES DE UN CLIENTE EN ESPECIAL
   obtenerDireccion(id_cliente: number) {
     this.clientService.obtenerDirecciones(id_cliente).subscribe(
       (response) => {
@@ -111,6 +119,7 @@ export class ClientsComponent {
     );
   }
 
+  //FUNCIÓN PARA SELECCIONAR LA DIRECCIÓN A EDITAR
   editarDireccion(id_cliente_direccion: number) {
     this.addressSelected = this.addresses.filter(
       (address) => address.id_cliente_direccion == id_cliente_direccion
@@ -118,6 +127,7 @@ export class ClientsComponent {
     this.addAddressVisibility = true;
   }
 
+  //FUNCIÓN PARA MANEJAR SI UN CLIENTE SE GUARDARÁ O SE EDITARÁ
   guardarCliente(clientForm: NgForm) {
     if (clientForm.invalid) {
       return;
@@ -128,23 +138,22 @@ export class ClientsComponent {
           this.selectedClient[0].id_cliente,
           this.selectedClient[0]
         )
-        .subscribe((objeto) => {});
+        .subscribe((objeto) => { });
     } else {
-      console.log(this.client)
       this.clientService.agregarCliente(this.client).subscribe((objeto) => {
-        console.log(objeto)
-        this.addressSelected.id_cliente = objeto.id_cliente;
-        console.log(this.addressSelected)
+        this.address.id_cliente = objeto.id_cliente;
         this.guardarDireccion(clientForm);
       });
     }
   }
 
+  //FUNCIÓN PARA EDITAR UNA DIRECCIÓN, AÑADIR UNA DIRECCIÓN A UN CLIENTE EN ESPECÍFICO O CREARLA JUNTO A UN CLIENTE NUEVO
   guardarDireccion(addressForm: NgForm) {
     if (addressForm.invalid) {
       return;
     }
-    if (this.addressSelected.id_direccion) {
+    //PARA EDITAR UNA DIRECCIÓN
+    if (this.addressSelected.id_cliente && this.addressSelected.id_direccion) {
       this.clientService
         .editarDireccion(
           this.addressSelected.id_direccion,
@@ -154,13 +163,23 @@ export class ClientsComponent {
           this.clientService.obtenerDirecciones(this.addressSelected.id_cliente)
         );
       this.offAddAddressVisibility();
-    } else {
+    } 
+    //PARA AGREGAR UNA DIRECCIÓN A UN CLIENTE YA EXISTENTE
+    else if (this.addressSelected.id_cliente) {
       this.clientService
         .agregarDireccion(this.addressSelected)
         .subscribe((resp) => {
         });
+    } 
+    //PARA CREAR UNA DIRECCIÓN JUNTO A UN CLIENTE NUEVO
+    else {
+      this.clientService
+        .agregarDireccion(this.address)
+        .subscribe((resp) => {
+        });
     }
   }
+
 
   //SECCIÓN PARA MANEJAR LA BÚSQUEDA DE CLIENTES Y LOS CLIENTES FILTRADOS
   searchClient: string = '';
@@ -187,9 +206,10 @@ export class ClientsComponent {
     '',
     '',
     '',
-    0
+    1
   );
 
+  //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE
   buscarCliente() {
     if (this.searchClient.length <= 3) {
       this.autocompleteClients = [];
@@ -202,6 +222,8 @@ export class ClientsComponent {
     }
   }
 
+
+  //FUNCIÓN PARA ESCOGER UN CLIENTE Y GUARDAR SU ID EN addressSelected
   seleccionarCliente(id_cliente: number) {
     if (id_cliente) {
       this.selectedClient = this.autocompleteClients.filter(
@@ -217,57 +239,44 @@ export class ClientsComponent {
     }
   }
 
-  onAddAddressVisibility() {
-    this.addAddressVisibility = true
-  }
-
+  //FUNCIÓN PARA DESHABILITAR LA VISTA DE CUANDO SE ESTÁ AÑADIENDO O EDITANDO UNA DIRECCIÓN Y REGRESAMOS A LA PÁGINA DE AÑADIR CLIENTE
   offAddAddressVisibility() {
     this.addAddressVisibility = false
   }
 
+
+  //FUNCIÓN QUE SE UTILIZA PARA AÑADIR UN CLIENTE CUANDO YA ESTAMOS DENTRO DE UN CLIENTE ESPECÍFICO
   addClient() {
+    this.selectedClient = []
+    this.addressSelected = new Address(
+      0,
+      0,
+      0,
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      0,
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      1)
+
     this.isClientSelected = false;
     this.tab(1);
     this.offAddAddressVisibility();
-    // this.client = new Client(
-    //   0,
-    //   0,
-    //   1,
-    //   '',
-    //   '',
-    //   '',
-    //   '',
-    //   '',
-    //   '',
-    //   '',
-    //   '',
-    //   0,
-    //   0,
-    //   0,
-    //   0,
-    //   0,
-    //   0,
-    //   0
-    // );
-    // this.address = new Address (
-    //   0,
-    //   0,
-    //   0,
-    //   '',
-    //   '',
-    //   '',
-    //   '',
-    //   '',
-    //   '',
-    //   '',
-    //   0,
-    //   '',
-    //   '',
-    //   '',
-    //   '',
-    //   '',
-    //   '',
-    //   0
-    // )
+  }
+
+  //FUNCIÓN PARA QUE AL QUERER AÑADIR UNA DIRECCIÓN A UN CLIENTE EXISTENTE, SE PASE EL ID DEL MISMO Y SE ABRA EL FORM
+  createAddress() {
+    this.addressSelected = new Address(
+      0, this.selectedClient[0].id_cliente, 0, '', '', '', '', '', '', '', 0, '', '', '', '', '', '', 1)
+    this.addAddressVisibility = true
   }
 }

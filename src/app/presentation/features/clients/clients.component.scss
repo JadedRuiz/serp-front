@@ -6,13 +6,13 @@
     justify-content: center;
     width: 100%;
     padding: 30px;
-    
+
     .clients-container {
         display: flex;
         width: min(90%, 1020px);
         flex-direction: column;
         gap: 30px;
-        
+
         .title {
             margin: 0;
         }
@@ -20,28 +20,28 @@
         .clients__search-bar {
             display: flex;
             justify-content: space-between;
-        
+
             div {
                 position: relative;
                 border-radius: 10px;
                 width: min(80%, 400px);
-        
+
                 .search-input {
                     width: 100%;
                 }
-        
+
                 // .search-btn {
                 //     display: flex;
                 //     gap: 10px;
                 //     border-radius: 0px 10px 10px 0px;
                 // }
-        
+
                 &:focus-within {
                     outline: 0.5px solid var(--color-base);
                     box-shadow: 0px 5px 10px 0px var(--color-base);
                     transition: 300ms;
                 }
-        
+
                 .search-list {
                     position: absolute;
                     top: 44px;
@@ -49,11 +49,11 @@
                     background-color: white;
                     border-radius: 0 0 10px 10px;
                     box-shadow: 0px 8px 12px 3px rgba(0, 0, 0, 0.315);
-        
+
                     .search-list__element {
                         padding: 10px 5px;
                         border: 1px solid rgb(0, 0, 0, 0.2);
-        
+
                         &:hover {
                             background-color: rgb(238, 238, 238);
                             cursor: pointer;
@@ -61,48 +61,49 @@
                     }
                 }
             }
-        
-        
-        
+
+
+
             @include xs {
                 flex-direction: column;
                 align-items: center;
                 gap: 30px;
             }
-        
+
         }
-        
+
         .client__form-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 30px;
-        
+
             .client__form-tabs {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 width: 100%;
-        
+
                 .tab {
                     border-radius: 5px 5px 0px 0;
                     font-weight: 500;
                     padding: 5px;
                     border: 0.5px solid rgba(0, 0, 0, 0.103);
                     cursor: pointer;
-        
+
                     &.active {
                         background-color: #fe910b80;
-        
+
                     }
                 }
-        
+
                 .form-data {
                     display: flex;
                     justify-content: center;
                 }
-        
-                .client__data-form, .client__addresses,
+
+                .client__data-form,
+                .client__addresses,
                 .client__address-form {
                     background-color: white;
                     width: 100%;
@@ -110,32 +111,38 @@
                     border: 1px solid rgb(0, 0, 0, 0.200);
                     border-radius: 0px 10px 10px 10px;
                     display: none;
-        
+
                     .subtitle {
                         font-weight: bold;
                         margin: 0 0 5px 0;
                     }
-        
+
                     &.active {
                         display: flex;
                     }
                 }
-        
+
                 .client__addresses {
+
+                    &.active {
+                        display: flex;
+                        flex-direction: column;
+                    }
+
                     .client__addresses-list {
-                        padding: 10px;
-                        border: 1px solid rgb(0, 0, 0, 0.2);
-        
+                        padding: 0 10px 10px 10px;
+                        border-top: 1px solid rgb(0, 0, 0, 0.2);
+
                         li {
                             border-bottom: 1px solid rgb(0, 0, 0, 0.2);
-                            padding-bottom: 5px;
+                            padding: 5px 0 5px 0;
                             display: flex;
                             justify-content: space-around;
-        
+
                             span {
                                 width: 90%;
                             }
-        
+
                             i {
                                 font-size: 1.2rem;
                                 color: #2b09ee;
@@ -144,20 +151,15 @@
                         }
                     }
                 }
-        
-                .client__addresses.active {
-                    display: flex;
-                    flex-direction: column;
-                }
-        
-                .client__address-form {
+
+                .client__addresses .client__address-form {
                     .client__location {
                         border: 1px solid rgb(0, 0, 0, 0.200);
                         gap: 10px;
                         width: min(95%, 450px);
                         height: 300px;
                         align-self: flex-start;
-        
+
                         iframe {
                             // width: min(95%, 450);
                             width: 100%;
@@ -165,18 +167,19 @@
                         }
                     }
                 }
-        
+
             }
-        
-            .client__form-back,.client__form-next,
+
+            .client__form-back,
+            .client__form-next,
             .client__form-save {
                 display: none;
-        
+
                 &.active {
                     display: flex;
                 }
             }
-        
+
         }
     }
 }
