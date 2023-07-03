@@ -91,7 +91,7 @@ isAlmacenSelected: boolean = false;
 
 
 
-almacen: Almacen = new Almacen(0, 1, '', 0, '');
+almacen: Almacen = new Almacen(0, 1, '', 1, '','',0,'',0,0,0,0,0,'','',0,'');
 
 
 obtenerAlmacenes(){
@@ -130,12 +130,11 @@ buscarAlmacen() {
 
 seleccionarAlmacen(id_almacen: number) {
   if (id_almacen) {
-    this.selectedAlmacen = this.autocompleteAlmacen.filter(
+    this.almacen = this.autocompleteAlmacen.filter(
       (almacen) => almacen.id_almacen === id_almacen
-    );
+    )[0];
     this.isAlmacenSelected = true;
     this.searchList = false;
-    this.tab(1);
   } else {
     this.selectedAlmacen = [];
   }
@@ -144,38 +143,6 @@ seleccionarAlmacen(id_almacen: number) {
 
 
 
-
-// obtenerProveedores() {
-//   this.provService.obtenerProveedores().subscribe(
-//     (response) => {
-//       if (response.ok) {
-//         this.proveedores = response.data;
-//         console.log(this.proveedores)
-//       } else {
-//         console.log('Ocurrió un error', response.message);
-//       }
-//     },
-//     (error) => {
-//       console.log('Error de conexión', error)
-//     }
-//   );
-// }
-
-// guardarProveedor(proveedorForm: NgForm) {
-//   if (proveedorForm.invalid) {
-//     return;
-//   }
-//   if (this.proveedor.id_proveedor) {
-//     this.provService.editarProveedor(this.proveedor.id_proveedor, this.proveedor)
-//       .subscribe(objeto => { })
-//   } else {
-//     this.provService.agregarProveedor(this.proveedor).subscribe(objeto => {
-//       console.log(objeto)
-//       this.provService.obtenerProveedores
-//       console.log(proveedorForm.value)
-//     })
-//   }
-// }
 
 
 

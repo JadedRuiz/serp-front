@@ -15,7 +15,6 @@
                 (ngModelChange)="buscarAlmacen()"
                 />
                 <ul class="search-list" *ngIf="searchList">
-                  <p>Hey</p>
                   <li class="search-list__element" *ngFor="let almacen of autocompleteAlmacen"
                     (click)="seleccionarAlmacen(almacen.id_almacen)">
                     {{ almacen.empresa }}
@@ -42,29 +41,14 @@
             </button>
         </div>
 
-
+        <div id="form-almacenes" >
         <form
         class="proveedor__form"
-        #provForm="ngForm"
+        #almaForm="ngForm"
         (ngSubmit)="obtenerAlmacenes()"
-      >
+              >
         <div class="proveedor__form-tabs">
-          <div class="d-flex w-100 align-items-start">
-              <div
-              class="tab"
-              [class.active]="section === 1"
-              (click)="tab(1)">
-              Datos del Almacen
-            </div>
-            <div
-              class="tab"
-              [class.active]="section === 2"
-              (click)="tab(2)"
-            >
-              Dirección del Almacen
-            </div>
-          </div>
-          <div class="proveedor__data-form row" [class.active]="section === 1">
+          <div class="proveedor__data-form row">
             <h3 class="subtitle">Datos</h3>
             <div class="proveedor__data-form__section1 col-12 col-md-6">
               <div>
@@ -81,19 +65,6 @@
                 />
               </div>
               <div>
-                <label for="contacto">Responsable</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="contacto"
-                  id="contacto"
-                  required
-                  [(ngModel)]="almacen.id_almacen"
-                  #inputProvForm
-                  disabled
-                />
-              </div>
-              <div>
                 <label for="rfc">Empresa</label>
                 <input
                   class="form-control"
@@ -101,243 +72,117 @@
                   name="rfc"
                   id="rfc"
                   required
-                  [(ngModel)]="almacen.almacen"
-                  #inputProvForm
-                  disabled
-                />
-              </div>
-              <!-- <div>
-                <label for="celular">Celular</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="celular"
-                  id="celular"
-                  required
-                  [(ngModel)]="proveedor.celular"
+                  [(ngModel)]="almacen.empresa"
                   #inputProvForm
                   disabled
                 />
               </div>
               <div>
-                <label for="telefono">Teléfono</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="telefono"
-                  id="telefono"
-                  required
-                  [(ngModel)]="proveedor.telefono"
-                  #inputProvForm
-                  disabled
-                />
-              </div>
-            </div>
-            <div class="proveedor__data-form__section2 col-12 col-md-6"> -->
-              <!-- <div>
-                <label for="correo">Correo</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="correo"
-                  id="correo"
-                  required
-                  [(ngModel)]="proveedor.correo"
-                  #inputProvForm
-                  disabled
-                />
-              </div>
-              <div>
-                <label for="descuento1">Descuento 1</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="descuento1"
-                  id="descuento1"
-                  required
-                  [(ngModel)]="proveedor.descuento1"
-                  #inputProvForm
-                  disabled
-                />
-              </div>
-              <div>
-                <label for="descuento2">Descuento 2</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="descuento2"
-                  id="descuento2"
-                  required
-                  [(ngModel)]="proveedor.descuento2"
-                  #inputProvForm
-                  disabled
-                />
-              </div>
-              <div>
-                <label for="descuento3">Descuento 3</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="descuento3"
-                  id="descuento3"
-                  required
-                  [(ngModel)]="proveedor.descuento3"
-                  #inputProvForm
-                  disabled
-                />
-              </div> -->
-            </div>
-          </div>
-          <!-- <div class="proveedor__address-form row" [class.active]="section === 2">
-            <h3 class="subtitle">Dirección</h3>
-            <div class="proveedor__address-form__section1 col-12 col-md-6">
-              <div>
-                <label for="descripcion">Descripción</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="descripcion"
-                  id="descripcion"
-                  required
-                  [(ngModel)]="proveedor.domicilio.descripcion"
-                  #inputProvForm
-                  disabled
-                />
-              </div>
-              <div>
-                <label for="calle">Calle</label>
+                <label for="rfc">Calle</label>
                 <input
                   class="form-control"
                   type="text"
                   name="calle"
                   id="calle"
                   required
-                  [(ngModel)]="proveedor.domicilio.calle"
+                  [(ngModel)]="almacen.calle"
                   #inputProvForm
                   disabled
                 />
               </div>
               <div>
-                <label for="numero_interior">Número interior</label>
+                <label for="rfc">Numero Exterior</label>
                 <input
                   class="form-control"
                   type="text"
-                  name="numero_interior"
-                  id="numero_interior"
+                  name="numExt"
+                  id="numExt"
                   required
-                  [(ngModel)]="proveedor.domicilio.numero_interior"
+                  [(ngModel)]="almacen.numero_exterior"
                   #inputProvForm
                   disabled
                 />
               </div>
               <div>
-                <label for="numero_exterior">Número exterior</label>
+                <label for="rfc">Numero Interior</label>
                 <input
                   class="form-control"
                   type="text"
-                  name="numero_exterior"
-                  id="numero_exterior"
+                  name="numInt"
+                  id="numInt"
                   required
-                  [(ngModel)]="proveedor.domicilio.numero_exterior"
+                  [(ngModel)]="almacen.numero_interior"
                   #inputProvForm
                   disabled
                 />
               </div>
               <div>
-                <label for="cruzamiento_uno">Cruzamiento 1</label>
+                <label for="rfc">Cruzamiento 1</label>
                 <input
                   class="form-control"
                   type="text"
-                  name="cruzamiento_uno"
-                  id="cruzamiento_uno"
+                  name="cruz1"
+                  id="cruz1"
                   required
-                  [(ngModel)]="proveedor.domicilio.cruzamiento_uno"
+                  [(ngModel)]="almacen.cruzamiento_uno"
                   #inputProvForm
                   disabled
                 />
               </div>
               <div>
-                <label for="cruzamiento_dos">Cruzamiento 2</label>
+                <label for="rfc">Cruzamiento 2</label>
                 <input
                   class="form-control"
                   type="text"
-                  name="cruzamiento_dos"
-                  id="cruzamiento_dos"
+                  name="cruz2"
+                  id="cruz2"
                   required
-                  [(ngModel)]="proveedor.domicilio.cruzamiento_dos"
-                  #inputProvForm
-                  disabled
-                />
-              </div>
-            </div>
-            <div class="proveedor__address-form__section2 col-12 col-md-6">
-              <div>
-                <label for="codigo_postal">Código Postal</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="codigo_postal"
-                  id="codigo_postal"
-                  required
-                  [(ngModel)]="proveedor.domicilio.codigo_postal"
+                  [(ngModel)]="almacen.cruzamiento_dos"
                   #inputProvForm
                   disabled
                 />
               </div>
               <div>
-                <label for="colonia">Colonia</label>
+                <label for="rfc">Colonia</label>
                 <input
                   class="form-control"
                   type="text"
                   name="colonia"
                   id="colonia"
                   required
-                  [(ngModel)]="proveedor.domicilio.colonia"
+                  [(ngModel)]="almacen.colonia"
                   #inputProvForm
                   disabled
                 />
               </div>
               <div>
-                <label for="localidad">Localidad</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="localidad"
-                  id="localidad"
-                  required
-                  [(ngModel)]="proveedor.domicilio.localidad"
-                  #inputProvForm
-                  disabled
-                />
-              </div>
-              <div>
-                <label for="municipio">Municipio</label>
+                <label for="rfc">Municipio</label>
                 <input
                   class="form-control"
                   type="text"
                   name="municipio"
                   id="municipio"
                   required
-                  [(ngModel)]="proveedor.domicilio.municipio"
+                  [(ngModel)]="almacen.municipio"
                   #inputProvForm
                   disabled
                 />
               </div>
               <div>
-                <label for="estado">Estado</label>
+                <label for="rfc">Codigo Postal</label>
                 <input
                   class="form-control"
-                  type="text"
-                  name="estado"
-                  id="estado"
+                  type="number"
+                  name="postal"
+                  id="cp"
                   required
-                  [(ngModel)]="proveedor.domicilio.estado"
+                  [(ngModel)]="almacen.codigo_postal"
                   #inputProvForm
                   disabled
                 />
               </div>
-            </div>
-          </div> -->
+           </div>
+          </div>
         </div>
        <!-- BOTONES: CANCELAR, SIGUIENTE Y AÑADIR CLIENTE
         <div class="d-flex w-100 justify-content-between">
@@ -348,7 +193,7 @@
           </button>
         </div> -->
       </form>
-
+      </div>
         <div class="proveedores_botones">
             <button id="estadoBoton" class="danger-btn" (click)="cambiarEstado()">
                 <span *ngIf="status">Activar</span>
