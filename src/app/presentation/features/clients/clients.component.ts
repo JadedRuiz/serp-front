@@ -163,19 +163,21 @@ export class ClientsComponent {
           this.clientService.obtenerDirecciones(this.addressSelected.id_cliente)
         );
       this.offAddAddressVisibility();
-    } 
+    }
     //PARA AGREGAR UNA DIRECCIÓN A UN CLIENTE YA EXISTENTE
     else if (this.addressSelected.id_cliente) {
       this.clientService
         .agregarDireccion(this.addressSelected)
         .subscribe((resp) => {
         });
-    } 
+      this.offAddAddressVisibility();
+    }
     //PARA CREAR UNA DIRECCIÓN JUNTO A UN CLIENTE NUEVO
     else {
       this.clientService
         .agregarDireccion(this.address)
         .subscribe((resp) => {
+          console.log(resp);
         });
     }
   }
@@ -217,7 +219,8 @@ export class ClientsComponent {
       this.searchList = true;
       this.obtenerClientes();
       this.autocompleteClients = this.clients.filter((client) =>
-        client.cliente.toLowerCase().includes(this.searchClient.toLowerCase())
+        client.cliente.toLowerCase().includes(this.searchClient.toLowerCase()) ||
+        client.rfc?.toLowerCase().includes(this.searchClient.toLowerCase())
       );
     }
   }
