@@ -4,6 +4,11 @@ import { NgForm } from '@angular/forms';
 import { Address } from 'src/app/models/addresses.model';
 import { Proveedor } from 'src/app/models/proveedores.model';
 import { ProveedoresService } from 'src/app/services/proveedores/proveedores.service';
+import { SERV_ALMACEN } from 'src/config/config';
+import { Almacen } from 'src/app/models/almacen.model';
+import { AlmacenService } from 'src/app/services/almacenes/almacen.service';
+
+
 
 @Component({
   selector: 'app-almacenes',
@@ -13,11 +18,10 @@ import { ProveedoresService } from 'src/app/services/proveedores/proveedores.ser
 export class AlmacenesComponent {
 
   constructor(
-    private provService: ProveedoresService
+    private almaService: AlmacenService
   ){}
 
   ngOnInit() {
-    this.obtenerProveedores()
   }
 
   @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
@@ -47,95 +51,133 @@ export class AlmacenesComponent {
       this.status = true
     }
   }
+  addresses: Address[] = []
+  modalVisibility: boolean = false
 
-proveedores: Proveedor[] = []
-addresses: Address[] = []
-modalVisibility: boolean = false
-
-proveedor: Proveedor = new Proveedor(0, 1, 0, '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, {
-  id_cliente_direccion: 0,
-  id_cliente: 0,
-  id_direccion: 0,
-  direccion: '',
-  descripcion: '',
-  calle: '',
-  numero_interior: '',
-  numero_exterior: '',
-  cruzamiento_uno: '',
-  cruzamiento_dos: '',
-  codigo_postal: 0,
-  colonia: '',
-  localidad: '',
-  municipio: '',
-  estado: '',
-  longitud: '',
-  latitud: '',
-  activo: 0,
-})
-
-toggleModalVisibility() {
-  this.modalVisibility = !this.modalVisibility
-}
-
-closeModal() {
-  this.modalVisibility = false
-}
-
-section: number = 1
-
-tab(section: number) {
-  if (section === 1) {
-    this.section = 1
-  } 
-  else if (section === 2) {
-    this.section = 2
+  toggleModalVisibility() {
+    this.modalVisibility = !this.modalVisibility
   }
-}
+
+  closeModal() {
+    this.modalVisibility = false
+  }
+
+  section: number = 1
+
+  tab(section: number) {
+    if (section === 1) {
+      this.section = 1
+    }
+    else if (section === 2) {
+      this.section = 2
+    }
+  }
+
+   // =>
 
 
-obtenerProveedores() {
-  this.provService.obtenerProveedores().subscribe(
+
+
+
+//Buscar ALMACEN
+almacenes: Almacen[] = []
+searchAlmacen: string = ''
+filteredAlmacen: any[] = []
+autocompleteAlmacen: any[] = [];
+selectedAlmacen: Almacen[] = [];
+searchList: boolean = false;
+isAlmacenSelected: boolean = false;
+
+
+
+
+almacen: Almacen = new Almacen(0, 1, '', 0, '');
+
+
+obtenerAlmacenes(){
+  let json = {
+    id_almacen: 0,
+    id_comprador: 1,
+    almacen: '',
+    solo_activos: 1,
+    token: '012354SDSDS01',
+  };
+  this.almaService.obtenerAlmacenes(json).subscribe(
     (response) => {
       if (response.ok) {
-        this.proveedores = response.data;
-        console.log(this.proveedores)
+        this.almacenes = response.data;
       } else {
         console.log('Ocurrió un error', response.message);
       }
     },
     (error) => {
-      console.log('Error de conexión', error)
+      console.log('Error de conexión', error);
     }
   );
 }
 
-guardarProveedor(proveedorForm: NgForm) {
-  if (proveedorForm.invalid) {
-    return;
-  }
-  if (this.proveedor.id_proveedor) {
-    this.provService.editarProveedor(this.proveedor.id_proveedor, this.proveedor)
-      .subscribe(objeto => { })
+buscarAlmacen() {
+  if (this.searchAlmacen.length <= 1) {
+    this.autocompleteAlmacen = [];
   } else {
-    this.provService.agregarProveedor(this.proveedor).subscribe(objeto => {
-      console.log(objeto)
-      this.provService.obtenerProveedores
-      console.log(proveedorForm.value)
-    })
-  }
-}
-searchProveedor: string = ''
-filteredProveedor: any[] = []
-
-buscarProveedor() {
-  if (this.searchProveedor === '') {
-    return;
-  } 
-  else {
-    this.filteredProveedor = this.proveedores.filter((proveedor) =>
-      proveedor.proveedor.toLowerCase().includes(this.searchProveedor.toLowerCase())
+    this.searchList = true;
+    this.obtenerAlmacenes();
+    this.autocompleteAlmacen = this.almacenes.filter((almacen) =>
+      almacen.almacen.toLowerCase().includes(this.searchAlmacen.toLowerCase())
     );
   }
 }
+
+seleccionarAlmacen(id_almacen: number) {
+  if (id_almacen) {
+    this.selectedAlmacen = this.autocompleteAlmacen.filter(
+      (almacen) => almacen.id_almacen === id_almacen
+    );
+    this.isAlmacenSelected = true;
+    this.searchList = false;
+    this.tab(1);
+  } else {
+    this.selectedAlmacen = [];
+  }
+}
+
+
+
+
+
+// obtenerProveedores() {
+//   this.provService.obtenerProveedores().subscribe(
+//     (response) => {
+//       if (response.ok) {
+//         this.proveedores = response.data;
+//         console.log(this.proveedores)
+//       } else {
+//         console.log('Ocurrió un error', response.message);
+//       }
+//     },
+//     (error) => {
+//       console.log('Error de conexión', error)
+//     }
+//   );
+// }
+
+// guardarProveedor(proveedorForm: NgForm) {
+//   if (proveedorForm.invalid) {
+//     return;
+//   }
+//   if (this.proveedor.id_proveedor) {
+//     this.provService.editarProveedor(this.proveedor.id_proveedor, this.proveedor)
+//       .subscribe(objeto => { })
+//   } else {
+//     this.provService.agregarProveedor(this.proveedor).subscribe(objeto => {
+//       console.log(objeto)
+//       this.provService.obtenerProveedores
+//       console.log(proveedorForm.value)
+//     })
+//   }
+// }
+
+
+
 
 }

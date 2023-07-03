@@ -1,19 +1,28 @@
 <div class="proveedores container shadow row">
     <div class="proveedores-container">
         <h1 class="text-center title m-0">ALMACENES</h1>
+
+
         <div class="proveedores__search-bar">
-            <div class="d-flex">
+          <div class="d-flex">
                 <input
-                class="search-input" 
-                type="text" 
-                placeholder="Buscar Almacen" 
-                aria-label="Buscar proveedores"
-                aria-describedby="button-addon2" 
+                class="search-input"
+                type="text"
+                placeholder="Buscar Almacen"
+                aria-label="Buscar Almacen"
+                aria-describedby="button-addon2"
+                [(ngModel)]="searchAlmacen"
+                (ngModelChange)="buscarAlmacen()"
                 />
-                <button class="search-btn" type="button">
-                    <i class="bi bi-search"> </i> BUSCAR
-                </button>
+                <ul class="search-list" *ngIf="searchList">
+                  <p>Hey</p>
+                  <li class="search-list__element" *ngFor="let almacen of autocompleteAlmacen"
+                    (click)="seleccionarAlmacen(almacen.id_almacen)">
+                    {{ almacen.empresa }}
+                  </li>
+                </ul>
             </div>
+
             <div class="status">
                 <div *ngIf="status" class="status-inactive">
                     <span>
@@ -32,10 +41,12 @@
             AGREGAR ALMACEN
             </button>
         </div>
+
+
         <form
         class="proveedor__form"
         #provForm="ngForm"
-        (ngSubmit)="guardarProveedor(provForm)"
+        (ngSubmit)="obtenerAlmacenes()"
       >
         <div class="proveedor__form-tabs">
           <div class="d-flex w-100 align-items-start">
@@ -64,7 +75,7 @@
                   name="cliente"
                   id="cliente"
                   required
-                  [(ngModel)]="proveedor.proveedor"
+                  [(ngModel)]="almacen.almacen"
                   #inputProvForm
                   disabled
                 />
@@ -77,7 +88,7 @@
                   name="contacto"
                   id="contacto"
                   required
-                  [(ngModel)]="proveedor.contacto"
+                  [(ngModel)]="almacen.id_almacen"
                   #inputProvForm
                   disabled
                 />
@@ -90,7 +101,7 @@
                   name="rfc"
                   id="rfc"
                   required
-                  [(ngModel)]="proveedor.rfc"
+                  [(ngModel)]="almacen.almacen"
                   #inputProvForm
                   disabled
                 />
@@ -177,7 +188,7 @@
               </div> -->
             </div>
           </div>
-          <div class="proveedor__address-form row" [class.active]="section === 2">
+          <!-- <div class="proveedor__address-form row" [class.active]="section === 2">
             <h3 class="subtitle">Dirección</h3>
             <div class="proveedor__address-form__section1 col-12 col-md-6">
               <div>
@@ -326,9 +337,9 @@
                 />
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
-       <!-- BOTONES: CANCELAR, SIGUIENTE Y AÑADIR CLIENTE 
+       <!-- BOTONES: CANCELAR, SIGUIENTE Y AÑADIR CLIENTE
         <div class="d-flex w-100 justify-content-between">
           <button class="danger-btn" [routerLink]="['/Proveedores']">Cancelar</button>
           <button class="proveedor__form-next general-btn align-self-end" [class.active]="section === 1" (click)="tab(2)">Siguiente</button>
@@ -336,7 +347,7 @@
             Añadir cliente
           </button>
         </div> -->
-      </form>  
+      </form>
 
         <div class="proveedores_botones">
             <button id="estadoBoton" class="danger-btn" (click)="cambiarEstado()">

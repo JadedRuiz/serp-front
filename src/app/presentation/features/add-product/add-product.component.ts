@@ -7,7 +7,7 @@ import { NgForm } from '@angular/forms';
 import { FamiliaService } from '@data/services/sfamilia/familia.service';
 import { Familia } from 'src/app/models/familias.model';
 import { AlmacenService } from 'src/app/services/almacenes/almacen.service';
-import { Almacen } from 'src/app/models/alamacen.model';
+import { Almacen } from 'src/app/models/almacen.model';
 import { MedidaService } from'src/app/services/medidas/medida.service';
 import { Medida } from 'src/app/models/medidas.model';
 
@@ -39,7 +39,7 @@ export class AddProductComponent {
 
     ngOnInit() {
       this.obtenerFamilias()
-      this.obtenerAlamacenes()
+      //this.obtenerAlmacenes()
       this.obtenermedidas()
     }
 
@@ -88,12 +88,12 @@ this.medidaService.obtenerMedidas().subscribe((objeto)=>{
 }
 
 //para Almacen
-almacenes : Almacen [] = []
-obtenerAlamacenes(){
-  this.almacenService.obtenerAlamacenes().subscribe((objeto) => {
-    this.almacenes = objeto.data;
-})
-}
+// almacenes : Almacen [] = []
+// obtenerAlmacenes(){
+//   this.almacenService.obtenerAlmacenes().subscribe((objeto) => {
+//     this.almacenes = objeto.data;
+// })
+// }
 
 //Para Productos
 guardarArticulo(productForm: NgForm){
