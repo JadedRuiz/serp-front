@@ -21,6 +21,70 @@ export class ProveedoresComponent {
 
   @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
 
+  searchProveedor: string = ''
+  filteredProveedor: any[] = []
+  autocompleteProveedor: any[] = [];
+  searchList: boolean = false;
+  selectedProveedor: Proveedor [] = [];
+  isProveedorSelected: boolean = false;
+
+
+  proveedores: Proveedor[] = []
+  modalVisibility: boolean = false
+
+  addresses: Address = new Address(0,1,0,'','','','','','','',0,'','','','','','',0)
+  proveedor: Proveedor = new Proveedor(0, 1, 0, '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0,this.addresses);
+
+
+  
+//=>
+  obtenerProveedores() {
+    this.provService.obtenerProveedores().subscribe(
+      (response) => {
+        if (response.ok) {
+          this.proveedores = response.data;
+          console.log(this.proveedores)
+        } else {
+          console.log('Ocurrió un error', response.message);
+        }
+      },
+      (error) => {
+        console.log('Error de conexión', error)
+      }
+    );
+  }
+
+
+
+//=>
+buscarProveedor() {
+  if (this.searchProveedor.length <= 1) {
+    this.autocompleteProveedor = [];
+  } else {
+    this.searchList = true;
+    this.obtenerProveedores();
+    this.autocompleteProveedor = this.proveedores.filter((proveedor) =>
+      proveedor.proveedor.toLowerCase().includes(this.searchProveedor.toLowerCase())
+    );
+  }
+}
+
+//=>
+selecionarProveedor(id_proveedor: number){
+  if (id_proveedor){
+    this.proveedor=this.autocompleteProveedor.filter(
+      (proveedor) => proveedor.id_proveedor === id_proveedor
+    )[0];
+    this.isProveedorSelected = true;
+    this.searchList = false;
+  }else {
+    this.selectedProveedor = [];
+  }
+}
+
+
+
+
   editarProveedor() {
     this.provInputs.forEach(
       provInput => {
@@ -47,30 +111,7 @@ export class ProveedoresComponent {
     }
   }
 
-proveedores: Proveedor[] = []
-addresses: Address[] = []
-modalVisibility: boolean = false
 
-proveedor: Proveedor = new Proveedor(0, 1, 0, '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, {
-  id_cliente_direccion: 0,
-  id_cliente: 0,
-  id_direccion: 0,
-  direccion: '',
-  descripcion: '',
-  calle: '',
-  numero_interior: '',
-  numero_exterior: '',
-  cruzamiento_uno: '',
-  cruzamiento_dos: '',
-  codigo_postal: 0,
-  colonia: '',
-  localidad: '',
-  municipio: '',
-  estado: '',
-  longitud: '',
-  latitud: '',
-  activo: 0,
-})
 
 toggleModalVisibility() {
   this.modalVisibility = !this.modalVisibility
@@ -85,28 +126,13 @@ section: number = 1
 tab(section: number) {
   if (section === 1) {
     this.section = 1
-  } 
+  }
   else if (section === 2) {
     this.section = 2
   }
 }
 
 
-obtenerProveedores() {
-  this.provService.obtenerProveedores().subscribe(
-    (response) => {
-      if (response.ok) {
-        this.proveedores = response.data;
-        console.log(this.proveedores)
-      } else {
-        console.log('Ocurrió un error', response.message);
-      }
-    },
-    (error) => {
-      console.log('Error de conexión', error)
-    }
-  );
-}
 
 guardarProveedor(proveedorForm: NgForm) {
   if (proveedorForm.invalid) {
@@ -123,17 +149,5 @@ guardarProveedor(proveedorForm: NgForm) {
     })
   }
 }
-searchProveedor: string = ''
-filteredProveedor: any[] = []
 
-buscarProveedor() {
-  if (this.searchProveedor === '') {
-    return;
-  } 
-  else {
-    this.filteredProveedor = this.proveedores.filter((proveedor) =>
-      proveedor.proveedor.toLowerCase().includes(this.searchProveedor.toLowerCase())
-    );
-  }
-}
 }

@@ -1,19 +1,29 @@
 <div class="proveedores container shadow row">
     <div class="proveedores-container">
         <h1 class="text-center title m-0">PROVEEDORES</h1>
+
+        <!-- //Barra de Busqueda => -->
         <div class="proveedores__search-bar">
             <div class="d-flex">
                 <input
-                class="search-input" 
-                type="text" 
-                placeholder="Buscar proveedores" 
+                class="search-input"
+                type="text"
+                placeholder="Buscar proveedores"
                 aria-label="Buscar proveedores"
-                aria-describedby="button-addon2" 
+                aria-describedby="button-addon2"
+                [(ngModel)]="searchProveedor"
+                (ngModelChange)="buscarProveedor()"
                 />
-                <button class="search-btn" type="button">
-                    <i class="bi bi-search"> </i> BUSCAR
-                </button>
+                <ul class="search-list" *ngIf="searchList">
+                  <li class="search-list__element" *ngFor="let proveedor of autocompleteProveedor"
+                  (click)="selecionarProveedor(proveedor.id_proveedor)">
+                  {{proveedor.proveedor}}
+                  </li>
+                </ul>
             </div>
+
+
+        <!-- //Boton de Status => -->
             <div class="status">
                 <div *ngIf="status" class="status-inactive">
                     <span>
@@ -28,10 +38,13 @@
                     <div></div>
                 </div>
             </div>
+
             <button type="button" class="add-btn">
             AGREGAR PROVEEDOR
             </button>
         </div>
+
+        <!-- //Formulario => -->
         <form
         class="proveedor__form"
         #provForm="ngForm"
@@ -57,7 +70,7 @@
             <h3 class="subtitle">Datos</h3>
             <div class="proveedor__data-form__section1 col-12 col-md-6">
               <div>
-                <label for="cliente">Descripción del Proveedor</label>
+                <label for="cliente">Proveedor</label>
                 <input
                 class="form-control"
                   type="text"
@@ -328,7 +341,7 @@
             </div>
           </div>
         </div>
-       <!-- BOTONES: CANCELAR, SIGUIENTE Y AÑADIR CLIENTE 
+       <!-- BOTONES: CANCELAR, SIGUIENTE Y AÑADIR CLIENTE
         <div class="d-flex w-100 justify-content-between">
           <button class="danger-btn" [routerLink]="['/Proveedores']">Cancelar</button>
           <button class="proveedor__form-next general-btn align-self-end" [class.active]="section === 1" (click)="tab(2)">Siguiente</button>
@@ -336,7 +349,7 @@
             Añadir cliente
           </button>
         </div> -->
-      </form>  
+      </form>
 
         <div class="proveedores_botones">
             <button id="estadoBoton" class="danger-btn" (click)="cambiarEstado()">
