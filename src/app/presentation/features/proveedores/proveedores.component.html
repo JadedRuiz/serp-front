@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-            <button type="button" class="add-btn">
+            <button type="button" class="add-btn" (click)="prueba()">
             AGREGAR PROVEEDOR
             </button>
         </div>
@@ -134,6 +134,19 @@
                   disabled
                 />
               </div>
+              <div>
+                <label for="telefono">Domicilio</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="direccion"
+                  id="direccion"
+                  required
+                  [(ngModel)]="proveedor.direccion"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
             </div>
             <div class="proveedor__data-form__section2 col-12 col-md-6">
               <div>
@@ -201,7 +214,7 @@
                   name="descripcion"
                   id="descripcion"
                   required
-                  [(ngModel)]="proveedor.domicilio.descripcion"
+                  [(ngModel)]="proveedor.domicilio.colonia"
                   #inputProvForm
                   disabled
                 />
@@ -341,18 +354,11 @@
             </div>
           </div>
         </div>
-       <!-- BOTONES: CANCELAR, SIGUIENTE Y AÑADIR CLIENTE
-        <div class="d-flex w-100 justify-content-between">
-          <button class="danger-btn" [routerLink]="['/Proveedores']">Cancelar</button>
-          <button class="proveedor__form-next general-btn align-self-end" [class.active]="section === 1" (click)="tab(2)">Siguiente</button>
-          <button type="submit" class="proveedor__form-save general-btn align-self-end" [class.active]="section === 2">
-            Añadir cliente
-          </button>
-        </div> -->
+             <button type="submit">Guardar bueno</button>
       </form>
 
         <div class="proveedores_botones">
-            <button id="estadoBoton" class="danger-btn" (click)="cambiarEstado()">
+            <button id="estadoBoton" class="danger-btn" (click)="desactivarProveedor(proveedor.id_proveedor,proveedor.id_usuario )" (click)="cambiarEstado()">
                 <span *ngIf="status">Activar</span>
                 <span *ngIf="!status">Desactivar</span>
             </button>

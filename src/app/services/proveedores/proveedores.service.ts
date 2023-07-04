@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
 export class ProveedoresService {
   constructor(private http: HttpClient) { }
 
+
+  //=>
   obtenerProveedores(): Observable<any> {
     const parametros = {
       id_cliente_direccion: 0,
@@ -21,11 +23,30 @@ export class ProveedoresService {
     return this.http.post<any>(SERV_PROV, parametros);
   }
 
+// =>
+desactivarProveedores(id_proveedor:number, activo:number){
+  let url = 'https://serp-inventarios.serteza.com/public/api/proveedores/activarProveedor' + id_proveedor;
+  return this.http.post(url, '').pipe(
+    map((object : any) =>{
+      let mensaje = activo == 0 ? 'ACTIVADA' : 'DESACTIVADA' ;
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: `La ruta fue ${mensaje}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return object.data;
+    })
+  )
+}
+
+
+
+
+
   editarProveedor(id: number, proveedor: any) {
-
-      let url = 'https://serp-inventarios.serteza.com/public/api/Proveedores/guardarProveedor';
-
-
+      let url = 'https://serp-inventarios.serteza.com/public/api/proveedores/guardarProveedor';
       return this.http.post( url, proveedor )
       .pipe(map( (resp: any) => {
         return resp;
@@ -36,7 +57,7 @@ export class ProveedoresService {
   }
 
   agregarProveedor(proveedor:Proveedor){
-    let url = "https://serp-inventarios.serteza.com/public/api/Proveedores/guardarProveedor"
+    let url = "https://serp-inventarios.serteza.com/public/api/proveedores/guardarProveedor"
 
     return this.http.post(url, proveedor)
     .pipe(map((resp: any) => {
@@ -46,5 +67,5 @@ export class ProveedoresService {
     }))
   }
 
-  
+
 }
