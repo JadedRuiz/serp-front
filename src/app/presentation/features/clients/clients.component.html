@@ -84,7 +84,7 @@
               </div>
               <div>
                 <label class="label-label" for="ruta">Seleccionar Ruta</label>
-                <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..."
+                <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..." required
                   [(ngModel)]="client.id_ruta">
                   <option name="familia" value={{route.id_ruta}} *ngFor="let route of routes">{{route.ruta}}
                   </option>
@@ -247,7 +247,7 @@
               </div>
               <div>
                 <label class="label-label" for="ruta">Seleccionar Ruta</label>
-                <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..."
+                <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..." required
                   [(ngModel)]="client.id_ruta">
                   <option name="familia" value={{route.id_ruta}} *ngFor="let route of routes">{{route.ruta}}
                   </option>
