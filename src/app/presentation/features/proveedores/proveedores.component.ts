@@ -145,7 +145,11 @@ cambiarEstado() {
   }
 }
 
+prueba(){
+  this.domicilio = new Address(0,1,1,'','','','','','','',0,'','','','','','',0)
+  this.proveedor = new Proveedor(0, 1, '', '', '', '', '', '', '', '','', 0, 0, 0, 0, 0,this.domicilio);
 
+}
 
 guardarProveedor(proveedorForm: NgForm) {
   if (proveedorForm.invalid) {
@@ -154,9 +158,6 @@ guardarProveedor(proveedorForm: NgForm) {
   if (this.proveedor.id_proveedor) {
     this.provService.editarProveedor(this.proveedor.id_proveedor,this.proveedor)
     .subscribe((objeto) =>{});
-
-    // this.provService.editarProveedor(this.proveedor.id_proveedor, this.proveedor)
-    //   .subscribe(objeto => { })
     console.log("editamos");
     console.log(this.proveedor);
   } else {
@@ -166,11 +167,6 @@ guardarProveedor(proveedorForm: NgForm) {
     console.log("guardamos");
     console.log(this.proveedor);
     this.provService.obtenerProveedores();
-    // this.provService.agregarProveedor(this.proveedor).subscribe(objeto => {
-    //   console.log(objeto)
-    //   this.provService.obtenerProveedores
-    //   console.log(proveedorForm.value)
-    // })
   }
   console.log(this.proveedor);
 }
@@ -183,23 +179,6 @@ guardarProveedor(proveedorForm: NgForm) {
       }
     )
   }
-  modificarProveedor() {
-    console.log(this.proveedor);
-    // this.provInputs.forEach(
-    //   provInput => {
-    //     provInput.nativeElement.disabled = true
-    //     // console.log(provInput.nativeElement)
-    //   }
-    // )
-  }
-  prueba(){
-    this.domicilio = new Address(0,1,1,'','','','','','','',0,'','','','','','',0)
-    this.proveedor = new Proveedor(0, 1, '', '', '', '', '', '', '', '','', 0, 0, 0, 0, 0,this.domicilio);
-
-  }
-
-
-
 
 
 toggleModalVisibility() {
@@ -220,8 +199,6 @@ tab(section: number) {
     this.section = 2
   }
 }
-
-
 
 
 
