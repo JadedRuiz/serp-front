@@ -16,7 +16,7 @@ export class ProveedoresComponent {
   ){}
 
   ngOnInit() {
-    this.obtenerProveedores()
+    this.obtenerProveedor()
   }
 
   @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
@@ -32,20 +32,59 @@ export class ProveedoresComponent {
   proveedores: Proveedor[] = []
   modalVisibility: boolean = false
 
-  addresses: Address = new Address(0,1,0,'','','','','','','',0,'','','','','','',0)
-  proveedor: Proveedor = new Proveedor(0, 1, 0, '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0,this.addresses);
+  domicilio: Address = new Address(0,1,1,'','','','','','','',0,'','','','','','',0)
+  proveedor: Proveedor = new Proveedor(0, 1, '', '', '', '', '', '', '', '','', 0, 0, 0, 0, 0,this.domicilio);
 
 
-  
+
 //=>
-  obtenerProveedores() {
+  obtenerProveedor() {
     this.provService.obtenerProveedores().subscribe(
-      (response) => {
-        if (response.ok) {
-          this.proveedores = response.data;
-          console.log(this.proveedores)
+      (object : any) => {
+        if (object.ok) {
+          object.data.forEach((element : any) => {
+            this.proveedores.push(new Proveedor(
+              element.id_proveedor,
+              element.id_comprador,
+              element.token,
+              element.proveedor,
+              element.nombre_comercial,
+              element.contacto,
+              element.rfc,
+              element.celular,
+              element.telefono,
+              element.correo,
+              "",
+              element.descuento1,
+              element.descuento2,
+              element.descuento3,
+              1,
+              1,
+              new Address (
+                element.id_cliente_direccion,
+                element.number,
+                element.id_direccion,
+                element.direccion,
+                element.descripcion,
+                element.calle,
+                element.numero_interior,
+                element.numero_exterior,
+                element.cruzamiento_uno,
+                element.cruzamiento_dos,
+                element.codigo_postal,
+                element.colonia,
+                element.localidad,
+                element.municipio,
+                element.estado,
+                element.longitud,
+                element.latitud,
+                1
+              )
+            ))
+          })
+          // this.proveedores = element.data;
         } else {
-          console.log('Ocurrió un error', response.message);
+          console.log('Ocurrió un error', object.message);
         }
       },
       (error) => {
@@ -62,15 +101,18 @@ buscarProveedor() {
     this.autocompleteProveedor = [];
   } else {
     this.searchList = true;
-    this.obtenerProveedores();
+    this.obtenerProveedor();
     this.autocompleteProveedor = this.proveedores.filter((proveedor) =>
       proveedor.proveedor.toLowerCase().includes(this.searchProveedor.toLowerCase())
     );
+    console.log(this.autocompleteProveedor);
   }
 }
 
 //=>
 selecionarProveedor(id_proveedor: number){
+
+  // console.log(id_proveedor);
   if (id_proveedor){
     this.proveedor=this.autocompleteProveedor.filter(
       (proveedor) => proveedor.id_proveedor === id_proveedor
@@ -84,8 +126,56 @@ selecionarProveedor(id_proveedor: number){
 
 
 
+//=>
+desactivarProveedor(id_provedor:number, activo:number){
+this.provService.desactivarProveedores(id_provedor,activo).subscribe((objeto)=>{
+  this.obtenerProveedor();
+  console.log(this.proveedor);
+})
+}
 
-  editarProveedor() {
+
+status = false
+cambiarEstado() {
+  if (this.status) {
+    this.status = false
+  }
+  else {
+    this.status = true
+  }
+}
+
+
+
+guardarProveedor(proveedorForm: NgForm) {
+  if (proveedorForm.invalid) {
+    return;
+  }
+  if (this.proveedor.id_proveedor) {
+    this.provService.editarProveedor(this.proveedor.id_proveedor,this.proveedor)
+    .subscribe((objeto) =>{});
+
+    // this.provService.editarProveedor(this.proveedor.id_proveedor, this.proveedor)
+    //   .subscribe(objeto => { })
+    console.log("editamos");
+    console.log(this.proveedor);
+  } else {
+    this.provService.agregarProveedor(this.proveedor).subscribe((objeto)=>{
+      this.provService.obtenerProveedores();
+    })
+    console.log("guardamos");
+    console.log(this.proveedor);
+    this.provService.obtenerProveedores();
+    // this.provService.agregarProveedor(this.proveedor).subscribe(objeto => {
+    //   console.log(objeto)
+    //   this.provService.obtenerProveedores
+    //   console.log(proveedorForm.value)
+    // })
+  }
+  console.log(this.proveedor);
+}
+
+  editarProveedor() { //Este para que es? solo para habilitar los comapos del input borralosi
     this.provInputs.forEach(
       provInput => {
         provInput.nativeElement.disabled = false
@@ -94,22 +184,21 @@ selecionarProveedor(id_proveedor: number){
     )
   }
   modificarProveedor() {
-    this.provInputs.forEach(
-      provInput => {
-        provInput.nativeElement.disabled = true
-        // console.log(provInput.nativeElement)
-      }
-    )
+    console.log(this.proveedor);
+    // this.provInputs.forEach(
+    //   provInput => {
+    //     provInput.nativeElement.disabled = true
+    //     // console.log(provInput.nativeElement)
+    //   }
+    // )
   }
-  status = false
-  cambiarEstado() {
-    if (this.status) {
-      this.status = false
-    }
-    else {
-      this.status = true
-    }
+  prueba(){
+    this.domicilio = new Address(0,1,1,'','','','','','','',0,'','','','','','',0)
+    this.proveedor = new Proveedor(0, 1, '', '', '', '', '', '', '', '','', 0, 0, 0, 0, 0,this.domicilio);
+
   }
+
+
 
 
 
@@ -134,20 +223,6 @@ tab(section: number) {
 
 
 
-guardarProveedor(proveedorForm: NgForm) {
-  if (proveedorForm.invalid) {
-    return;
-  }
-  if (this.proveedor.id_proveedor) {
-    this.provService.editarProveedor(this.proveedor.id_proveedor, this.proveedor)
-      .subscribe(objeto => { })
-  } else {
-    this.provService.agregarProveedor(this.proveedor).subscribe(objeto => {
-      console.log(objeto)
-      this.provService.obtenerProveedores
-      console.log(proveedorForm.value)
-    })
-  }
-}
+
 
 }

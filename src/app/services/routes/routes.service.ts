@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Route } from 'src/app/models/routes.model';
@@ -50,18 +50,7 @@ export class RoutesService {
     );
   }
 
-  eliminarRuta(id: number) {
-    let url =
-      'https://serp-inventarios.serteza.com/public/api/rutas/activarRuta/' + id;
-
-    return this.http.put(url, {}).pipe(
-      map((resp: any) => {
-        console.log(resp);
-        Swal.fire('Ruta se activo', '', 'success');
-        return resp.data;
-      })
-    );
-  }
+  
 
   desactivarRuta(id_ruta:number, activo:number) {
     let url = 'https://serp-inventarios.serteza.com/public/api/rutas/activarRuta?id_ruta=' + id_ruta;
