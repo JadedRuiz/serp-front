@@ -39,6 +39,7 @@
                 </div>
             </div>
 
+
             <button type="button" class="add-btn" (click)="prueba()">
             AGREGAR PROVEEDOR
             </button>
@@ -363,7 +364,7 @@
                 <span *ngIf="!status">Desactivar</span>
             </button>
             <button class="general-btn" type="button" (click)="editarProveedor()">Editar</button>
-            <button class="general-btn" type="submit" (click)="modificarProveedor()">Guardar</button>
+            <button class="general-btn" type="submit" (click)="guardarProveedor(provForm)">Guardar</button>
         </div>
     </div>
 </div>

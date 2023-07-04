@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 import { Proveedor } from 'src/app/models/proveedores.model';
 import { SERV_PROV } from 'src/config/config';
 import Swal from 'sweetalert2';
@@ -45,26 +46,33 @@ desactivarProveedores(id_proveedor:number, activo:number){
 
 
 
-  editarProveedor(id: number, proveedor: any) {
-      let url = 'https://serp-inventarios.serteza.com/public/api/proveedores/guardarProveedor';
-      return this.http.post( url, proveedor )
-      .pipe(map( (resp: any) => {
-        return resp;
-      }), catchError(err => {
-        Swal.fire("Ha ocurrido un error", err.error.message, 'error');
-        return throwError(err);
-      }));
-  }
+editarProveedor(id: number, proveedor: any) {
+  let url = 'https://serp-inventarios.serteza.com/public/api/proveedores/guardarProveedor';
+  return this.http.post( url, proveedor )
+  .pipe(map( (resp: any) => {
+    return resp;
+  }), catchError(err => {
+    Swal.fire("Ha ocurrido un error", err.error.message, 'error');
+    return throwError(err);
+  }));
+}
 
-  agregarProveedor(proveedor:Proveedor){
-    let url = "https://serp-inventarios.serteza.com/public/api/proveedores/guardarProveedor"
+
+  agregarProveedor(proveedor: Proveedor) {
+    let url = 'https://serp-inventarios.serteza.com/public/api/proveedores/guardarProveedor';
 
     return this.http.post(url, proveedor)
-    .pipe(map((resp: any) => {
-      console.log(resp);
-      Swal.fire('Proveedor creado exitosamente', '', 'success')
-      return resp.data
-    }))
+      .pipe(
+        map((resp: any) => {
+          console.log(resp);
+          Swal.fire('Proveedor creado exitosamente', '', 'success');
+          return resp.data;
+        }),
+        catchError(err => {
+          Swal.fire('Error al crear proveedor', err.error.message, 'error');
+          return throwError(err);
+        })
+      );
   }
 
 
