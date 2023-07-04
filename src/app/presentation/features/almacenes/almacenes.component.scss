@@ -1,7 +1,7 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
 @import "../breakpoints.scss";
 
-.proveedores {
+.almacenes {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,7 +9,7 @@
     padding: 30px;
 }
 
-.proveedores-container {
+.almacenes-container {
     display: flex;
     width: min(90%, 1020px);
     flex-direction: column;
@@ -19,7 +19,7 @@
 
 
 
-.proveedores__search-bar {
+.almacenes__search-bar {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -63,6 +63,10 @@
     .add-btn {
         max-width: 220px;
     }
+    #add-almacen {
+        min-width: 200px;
+        height: 45px;   
+    }
 
     @include xs {
     flex-direction: column;
@@ -74,6 +78,9 @@
 
 .status {
     margin-top: 10px;
+    width: 100%;
+    margin-left: 100px;
+
 }
 
 .status-active {
@@ -99,7 +106,7 @@
         }
 }
 
-.proveedores_catalogo {
+.almacenes_catalogo {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -123,7 +130,7 @@
     }
 }
 
-.proveedores_botones {
+.almacenes_botones {
     display: flex;
     width: 100%;
     justify-content: end;
@@ -135,14 +142,14 @@ div button:hover {
 }
 
 
-.proveedor__form {
+.almacen__form {
     display: flex;
     flex-direction: column;
     gap: 30px;
     width: 100%;
     align-items: center;
 
-    .proveedor__form-tabs {
+    .almacen__form-tabs {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -161,8 +168,8 @@ div button:hover {
             }
         }
 
-        .proveedor__data-form,
-        .proveedor__address-form {
+        .almacen__data-form,
+        .almacen__address-form {
             background-color: white;
             width: 100%;
             padding: 20px;

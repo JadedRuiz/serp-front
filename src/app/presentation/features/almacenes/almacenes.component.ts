@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 import { ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Address } from 'src/app/models/addresses.model';
-import { Proveedor } from 'src/app/models/proveedores.model';
-import { ProveedoresService } from 'src/app/services/proveedores/proveedores.service';
-import { SERV_ALMACEN } from 'src/config/config';
 import { Almacen } from 'src/app/models/almacen.model';
 import { AlmacenService } from 'src/app/services/almacenes/almacen.service';
 
@@ -26,7 +23,7 @@ export class AlmacenesComponent {
 
   @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
 
-  editarProveedor() {
+  editarAlmacen() {
     this.provInputs.forEach(
       provInput => {
         provInput.nativeElement.disabled = false
@@ -34,7 +31,7 @@ export class AlmacenesComponent {
       }
     )
   }
-  modificarProveedor() {
+  modificarAlmacen() {
     this.provInputs.forEach(
       provInput => {
         provInput.nativeElement.disabled = true
@@ -91,7 +88,7 @@ isAlmacenSelected: boolean = false;
 
 
 
-almacen: Almacen = new Almacen(0, 1, '', 1, '','',0,'',0,0,0,0,0,'','',0,'');
+almacen: Almacen = new Almacen(0, 1, '', 1, '','',0,'','','','','','','','',0,'');
 
 
 obtenerAlmacenes(){
@@ -123,7 +120,7 @@ buscarAlmacen() {
     this.searchList = true;
     this.obtenerAlmacenes();
     this.autocompleteAlmacen = this.almacenes.filter((almacen) =>
-      almacen.almacen.toLowerCase().includes(this.searchAlmacen.toLowerCase())
+      almacen.empresa.toLowerCase().includes(this.searchAlmacen.toLowerCase()) || almacen.almacen?.toLowerCase().includes(this.searchAlmacen.toLowerCase()) || almacen.numero_exterior?.toLowerCase().includes(this.searchAlmacen.toLowerCase())
     );
   }
 }

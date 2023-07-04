@@ -1,206 +1,117 @@
-<div class="proveedores container shadow row">
-    <div class="proveedores-container">
-        <h1 class="text-center title m-0">ALMACENES</h1>
+<div class="almacenes container shadow row">
+  <div class="almacenes-container">
+    <h1 class="text-center title m-0">ALMACENES</h1>
 
 
-        <div class="proveedores__search-bar">
-          <div class="d-flex">
-                <input
-                class="search-input"
-                type="text"
-                placeholder="Buscar Almacen"
-                aria-label="Buscar Almacen"
-                aria-describedby="button-addon2"
-                [(ngModel)]="searchAlmacen"
-                (ngModelChange)="buscarAlmacen()"
-                />
-                <ul class="search-list" *ngIf="searchList">
-                  <li class="search-list__element" *ngFor="let almacen of autocompleteAlmacen"
-                    (click)="seleccionarAlmacen(almacen.id_almacen)">
-                    {{ almacen.empresa }}
-                  </li>
-                </ul>
-            </div>
+    <div class="almacenes__search-bar">
+      <div class="d-flex">
+        <input class="search-input" type="text" placeholder="Buscar Almacen" aria-label="Buscar Almacen"
+          aria-describedby="button-addon2" [(ngModel)]="searchAlmacen" (ngModelChange)="buscarAlmacen()" />
+        <ul class="search-list" *ngIf="searchList">
+          <li class="search-list__element" *ngFor="let almacen of autocompleteAlmacen"
+            (click)="seleccionarAlmacen(almacen.id_almacen)">
+            {{ almacen.empresa }}
+          </li>
+        </ul>
+      </div>
 
-            <div class="status">
-                <div *ngIf="status" class="status-inactive">
-                    <span>
-                        Estado:
-                    </span>
-                    <div> </div>
-                </div>
-                <div *ngIf="!status" class="status-active">
-                    <span>
-                        Estado:
-                    </span>
-                    <div></div>
-                </div>
-            </div>
-            <button type="button" class="add-btn">
-            AGREGAR ALMACEN
-            </button>
+      <div class="status">
+        <div *ngIf="status" class="status-inactive">
+          <span>
+            Estado:
+          </span>
+          <div> </div>
         </div>
+        <div *ngIf="!status" class="status-active">
+          <span>
+            Estado:
+          </span>
+          <div></div>
+        </div>
+      </div>
+      <button type="button" id="add-almacen" class="add-btn">
+        AGREGAR ALMACEN
+      </button>
+    </div>
 
-        <div id="form-almacenes" >
-        <form
-        class="proveedor__form"
-        #almaForm="ngForm"
-        (ngSubmit)="obtenerAlmacenes()"
-              >
-        <div class="proveedor__form-tabs">
-          <div class="proveedor__data-form row">
+    <div id="form-almacenes">
+      <form class="almacen__form" #almaForm="ngForm" (ngSubmit)="obtenerAlmacenes()">
+        <div class="almacen__form-tabs">
+          <div class="almacen__data-form row">
             <h3 class="subtitle">Datos</h3>
-            <div class="proveedor__data-form__section1 col-12 col-md-6">
+            <div class="almacen__data-form__section1 col-12 col-md-6">
               <div>
                 <label for="cliente">Descripcion del Almacen</label>
-                <input
-                class="form-control"
-                  type="text"
-                  name="cliente"
-                  id="cliente"
-                  required
-                  [(ngModel)]="almacen.almacen"
-                  #inputProvForm
-                  disabled
-                />
+                <input class="form-control" type="text" name="cliente" id="cliente" required
+                  [(ngModel)]="almacen.almacen" #inputProvForm disabled />
               </div>
               <div>
                 <label for="rfc">Empresa</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="rfc"
-                  id="rfc"
-                  required
-                  [(ngModel)]="almacen.empresa"
-                  #inputProvForm
-                  disabled
-                />
+                <input class="form-control" type="text" name="rfc" id="rfc" required [(ngModel)]="almacen.empresa"
+                  #inputProvForm disabled />
               </div>
               <div>
                 <label for="rfc">Calle</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="calle"
-                  id="calle"
-                  required
-                  [(ngModel)]="almacen.calle"
-                  #inputProvForm
-                  disabled
-                />
+                <input class="form-control" type="text" name="calle" id="calle" required [(ngModel)]="almacen.calle"
+                  #inputProvForm disabled />
               </div>
               <div>
                 <label for="rfc">Numero Exterior</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="numExt"
-                  id="numExt"
-                  required
-                  [(ngModel)]="almacen.numero_exterior"
-                  #inputProvForm
-                  disabled
-                />
+                <input class="form-control" type="text" name="numExt" id="numExt" required
+                  [(ngModel)]="almacen.numero_exterior" #inputProvForm disabled />
               </div>
               <div>
                 <label for="rfc">Numero Interior</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="numInt"
-                  id="numInt"
-                  required
-                  [(ngModel)]="almacen.numero_interior"
-                  #inputProvForm
-                  disabled
-                />
+                <input class="form-control" type="text" name="numInt" id="numInt" required
+                  [(ngModel)]="almacen.numero_interior" #inputProvForm disabled />
               </div>
+            </div>
+            <div class="almacen__data-form__section1 col-12 col-md-6">
               <div>
                 <label for="rfc">Cruzamiento 1</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="cruz1"
-                  id="cruz1"
-                  required
-                  [(ngModel)]="almacen.cruzamiento_uno"
-                  #inputProvForm
-                  disabled
-                />
+                <input class="form-control" type="text" name="cruz1" id="cruz1" required
+                  [(ngModel)]="almacen.cruzamiento_uno" #inputProvForm disabled />
               </div>
               <div>
                 <label for="rfc">Cruzamiento 2</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="cruz2"
-                  id="cruz2"
-                  required
-                  [(ngModel)]="almacen.cruzamiento_dos"
-                  #inputProvForm
-                  disabled
-                />
+                <input class="form-control" type="text" name="cruz2" id="cruz2" required
+                  [(ngModel)]="almacen.cruzamiento_dos" #inputProvForm disabled />
               </div>
               <div>
                 <label for="rfc">Colonia</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="colonia"
-                  id="colonia"
-                  required
-                  [(ngModel)]="almacen.colonia"
-                  #inputProvForm
-                  disabled
-                />
+                <input class="form-control" type="text" name="colonia" id="colonia" required
+                  [(ngModel)]="almacen.colonia" #inputProvForm disabled />
               </div>
               <div>
                 <label for="rfc">Municipio</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="municipio"
-                  id="municipio"
-                  required
-                  [(ngModel)]="almacen.municipio"
-                  #inputProvForm
-                  disabled
-                />
+                <input class="form-control" type="text" name="municipio" id="municipio" required
+                  [(ngModel)]="almacen.municipio" #inputProvForm disabled />
               </div>
               <div>
                 <label for="rfc">Codigo Postal</label>
-                <input
-                  class="form-control"
-                  type="number"
-                  name="postal"
-                  id="cp"
-                  required
-                  [(ngModel)]="almacen.codigo_postal"
-                  #inputProvForm
-                  disabled
-                />
+                <input class="form-control" type="number" name="postal" id="cp" required
+                  [(ngModel)]="almacen.codigo_postal" #inputProvForm disabled />
               </div>
-           </div>
+            </div>
           </div>
         </div>
-       <!-- BOTONES: CANCELAR, SIGUIENTE Y AÑADIR CLIENTE
+        <!-- BOTONES: CANCELAR, SIGUIENTE Y AÑADIR CLIENTE
         <div class="d-flex w-100 justify-content-between">
-          <button class="danger-btn" [routerLink]="['/Proveedores']">Cancelar</button>
-          <button class="proveedor__form-next general-btn align-self-end" [class.active]="section === 1" (click)="tab(2)">Siguiente</button>
-          <button type="submit" class="proveedor__form-save general-btn align-self-end" [class.active]="section === 2">
+          <button class="danger-btn" [routerLink]="['/almacenes']">Cancelar</button>
+          <button class="almacen__form-next general-btn align-self-end" [class.active]="section === 1" (click)="tab(2)">Siguiente</button>
+          <button type="submit" class="almacen__form-save general-btn align-self-end" [class.active]="section === 2">
             Añadir cliente
           </button>
         </div> -->
       </form>
-      </div>
-        <div class="proveedores_botones">
-            <button id="estadoBoton" class="danger-btn" (click)="cambiarEstado()">
-                <span *ngIf="status">Activar</span>
-                <span *ngIf="!status">Desactivar</span>
-            </button>
-            <button class="general-btn" type="button" (click)="editarProveedor()">Editar</button>
-            <button class="general-btn" type="submit" (click)="modificarProveedor()">Guardar</button>
-        </div>
     </div>
+    <div class="almacenes_botones">
+      <button id="estadoBoton" class="danger-btn" (click)="cambiarEstado()">
+        <span *ngIf="status">Activar</span>
+        <span *ngIf="!status">Desactivar</span>
+      </button>
+      <button class="general-btn" type="button" (click)="editarAlmacen()">Editar</button>
+      <button class="general-btn" type="submit" (click)="modificarAlmacen()">Guardar</button>
+    </div>
+  </div>
 </div>
