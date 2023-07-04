@@ -12,11 +12,11 @@ import Swal from 'sweetalert2';
 export class ClientsService {
   constructor(private http: HttpClient) { }
 
-  obtenerClientes(json:any): Observable<any> {
+  obtenerClientes(json: any): Observable<any> {
     return this.http.post<any>(SERV_CLIENTS, json);
   }
 
-  obtenerDirecciones(id_cliente:number): Observable<any> {
+  obtenerDirecciones(id_cliente: number): Observable<any> {
     const parametros = {
       id_cliente: id_cliente,
       id_comprador: 1,
@@ -29,10 +29,10 @@ export class ClientsService {
 
   editarCliente(id: number, cliente: Client) {
 
-      let url = 'https://serp-inventarios.serteza.com/public/api/clientes/guardarCliente';
+    let url = 'https://serp-inventarios.serteza.com/public/api/clientes/guardarCliente';
 
-      return this.http.post( url, cliente )
-      .pipe(map( (resp: any) => {
+    return this.http.post(url, cliente)
+      .pipe(map((resp: any) => {
         Swal.fire('Cliente editado exitosamente', '', 'success')
         return resp;
       }), catchError(err => {
@@ -41,40 +41,46 @@ export class ClientsService {
       }));
   }
 
-  agregarCliente(cliente:Client){
+  agregarCliente(cliente: Client) {
     let url = "https://serp-inventarios.serteza.com/public/api/clientes/guardarCliente"
 
     return this.http.post(url, cliente)
-    .pipe(map((resp: any) => {
-      console.log(resp);
-      Swal.fire('Cliente creado exitosamente', '', 'success')
-      return resp.data
-    }))
+      .pipe(map((resp: any) => {
+        console.log(resp);
+        Swal.fire('Cliente creado exitosamente', '', 'success')
+        return resp.data
+      }), catchError(err => {
+        Swal.fire("Ha ocurrido un error", err.error.message, 'error');
+        return throwError(err);
+      }));
   }
 
   editarDireccion(id_direccion: number, direccion: Address) {
     let url = 'https://serp-inventarios.serteza.com/public/api/clientes/guardarDireccionCliente';
 
 
-    return this.http.post( url, direccion )
-    .pipe(map( (resp: any) => {
-      Swal.fire('Dirección editada exitosamente', '', 'success')
-      return resp;
-    }), catchError(err => {
-      Swal.fire("Ha ocurrido un error", err.error.message, 'error');
-      return throwError(err);
-    }));
+    return this.http.post(url, direccion)
+      .pipe(map((resp: any) => {
+        Swal.fire('Dirección editada exitosamente', '', 'success')
+        return resp;
+      }), catchError(err => {
+        Swal.fire("Ha ocurrido un error", err.error.message, 'error');
+        return throwError(err);
+      }));
   }
 
-  agregarDireccion(direccion:Address){
+  agregarDireccion(direccion: Address) {
     let url = "https://serp-inventarios.serteza.com/public/api/clientes/guardarDireccionCliente"
 
     return this.http.post(url, direccion)
-    .pipe(map((resp: any) => {
-      console.log(resp);
-      Swal.fire('Dirección creada exitosamente', '', 'success')
-      return resp.data
-    }))
+      .pipe(map((resp: any) => {
+        console.log(resp);
+        Swal.fire('Dirección creada exitosamente', '', 'success')
+        return resp.data
+      }), catchError(err => {
+        Swal.fire("Ha ocurrido un error", err.error.message, 'error');
+        return throwError(err);
+      }));
   }
 
 }

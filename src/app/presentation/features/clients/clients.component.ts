@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Address } from 'src/app/models/addresses.model';
 import { Client } from 'src/app/models/clients.model';
+import { Route } from 'src/app/models/routes.model';
 import { ClientsService } from 'src/app/services/clients/clients.service';
+import { RoutesService } from 'src/app/services/routes/routes.service';
 
 @Component({
   selector: 'app-clients',
@@ -16,13 +18,19 @@ export class ClientsComponent {
   miPefil = 'ADMINISTRADOR';
   miUsuario = 1;
 
-  constructor(private clientService: ClientsService) { }
+  constructor(
+    private clientService: ClientsService,
+    private routesService: RoutesService
+    ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.obtenerRutas()
+   }
 
   //VARIABLES PARA CADA LLAMADA A LA API
   clients: Client[] = [];
   addresses: Address[] = [];
+  routes: Route[] = []
 
   //CLIENTE QUE SE UTILIZARÁ AL CREAR UNO NUEVO 
   client: Client = new Client(
@@ -119,6 +127,11 @@ export class ClientsComponent {
     );
   }
 
+  //LLAMADA A LAS RUTAS PARA EL SELECT
+  obtenerRutas() {
+    this.routesService.obtenerRutas().subscribe(objeto => this.routes = objeto.data)
+  }
+
   //FUNCIÓN PARA SELECCIONAR LA DIRECCIÓN A EDITAR
   editarDireccion(id_cliente_direccion: number) {
     this.addressSelected = this.addresses.filter(
@@ -143,6 +156,8 @@ export class ClientsComponent {
       this.clientService.agregarCliente(this.client).subscribe((objeto) => {
         this.address.id_cliente = objeto.id_cliente;
         this.guardarDireccion(clientForm);
+        this.resetClientAddress()
+        this.tab(1)
       });
     }
   }
@@ -274,6 +289,50 @@ export class ClientsComponent {
     this.isClientSelected = false;
     this.tab(1);
     this.offAddAddressVisibility();
+    this.resetClientAddress()
+  }
+
+  resetClientAddress() {
+    this.client = new Client(
+      0,
+      0,
+      1,
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    );
+    this.address = new Address(
+      0,
+      0,
+      0,
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      0,
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      0
+    )
   }
 
   //FUNCIÓN PARA QUE AL QUERER AÑADIR UNA DIRECCIÓN A UN CLIENTE EXISTENTE, SE PASE EL ID DEL MISMO Y SE ABRA EL FORM

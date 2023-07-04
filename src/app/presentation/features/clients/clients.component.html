@@ -43,45 +43,52 @@
               </div>
               <div>
                 <label for="contacto">Contacto</label>
-                <input class="form-control form-label" type="text" name="contacto" id="contacto" required
+                <input class="form-control form-label" type="text" name="contacto" id="contacto"
                   [(ngModel)]="client.contacto" />
               </div>
               <div>
                 <label for="rfc">RFC</label>
-                <input class="form-control form-label" type="text" name="rfc" id="rfc" required
-                  [(ngModel)]="client.rfc" />
+                <input class="form-control form-label" type="text" name="rfc" id="rfc" [(ngModel)]="client.rfc" />
               </div>
               <div>
                 <label for="celular">Celular</label>
-                <input class="form-control form-label" type="text" name="celular" id="celular" required
+                <input class="form-control form-label" type="text" name="celular" id="celular"
                   [(ngModel)]="client.celular" />
               </div>
               <div>
                 <label for="telefono">Teléfono</label>
-                <input class="form-control form-label" type="tel" name="telefono" id="telefono" required
+                <input class="form-control form-label" type="tel" name="telefono" id="telefono"
                   [(ngModel)]="client.telefono" />
               </div>
             </div>
             <div class="client__data-form__section2 col-12 col-md-6">
               <div>
                 <label for="correo">Correo</label>
-                <input class="form-control form-label" type="email" name="correo" id="correo" required
+                <input class="form-control form-label" type="email" name="correo" id="correo"
                   [(ngModel)]="client.correo" />
               </div>
               <div>
                 <label for="descuento1">Descuento 1</label>
-                <input class="form-control form-label" type="text" name="descuento1" id="descuento1" required
+                <input class="form-control form-label" type="text" name="descuento1" id="descuento1"
                   [(ngModel)]="client.descuento1" />
               </div>
               <div>
                 <label for="descuento2">Descuento 2</label>
-                <input class="form-control form-label" type="text" name="descuento2" id="descuento2" required
+                <input class="form-control form-label" type="text" name="descuento2" id="descuento2"
                   [(ngModel)]="client.descuento2" />
               </div>
               <div>
                 <label for="descuento3">Descuento 3</label>
-                <input class="form-control form-label" type="text" name="descuento3" id="descuento3" required
+                <input class="form-control form-label" type="text" name="descuento3" id="descuento3"
                   [(ngModel)]="client.descuento3" />
+              </div>
+              <div>
+                <label class="label-label" for="ruta">Seleccionar Ruta</label>
+                <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..."
+                  [(ngModel)]="client.id_ruta">
+                  <option name="familia" value={{route.id_ruta}} *ngFor="let route of routes">{{route.ruta}}
+                  </option>
+                </select>
               </div>
             </div>
             <div class="w-100 d-flex justify-content-end mt-3">
@@ -97,7 +104,7 @@
             <div class="client__address-form__section1 col-12 col-md-6">
               <div>
                 <label for="descripcion">Descripción</label>
-                <input class="form-control form-label" type="text" name="descripcion" id="descripcion" required
+                <input class="form-control form-label" type="text" name="descripcion" id="descripcion"
                   [(ngModel)]="address.descripcion" />
               </div>
               <div>
@@ -107,49 +114,49 @@
               </div>
               <div>
                 <label for="numero_interior">Número interior</label>
-                <input class="form-control form-label" type="text" name="numero_interior" id="numero_interior" required
+                <input class="form-control form-label" type="text" name="numero_interior" id="numero_interior"
                   [(ngModel)]="address.numero_interior" />
               </div>
               <div>
                 <label for="numero_exterior">Número exterior</label>
-                <input class="form-control form-label" type="text" name="numero_exterior" id="numero_exterior" required
+                <input class="form-control form-label" type="text" name="numero_exterior" id="numero_exterior"
                   [(ngModel)]="address.numero_exterior" />
               </div>
               <div>
                 <label for="cruzamiento_uno">Cruzamiento 1</label>
-                <input class="form-control form-label" type="text" name="cruzamiento_uno" id="cruzamiento_uno" required
+                <input class="form-control form-label" type="text" name="cruzamiento_uno" id="cruzamiento_uno"
                   [(ngModel)]="address.cruzamiento_uno" />
               </div>
               <div>
                 <label for="cruzamiento_dos">Cruzamiento 2</label>
-                <input class="form-control form-label" type="text" name="cruzamiento_dos" id="cruzamiento_dos" required
+                <input class="form-control form-label" type="text" name="cruzamiento_dos" id="cruzamiento_dos"
                   [(ngModel)]="address.cruzamiento_dos" />
               </div>
             </div>
             <div class="client__address-form__section2 col-12 col-md-6">
               <div>
                 <label for="codigo_postal">Código Postal</label>
-                <input class="form-control form-label" type="text" name="codigo_postal" id="codigo_postal" required
+                <input class="form-control form-label" type="text" name="codigo_postal" id="codigo_postal"
                   [(ngModel)]="address.codigo_postal" />
               </div>
               <div>
                 <label for="colonia">Colonia</label>
-                <input class="form-control form-label" type="text" name="colonia" id="colonia" required
+                <input class="form-control form-label" type="text" name="colonia" id="colonia"
                   [(ngModel)]="address.colonia" />
               </div>
               <div>
                 <label for="localidad">Localidad</label>
-                <input class="form-control form-label" type="text" name="localidad" id="localidad" required
+                <input class="form-control form-label" type="text" name="localidad" id="localidad"
                   [(ngModel)]="address.localidad" />
               </div>
               <div>
                 <label for="municipio">Municipio</label>
-                <input class="form-control form-label" type="text" name="municipio" id="municipio" required
+                <input class="form-control form-label" type="text" name="municipio" id="municipio"
                   [(ngModel)]="address.municipio" />
               </div>
               <div>
                 <label for="estado">Estado</label>
-                <input class="form-control form-label" type="text" name="estado" id="estado" required
+                <input class="form-control form-label" type="text" name="estado" id="estado"
                   [(ngModel)]="address.estado" />
               </div>
             </div>
@@ -199,45 +206,52 @@
               </div>
               <div>
                 <label for="contacto">Contacto</label>
-                <input class="form-control form-label" type="text" name="contacto" id="contacto" required
+                <input class="form-control form-label" type="text" name="contacto" id="contacto"
                   [(ngModel)]="client.contacto" />
               </div>
               <div>
                 <label for="rfc">RFC</label>
-                <input class="form-control form-label" type="text" name="rfc" id="rfc" required
-                  [(ngModel)]="client.rfc" />
+                <input class="form-control form-label" type="text" name="rfc" id="rfc" [(ngModel)]="client.rfc" />
               </div>
               <div>
                 <label for="celular">Celular</label>
-                <input class="form-control form-label" type="text" name="celular" id="celular" required
+                <input class="form-control form-label" type="text" name="celular" id="celular"
                   [(ngModel)]="client.celular" />
               </div>
               <div>
                 <label for="telefono">Teléfono</label>
-                <input class="form-control form-label" type="text" name="telefono" id="telefono" required
+                <input class="form-control form-label" type="text" name="telefono" id="telefono"
                   [(ngModel)]="client.telefono" />
               </div>
             </div>
             <div class="client__data-form__section2 col-12 col-md-6">
               <div>
                 <label for="correo">Correo</label>
-                <input class="form-control form-label" type="text" name="correo" id="correo" required
+                <input class="form-control form-label" type="text" name="correo" id="correo"
                   [(ngModel)]="client.correo" />
               </div>
               <div>
                 <label for="descuento1">Descuento 1</label>
-                <input class="form-control form-label" type="text" name="descuento1" id="descuento1" required
+                <input class="form-control form-label" type="text" name="descuento1" id="descuento1"
                   [(ngModel)]="client.descuento1" />
               </div>
               <div>
                 <label for="descuento2">Descuento 2</label>
-                <input class="form-control form-label" type="text" name="descuento2" id="descuento2" required
+                <input class="form-control form-label" type="text" name="descuento2" id="descuento2"
                   [(ngModel)]="client.descuento2" />
               </div>
               <div>
                 <label for="descuento3">Descuento 3</label>
-                <input class="form-control form-label" type="text" name="descuento3" id="descuento3" required
+                <input class="form-control form-label" type="text" name="descuento3" id="descuento3"
                   [(ngModel)]="client.descuento3" />
+              </div>
+              <div>
+                <label class="label-label" for="ruta">Seleccionar Ruta</label>
+                <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..."
+                  [(ngModel)]="client.id_ruta">
+                  <option name="familia" value={{route.id_ruta}} *ngFor="let route of routes">{{route.ruta}}
+                  </option>
+                </select>
               </div>
             </div>
             <div class="d-flex justify-content-end mt-3">
@@ -252,7 +266,7 @@
             <div class="client__address-form__section1 col-12 col-md-6">
               <div>
                 <label for="descripcion">Descripción</label>
-                <input class="form-control form-label" type="text" name="descripcion" id="descripcion" required
+                <input class="form-control form-label" type="text" name="descripcion" id="descripcion"
                   [(ngModel)]="addressSelected.descripcion" />
               </div>
               <div>
@@ -262,49 +276,49 @@
               </div>
               <div>
                 <label for="numero_interior">Número interior</label>
-                <input class="form-control form-label" type="text" name="numero_interior" id="numero_interior" required
+                <input class="form-control form-label" type="text" name="numero_interior" id="numero_interior"
                   [(ngModel)]="addressSelected.numero_interior" />
               </div>
               <div>
                 <label for="numero_exterior">Número exterior</label>
-                <input class="form-control form-label" type="text" name="numero_exterior" id="numero_exterior" required
+                <input class="form-control form-label" type="text" name="numero_exterior" id="numero_exterior"
                   [(ngModel)]="addressSelected.numero_exterior" />
               </div>
               <div>
                 <label for="cruzamiento_uno">Cruzamiento 1</label>
-                <input class="form-control form-label" type="text" name="cruzamiento_uno" id="cruzamiento_uno" required
+                <input class="form-control form-label" type="text" name="cruzamiento_uno" id="cruzamiento_uno"
                   [(ngModel)]="addressSelected.cruzamiento_uno" />
               </div>
               <div>
                 <label for="cruzamiento_dos">Cruzamiento 2</label>
-                <input class="form-control form-label" type="text" name="cruzamiento_dos" id="cruzamiento_dos" required
+                <input class="form-control form-label" type="text" name="cruzamiento_dos" id="cruzamiento_dos"
                   [(ngModel)]="addressSelected.cruzamiento_dos" />
               </div>
             </div>
             <div class="client__address-form__section2 col-12 col-md-6">
               <div>
                 <label for="codigo_postal">Código Postal</label>
-                <input class="form-control form-label" type="text" name="codigo_postal" id="codigo_postal" required
+                <input class="form-control form-label" type="text" name="codigo_postal" id="codigo_postal"
                   [(ngModel)]="addressSelected.codigo_postal" />
               </div>
               <div>
                 <label for="colonia">Colonia</label>
-                <input class="form-control form-label" type="text" name="colonia" id="colonia" required
+                <input class="form-control form-label" type="text" name="colonia" id="colonia"
                   [(ngModel)]="addressSelected.colonia" />
               </div>
               <div>
                 <label for="localidad">Localidad</label>
-                <input class="form-control form-label" type="text" name="localidad" id="localidad" required
+                <input class="form-control form-label" type="text" name="localidad" id="localidad"
                   [(ngModel)]="addressSelected.localidad" />
               </div>
               <div>
                 <label for="municipio">Municipio</label>
-                <input class="form-control form-label" type="text" name="municipio" id="municipio" required
+                <input class="form-control form-label" type="text" name="municipio" id="municipio"
                   [(ngModel)]="addressSelected.municipio" />
               </div>
               <div>
                 <label for="estado">Estado</label>
-                <input class="form-control form-label" type="text" name="estado" id="estado" required
+                <input class="form-control form-label" type="text" name="estado" id="estado"
                   [(ngModel)]="addressSelected.estado" />
               </div>
             </div>
