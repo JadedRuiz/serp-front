@@ -19,6 +19,7 @@ export class AlmacenesComponent {
   ){}
 
   ngOnInit() {
+    this.obtenerAlmacenes();
   }
 
   @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
@@ -78,18 +79,23 @@ export class AlmacenesComponent {
 
 //Buscar ALMACEN
 almacenes: Almacen[] = []
-searchAlmacen: string = ''
+searchAlmacen: any;
 filteredAlmacen: any[] = []
 autocompleteAlmacen: any[] = [];
-selectedAlmacen: Almacen[] = [];
 searchList: boolean = false;
+selectedAlmacen: Almacen[] = [];
 isAlmacenSelected: boolean = false;
 
 
 
+domicilio: Address = new Address(0,1,0,'','','','','','','',0,'','','','','','',1)
+almacen: Almacen = new Almacen(0, 1, 0, 1, '', '', '', 1, 1,this.domicilio);
 
-almacen: Almacen = new Almacen(0, 1, '', 1, '','',0,'','','','','','','','',0,'');
-
+agregarNvoAlmacen(){
+  this.domicilio = new Address(0,1,1,'','','','','','','',0,'','','','','','',0)
+  this.almacen = new Almacen(0, 1, 0, 1, '', '', '', 1, 1,this.domicilio);
+  this.editarAlmacen();
+}
 
 obtenerAlmacenes(){
   let json = {
@@ -102,7 +108,39 @@ obtenerAlmacenes(){
   this.almaService.obtenerAlmacenes(json).subscribe(
     (response) => {
       if (response.ok) {
-        this.almacenes = response.data;
+        response.data.forEach((element : any) => {
+          this.almacenes.push(new Almacen(
+            element.id_almacen,
+            1,
+            element.id_direccion,
+            1,
+            element.empresa,
+            "012354SDSDS01",
+            element.almacen,
+            1,
+            1,
+            new Address (
+              element.id_cliente_direccion,
+              element.number,
+              element.id_direccion,
+              element.direccion,
+              element.descripcion,
+              element.calle,
+              element.numero_interior,
+              element.numero_exterior,
+              element.cruzamiento_uno,
+              element.cruzamiento_dos,
+              element.codigo_postal,
+              element.colonia,
+              element.localidad,
+              element.municipio,
+              element.estado,
+              element.longitud = "longitud",
+              element.latitud = "latitud",
+              1
+            )
+          ))
+        })
       } else {
         console.log('Ocurrió un error', response.message);
       }
@@ -117,10 +155,17 @@ buscarAlmacen() {
   if (this.searchAlmacen.length <= 1) {
     this.autocompleteAlmacen = [];
   } else {
+    let json = {
+      id_almacen: 0,
+      id_comprador: 1,
+      almacen: '',
+      solo_activos: 1,
+      token: '012354SDSDS01',
+    };
     this.searchList = true;
-    this.obtenerAlmacenes();
+    this.almaService.obtenerAlmacenes(json)
     this.autocompleteAlmacen = this.almacenes.filter((almacen) =>
-      almacen.empresa.toLowerCase().includes(this.searchAlmacen.toLowerCase()) || almacen.almacen?.toLowerCase().includes(this.searchAlmacen.toLowerCase()) || almacen.numero_exterior?.toLowerCase().includes(this.searchAlmacen.toLowerCase())
+    almacen.empresa?.toLowerCase().includes(this.searchAlmacen.toLowerCase())  || almacen.almacen.toLowerCase().includes(this.searchAlmacen.toLowerCase()) 
     );
   }
 }
@@ -132,11 +177,37 @@ seleccionarAlmacen(id_almacen: number) {
     )[0];
     this.isAlmacenSelected = true;
     this.searchList = false;
+    console.log(this.almacen);
   } else {
     this.selectedAlmacen = [];
   }
 }
-
+guardarAlmacen(almacenForm: NgForm) {
+  let json = {
+    id_almacen: 0,
+    id_comprador: 1,
+    almacen: '',
+    solo_activos: 1,
+    token: '012354SDSDS01',
+  };
+  if (almacenForm.invalid) {
+    return;
+  }
+  if (this.almacen.id_almacen) {
+    this.almaService.editarAlmacen(this.almacen.id_almacen,this.almacen)
+    .subscribe((objeto) =>{});
+    console.log("editamos");
+    console.log(this.almacen);
+  } else {
+    this.almaService.agregarAlmacen(this.almacen).subscribe((objeto)=>{
+      this.almaService.obtenerAlmacenes(json);
+    })
+    console.log("guardamos");
+    console.log(this.almacen);
+    this.almaService.obtenerAlmacenes(json);
+  }
+  console.log(this.almacen);
+}
 
 
 
