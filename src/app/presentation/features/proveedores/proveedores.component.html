@@ -40,7 +40,7 @@
             </div>
 
 
-            <button type="button" class="add-btn" (click)="prueba()">
+            <button type="button" class="add-btn"  (click)="prueba()">
             AGREGAR PROVEEDOR
             </button>
         </div>
@@ -80,7 +80,7 @@
             </div>
           </div>
             <div class="proveedor__data-form__section1 col-12 col-md-6">
-              <div>
+              <div class="form-label">
                 <label for="cliente">Proveedor</label>
                 <input
                 class="form-control"
@@ -93,7 +93,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <div class="form-label">
                 <label for="contacto">Contacto</label>
                 <input
                   class="form-control"
@@ -106,7 +106,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <div class="form-label">
                 <label for="rfc">RFC</label>
                 <input
                   class="form-control"
@@ -119,7 +119,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <div class="form-label">
                 <label for="celular">Celular</label>
                 <input
                   class="form-control"
@@ -132,7 +132,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <div class="form-label">
                 <label for="telefono">Teléfono</label>
                 <input
                   class="form-control"
@@ -147,7 +147,20 @@
               </div>
             </div>
             <div class="proveedor__data-form__section2 col-12 col-md-6">
-              <div>
+              <div class="form-label">
+                <label for="comercial">Nombre Comercial</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="comercial"
+                  id="comercial"
+                  required
+                  [(ngModel)]="proveedor.nombre_comercial"
+                  #inputProvForm
+                  disabled
+                />
+              </div>
+              <div class="form-label">
                 <label for="correo">Correo</label>
                 <input
                   class="form-control"
@@ -160,7 +173,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <div class="form-label">
                 <label for="descuento1">Descuento 1</label>
                 <input
                   class="form-control"
@@ -173,7 +186,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <div class="form-label">
                 <label for="descuento2">Descuento 2</label>
                 <input
                   class="form-control"
@@ -186,7 +199,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <div class="form-label">
                 <label for="descuento3">Descuento 3</label>
                 <input
                   class="form-control"
@@ -214,7 +227,7 @@
               </div>
             </div>
             <div class="proveedor__address-form__section1 col-12 col-md-6">
-              <div>
+              <div class="form-label">
                 <label for="descripcion">Descripción</label>
                 <input
                   class="form-control"
@@ -227,7 +240,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <div class="form-label">
                 <label for="calle">Calle</label>
                 <input
                   class="form-control"
@@ -240,7 +253,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <div class="form-label">
                 <label for="numero_interior">Número interior</label>
                 <input
                   class="form-control"
@@ -253,7 +266,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <div class="form-label">
                 <label for="numero_exterior">Número exterior</label>
                 <input
                   class="form-control"
@@ -266,7 +279,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <div class="form-label">
                 <label for="cruzamiento_uno">Cruzamiento 1</label>
                 <input
                   class="form-control"
@@ -279,7 +292,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <div class="form-label">
                 <label for="cruzamiento_dos">Cruzamiento 2</label>
                 <input
                   class="form-control"
@@ -294,7 +307,7 @@
               </div>
             </div>
             <div class="proveedor__address-form__section2 col-12 col-md-6">
-              <div>
+              <div class="form-label">
                 <label for="codigo_postal">Código Postal</label>
                 <input
                   class="form-control"
@@ -307,7 +320,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <div class="form-label">
                 <label for="colonia">Colonia</label>
                 <input
                   class="form-control"
@@ -320,7 +333,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <div class="form-label">
                 <label for="localidad">Localidad</label>
                 <input
                   class="form-control"
@@ -333,7 +346,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <div class="form-label">
                 <label for="municipio">Municipio</label>
                 <input
                   class="form-control"
@@ -346,7 +359,7 @@
                   disabled
                 />
               </div>
-              <div>
+              <div class="form-label">
                 <label for="estado">Estado</label>
                 <input
                   class="form-control"

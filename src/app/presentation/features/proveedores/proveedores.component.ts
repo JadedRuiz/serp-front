@@ -76,7 +76,7 @@ export class ProveedoresComponent {
                 element.localidad,
                 element.municipio,
                 element.estado,
-                element.longitud = "ongitud",
+                element.longitud = "longitud",
                 element.latitud = "latitud",
                 1
               )
@@ -98,13 +98,15 @@ export class ProveedoresComponent {
 
 //=>
 buscarProveedor() {
-  if (this.searchProveedor.length <= 1) {
+  if (this.searchProveedor.length <= 2) {
     this.autocompleteProveedor = [];
   } else {
     this.searchList = true;
-    this.obtenerProveedor();
+    this.provService.obtenerProveedores();
     this.autocompleteProveedor = this.proveedores.filter((proveedor) =>
-      proveedor.proveedor.toLowerCase().includes(this.searchProveedor.toLowerCase())
+       proveedor.proveedor.toLowerCase().includes(this.searchProveedor.toLowerCase())
+    || proveedor.contacto?.toLowerCase().includes(this.searchProveedor.toLowerCase())
+    || proveedor.nombre_comercial?.toLowerCase().includes(this.searchProveedor.toLowerCase())
     );
     console.log(this.autocompleteProveedor);
   }
@@ -149,7 +151,7 @@ cambiarEstado() {
 prueba(){
   this.domicilio = new Address(0,1,1,'','','','','','','',0,'','','','','','',0)
   this.proveedor = new Proveedor(0, 1, '', '', '', '', '', '', '', '','', 0, 0, 0, 0, 0,this.domicilio);
-
+  this.editarProveedor();
 }
 
 guardarProveedor(proveedorForm: NgForm) {
