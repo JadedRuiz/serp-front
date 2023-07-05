@@ -24,6 +24,7 @@ import { ClientsComponent } from '@presentation/features/clients/clients.compone
 import { RoutesComponent } from './presentation/features/routes/routes.component';
 import { ProveedoresComponent } from './presentation/features/proveedores/proveedores.component';
 import { AlmacenesComponent } from './presentation/features/almacenes/almacenes.component';
+import { MapsModule } from '@presentation/features/maps/maps.module';
 
 
 
@@ -49,6 +50,7 @@ import { AlmacenesComponent } from './presentation/features/almacenes/almacenes.
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    MapsModule,
     ReactiveFormsModule,
     LayoutModule,
     CoreModule,
