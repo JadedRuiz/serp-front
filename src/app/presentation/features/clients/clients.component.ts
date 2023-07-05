@@ -23,16 +23,22 @@ export class ClientsComponent {
     private clientService: ClientsService,
     private routesService: RoutesService,
     private geolocationService: GeolocationService
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.obtenerRutas()
-   }
+    this.geolocationService.getUserLocation()
+      .then(resp => {
+        this.coords = resp
+        console.log(this.coords);
+      })
+  }
 
   //VARIABLES PARA CADA LLAMADA A LA API
   clients: Client[] = [];
   addresses: Address[] = [];
   routes: Route[] = []
+  coords: [number, number] = [0, 0]
 
   //CLIENTE QUE SE UTILIZARÁ AL CREAR UNO NUEVO 
   client: Client = new Client(
