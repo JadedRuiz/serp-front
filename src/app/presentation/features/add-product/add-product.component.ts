@@ -22,8 +22,7 @@ import { Medida } from 'src/app/models/medidas.model';
 
 export class AddProductComponent {
 
-
-  imgResultAfterResize: DataUrl = '';
+  imgResultAfterResize: string = '';
   uploadedImages: string[] = [];
   imageCount: number = 0;
   precioMasIva : number = 0;
@@ -131,11 +130,13 @@ const resultado = (precioDescuento3 * (1 + tasaIVA / 100)).toFixed(2);
 
 
   //PARA LAS IMAGENES =>
-  uploadAndResize() {
-    if (this.imageCount > 4) {
-      alert('Solo se pueden subir 5 imagenes');
-      return;
-    }
+
+       uploadAndResize() {
+
+      if (this.imageCount  >= 5) {
+        alert('Solo se pueden subir un máximo de 5 imágenes');
+        return;
+      }
 
     return this.imageCompress
       .uploadFile()
@@ -151,6 +152,8 @@ const resultado = (precioDescuento3 * (1 + tasaIVA / 100)).toFixed(2);
             this.imageCount++;
 
             console.warn('FINAL:', this.imageCompress.byteCount(result));
+
+            this.displayImage(this.uploadedImages.length - 1);
           });
       });
   }
