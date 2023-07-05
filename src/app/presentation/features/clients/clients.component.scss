@@ -92,7 +92,7 @@
                     cursor: pointer;
 
                     &.active {
-                        background-color: #fe910b80;
+                        background-color: rgba(107, 166, 243, 0.1725490196);
 
                     }
                 }
@@ -132,6 +132,8 @@
                     .client__addresses-list {
                         padding: 0 10px 10px 10px;
                         border-top: 1px solid rgb(0, 0, 0, 0.2);
+                        max-height: 365px;
+                        overflow-y: auto;
 
                         li {
                             border-bottom: 1px solid rgb(0, 0, 0, 0.2);
@@ -150,6 +152,15 @@
                                 cursor: pointer;
                             }
                         }
+                    }
+
+                    .client__addresses-list::-webkit-scrollbar {
+                        width: 4px;
+                    }
+                    
+                    .client__addresses-list::-webkit-scrollbar-thumb {
+                        background-color: rgba(107, 166, 243, 0.1725490196);
+                        border-radius: 5px;
                     }
                 }
 
