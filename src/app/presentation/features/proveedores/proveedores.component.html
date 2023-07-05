@@ -17,7 +17,7 @@
                 <ul class="search-list" *ngIf="searchList">
                   <li class="search-list__element" *ngFor="let proveedor of autocompleteProveedor"
                   (click)="selecionarProveedor(proveedor.id_proveedor)">
-                  {{proveedor.proveedor}}
+                  {{proveedor.nombre_comercial}}
                   </li>
                 </ul>
             </div>
@@ -60,15 +60,25 @@
               Datos del Proveedor
             </div>
             <div
-              class="tab"
-              [class.active]="section === 2"
-              (click)="tab(2)"
+            class="tab"
+            [class.active]="section === 2"
+            (click)="tab(2)"
             >
-              Dirección del Proveedor
+            Dirección del Proveedor
+          </div>
+        </div>
+        <div class="proveedor__data-form row" [class.active]="section === 1">
+          <div class="row">
+            <h3 class="subtitle col-md-8">Datos</h3>
+            <div class="col-md-2">
+              <button class=" general-btn"  (click)="editarProveedor()"
+              type="button">Editar</button>
+            </div>
+            <div class="col-md-2">
+              <button class=" search-btn  text-center"
+              type="submit">Guardar</button>
             </div>
           </div>
-          <div class="proveedor__data-form row" [class.active]="section === 1">
-            <h3 class="subtitle">Datos</h3>
             <div class="proveedor__data-form__section1 col-12 col-md-6">
               <div>
                 <label for="cliente">Proveedor</label>
@@ -135,19 +145,6 @@
                   disabled
                 />
               </div>
-              <div>
-                <label for="telefono">Domicilio</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  name="direccion"
-                  id="direccion"
-                  required
-                  [(ngModel)]="proveedor.direccion"
-                  #inputProvForm
-                  disabled
-                />
-              </div>
             </div>
             <div class="proveedor__data-form__section2 col-12 col-md-6">
               <div>
@@ -205,7 +202,17 @@
             </div>
           </div>
           <div class="proveedor__address-form row" [class.active]="section === 2">
-            <h3 class="subtitle">Dirección</h3>
+            <div class="row">
+              <h3 class="subtitle col-md-8">Dirección</h3>
+              <div class="col-md-2">
+                <button class=" general-btn"  (click)="editarProveedor()"
+                type="button">Editar</button>
+              </div>
+              <div class="col-md-2">
+                <button class=" search-btn  text-center"
+                type="submit">Guardar</button>
+              </div>
+            </div>
             <div class="proveedor__address-form__section1 col-12 col-md-6">
               <div>
                 <label for="descripcion">Descripción</label>
@@ -352,10 +359,10 @@
                   disabled
                 />
               </div>
+
             </div>
           </div>
         </div>
-             <button type="submit">Guardar bueno</button>
       </form>
 
         <div class="proveedores_botones">
@@ -363,7 +370,6 @@
                 <span *ngIf="status">Activar</span>
                 <span *ngIf="!status">Desactivar</span>
             </button>
-            <button class="general-btn" type="button" (click)="editarProveedor()">Editar</button>
             <button class="general-btn" type="submit" (click)="guardarProveedor(provForm)">Guardar</button>
         </div>
     </div>

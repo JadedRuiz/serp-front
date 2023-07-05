@@ -32,8 +32,8 @@ export class ProveedoresComponent {
   proveedores: Proveedor[] = []
   modalVisibility: boolean = false
 
-  domicilio: Address = new Address(0,1,1,'','','','','','','',0,'','','','','','',0)
-  proveedor: Proveedor = new Proveedor(0, 1, '', '', '', '', '', '', '', '','', 0, 0, 0, 0, 0,this.domicilio);
+  domicilio: Address = new Address(0,1,0,'','','','','','','',0,'','','','','','',1)
+  proveedor: Proveedor = new Proveedor(0, 1, '012354SDSDS01', '', '', '', '', '', '', '','', 0, 0, 0, 0, 0,this.domicilio);
 
 
 
@@ -45,8 +45,8 @@ export class ProveedoresComponent {
           object.data.forEach((element : any) => {
             this.proveedores.push(new Proveedor(
               element.id_proveedor,
-              element.id_comprador,
-              element.token,
+              1,
+              "012354SDSDS01",
               element.proveedor,
               element.nombre_comercial,
               element.contacto,
@@ -54,7 +54,7 @@ export class ProveedoresComponent {
               element.celular,
               element.telefono,
               element.correo,
-              "",
+              element.direcion,
               element.descuento1,
               element.descuento2,
               element.descuento3,
@@ -76,12 +76,13 @@ export class ProveedoresComponent {
                 element.localidad,
                 element.municipio,
                 element.estado,
-                element.longitud,
-                element.latitud,
+                element.longitud = "ongitud",
+                element.latitud = "latitud",
                 1
               )
             ))
           })
+          console.log(this.proveedores);
           // this.proveedores = element.data;
         } else {
           console.log('Ocurrió un error', object.message);
