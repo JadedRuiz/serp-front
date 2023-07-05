@@ -5,6 +5,7 @@ import { Client } from 'src/app/models/clients.model';
 import { Route } from 'src/app/models/routes.model';
 import { ClientsService } from 'src/app/services/clients/clients.service';
 import { RoutesService } from 'src/app/services/routes/routes.service';
+import { GeolocationService } from '../maps/services';
 
 @Component({
   selector: 'app-clients',
@@ -20,7 +21,8 @@ export class ClientsComponent {
 
   constructor(
     private clientService: ClientsService,
-    private routesService: RoutesService
+    private routesService: RoutesService,
+    private geolocationService: GeolocationService
     ) { }
 
   ngOnInit() {
