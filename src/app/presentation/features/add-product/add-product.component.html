@@ -7,7 +7,13 @@
   (ngSubmit)="guardarArticulo(productForm)"
   >
     <div class="row">
-      <h1 class="mt-2 title text-center">Nuevo Producto</h1>
+
+      <div class="row">
+        <button style="height: 30px; width: 85px;" type="button" class="m-1 mt-2  btn btn-danger btn-sm" [routerLink]="['/home']"
+        >Cancelar</button>
+        <h1 class="col-md-10 ms-2 mb-4 mt-2 title text-center">Nuevo Producto</h1>
+      </div>
+
       <div class="col">
 
         <div id="producto" class="row text-center">
@@ -36,7 +42,7 @@
             </option>
             </select>
           </div>
-        <!-- <div class="form-label col-md-3">
+        <div class="form-label col-md-3">
           <label class="label-label" for="inputAlmacen">Almacen</label>
           <select  type="text"
           class="form-control"
@@ -48,7 +54,7 @@
           >{{almacen.almacen}}
           </option>
           </select>
-        </div> -->
+        </div>
         <div class="form-label col-md-3">
           <label class="label-label" for="inputFamilia">Medidas</label>
           <select  type="text"
@@ -170,58 +176,56 @@
         </div>
       </div>
     </div>
-    <div id="botonGuardar" class="text-center">
-    <button type="submit" class="m-2 col-md-3 btn search-btn">Guardar</button>
+
+    <div class="row">
+      <div class="col-md-6 d-flex mb-4 flex-column align-items-center justify-content-center">
+
+        <!-- MINIATURAS -->
+         <div class="d-flex flex-wrap justify-content-center mt-2">
+          <div *ngFor="let image of uploadedImages; let i = index" class="mr-2 mb-2" >
+            <img
+              style="cursor: pointer;"
+              class="img-thumbnail"
+              [src]="image"
+              alt="miniatura"
+              [style.width.px]="55"
+              [style.height.px]="55"
+              (click)="displayImage(i)"
+            />
+          </div>
+        </div>
+
+        <!-- IMAGENES -->
+        <div class="col-6 d-flex flex-column align-items-center justify-content-center">
+          <div *ngIf="uploadedImages.length > 0" class="text-center mp-3">
+            <img
+              class="img-fluid"
+              [src]="uploadedImages[uploadedImages.length -1]"
+              alt="Imagen comprimida"
+              [style.width.px]="250"
+              [style.height.px]="250"
+            />
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="col-md-6 d-flex  align-items-center flex-column justify-content-center">
+        <div>
+          <button type="button" class=" m-2 btn search-btn"
+           (click)="uploadAndResize()" [disabled]="imageCount >= 5"
+        >Subir imagen</button>
+        </div>
+        <button type="submit" class="col-md-3 btn general-btn"
+        >Guardar</button>
+      </div>
+
     </div>
 
   </form>
 </div>
 
-<!-- BOTONES -->
-<div class="2">
-  <button
-    class="m-2 btn general-btn"
-    (click)="uploadAndResize()"
-    [disabled]="imageCount >= 5"
-  >
-    Subir imagen
-  </button>
-  <button type="button" class="m-2 btn danger-btn" [routerLink]="['/home']">Cancelar</button>
+
 
 </div>
 
-<div class="row">
-  <div class="col">
-     <!-- IMAGENES -->
-  <div class="col-6 d-flex flex-column align-items-center justify-content-center">
-    <div *ngIf="uploadedImages.length > 0" class="text-center mp-3">
-      <img
-        class="img-fluid"
-        [src]="uploadedImages[uploadedImages.length -1]"
-        alt="Imagen comprimida"
-        [style.width.px]="250"
-        [style.height.px]="250"
-      />
-    </div>
-
-  <!-- MINIATURAS -->
-  <div class="d-flex flex-wrap justify-content-center mt-2">
-    <div *ngFor="let image of uploadedImages; let i = index" class="mr-2 mb-2" >
-      <img
-      style="cursor: pointer;"
-        class="img-thumbnail"
-        [src]="image"
-        alt="miniatura"
-        [style.width.px]="55"
-        [style.height.px]="55"
-        (click)="displayImage(i)"
-      />
-    </div>
-  </div>
-
-
-
-  </div>
-</div>
-</div>
-</div>

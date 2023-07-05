@@ -30,7 +30,7 @@ export class CatalogoService {
 
     return this.http.post(url, producto).pipe(
       map((resp: any) => {
-        console.log(resp);
+        console.log('service',resp);
         Swal.fire('Producto creado con exito', '', 'success');
         return resp.data;
       })

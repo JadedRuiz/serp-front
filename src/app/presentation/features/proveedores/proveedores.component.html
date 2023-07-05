@@ -17,7 +17,7 @@
                 <ul class="search-list" *ngIf="searchList">
                   <li class="search-list__element" *ngFor="let proveedor of autocompleteProveedor"
                   (click)="selecionarProveedor(proveedor.id_proveedor)">
-                  {{proveedor.nombre_comercial}}
+                  {{proveedor.nombre_comercial || proveedor.proveedor}}
                   </li>
                 </ul>
             </div>
@@ -38,8 +38,6 @@
                     <div></div>
                 </div>
             </div>
-
-
             <button type="button" class="add-btn"  (click)="prueba()">
             AGREGAR PROVEEDOR
             </button>

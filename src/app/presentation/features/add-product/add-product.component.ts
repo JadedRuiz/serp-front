@@ -39,7 +39,7 @@ export class AddProductComponent {
 
     ngOnInit() {
       this.obtenerFamilias()
-      //this.obtenerAlmacenes()
+      this.obtenerAlmacenes()
       this.obtenermedidas()
     }
 
@@ -88,18 +88,27 @@ this.medidaService.obtenerMedidas().subscribe((objeto)=>{
 }
 
 //para Almacen
-// almacenes : Almacen [] = []
-// obtenerAlmacenes(){
-//   this.almacenService.obtenerAlmacenes().subscribe((objeto) => {
-//     this.almacenes = objeto.data;
-// })
-// }
+almacenes : Almacen [] = []
+
+obtenerAlmacenes(){
+  let json = {
+    id_almacen: 0,
+    id_comprador: 1,
+    almacen: '',
+    solo_activos: 1,
+    token: '012354SDSDS01',
+  };
+  this.almacenService.obtenerAlmacenes(json).subscribe((objeto) => {
+    this.almacenes = objeto.data;
+})
+}
 
 //Para Productos
 guardarArticulo(productForm: NgForm){
+  console.log(productForm.value);
+  this.productService.obtenerPerfiles();
     this.productService.agregarProducto(this.item).subscribe((objeto) => {
       console.log(objeto);
-      this.productService.obtenerPerfiles();
     });
 }
 
@@ -123,7 +132,7 @@ const resultado = (precioDescuento3 * (1 + tasaIVA / 100)).toFixed(2);
 
   //PARA LAS IMAGENES =>
   uploadAndResize() {
-    if (this.imageCount >= 5) {
+    if (this.imageCount > 4) {
       alert('Solo se pueden subir 5 imagenes');
       return;
     }
@@ -136,7 +145,7 @@ const resultado = (precioDescuento3 * (1 + tasaIVA / 100)).toFixed(2);
         console.warn('comprimida y re dimencionada a 400x');
 
         this.imageCompress
-          .compressFile(image, orientation, 30, 30, 300, 300)  //20=15070
+          .compressFile(image, orientation, 40, 40, 400, 400)  //20=15070
           .then((result: DataUrl) => {
             this.uploadedImages.push(result);
             this.imageCount++;
@@ -147,9 +156,7 @@ const resultado = (precioDescuento3 * (1 + tasaIVA / 100)).toFixed(2);
   }
 
   displayImage(index: number){
-    const selectedImage = this.uploadedImages[index];
-
-    this.imgResultAfterResize = selectedImage;
+    this.imgResultAfterResize  = this.uploadedImages[index];
   }
 
 }
