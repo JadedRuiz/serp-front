@@ -12,6 +12,7 @@ import { GeolocationService } from '../maps/services';
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.scss'],
 })
+
 export class ClientsComponent {
   //miComprador = window.sessionStorage["comprador_gl"];
   miComprador = 1;
