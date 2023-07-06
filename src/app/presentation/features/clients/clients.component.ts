@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
 import { Address } from 'src/app/models/addresses.model';
 import { Client } from 'src/app/models/clients.model';
 import { Route } from 'src/app/models/routes.model';
 import { ClientsService } from 'src/app/services/clients/clients.service';
 import { RoutesService } from 'src/app/services/routes/routes.service';
 import { GeolocationService } from '../maps/services';
+import { debounceTime, delay } from 'rxjs';
 
 @Component({
   selector: 'app-clients',
@@ -19,6 +20,7 @@ export class ClientsComponent {
   miToken = '';
   miPefil = 'ADMINISTRADOR';
   miUsuario = 1;
+  searchClientControl: FormControl = new FormControl();
 
   constructor(
     private clientService: ClientsService,
@@ -33,6 +35,11 @@ export class ClientsComponent {
         this.coords = resp
         console.log(this.coords);
       })
+    this.searchClientControl.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((value) => {
+        this.buscarCliente(value);
+      });
   }
 
   //VARIABLES PARA CADA LLAMADA A LA API
@@ -235,20 +242,41 @@ export class ClientsComponent {
     1
   );
 
+  loader: boolean = false
+  noClients: boolean = false
+
   //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE
-  buscarCliente() {
-    if (this.searchClient.length <= 3) {
+  buscarCliente(value: string) {
+    let json = {
+      id_cliente: 0,
+      id_comprador: this.miComprador,
+      cliente: '',
+      token: this.miToken,
+    }
+    if (value.length <= 3) {
       this.autocompleteClients = [];
+      this.searchList = false;
     } else {
+      this.loader = true
       this.searchList = true;
-      this.obtenerClientes();
-      this.autocompleteClients = this.clients.filter((client) =>
-        client.cliente.toLowerCase().includes(this.searchClient.toLowerCase()) ||
-        client.rfc?.toLowerCase().includes(this.searchClient.toLowerCase())
+      this.clientService.obtenerClientes(json).subscribe(
+        (resp) => {
+          if (resp.ok) {
+            this.clients = resp.data
+            this.autocompleteClients = this.clients.filter((client) =>
+              client.cliente.toLowerCase().includes(value.toLowerCase()) ||
+              client.rfc?.toLowerCase().includes(value.toLowerCase())
+            );
+            this.loader = false
+          }
+        },
+        (err) => {
+          console.log(err)
+          this.loader = false
+        }
       );
     }
   }
-
 
   //FUNCIÓN PARA ESCOGER UN CLIENTE Y GUARDAR SU ID EN addressSelected
   seleccionarCliente(id_cliente: number) {

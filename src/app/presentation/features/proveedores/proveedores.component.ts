@@ -108,7 +108,7 @@ buscarProveedor() {
     || proveedor.contacto?.toLowerCase().includes(this.searchProveedor.toLowerCase())
     || proveedor.nombre_comercial?.toLowerCase().includes(this.searchProveedor.toLowerCase())
     );
-    console.log(this.autocompleteProveedor);
+   // console.log(this.autocompleteProveedor);
   }
 }
 
@@ -133,7 +133,7 @@ selecionarProveedor(id_proveedor: number){
 desactivarProveedor(id_provedor:number, activo:number){
 this.provService.desactivarProveedores(id_provedor,activo).subscribe((objeto)=>{
   this.obtenerProveedor();
-  console.log(this.proveedor);
+  console.log('desactivar',this.proveedor);
 })
 }
 
@@ -162,16 +162,16 @@ guardarProveedor(proveedorForm: NgForm) {
     this.provService.editarProveedor(this.proveedor.id_proveedor,this.proveedor)
     .subscribe((objeto) =>{});
     console.log("editamos");
-    console.log(this.proveedor);
+    //console.log(this.proveedor);
   } else {
     this.provService.agregarProveedor(this.proveedor).subscribe((objeto)=>{
       this.provService.obtenerProveedores();
     })
     console.log("guardamos");
-    console.log(this.proveedor);
+    //console.log(this.proveedor);
     this.provService.obtenerProveedores();
   }
-  console.log(this.proveedor);
+  //console.log(this.proveedor);
 }
 
   editarProveedor() { //Este para que es? solo para habilitar los comapos del input borralosi

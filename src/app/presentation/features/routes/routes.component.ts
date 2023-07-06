@@ -47,6 +47,7 @@ export class RoutesComponent {
           this.routes = response.data;
           this.filteredRoutes = this.routes;
           this.updateRouteStatus();
+          console.log('=>',response.data);
         } else {
           console.log('Ocurrió un error', response.message);
         }

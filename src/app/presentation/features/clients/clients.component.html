@@ -5,13 +5,21 @@
     <div class="clients__search-bar">
       <div class="d-flex flex-column">
         <input class="search-input" type="text" placeholder="Buscar cliente" aria-label="Buscar cliente"
-          aria-describedby="button-addon2" [(ngModel)]="searchClient" (ngModelChange)="buscarCliente()" />
-        <ul class="search-list" *ngIf="searchList">
-          <li class="search-list__element" *ngFor="let client of autocompleteClients"
-            (click)="seleccionarCliente(client.id_cliente)">
-            {{ client.cliente }}
-          </li>
-        </ul>
+          aria-describedby="button-addon2" [formControl]="searchClientControl" />
+        <div class="search-loader" *ngIf="loader; else clientsReady">
+          <i class="fas fa-spinner fa-pulse"></i>
+        </div>
+        <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
+          <h4>No se encontraron clientes</h4>
+        </div>
+        <ng-template #clientsReady>
+          <ul class="search-list" *ngIf="searchList">
+            <li class="search-list__element" *ngFor="let client of autocompleteClients"
+              (click)="seleccionarCliente(client.id_cliente)">
+              {{ client.cliente }}
+            </li>
+          </ul>
+        </ng-template>
       </div>
       <button type="button" class="add-btn" (click)="addClient()" *ngIf="isClientSelected">
         AGREGAR CLIENTE
@@ -161,11 +169,13 @@
               </div>
               <div>
                 <label for="estado">Longitud</label>
-                <input class="form-control form-label" type="text" name="estado" id="estado" [defaultValue]="coords[0]"/>
+                <input class="form-control form-label" type="text" name="estado" id="estado"
+                  [defaultValue]="coords[0]" />
               </div>
               <div>
                 <label for="estado">Latitud</label>
-                <input class="form-control form-label" type="text" name="estado" id="estado" [defaultValue]="coords[1]"/>
+                <input class="form-control form-label" type="text" name="estado" id="estado"
+                  [defaultValue]="coords[1]" />
               </div>
             </div>
             <div class="w-100 d-flex flex-column align-items-center p-3 border rounded">

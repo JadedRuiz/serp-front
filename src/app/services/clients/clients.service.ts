@@ -23,7 +23,6 @@ export class ClientsService {
       cliente: '',
       token: '012354SDSDS01'
     }
-    console.log(parametros.id_cliente)
     return this.http.post<any>(SERV_ADDRESSES, parametros)
   }
 
