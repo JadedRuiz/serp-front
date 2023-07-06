@@ -1,4 +1,4 @@
-import { Address } from "./addresses.model";
+import { adress_Almacen } from "./adress-almacen.model";
 
 export class Almacen {
   constructor(
@@ -11,6 +11,6 @@ export class Almacen {
     public almacen: string,
     public id_usuario: number,
     public activo: number,
-    public domicilio: Address
+    public domicilio: adress_Almacen
   ) {}
 }

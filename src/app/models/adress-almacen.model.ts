@@ -1,9 +1,5 @@
-export class Address {
+export class adress_Almacen {
     constructor(
-        public id_cliente_direccion: number,
-        public id_cliente: number ,
-        public id_direccion: number,
-        public direccion: string,
         public descripcion: string,
         public calle: string,
         public numero_interior: string,
@@ -18,5 +14,5 @@ export class Address {
         public longitud: string,
         public latitud: string,
         public activo: number,
-    ) {}
+    ){}
 }
