@@ -38,6 +38,10 @@
                     <div></div>
                 </div>
             </div>
+              <button id="estadoBoton" class="danger-btn btn-sm" (click)="desactivarProveedor(proveedor.id_proveedor,proveedor.activo )" (click)="cambiarEstado()">
+                  <span *ngIf="status">Activar</span>
+                  <span *ngIf="!status">Desactivar</span>
+              </button>
             <button type="button" class="add-btn"  (click)="prueba()">
             AGREGAR PROVEEDOR
             </button>
@@ -376,12 +380,6 @@
         </div>
       </form>
 
-        <div class="proveedores_botones">
-            <button id="estadoBoton" class="danger-btn" (click)="desactivarProveedor(proveedor.id_proveedor,proveedor.id_usuario )" (click)="cambiarEstado()">
-                <span *ngIf="status">Activar</span>
-                <span *ngIf="!status">Desactivar</span>
-            </button>
-            <button class="general-btn" type="submit" (click)="guardarProveedor(provForm)">Guardar</button>
-        </div>
+
     </div>
 </div>

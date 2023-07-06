@@ -15,6 +15,7 @@ import { BaseLoggedComponent } from '@presentation/layout/base-logged/base-logge
 
 import { ProveedoresComponent } from '@presentation/features/proveedores/proveedores.component';
 import { AlmacenesComponent } from '@presentation/features/almacenes/almacenes.component';
+import { VendedoresComponent } from '@presentation/features/vendedores/vendedores.component';
 
 
 const routes: Routes = [
@@ -87,7 +88,11 @@ const routes: Routes = [
       {
       path: 'almacen',
       component: AlmacenesComponent
-    },
+      },
+      {
+        path: 'vendedores',
+        component: VendedoresComponent
+      }
     ]
   }
 ];
