@@ -8,7 +8,7 @@
   //Paleta de colores para la aplicación
   --bg-color: #F1F2F5;
   --color-base: #41e94c;
-  --hover-base:  #f5e612;
+  --hover-base: #f5e612;
   --color-secundario: #FE900B;
   --color-terciario: #D94B4B;
   --danger-color: #6b0c0c;
@@ -53,17 +53,11 @@ p {
 
 //AñADIDO DE ESTILOS DE MARCA
 
-.search-input {
-  padding: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 7px;
-  background-color: #dce0daa4;
-  transition: background-color 0.3s ease;
-  outline: none;
-  width: min(80%, 400px);
-}
-
-.general-btn, .danger-btn, .search-btn, .add-btn {
+//BOTONES
+.general-btn,
+.danger-btn,
+.search-btn,
+.add-btn {
   padding: 10px 20px;
   border: none;
   border-radius: 7px;
@@ -89,14 +83,6 @@ p {
   }
 }
 
-.search-btn {
-  background-color: var(--color-secundario);
-
-  &:hover {
-    background-color: var(--hover-base);
-  }
-}
-
 .add-btn {
   background-color: var(--color-base);
 
@@ -114,4 +100,62 @@ p {
   color: white;
   font-size: 20px;
   cursor: pointer;
+}
+
+//BUSCADORES
+.search-input {
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 7px;
+  background-color: #dce0daa4;
+  transition: background-color 0.3s ease;
+  outline: none;
+  width: 100%;
+}
+
+.search-loader {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 0 0 10px 10px;
+  border: 1px solid rgb(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+.search-list {
+  position: absolute;
+  top: 47px;
+  width: 100%;
+  background-color: white;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0px 8px 12px 3px rgba(0, 0, 0, 0.315);
+  max-height: 400px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+
+  .search-list__element {
+    padding: 10px 5px;
+    border: 1px solid rgb(0, 0, 0, 0.2);
+
+    &:hover {
+      background-color: rgb(238, 238, 238);
+      cursor: pointer;
+    }
+  }
+}
+
+.search-btn {
+  background-color: var(--color-secundario);
+
+  &:hover {
+    background-color: var(--hover-base);
+  }
 }
