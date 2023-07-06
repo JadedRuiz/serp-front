@@ -25,6 +25,7 @@ import { RoutesComponent } from './presentation/features/routes/routes.component
 import { ProveedoresComponent } from './presentation/features/proveedores/proveedores.component';
 import { AlmacenesComponent } from './presentation/features/almacenes/almacenes.component';
 import { MapsModule } from '@presentation/features/maps/maps.module';
+import { VendedoresComponent } from './presentation/features/vendedores/vendedores.component';
 
 
 
@@ -40,7 +41,8 @@ import { MapsModule } from '@presentation/features/maps/maps.module';
     ClientsComponent,
     RoutesComponent,
     ProveedoresComponent,
-    AlmacenesComponent
+    AlmacenesComponent,
+    VendedoresComponent
   ],
 
 

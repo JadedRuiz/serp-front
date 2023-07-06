@@ -26,18 +26,31 @@ export class ProveedoresService {
 
 // =>
 desactivarProveedores(id_proveedor:number, activo:number){
-  let url = 'https://serp-inventarios.serteza.com/public/api/proveedores/activarProveedor' + id_proveedor;
+  let url = 'https://serp-inventarios.serteza.com/public/api/proveedores/activarProveedor?id_proveedor=' + id_proveedor;
   return this.http.post(url, '').pipe(
     map((object : any) =>{
-      let mensaje = activo == 0 ? 'ACTIVADA' : 'DESACTIVADA' ;
+      let mensaje = activo === 0 ? 'ACTIVADO' : 'DESACTIVADO' ;
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: `La ruta fue ${mensaje}`,
+        title: `El proveedor fue ${mensaje}`,
         showConfirmButton: false,
         timer: 1500,
       });
+      console.log(object);
       return object.data;
+    }),
+    catchError((error: any) => {
+      // Mostrar el mensaje de error en un cuadro de diálogo o en la consola
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Error',
+        text: 'Ha ocurrido un error en la solicitud.',
+      });
+      console.error(error);
+      // Propagar el error para que se maneje en el componente que llama a esta función
+      return throwError(error);
     })
   )
 }
