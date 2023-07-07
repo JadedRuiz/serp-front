@@ -62,7 +62,7 @@ const routes: Routes = [
         component: AddProductComponent
       },
       {
-        path: 'pedidos',
+        path: 'pedidos-carrito',
         component: OrdersComponent
       },
       {
