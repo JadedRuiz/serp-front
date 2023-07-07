@@ -33,7 +33,7 @@
         AGREGAR ALMACEN
       </button>
     </div>
-    
+
     <div id="form-almacenes">
       <form class="almacen__form" #almaForm="ngForm" (ngSubmit)="guardarAlmacen(almaForm)">
         <div class="almacen__form-tabs">
@@ -57,13 +57,13 @@
                   [(ngModel)]="almacen.almacen" #inputProvForm disabled />
               </div>
               <div class="form-label">
-                <label for="rfc">Empresa</label>
-                <input class="form-control" type="text" name="rfc" id="rfc" required [(ngModel)]="almacen.empresa"
+                <label for="empresa">Empresa</label>
+                <input class="form-control"  type="text" name="empresa" required [(ngModel)]="almacen.empresa"
                   disabled />
               </div>
               <div class="form-label">
-                <label for="rfc">Descripcion Domicilio</label>
-                <input class="form-control" type="text" name="calle" id="calle" required
+                <label for="direccion">Descripcion Domicilio</label>
+                <input class="form-control" type="text" name="direccion" required
                   [(ngModel)]="almacen.direccion" #inputProvForm disabled />
               </div>
               <div class="form-label">
@@ -73,7 +73,7 @@
               </div>
 
               <div class="row">
-              <div class="form-label col-md-6"> 
+              <div class="form-label col-md-6">
                 <label for="rfc">Numero Exterior</label>
                 <input class="form-control" type="text" name="numExt" id="numExt" required
                   [(ngModel)]="almacen.domicilio.numero_exterior" #inputProvForm disabled />
