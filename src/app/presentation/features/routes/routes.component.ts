@@ -35,8 +35,7 @@ export class RoutesComponent {
     this.isModalOpen = false;
   }
 
-  //Activo
-  routeIsActive: boolean = false;
+
 
 
 //Obtener Rutas
@@ -59,16 +58,7 @@ export class RoutesComponent {
   }
 
 
-//Activo
-updateRouteStatus() {
-  this.filteredRoutes.forEach(route => {
-    if (route.activo === 1) {
-      route.routeIsActive = true;
-    } else {
-      route.routeIsActive = false;
-    }
-  });
-}
+
 
 
 //FILTRO
@@ -127,6 +117,19 @@ updateRouteStatus() {
     });
     // this.routeService.obtenerRutas();
   }
+
+  
+ //Activo
+ routeIsActive: boolean = false;
+updateRouteStatus() {
+  this.filteredRoutes.forEach(route => {
+    if (route.activo === 1) {
+      route.routeIsActive = true;
+    } else {
+      route.routeIsActive = false;
+    }
+  });
+}
 
   getRouteStatusClass(activo: number): string {
     return activo == 1 ? 'btn-success' : 'btn-danger';

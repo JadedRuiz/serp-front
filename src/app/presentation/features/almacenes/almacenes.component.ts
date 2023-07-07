@@ -184,7 +184,7 @@ export class AlmacenesComponent {
         token: '012354SDSDS01',
       };
       this.searchList = true;
-      this.almaService.obtenerAlmacenes(json)
+      //this.almaService.obtenerAlmacenes(json)
       this.autocompleteAlmacen = this.almacenes.filter((almacen) =>
         almacen.empresa?.toLowerCase().includes(this.searchAlmacen.toLowerCase()) || almacen.almacen.toLowerCase().includes(this.searchAlmacen.toLowerCase())
       );
