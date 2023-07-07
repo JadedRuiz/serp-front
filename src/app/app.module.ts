@@ -14,7 +14,6 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { CatalogoComponent } from './presentation/features/catalogo/catalogo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrdersCartComponent } from './presentation/features/orders-cart/orders-cart.component';
-import { OrdersComponent } from './presentation/features/orders/orders.component';
 import { OrdersPlacedComponent } from './presentation/features/orders-placed/orders-placed.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { OrdersCartModalComponent } from './presentation/features/orders-cart-modal/orders-cart-modal.component';
@@ -34,7 +33,6 @@ import { VendedoresComponent } from './presentation/features/vendedores/vendedor
     AppComponent,
     CatalogoComponent,
     OrdersCartComponent,
-    OrdersComponent,
     OrdersPlacedComponent,
     OrdersCartModalComponent,
     AddProductComponent,
