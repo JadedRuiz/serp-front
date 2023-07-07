@@ -83,12 +83,11 @@
           </div>
             <div class="proveedor__data-form__section1 col-12 col-md-6">
               <div class="form-label">
-                <label for="cliente">Vendedor</label>
+                <label for="cliente">Nombre</label>
                 <input
                 class="form-control"
                   type="text"
-                  name="cliente"
-                  id="cliente"
+                  name="nombre"
                   required
                   [(ngModel)]="vendedor.vendedor"
                   #inputProvForm
@@ -101,7 +100,6 @@
                   class="form-control"
                   type="text"
                   name="contacto"
-                  id="contacto"
                   required
                   #inputProvForm
                   disabled
@@ -146,12 +144,11 @@
             </div>
             <div class="proveedor__data-form__section2 col-12 col-md-6">
               <div class="form-label">
-                <label for="comercial">Nombre Comercial</label>
+                <label for="comercial">Sector</label>
                 <input
                   class="form-control"
                   type="text"
                   name="comercial"
-                  id="comercial"
                   required
                   #inputProvForm
                   disabled
