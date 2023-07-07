@@ -116,6 +116,7 @@ export class AlmacenesComponent {
     this.domicilio = new adress_Almacen('', '', '', '', '', '', 0, '', '', '', '', '', '', 0);
     this.almacen = new Almacen(0, 1, 0, 1,'', '', '', '', '', 1, 1, this.domicilio);
     this.editarAlmacen();
+    this.isAlmacenSelected = false;
   }
 
   obtenerAlmacenes() {
