@@ -12,32 +12,31 @@
   <button type="button" class="b add-btn" (click)="addProducto()">AGREGAR</button>
 </div>
 
-<div class="text-center" *ngIf="resultsNotFound" style="  color:red; font-size: 40px;">No se encontraron resultados.</div>
+<div class="text-center" *ngIf="resultsNotFound" style="  color:red; font-size: 40px;">No se encontraron resultados.
+</div>
 <hr />
 
 
-<div class="container-fluid">
-  <div class="columns is-multiline is-variable is-4">
-    <div class="column is-one-quarter-desktop is-one-third-tablet is-full-mobile" *ngFor="let articulo of filteredItems">
-        <div class="card">
-        <a type="button" class="mt-1 me-1 align-self-end btn_h " (click)="agregarProductoCarrito(item)">+</a>
-            <img src="https://koonol.mx/KN/public/segmentos/lacteos.png" alt="Producto">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-content">
-              <h1 class="title mb-1">{{ articulo.articulo }}</h1>
-              <h2 class="subtitle mb-0 mt-1">{{ articulo.familia}}</h2>
-              <span class="mb-0"><b> 10 / 20 / 30</b></span>
-              <br>
-              <span><b>Unidad</b>  {{articulo.medida}}</span>
-            </div>
+<div class="cards">
+  <div class="cards__card" *ngFor="let articulo of filteredItems">
+    <div class="card">
+      <a type="button" class="mt-1 me-1 align-self-end btn_h " (click)="agregarProductoCarrito(item)">+</a>
+      <img src="https://koonol.mx/KN/public/segmentos/lacteos.png" alt="Producto">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <h1 class="title mb-1">{{ articulo.articulo }}</h1>
+            <h2 class="subtitle mb-0 mt-1">{{ articulo.familia}}</h2>
+            <span class="mb-0"><b> 10 / 20 / 30</b></span>
+            <br>
+            <span><b>Unidad</b> {{articulo.medida}}</span>
           </div>
-          <a class="" (click)="openModal(articulo)" style="color: var(--color-terciario)">Ver Detalles</a>
-          <span class="card-price ms-4"><strong>{{ articulo.precio_venta  | currency: 'MEX'}}</strong></span>
         </div>
+        <a class="" (click)="openModal(articulo)" style="color: var(--color-terciario)">Ver Detalles</a>
+        <span class="card-price ms-4"><strong>{{ articulo.precio_venta | currency: 'MEX'}}</strong></span>
       </div>
+    </div>
   </div>
-
 </div>
 
 

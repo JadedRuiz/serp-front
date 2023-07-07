@@ -1,4 +1,4 @@
-
+@import '../breakpoints.scss';
 
 // Titulo
 .tit_cat {
@@ -90,7 +90,20 @@
   max-width: 400px;
 }
 
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 
+  &__card {
+    width: min(90%, 320px);
+
+    @include xxl {
+      max-width: 300px;
+    }
+  }
+}
 
 // CARD
 .card-price {
@@ -131,7 +144,7 @@
 
 // MODAL
 #modalProducto{
-  height: 600px;
+  height: 100vh;
   width: auto;
   img{
     height: 200px;
