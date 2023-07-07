@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ElementRef, QueryList, ViewChildren } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 import { Address } from 'src/app/models/addresses.model';
 import { adress_Almacen } from 'src/app/models/adress-almacen.model';
 import { Almacen } from 'src/app/models/almacen.model';
@@ -14,6 +15,11 @@ import { AlmacenService } from 'src/app/services/almacenes/almacen.service';
   styleUrls: ['./almacenes.component.scss']
 })
 export class AlmacenesComponent {
+  miComprador = 1;
+  miToken = '';
+  miPefil = 'ADMINISTRADOR';
+  miUsuario = 1;
+  searchAlmacenControl: FormControl = new FormControl();
 
   constructor(
     private almaService: AlmacenService
@@ -21,11 +27,16 @@ export class AlmacenesComponent {
 
   ngOnInit() {
     this.obtenerAlmacenes();
+    this.searchAlmacenControl.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((value) => {
+        this.buscarAlmacen(value);
+      });
   }
 
   @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
 
-  // =>funcion para que el botin de editar funcione
+  // =>funcion para que el boton de editar funcione
   estado = false
   editar() {
     if (this.estado) {
@@ -171,22 +182,38 @@ export class AlmacenesComponent {
       }
     );
   }
-
-  buscarAlmacen() {
-    if (this.searchAlmacen.length <= 1) {
+  loader: boolean = false
+  noAlmacen: boolean = false
+  buscarAlmacen(value: string) {
+    let json = {
+      id_almacen: 0,
+      id_comprador: 1,
+      almacen: '',
+      solo_activos: 1,
+      token: '012354SDSDS01',
+    }
+    if (value.length <= 3) {
       this.autocompleteAlmacen = [];
+      this.searchList = false;
     } else {
-      let json = {
-        id_almacen: 0,
-        id_comprador: 1,
-        almacen: '',
-        solo_activos: 1,
-        token: '012354SDSDS01',
-      };
+      this.loader = true
       this.searchList = true;
-      this.almaService.obtenerAlmacenes(json)
-      this.autocompleteAlmacen = this.almacenes.filter((almacen) =>
-        almacen.empresa?.toLowerCase().includes(this.searchAlmacen.toLowerCase()) || almacen.almacen.toLowerCase().includes(this.searchAlmacen.toLowerCase())
+      this.almaService.obtenerAlmacenes(json).subscribe(
+        (resp) => {
+          if (resp.ok) {
+            console.log(this.autocompleteAlmacen);
+            this.almacenes = resp.data
+            this.autocompleteAlmacen = this.almacenes.filter((almacen) =>
+            almacen.almacen.toLowerCase().includes(value.toLowerCase()) ||
+            almacen.descripcion?.toLowerCase().includes(value.toLowerCase())
+            );
+            this.loader = false
+          }
+        },
+        (err) => {
+          console.log(err)
+          this.loader = false
+        }
       );
     }
   }
