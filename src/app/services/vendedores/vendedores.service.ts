@@ -30,7 +30,17 @@ export class VendedoresService {
 editarVendedor(id_vendedor: number, vendedor: any){
 let url = 'https://serp-inventarios.serteza.com/public/api/vendedores/guardarVendedor';
 return this.http.post(url, vendedor).pipe(map( (resp:any)=> {
-  return resp;
+  if(resp.ok){
+    Swal.fire('Vendedor editado con exito', '', 'success');
+    return resp;
+  }else{
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Error',
+      text: resp.message || 'Ha ocurrido un error',
+    });
+  }
 }), catchError(err => {
   Swal.fire("Ha ocurrido un error", err.error.message, 'error');
   return throwError(err);
@@ -42,9 +52,19 @@ agregarVendedor(vendedor: Vendedor){
 let url = 'https://serp-inventarios.serteza.com/public/api/vendedores/guardarVendedor';
 return this.http.post(url, vendedor).pipe(
   map((resp:any)=> {
-    console.log(resp);
-    Swal.fire('Vendedor creado con exito', '', 'success');
-    return resp.data;
+    if(resp.ok){
+      Swal.fire('Vendedor creado con exito', '', 'success');
+      return resp.data;
+    }else {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Error',
+        text: resp.message || 'Ha ocurrido un error',
+      });
+      console.error(resp);
+      return throwError(resp);
+    }
     }), catchError(err =>{
       Swal.fire('Error al crear vendedor', err.error.message,'error')
       return throwError(err);
@@ -53,32 +73,43 @@ return this.http.post(url, vendedor).pipe(
 }
 
 // Activa el Vendedor
-activarVendedor(id_vendedor:number, activo:number){
+activarVendedor(id_vendedor: number, activo: number) {
   let url = 'https://serp-inventarios.serteza.com/public/api/vendedores/activarVendedor?id_vendedor=' + id_vendedor;
-  return this.http.post(url,'').pipe(
-    map((objeto :any)=>{
-      let mensaje = activo == 0? ' activado ' : ' desactivado ';
+  return this.http.post(url, '').pipe(
+    map((objeto: any) => {
+      console.log(objeto);
+      if (objeto.ok) {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Vendedor activado',
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        //console.log(objeto);
+        return objeto.data;
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Error',
+          text: objeto.message || 'Ha ocurrido un error',
+        });
+        //console.error(objeto);
+        return throwError(objeto);
+      }
+    }),
+    catchError((error: any) => {
       Swal.fire({
         position: 'center',
-        icon: 'success',
-        title: 'Vendedor'+ mensaje +'con exito',
-        showConfirmButton: false,
-        timer: 1500,
+        icon: 'error',
+        title: 'Error',
+        text: 'Ha ocurrido un error',
       });
-      console.log(objeto);
-      return objeto.data;
-    }),
-    catchError((error : any)=>{
-    Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: 'Error',
-      text: 'Ha ocurrido un error'
+      console.error(error);
+      return throwError(error);
     })
-    console.error(error);
-    return throwError(error);
-  })
-  )
+  );
 }
 
 

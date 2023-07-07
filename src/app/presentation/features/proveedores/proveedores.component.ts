@@ -108,7 +108,7 @@ buscarProveedor() {
     || proveedor.contacto?.toLowerCase().includes(this.searchProveedor.toLowerCase())
     || proveedor.nombre_comercial?.toLowerCase().includes(this.searchProveedor.toLowerCase())
     );
-   // console.log(this.autocompleteProveedor);
+   console.log(this.proveedores.filter);
   }
 }
 
