@@ -33,7 +33,7 @@
         AGREGAR ALMACEN
       </button>
     </div>
-
+    
     <div id="form-almacenes">
       <form class="almacen__form" #almaForm="ngForm" (ngSubmit)="guardarAlmacen(almaForm)">
         <div class="almacen__form-tabs">
@@ -41,7 +41,10 @@
             <div class="row">
               <h3 class="subtitle col-md-8">Datos</h3>
               <div class="col-md-2">
-                <button class=" general-btn" (click)="editarAlmacen()" type="button">Editar</button>
+                <button class=" general-btn" (click)="editar()" type="button">
+                  <span *ngIf="estado"> Editar</span>
+                  <span *ngIf="!estado"> Editar</span>
+                </button>
               </div>
               <div class="col-md-2">
                 <button class=" search-btn  text-center" type="submit" >Guardar</button>
@@ -59,46 +62,67 @@
                   disabled />
               </div>
               <div class="form-label">
+                <label for="rfc">Descripcion Domicilio</label>
+                <input class="form-control" type="text" name="calle" id="calle" required
+                  [(ngModel)]="almacen.direccion" #inputProvForm disabled />
+              </div>
+              <div class="form-label">
                 <label for="rfc">Calle</label>
                 <input class="form-control" type="text" name="calle" id="calle" required
                   [(ngModel)]="almacen.domicilio.calle" #inputProvForm disabled />
               </div>
-              <div class="form-label">
+
+              <div class="row">
+              <div class="form-label col-md-6"> 
                 <label for="rfc">Numero Exterior</label>
                 <input class="form-control" type="text" name="numExt" id="numExt" required
                   [(ngModel)]="almacen.domicilio.numero_exterior" #inputProvForm disabled />
               </div>
-              <div class="form-label">
+              <div class="form-label col-md-6">
                 <label for="rfc">Numero Interior</label>
                 <input class="form-control" type="text" name="numInt" id="numInt" required
                   [(ngModel)]="almacen.domicilio.numero_interior" #inputProvForm disabled />
               </div>
-            </div>
-            <div class="almacen__data-form__section1 col-12 col-md-6">
-              <div class="form-label">
-                <label for="rfc">Cruzamiento 1</label>
-                <input class="form-control" type="text" name="cruz1" id="cruz1" required
-                  [(ngModel)]="almacen.domicilio.cruzamiento_uno" #inputProvForm disabled />
               </div>
-              <div class="form-label">
-                <label for="rfc">Cruzamiento 2</label>
-                <input class="form-control" type="text" name="cruz2" id="cruz2" required
-                  [(ngModel)]="almacen.domicilio.cruzamiento_dos" #inputProvForm disabled />
+              <div class="row">
+                <div class="form-label col-md-6">
+                  <label for="rfc">Cruzamiento 1</label>
+                  <input class="form-control" type="text" name="cruz1" id="cruz1" required
+                    [(ngModel)]="almacen.domicilio.cruzamiento_uno" #inputProvForm disabled />
+                </div>
+                <div class="form-label col-md-6">
+                  <label for="rfc">Cruzamiento 2</label>
+                  <input class="form-control" type="text" name="cruz2" id="cruz2" required
+                    [(ngModel)]="almacen.domicilio.cruzamiento_dos" #inputProvForm disabled />
+                </div>
+              </div>
+            </div>
+
+            <div class="almacen__data-form__section1 col-12 col-md-6">
+              <div class="col-md-5">
+                <label for="rfc">Codigo Postal</label>
+                <input class="form-control" type="number" name="postal" id="cp" required
+                  [(ngModel)]="almacen.domicilio.codigo_postal" #inputProvForm disabled />
               </div>
               <div class="form-label">
                 <label for="rfc">Colonia</label>
-                <input class="form-control" type="text" name="colonia" id="colonia" required
+                <input class="form-control" type="text" name="municipio" id="municipio" required
                   [(ngModel)]="almacen.domicilio.colonia" #inputProvForm disabled />
+              </div>
+              <div class="form-label">
+                <label for="rfc">Localidad</label>
+                <input class="form-control" type="text" name="municipio" id="municipio" required
+                  [(ngModel)]="almacen.domicilio.localidad" #inputProvForm disabled />
               </div>
               <div class="form-label">
                 <label for="rfc">Municipio</label>
                 <input class="form-control" type="text" name="municipio" id="municipio" required
                   [(ngModel)]="almacen.domicilio.municipio" #inputProvForm disabled />
               </div>
-              <div class="col-md-5">
-                <label for="rfc">Codigo Postal</label>
-                <input class="form-control" type="number" name="postal" id="cp" required
-                  [(ngModel)]="almacen.domicilio.codigo_postal" #inputProvForm disabled />
+              <div class="form-label">
+                <label for="rfc">Estado</label>
+                <input class="form-control" type="text" name="municipio" id="municipio" required
+                  [(ngModel)]="almacen.domicilio.estado" #inputProvForm disabled/>
               </div>
             </div>
           </div>
