@@ -7,7 +7,6 @@ import { CatalogoComponent } from '@presentation/features/catalogo/catalogo.comp
 import { ClientsComponent } from '@presentation/features/clients/clients.component';
 import { OrdersCartComponent } from '@presentation/features/orders-cart/orders-cart.component';
 import { OrdersPlacedComponent } from '@presentation/features/orders-placed/orders-placed.component';
-import { OrdersComponent } from '@presentation/features/orders/orders.component';
 import { RoutesComponent } from '@presentation/features/routes/routes.component';
 import { SearchFamComponent } from '@presentation/features/search-fam/search-fam.component';
 import { BaseAuthComponent } from '@presentation/layout/base-auth/base-auth.component';
@@ -60,10 +59,6 @@ const routes: Routes = [
       {
         path: 'add-product',
         component: AddProductComponent
-      },
-      {
-        path: 'pedidos-carrito',
-        component: OrdersComponent
       },
       {
         path: 'pedidos-realizados',
