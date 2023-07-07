@@ -64,7 +64,7 @@
               <div class="form-label">
                 <label for="rfc">Descripcion Domicilio</label>
                 <input class="form-control" type="text" name="calle" id="calle" required
-                  [(ngModel)]="almacen.domicilio.descripcion" #inputProvForm disabled />
+                  [(ngModel)]="almacen.direccion" #inputProvForm disabled />
               </div>
               <div class="form-label">
                 <label for="rfc">Calle</label>
@@ -99,16 +99,6 @@
             </div>
 
             <div class="almacen__data-form__section1 col-12 col-md-6">
-              <div class="form-label">
-                <label for="rfc">Colonia</label>
-                <input class="form-control" type="text" name="colonia" id="colonia" required
-                  [(ngModel)]="almacen.domicilio.colonia" #inputProvForm disabled />
-              </div>
-              <div class="form-label">
-                <label for="rfc">Municipio</label>
-                <input class="form-control" type="text" name="municipio" id="municipio" required
-                  [(ngModel)]="almacen.domicilio.municipio" #inputProvForm disabled />
-              </div>
               <div class="col-md-5">
                 <label for="rfc">Codigo Postal</label>
                 <input class="form-control" type="number" name="postal" id="cp" required
@@ -123,6 +113,11 @@
                 <label for="rfc">Localidad</label>
                 <input class="form-control" type="text" name="municipio" id="municipio" required
                   [(ngModel)]="almacen.domicilio.localidad" #inputProvForm disabled />
+              </div>
+              <div class="form-label">
+                <label for="rfc">Municipio</label>
+                <input class="form-control" type="text" name="municipio" id="municipio" required
+                  [(ngModel)]="almacen.domicilio.municipio" #inputProvForm disabled />
               </div>
               <div class="form-label">
                 <label for="rfc">Estado</label>

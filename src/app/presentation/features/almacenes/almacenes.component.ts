@@ -110,11 +110,11 @@ export class AlmacenesComponent {
 
 
   domicilio: adress_Almacen = new adress_Almacen('', '', '', '', '', '', 0, '', '', '', '', '', '', 0);
-  almacen: Almacen = new Almacen(0, 1, 0, 1, '', '', '', 1, 1, this.domicilio);
+  almacen: Almacen = new Almacen(0, 1, 0, 1,'',  '', '', '', 1, 1, this.domicilio);
 
   agregarNvoAlmacen() {
     this.domicilio = new adress_Almacen('', '', '', '', '', '', 0, '', '', '', '', '', '', 0);
-    this.almacen = new Almacen(0, 1, 0, 1, '', '', '', 1, 1, this.domicilio);
+    this.almacen = new Almacen(0, 1, 0, 1,'',  '', '', '', 1, 1, this.domicilio);
     this.editarAlmacen();
   }
  
@@ -136,6 +136,7 @@ export class AlmacenesComponent {
               element.id_direccion,
               1,
               element.empresa,
+              element.direccion,
               "012354SDSDS01",
               element.almacen,
               1,
