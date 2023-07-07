@@ -7,6 +7,8 @@ export class Almacen {
     public id_direccion: number,
     public id_empresa: number,
     public empresa: string,
+    public direccion: string,
+    public descripcion: string,
     public token: string,
     public almacen: string,
     public id_usuario: number,

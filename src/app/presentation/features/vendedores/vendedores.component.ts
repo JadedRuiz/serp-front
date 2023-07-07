@@ -48,8 +48,11 @@ if (this.searchVendedor.length <= 2){
 }else {
   this.searchList = true;
   this.vendedorService.obtenerVendedores();
+  console.log(this.vendedores);
   this.autocompleteVendedor = this.vendedores.filter((vendedor)=>
   vendedor.vendedor.toLowerCase().includes(this.searchVendedor.toLowerCase()));
+  console.log(this.autocompleteVendedor);
+
 }
 }
 

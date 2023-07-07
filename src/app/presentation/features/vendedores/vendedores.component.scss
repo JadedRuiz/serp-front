@@ -22,6 +22,7 @@
     width: 100%;
 
     div {
+      position: relative;
         border-radius: 10px;
 
         .search-input {
@@ -45,7 +46,7 @@
 
     .search-list {
       position: absolute;
-      top: 138px;
+      top: 46px;
       width: 200px;
       background-color: white;
       border-radius: 7px 7px 7px 7px;

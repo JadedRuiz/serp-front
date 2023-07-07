@@ -110,14 +110,15 @@ export class AlmacenesComponent {
 
 
   domicilio: adress_Almacen = new adress_Almacen('', '', '', '', '', '', 0, '', '', '', '', '', '', 0);
-  almacen: Almacen = new Almacen(0, 1, 0, 1, '', '', '', 1, 1, this.domicilio);
+  almacen: Almacen = new Almacen(0, 1, 0, 1,'','','', '', '', 1, 1, this.domicilio);
 
   agregarNvoAlmacen() {
     this.domicilio = new adress_Almacen('', '', '', '', '', '', 0, '', '', '', '', '', '', 0);
-    this.almacen = new Almacen(0, 1, 0, 1, '', '', '', 1, 1, this.domicilio);
+    this.almacen = new Almacen(0, 1, 0, 1,'', '', '', '', '', 1, 1, this.domicilio);
     this.editarAlmacen();
+    this.isAlmacenSelected = false;
   }
- 
+
   obtenerAlmacenes() {
     let json = {
       id_almacen: 0,
@@ -128,6 +129,7 @@ export class AlmacenesComponent {
     };
     this.almaService.obtenerAlmacenes(json).subscribe(
       (response) => {
+        //=> console.log('=>',response.data);
         if (response.ok) {
           response.data.forEach((element: any) => {
             this.almacenes.push(new Almacen(
@@ -135,7 +137,9 @@ export class AlmacenesComponent {
               1,
               element.id_direccion,
               1,
-              element.empresa,
+              element.empresa = 'Koonol',
+              element.direccion,
+              element.descripcion,
               "012354SDSDS01",
               element.almacen,
               1,

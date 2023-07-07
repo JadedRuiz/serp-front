@@ -12,7 +12,157 @@
   --color-secundario: #FE900B;
   --color-terciario: #D94B4B;
   --danger-color: #6b0c0c;
+
+  --red: #D50901;
+  --white: #E7E8EB;
+  --danger : #ED383C;
+  --success: #71B90D;
+  --warning : #F7C60C;
+  --info : #77BDEC;
+  --black : #525252;
+  --gray : #DBDBDB;
 }
+/* Fonts */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 500;
+  src:
+      url("./fonts/Barlow-Medium.ttf");
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src:
+      url("./fonts/Roboto-Regular.ttf");
+}
+
+/* Diseños */
+.Wt {
+  font-family: 'Barlow', sans-serif;
+  font-style: normal;
+  font-size: 22px;
+}
+.Wp {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-size: 18px;
+}
+.btn-custom{
+  border-color: transparent;
+  border-radius: 40px;
+  padding: 5px 15px;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-size: 14px;
+}
+.success{
+  background-color: var(--success);
+  color: white;
+}
+.success:hover {
+  border-color: var(--success);
+  color: var(--success);
+  background-color: transparent;
+}
+.danger {
+  background-color: var(--danger);
+  color: white;
+}
+.danger:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+  background-color: transparent;
+}
+.warning {
+  background-color: var(--warning);
+  color: white;
+}
+.warning:hover {
+  border-color: var(--warning);
+  color: var(--warning);
+  background-color: transparent;
+}
+.info{
+  background-color: var(--info);
+  color: white;
+}
+.info:hover {
+  border-color: var(--info);
+  color: var(--info);
+  background-color: transparent;
+}
+.form-ctrl {
+  position: relative;
+  width: 100%;
+}
+
+.form-ctrl .inputText {
+  font-family: 'Barlow', sans-serif;
+  color: var(--gray);
+  text-decoration: none;
+  border: 0px;
+  border: 1px var(--gray) solid;
+  border-radius: 8px;
+  padding: 5px;
+  font-size: 14px;
+  width : 100%;
+  outline: none;
+  -webkit-box-shadow: inset 0 0px 0px rgba(0,0,0,.075) !important;
+}
+
+.form-ctrl .floating-label {
+  position: absolute;
+  pointer-events: none;
+  font-family: 'Barlow', sans-serif;
+  color: var(--gray);
+  top: 30px;
+  left: 5px;
+  font-size: 14px;
+  transition: 0.2s ease all;
+}
+
+.form-ctrl input:focus ~ .floating-label,
+.form-ctrl input:not(:focus):valid ~ .floating-label {
+  color: var(--black);
+  top: 0px;
+  left: 0px;
+  font-size: 12px;
+  opacity: 1;
+}
+.I-icon {
+  position: absolute;
+  top: 30px;
+  right: 5px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--gray);
+  cursor :pointer;
+}
+.slt-custom {
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  color: var(--black);
+  padding: 5px 15px;
+  border: 1px var(--black) solid;
+  border-radius: 8px;
+  background: url("data:image/svg+xml,<svg height='10px' width='10px' viewBox='0 0 16 16' fill='%23000000' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") no-repeat;
+  background-position: calc(100% - 0.75rem) center !important;
+  -moz-appearance:none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  padding-right: 2rem !important;
+}
+.header-modal i{
+  font-size: 20px;
+  cursor: pointer;
+}
+.body-modal{
+  padding: 15px 10px;
+}
+
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
@@ -60,7 +210,7 @@ p {
 .add-btn {
   padding: 10px 20px;
   border: none;
-  border-radius: 7px;
+  border-radius: 20px;
   color: white;
   font-weight: 700;
   transition: background-color 0.6s ease;
