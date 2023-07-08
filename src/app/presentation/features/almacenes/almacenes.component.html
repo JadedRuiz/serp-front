@@ -4,16 +4,24 @@
 
 
     <div class="almacenes__search-bar">
-      <div class="d-flex">
+      <div class="d-flex flex-column">
         <input class="search-input" type="text" placeholder="Buscar Almacen" aria-label="Buscar Almacen"
-          aria-describedby="button-addon2" [(ngModel)]="searchAlmacen" (ngModelChange)="buscarAlmacen()" />
-        <ul class="search-list" *ngIf="searchList">
-          <li class="search-list__element" *ngFor="let almacen of autocompleteAlmacen"
-            (click)="seleccionarAlmacen(almacen.id_almacen)">
-            {{ almacen.almacen }}
-          </li>
-        </ul>
-      </div>
+          aria-describedby="button-addon2" [formControl]="searchAlmacenControl" />
+        <div class="search-loader w-100" *ngIf="loader; else almacenesReady">
+          <i class="fas fa-spinner fa-pulse"></i>
+        </div>
+        <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noAlmacen">
+          <h4>No se encontro el Almacen</h4>
+        </div>
+        <ng-template #almacenesReady>
+          <ul class="search-list" *ngIf="searchList">
+            <li class="search-list__element" *ngFor="let almacen of autocompleteAlmacen"
+              (click)="seleccionarAlmacen(almacen.id_almacen)">
+              {{ almacen.almacen }}
+            </li>
+          </ul>
+        </ng-template>
+      </div>     
 
       <div class="status">
         <div *ngIf="status" class="status-inactive">
@@ -46,7 +54,7 @@
                 </button>
               </div>
               <div class="col-md-2">
-                <button class=" search-btn  text-center" type="submit" >Guardar</button>
+                <button class=" search-btn  text-center" type="submit">Guardar</button>
               </div>
             </div>
             <div class="almacen__data-form__section1 col-12 col-md-6">
@@ -62,8 +70,8 @@
               </div> -->
               <div class="form-label">
                 <label for="descripcion">Descripcion Domicilio</label>
-                <input class="form-control" type="text" name="descripcion" required
-                  [(ngModel)]="almacen.descripcion" #inputProvForm disabled />
+                <input class="form-control" type="text" name="descripcion" required [(ngModel)]="almacen.descripcion"
+                  #inputProvForm disabled />
               </div>
               <div class="form-label">
                 <label for="calle">Calle</label>
@@ -72,16 +80,16 @@
               </div>
 
               <div class="row">
-              <div class="form-label col-md-6">
-                <label for="numero_exterior">Numero Exterior</label>
-                <input class="form-control" type="text" name="numero_exterior" id="numero_exterior" required
-                  [(ngModel)]="almacen.domicilio.numero_exterior" #inputProvForm disabled />
-              </div>
-              <div class="form-label col-md-6">
-                <label for="numero_interior">Numero Interior</label>
-                <input class="form-control" type="text" name="numero_interior" id="numero_interior" required
-                  [(ngModel)]="almacen.domicilio.numero_interior" #inputProvForm disabled />
-              </div>
+                <div class="form-label col-md-6">
+                  <label for="numero_exterior">Numero Exterior</label>
+                  <input class="form-control" type="text" name="numero_exterior" id="numero_exterior" required
+                    [(ngModel)]="almacen.domicilio.numero_exterior" #inputProvForm disabled />
+                </div>
+                <div class="form-label col-md-6">
+                  <label for="numero_interior">Numero Interior</label>
+                  <input class="form-control" type="text" name="numero_interior" id="numero_interior" required
+                    [(ngModel)]="almacen.domicilio.numero_interior" #inputProvForm disabled />
+                </div>
               </div>
               <div class="row">
                 <div class="form-label col-md-6">
@@ -121,10 +129,10 @@
               <div class="form-label">
                 <label for="estado">Estado</label>
                 <input class="form-control" type="text" name="estado" id="estado" required
-                  [(ngModel)]="almacen.domicilio.estado" #inputProvForm disabled/>
+                  [(ngModel)]="almacen.domicilio.estado" #inputProvForm disabled />
               </div>
             </div>
-            
+
             <div class="d-flex flex-column mt-3 p-3 border rounded-3" *ngIf="isAlmacenSelected">
               <h3 class="subtitle mb-1">Dirección</h3>
               <p>{{almacen.direccion}}</p>
