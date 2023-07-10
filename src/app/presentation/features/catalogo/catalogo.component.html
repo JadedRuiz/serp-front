@@ -20,7 +20,7 @@
 <div class="cards">
   <div class="cards__card" *ngFor="let articulo of filteredItems" >
     <div class="card">
-      <a type="button" class="mt-1 me-1 align-self-end btn_h ">+</a>
+      <a type="button" class="mt-1 me-1 align-self-end btn_h " (click)="agregarProductoCarrito(articulo)">+</a>
       <img src="https://koonol.mx/KN/public/segmentos/lacteos.png" alt="Producto">
       <div class="card-content">
         <div class="media">
