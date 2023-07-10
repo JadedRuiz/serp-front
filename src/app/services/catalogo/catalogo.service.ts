@@ -25,7 +25,10 @@ export class CatalogoService {
           //console.log('service=>',response.data);
           return response.data;
         }else {
-          console.log('Ocurrió un error:', response.message);
+          catchError(err => {
+            Swal.fire("Ha ocurrido un error", err.error.message, 'error');
+            return throwError(err);
+          })
           return null;
         }
       })
@@ -50,10 +53,24 @@ obtenerArticulos(): Observable<any> {
       'https://serp-inventarios.serteza.com/public/api/articulos/guardarArticulo';
 
     return this.http.post(url, producto).pipe(
-      map((resp: any) => {
-        //console.log('service',resp);
-        Swal.fire('Producto creado con exito', '', 'error');
-        return resp.data;
+      map((resp :any) => {
+        if(resp.ok){
+          console.log('service',resp);
+          Swal.fire('Exito al crear el Articulo', '', 'success');
+          return resp.data;
+        }else {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Error',
+            text: resp.message || 'Ha ocurrido un error'
+          });
+          return throwError(resp);
+        }
+      }),
+      catchError(err => {
+        Swal.fire('Error al crear el producto', err.error.message, 'error');
+        return throwError(err);
       })
     );
   }
