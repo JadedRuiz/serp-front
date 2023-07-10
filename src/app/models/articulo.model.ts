@@ -11,6 +11,7 @@ export class Articulo {
   public disponible:number,
   public id_medida:number,
   public precio_venta:number,
-  public medida:string
+  public medida:string,
+  public familiaActiva: boolean,
   ){}
 }

@@ -129,34 +129,37 @@ const resultado = (precioDescuento3 * (1 + tasaIVA / 100)).toFixed(2);
 }
 
 
+
+
   //PARA LAS IMAGENES =>
-//Agregar una limitane de 5 megas a la subida de imagenes-
-       uploadAndResize() {
-
-      if (this.imageCount  >= 5) {
-        alert('Solo se pueden subir un máximo de 5 imágenes');
-        return;
-      }
-
-    return this.imageCompress
-      .uploadFile()
-      .then(({ image, orientation }: UploadResponse) => {
-
-        console.warn('Tamaño Inicial:', this.imageCompress.byteCount(image));
-        console.warn('comprimida y re dimencionada a 400x');
-
-        this.imageCompress
-          .compressFile(image, orientation, 40, 40, 400, 400)  //20=15070
-          .then((result: DataUrl) => {
-            this.uploadedImages.push(result);
-            this.imageCount++;
-
-            console.warn('FINAL:', this.imageCompress.byteCount(result));
-
-            this.displayImage(this.uploadedImages.length - 1);
-          });
-      });
+uploadAndResize() {
+  if (this.imageCount >= 5) {
+    alert('Solo se pueden subir un máximo de 5 imágenes');
+    return;
   }
+
+  return this.imageCompress.uploadFile().then(({ image, orientation }: UploadResponse) => {
+    console.warn('Tamaño Inicial:', this.imageCompress.byteCount(image));
+
+    if (this.imageCompress.byteCount(image) > 5 * 1024 * 1024) {
+      alert('El tamaño de la imagen excede el límite de 5 MB');
+      return;
+    }
+
+    console.warn('comprimida y redimensionada a 400x');
+    this.imageCompress
+      .compressFile(image, orientation, 40, 40, 400, 400)
+      .then((result: DataUrl) => {
+        this.uploadedImages.push(result);
+        this.imageCount++;
+
+        console.warn('FINAL:', this.imageCompress.byteCount(result));
+
+        this.displayImage(this.uploadedImages.length - 1);
+      });
+  });
+}
+
 
   displayImage(index: number){
     this.imgResultAfterResize  = this.uploadedImages[index];
