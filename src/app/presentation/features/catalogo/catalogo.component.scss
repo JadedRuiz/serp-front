@@ -146,6 +146,14 @@
 #modalProducto{
   height: 100vh;
   width: auto;
+
+  .modal-content {
+    position: relative;
+    button {
+      position: absolute;
+    }
+  }
+
   img{
     height: 200px;
     width: 300px;

@@ -48,7 +48,7 @@ export class ClientsComponent {
   routes: Route[] = []
   coords: [number, number] = [0, 0]
 
-  //CLIENTE QUE SE UTILIZARÁ AL CREAR UNO NUEVO 
+  //CLIENTE QUE SE UTILIZARÁ AL CREAR UNO NUEVO
   client: Client = new Client(
     0,
     0,
@@ -200,6 +200,7 @@ export class ClientsComponent {
       this.clientService
         .agregarDireccion(this.addressSelected)
         .subscribe((resp) => {
+          this.obtenerDireccion(this.addressSelected.id_cliente);
         });
       this.offAddAddressVisibility();
     }

@@ -18,7 +18,7 @@
 
 
 <div class="cards">
-  <div class="cards__card" *ngFor="let articulo of filteredItems">
+  <div class="cards__card" *ngFor="let articulo of filteredItems" >
     <div class="card">
       <a type="button" class="mt-1 me-1 align-self-end btn_h " (click)="agregarProductoCarrito(item)">+</a>
       <img src="https://koonol.mx/KN/public/segmentos/lacteos.png" alt="Producto">
@@ -44,6 +44,7 @@
 <div id="modalProducto" class="modal" [class.is-active]="isModalOpen">
   <div class="modal-background"></div>
   <div class="modal-content" *ngIf="selectedCard">
+    <button class="modal-close is-large" aria-label="close" (click)="closeModal()"></button>
     <div class="box">
       <div class="media">
         <div class="media-left">
@@ -88,7 +89,6 @@
       </table>
     </div>
   </div>
-  <button class="modal-close is-large" aria-label="close" (click)="closeModal()"></button>
 </div>
 
 

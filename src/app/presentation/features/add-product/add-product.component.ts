@@ -130,7 +130,7 @@ const resultado = (precioDescuento3 * (1 + tasaIVA / 100)).toFixed(2);
 
 
   //PARA LAS IMAGENES =>
-
+//Agregar una limitane de 5 megas a la subida de imagenes-
        uploadAndResize() {
 
       if (this.imageCount  >= 5) {

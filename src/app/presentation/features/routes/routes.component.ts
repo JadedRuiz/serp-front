@@ -101,8 +101,8 @@ export class RoutesComponent {
       this.routeService.agregarRuta(this.route).subscribe((objeto) => {
         this.routeService.obtenerRutas();
         this.closeModal();
+        this.obtenerRutas(); //<=
       });
-      this.routeService.obtenerRutas();
     }
     console.log(this.route);
   }
@@ -118,7 +118,7 @@ export class RoutesComponent {
     // this.routeService.obtenerRutas();
   }
 
-  
+
  //Activo
  routeIsActive: boolean = false;
 updateRouteStatus() {

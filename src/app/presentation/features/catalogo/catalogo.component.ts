@@ -77,7 +77,8 @@ export class CatalogoComponent {
       this.filteredItems = this.articulos.filter(articulo =>
         articulo.articulo.toLowerCase().includes(this.searchTitle.toLowerCase())
         && articulo.familia.toLowerCase().includes(this.searchFam.toLowerCase())
-      );
+        );
+        console.log('=>',this.filteredItems);
     } this.noResults()
   }
 
