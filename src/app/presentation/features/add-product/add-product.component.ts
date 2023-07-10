@@ -107,7 +107,8 @@ guardarArticulo(productForm: NgForm){
   console.log(productForm.value);
   this.productService.obtenerPerfiles();
     this.productService.agregarProducto(this.item).subscribe((objeto) => {
-      console.log(objeto);
+      //console.log('guardar Art',objeto);
+      this.guardarFotos();
     });
 }
 
@@ -156,6 +157,7 @@ uploadAndResize() {
         console.warn('FINAL:', this.imageCompress.byteCount(result));
 
         this.displayImage(this.uploadedImages.length - 1);
+
       });
   });
 }
@@ -164,5 +166,28 @@ uploadAndResize() {
   displayImage(index: number){
     this.imgResultAfterResize  = this.uploadedImages[index];
   }
+
+
+
+
+  //Guardar Fotos
+  guardarFotos(){
+    const fotos = this.uploadedImages.map((image)=>{
+      console.log('=>',image);
+      return {
+        base64: image,
+      };
+    });
+    this.productService.guardarFotos(fotos).subscribe(
+      (resp)=>{
+        console.log('Guardadas',resp);
+      },
+      (error)=>{
+        console.log('G',fotos);
+        console.log('Error',error);
+      }
+    )
+  }
+
 
 }
