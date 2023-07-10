@@ -22,16 +22,15 @@ export class OrdersCartComponent {
   constructor(
     private catalgoo: CatalogoService,
   ) {
-
   }
 
+  carrito =  JSON.parse(sessionStorage.getItem('carrito')!)
+
   ngOnInit():void {
-    this.catalgoo.disparadorDeProductos.subscribe(data => {
-      console.log(data)
-    })
     this.getSubtotal();
     this.getTotal();
     this.noItems();
+    this.carrito
   }
 
   //Estado para manejar la visibilidad del carrito de pedidos
@@ -44,65 +43,9 @@ export class OrdersCartComponent {
     } else {
       this.ordersVisibility = true;
     }
+    console.log(this.carrito);
   }
 
-  //Simulación de base de datos
-  items: item[] = [
-    {
-      id: 1,
-      imageUrl: '../../../../assets/img/frutas-ejemplo.jpg',
-      title: 'Platanos',
-      fam: 'Frutas',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '14.00',
-      quantity: 1
-    },
-    {
-      id: 2,
-      imageUrl: '../../../../assets/img/frutas-ejemplo.jpg',
-      title: 'Panela',
-      fam: 'Quesos',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '17.00',
-      quantity: 1
-    },
-    {
-      id: 3,
-      imageUrl: '../../../../assets/img/frutas-ejemplo.jpg',
-      title: 'Leche',
-      fam: 'Lacteos',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '16.00',
-      quantity: 1
-    },
-    {
-      id: 4,
-      imageUrl: '../../../../assets/img/frutas-ejemplo.jpg',
-      title: 'Pera',
-      fam: 'Frutas',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '14.00',
-      quantity: 1
-    },
-    {
-      id: 5,
-      imageUrl: '../../../../assets/img/frutas-ejemplo.jpg',
-      title: 'Piña',
-      fam: 'Frutas',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '30.00',
-      quantity: 1
-    },
-    {
-      id: 6,
-      imageUrl: '../../../../assets/img/frutas-ejemplo.jpg',
-      title: 'Brócoli',
-      fam: 'Verduras',
-      description: 'Los platanos son rosas y esta sera una descripcion',
-      price: '20.00',
-      quantity: 1
-    }
-  ]
 
   //Estados para manejar las cuentas del carrito
   totalPerItem: number = 0
@@ -116,7 +59,7 @@ export class OrdersCartComponent {
 
   //Función para manejar el estado del carrito
   noItems() {
-    if (this.items.length !== 0) {
+    if (this.carrito.length !== 0) {
       this.isCartEmpty = this.isCartEmpty = false
     } else {
       this.isCartEmpty = this.isCartEmpty = true
@@ -130,7 +73,7 @@ export class OrdersCartComponent {
   //Función para obtener el subtotal del pedido
   getSubtotal() {
     this.subtotal = 0
-    for (let item of this.items) {
+    for (let item of this.carrito) {
       this.price = parseInt(item.price)
       this.subtotal += this.price * item.quantity
     }
@@ -165,13 +108,13 @@ export class OrdersCartComponent {
   }
 
   //Función para eliminar producto del carrito
-  deleteProduct(item: item) {
-    const index = this.items.findIndex((i) => i.id === item.id);
-    if (index !== -1) {
-      this.items.splice(index, 1);
-    }
-    this.getSubtotal()
-  }
+  // deleteProduct(item: item) {
+  //   const index = this.carrito.findIndex((i:{}) => i.id === item.id);
+  //   if (index !== -1) {
+  //     this.carrito.splice(index, 1);
+  //   }
+  //   this.getSubtotal()
+  // }
 
   @Output() toggleModalVisibility = new EventEmitter()
 
