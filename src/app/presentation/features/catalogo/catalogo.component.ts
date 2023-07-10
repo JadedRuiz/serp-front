@@ -4,6 +4,7 @@ import { AuthService } from '@data/services/auth/auth.service';
 import { Product } from 'src/app/models/products.model';
 import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
 import { Articulo } from 'src/app/models/articulo.model';
+import { FamiliasService } from 'src/app/services/familias/familias.service';
 import { Familia } from 'src/app/models/familias.model';
 
 @Component({
@@ -12,7 +13,7 @@ import { Familia } from 'src/app/models/familias.model';
   styleUrls: ['./catalogo.component.scss'],
 })
 export class CatalogoComponent {
-  constructor(private router: Router, private catalgoo: CatalogoService) {}
+  constructor(private router: Router, private catalgoo: CatalogoService, private familias: FamiliasService) { }
 
   articulos: Articulo[] = [];
   articulo: Articulo = new Articulo(0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '',true);
@@ -51,9 +52,11 @@ export class CatalogoComponent {
   searchFam: string = '';
   resultsNotFound: boolean = false;
   filteredItems: Articulo[] = [];
+  filteredItems2: Articulo[] = [];
+  familiasActivas: any[] = []
 
   ngOnInit() {
-    this.carga();
+    this.carga2();
     this.allItems = [...this.items];
   }
 
@@ -92,17 +95,38 @@ export class CatalogoComponent {
     });
   }
 
+  itemsFiltrados() {
+    this.filteredItems = this.articulos.filter(articulo => {
+      return this.familiasActivas.some(familia => familia.id_familia === articulo.id_familia)
+    })
+    this.filteredItems2 = this.articulos.filter(articulo => {
+      return this.familiasActivas.some(familia => familia.id_familia === articulo.id_familia)
+    })
+  }
+
+  carga2() {
+    this.catalgoo.obtenerPerfiles().subscribe(resp => {
+      if (resp.ok) {
+        this.articulos = resp.data
+        this.familias.obtenerFamilias().subscribe(resp => {
+          let familias = resp.data
+          this.familiasActivas = familias.filter((familia: Familia) => familia.activo == 1)
+          this.itemsFiltrados()
+        })
+      }
+    })
+  }
 
   // Filtra los elementos del catálogo
   buscar() {
-    if (this.searchTitle === ''  && this.searchFam === '') {
-      this.filteredItems = this.articulos;
+    if (this.searchTitle === '' && this.searchFam === '') {
+      this.itemsFiltrados()
     } else {
-      this.filteredItems = this.articulos.filter(articulo =>
+      this.filteredItems =this.filteredItems2.filter(articulo =>
         articulo.articulo.toLowerCase().includes(this.searchTitle.toLowerCase())
         && articulo.familia.toLowerCase().includes(this.searchFam.toLowerCase())
-        );
-       // console.log('=>',this.filteredItems);
+      );
+      console.log('=>', this.filteredItems);
     } this.noResults()
   }
 
@@ -159,7 +183,15 @@ export class CatalogoComponent {
     this.modalVisibility = !this.modalVisibility;
   }
 
-  agregarProductoCarrito(item: any) {
-    this.catalgoo.disparadorDeProductos.emit(item);
-  }
+
+  //Lógica para conectar los productos del catálogo con el carrito de pedido
+  // pedido: object[]= []
+  // a = localStorage.
+
+  // agregarProductoCarrito(item: any) {
+  //   this.pedido.push(item)
+  //   sessionStorage.setItem('carrito', JSON.stringify(this.pedido))
+  // }
+
 }
+

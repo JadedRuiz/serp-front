@@ -1,11 +1,12 @@
-<button
-  type="button"
-  class="orders-cart-btn icon-btn"
-  (click)="toggleOrdersVisibility()"
->
+<button type="button" class="orders-cart-btn icon-btn" *ngIf="!ordersVisibility; else closeCart"
+  (click)="toggleOrdersVisibility()">
   <i class="fas fa-shopping-cart"></i>
 </button>
-
+<ng-template #closeCart>
+  <button type="button" class="orders-cart-btn icon-btn" #closeCart (click)="toggleOrdersVisibility()">
+    <i class="fas fa-times"></i>
+  </button>
+</ng-template>
 <div class="orders-cart-container" *ngIf="ordersVisibility">
   <div class="orders-cart">
     <div class="orders-cart__empty" *ngIf="isCartEmpty">
@@ -20,22 +21,15 @@
       <h2 class="orders-cart__title">PEDIDOS</h2>
       <!-- Sección 2 -->
       <div class="orders-cart__products">
-        <article class="orders-cart__product" *ngFor="let item of items">
+        <article class="orders-cart__product" *ngFor="let item of carrito">
           <div class="d-flex flex-row">
-            <img
-              [src]="item.imageUrl"
-              alt="imagen de un producto"
-              class="orders-cart__product__image"
-            />
+            <img [src]="item.imageUrl" alt="imagen de un producto" class="orders-cart__product__image" />
             <section class="">
-              <h2 class="">{{ item.title }}</h2>
+              <h2 class="">{{ item.articulo}}</h2>
               <h4 class="">{{ item.fam }}</h4>
               <section class="orders-cart__product__quantity__box">
-                <div
-                  class="btn-decrease"
-                  [class.btn-quantity-off]="btnQuantityOff"
-                  (click)="decreaseItemQuantity(item)"
-                >
+                <div class="btn-decrease" [class.btn-quantity-off]="btnQuantityOff"
+                  (click)="decreaseItemQuantity(item)">
                   -
                 </div>
                 <p class="orders-cart__product__quantity">
@@ -47,10 +41,7 @@
               </section>
             </section>
           </div>
-          <button
-            class="orders-cart__product__btn-delete"
-            (click)="deleteProduct(item)"
-          >
+          <button class="orders-cart__product__btn-delete">
             <i class="fas fa-trash"></i>
           </button>
           <div class="orders-cart__product-price-box">

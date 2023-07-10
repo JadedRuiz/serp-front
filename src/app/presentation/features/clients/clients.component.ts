@@ -190,8 +190,10 @@ export class ClientsComponent {
           this.addressSelected.id_direccion,
           this.addressSelected
         )
-        .subscribe((objeto) =>
+        .subscribe((objeto) => {
           this.clientService.obtenerDirecciones(this.addressSelected.id_cliente)
+          this.obtenerDireccion(this.addressSelected.id_cliente)
+        }
         );
       this.offAddAddressVisibility();
     }
@@ -222,6 +224,8 @@ export class ClientsComponent {
   isClientSelected: boolean = false;
   addAddressVisibility: boolean = false;
   searchList: boolean = false;
+  loader: boolean = false
+  noClients: boolean = false
   addressSelected: Address = new Address(
     0,
     0,
@@ -242,9 +246,6 @@ export class ClientsComponent {
     '',
     1
   );
-
-  loader: boolean = false
-  noClients: boolean = false
 
   //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE
   buscarCliente(value: string) {
@@ -328,6 +329,7 @@ export class ClientsComponent {
     this.tab(1);
     this.offAddAddressVisibility();
     this.resetClientAddress()
+    this.searchClientControl.reset()
   }
 
   resetClientAddress() {
