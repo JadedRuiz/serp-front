@@ -33,7 +33,7 @@ export class CatalogoService {
   }
 
 //Para obtener Artiuclos
-  obtenerPerfiles(): Observable<any> {
+obtenerArticulos(): Observable<any> {
     const parametros = {
       id_articulo: 0,
       id_comprador: 1,

@@ -56,45 +56,11 @@ export class CatalogoComponent {
   familiasActivas: any[] = []
 
   ngOnInit() {
-    this.carga2();
+    this.cargarArticulos();
     this.allItems = [...this.items];
   }
 
-  // Manera de consumir services rest api
-  // carga() {
-  //   this.catalgoo.obtenerPerfiles().subscribe((res) => {
-  //     if (res.ok) {
-  //       this.articulos = res.data;
-  //       this.filteredItems = this.articulos;
-  //     } else {
-  //     }
-  //     console.log(res.data);
-  //   });
-  // }
-  carga() {
-    this.catalgoo.obtenerPerfiles().subscribe((res) => {
-      if (res.ok) {
-        const articulos = res.data; //
-        //console.log('Articulos',articulos); //si trae los Articulos
-        this.catalgoo.buscarFamilias().subscribe((familias: any[]) => {
-          //console.log('Familias', familias); //Si trae las Familias
-          this.articulos = articulos.map((articulo: Articulo) => {
-            articulo.familiaActiva = true;
-            const familia = familias.find((familia: Familia) => familia.id_familia === articulo.id_familia);
-            const familiaActiva = familia ? familia.activo == 1 : false
-            articulo.familiaActiva = familiaActiva;
-            return articulo;
-          });
-          console.log(articulos);
-          this.filteredItems = this.articulos.filter((articulo: Articulo) => articulo.familiaActiva); //No existe el parametro familiaActiva
-          console.log('at filtrados',this.filteredItems); // No muestra  los filtrados
-        });
-      } else {
-       console.log('Ocurrió un error:', res.message.error);
-      }
-    });
-  }
-
+ // Filtra los elementos del catálogo
   itemsFiltrados() {
     this.filteredItems = this.articulos.filter(articulo => {
       return this.familiasActivas.some(familia => familia.id_familia === articulo.id_familia)
@@ -104,8 +70,8 @@ export class CatalogoComponent {
     })
   }
 
-  carga2() {
-    this.catalgoo.obtenerPerfiles().subscribe(resp => {
+  cargarArticulos() {
+    this.catalgoo.obtenerArticulos().subscribe(resp => {
       if (resp.ok) {
         this.articulos = resp.data
         this.familias.obtenerFamilias().subscribe(resp => {

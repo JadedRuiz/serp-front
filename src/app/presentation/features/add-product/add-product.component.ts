@@ -105,7 +105,7 @@ obtenerAlmacenes(){
 //Para Productos
 guardarArticulo(productForm: NgForm){
   console.log(productForm.value);
-  this.productService.obtenerPerfiles();
+  this.productService.obtenerArticulos();
     this.productService.agregarProducto(this.item).subscribe((objeto) => {
       //console.log('guardar Art',objeto);
       this.guardarFotos();
