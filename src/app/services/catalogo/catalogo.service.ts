@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
+import { FamiliaService } from '@data/services/sfamilia/familia.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,25 @@ import Swal from 'sweetalert2';
 export class CatalogoService {
   @Output() disparadorDeProductos: EventEmitter<any> = new EventEmitter();
 
-  constructor(public http: HttpClient) {}
+  constructor(public http: HttpClient, private famService:FamiliaService) {}
 
+
+  //=> Obetener familia.acivo
+  buscarFamilias(): Observable<any> {
+     return this.famService.obtenerFamilias().pipe(
+      map((response) => {
+        if (response.ok){
+          //console.log('service=>',response.data);
+          return response.data;
+        }else {
+          console.log('Ocurrió un error:', response.message);
+          return null;
+        }
+      })
+    );
+  }
+
+//Para obtener Artiuclos
   obtenerPerfiles(): Observable<any> {
     const parametros = {
       id_articulo: 0,
@@ -24,6 +42,8 @@ export class CatalogoService {
     return this.http.post<any>(SERVER_API, parametros);
   }
 
+
+//Para guardar productos
   agregarProducto(producto: Product) {
     let url =
       'https://serp-inventarios.serteza.com/public/api/articulos/guardarArticulo';
@@ -37,15 +57,19 @@ export class CatalogoService {
     );
   }
 
-  // obtenerPerfiles() {
-  //   let url = SERVER_API + "obtenerPerfiles";
-  //   return this.http.get(url)
-  //     .pipe(map((resp: any) => {
-  //       return resp;
-  //     }),
-  //     catchError(err => {
-  //       Swal.fire("Ha ocurrido un error", err.error.message, 'error');
-  //       return throwError(err);
-  //     }));
-  //}
+  //Para Guardar Fotogradfias
+  guardarFotos(){
+    let url ='https://serp-inventarios.serteza.com/public/api/articulos/guardarFotografia';
+    const parametros = {
+      id_articulo_fotografia: 0,
+      id_articulo: 1,
+      id_fotografia: 1,
+      token: "012354SDSDS01",
+      foto_base64: "BASE 64",
+      extencion: "JPG"
+    }
+  }
+
+
+
 }
