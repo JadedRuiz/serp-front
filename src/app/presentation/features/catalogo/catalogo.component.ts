@@ -150,14 +150,12 @@ export class CatalogoComponent {
   }
 
 
-  //Lógica para conectar los productos del catálogo con el carrito de pedido
-  // pedido: object[]= []
-  // a = localStorage.
-
-  // agregarProductoCarrito(item: any) {
-  //   this.pedido.push(item)
-  //   sessionStorage.setItem('carrito', JSON.stringify(this.pedido))
-  // }
-
+  // Lógica para conectar los productos del catálogo con el carrito de pedido
+  pedido:any = sessionStorage.getItem('carrito') || []
+  
+  agregarProductoCarrito(item: any) {
+    this.pedido.push(item)
+    sessionStorage.setItem('carrito', JSON.stringify(this.pedido))
+    console.log(this.pedido);
+  }
 }
-

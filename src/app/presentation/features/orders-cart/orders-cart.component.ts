@@ -24,7 +24,7 @@ export class OrdersCartComponent {
   ) {
   }
 
-  carrito =  JSON.parse(sessionStorage.getItem('carrito')!)
+  carrito =  JSON.parse(sessionStorage.getItem('carrito')!) || []
 
   ngOnInit():void {
     this.getSubtotal();
@@ -43,7 +43,6 @@ export class OrdersCartComponent {
     } else {
       this.ordersVisibility = true;
     }
-    console.log(this.carrito);
   }
 
 
