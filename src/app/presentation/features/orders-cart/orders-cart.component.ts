@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Articulo } from 'src/app/models/articulo.model';
 import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
 
 interface item {
@@ -24,13 +25,11 @@ export class OrdersCartComponent {
   ) {
   }
 
-  carrito =  JSON.parse(sessionStorage.getItem('carrito')!) || []
-
   ngOnInit():void {
     this.getSubtotal();
     this.getTotal();
     this.noItems();
-    this.carrito
+    this.getPedido()
   }
 
   //Estado para manejar la visibilidad del carrito de pedidos
@@ -43,28 +42,34 @@ export class OrdersCartComponent {
     } else {
       this.ordersVisibility = true;
     }
+    this.getPedido()
   }
-
-
+  
   //Estados para manejar las cuentas del carrito
   totalPerItem: number = 0
   subtotal: number = 0
   total: number = 0
   discounts: number = 0 // Normalmente su valor vendrá de la base de datos
   price: number = 0
+  pedido:Articulo[] =  this.getPedido()
+  
+  getPedido():Articulo[] {
+    return this.pedido = JSON.parse(sessionStorage.getItem('carrito')!) || [];
+  }
 
   //Estado para manejar si el carrito está vacío o no
   isCartEmpty = true
 
   //Función para manejar el estado del carrito
   noItems() {
-    if (this.carrito.length !== 0) {
+    if (this.pedido.length !== 0) {
       this.isCartEmpty = this.isCartEmpty = false
     } else {
       this.isCartEmpty = this.isCartEmpty = true
     }
   }
 
+  //Función para obtener el total de cada item multiplicándose por su cantidad
   getTotalPerItem(item: any) {
     this.totalPerItem = item.price * item.quantity
   }
@@ -72,8 +77,8 @@ export class OrdersCartComponent {
   //Función para obtener el subtotal del pedido
   getSubtotal() {
     this.subtotal = 0
-    for (let item of this.carrito) {
-      this.price = parseInt(item.price)
+    for (let item of this.pedido) {
+      this.price = item.precio_venta
       this.subtotal += this.price * item.quantity
     }
     this.getTotal()
@@ -89,14 +94,14 @@ export class OrdersCartComponent {
   btnQuantityOff: boolean = true
 
   //Función para aumentar la cantidad de un ítem específico en el carrito
-  increaseItemQuantity(item: item) {
+  increaseItemQuantity(item: Articulo) {
     item.quantity++
     this.btnQuantityOff = false
     this.getSubtotal()
   }
 
   //Función para disminuir la cantidad de un ítem específico en el carrito
-  decreaseItemQuantity(item: item) {
+  decreaseItemQuantity(item: Articulo) {
     if (item.quantity > 1) {
       item.quantity = item.quantity - 1
       this.btnQuantityOff = false
@@ -107,19 +112,21 @@ export class OrdersCartComponent {
   }
 
   //Función para eliminar producto del carrito
-  // deleteProduct(item: item) {
-  //   const index = this.carrito.findIndex((i:{}) => i.id === item.id);
-  //   if (index !== -1) {
-  //     this.carrito.splice(index, 1);
-  //   }
-  //   this.getSubtotal()
-  // }
+  deleteProduct(item: Articulo) {
+    const index = this.pedido.findIndex((i) => i.id_articulo === item.id_articulo);
+    if (index !== -1) {
+      this.pedido.splice(index, 1);
+      sessionStorage.setItem('carrito', JSON.stringify(this.pedido))
+      this.getPedido()
+    }
+    this.getSubtotal()
+  }
 
   @Output() toggleModalVisibility = new EventEmitter()
+  // @Output()  getPedido = new EventEmitter()
 
   //Llamada a la función toggleModalVisibility que viene del componente catalogo
   useToggleModalVisibility() {
     this.toggleModalVisibility.emit()
   }
-
 }

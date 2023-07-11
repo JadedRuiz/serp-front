@@ -16,10 +16,10 @@ export class CatalogoComponent {
   constructor(private router: Router, private catalgoo: CatalogoService, private familias: FamiliasService) { }
 
   articulos: Articulo[] = [];
-  articulo: Articulo = new Articulo(0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '',true);
+  articulo: Articulo = new Articulo(0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '', true, 0);
 
-  items: Product[] = [];
   //  Lista de elementos
+  items: Product[] = [];
   item: Product = new Product(
     0,
     1,
@@ -60,7 +60,7 @@ export class CatalogoComponent {
     this.allItems = [...this.items];
   }
 
- // Filtra los elementos del catálogo
+  // Filtra los elementos del catálogo
   itemsFiltrados() {
     this.filteredItems = this.articulos.filter(articulo => {
       return this.familiasActivas.some(familia => familia.id_familia === articulo.id_familia)
@@ -89,7 +89,7 @@ export class CatalogoComponent {
     if (this.searchTitle === '' && this.searchFam === '') {
       this.itemsFiltrados()
     } else {
-      this.filteredItems =this.filteredItems2.filter(articulo =>
+      this.filteredItems = this.filteredItems2.filter(articulo =>
         articulo.articulo.toLowerCase().includes(this.searchTitle.toLowerCase())
         && articulo.familia.toLowerCase().includes(this.searchFam.toLowerCase())
       );

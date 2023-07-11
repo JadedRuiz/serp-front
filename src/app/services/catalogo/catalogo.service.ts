@@ -12,7 +12,7 @@ import { forkJoin } from 'rxjs';
   providedIn: 'root',
 })
 export class CatalogoService {
-  @Output() disparadorDeProductos: EventEmitter<any> = new EventEmitter();
+  // @Output() disparadorDeProductos: EventEmitter<any> = new EventEmitter();
 
   constructor(public http: HttpClient, private famService:FamiliaService) {}
 
