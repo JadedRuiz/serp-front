@@ -28,6 +28,11 @@ export class RoutesService {
 
     return this.http.post(url, route).pipe(
       map((resp: any) => {
+        if(resp.ok){
+          Swal.fire('Ruta editada exitosamente', '', 'success');
+        }else{
+          Swal.fire('Ha ocurrido un error', resp.error.message, 'error');
+        }
         return resp;
       }),
       catchError((err) => {
@@ -50,7 +55,7 @@ export class RoutesService {
     );
   }
 
-  
+
 
   desactivarRuta(id_ruta:number, activo:number) {
     let url = 'https://serp-inventarios.serteza.com/public/api/rutas/activarRuta?id_ruta=' + id_ruta;

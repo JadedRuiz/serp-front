@@ -27,6 +27,11 @@ export class FamiliasService {
 
     return this.http.post(url, familia).pipe(
       map((resp: any) => {
+        if(resp.ok){
+          Swal.fire('La familia fue editada con exito', '', 'success')
+        }else{
+          Swal.fire('Ha ocurrido un error', resp.error.message, 'error');
+        }
         return resp;
       }),
       catchError((err) => {
@@ -42,7 +47,11 @@ export class FamiliasService {
 
     return this.http.post(url, familia).pipe(
       map((resp: any) => {
-        Swal.fire('Familia creada exitosamente', '', 'success');
+        if(resp.ok){
+          Swal.fire('Familia creada exitosamente', '', 'success');
+        }else {
+          Swal.fire('Ha ocurrido un error', '', 'error');
+        }
         return resp.data;
       })
     );
