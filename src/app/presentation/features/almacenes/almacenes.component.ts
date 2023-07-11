@@ -123,11 +123,11 @@ export class AlmacenesComponent {
 
 
   domicilio: adress_Almacen = new adress_Almacen('', '', '', '', '', '', 0, '', '', '', '', '', '', 0);
-  almacen: Almacen = new Almacen(0, 1, 0, 1,'','','', '', '', 1, 1, this.domicilio);
+  almacen: Almacen = new Almacen(0, 1, 0, 1,'','', '', '', 1, 1, this.domicilio);
 
   agregarNvoAlmacen() {
     this.domicilio = new adress_Almacen('', '', '', '', '', '', 0, '', '', '', '', '', '', 0);
-    this.almacen = new Almacen(0, 1, 0, 1,'', '', '', '', '', 1, 1, this.domicilio);
+    this.almacen = new Almacen(0, 1, 0, 1,'', '', '', '', 1, 1, this.domicilio);
     this.editarAlmacen();
     this.isAlmacenSelected = false;
   }
@@ -141,7 +141,6 @@ export class AlmacenesComponent {
         1,
         element.empresa = 'Koonol',
         element.direccion,
-        element.descripcion,
         "012354SDSDS01",
         element.almacen,
         1,
@@ -209,7 +208,7 @@ export class AlmacenesComponent {
             this.setearAlmacen(resp)
             this.autocompleteAlmacen = this.almacenes.filter((almacen) =>
             almacen.almacen.toLowerCase().includes(value.toLowerCase()) ||
-            almacen.descripcion?.toLowerCase().includes(value.toLowerCase())
+            almacen.domicilio.descripcion?.toLowerCase().includes(value.toLowerCase())
             );
             this.loader = false
           }

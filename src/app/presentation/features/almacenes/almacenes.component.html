@@ -49,12 +49,12 @@
             <div class="row">
               <h3 class="subtitle col-md-8">Datos</h3>
               <div class="col-md-2">
-                <button class=" general-btn" (click)="editar()" type="button" *ngIf="isAlmacenSelected">
+                <!-- <button class=" general-btn" (click)="editar()" type="button" *ngIf="isAlmacenSelected">
                   <span>Editar</span>
-                </button>
+                </button> -->
               </div>
               <div class="col-md-2">
-                <button class=" search-btn  text-center" type="submit">Guardar</button>
+                <!-- <button class=" search-btn  text-center" type="submit">Guardar</button> -->
               </div>
             </div>
             <div class="almacen__data-form__section1 col-12 col-md-6">
@@ -63,14 +63,10 @@
                 <input class="form-control" type="text" name="cliente" id="cliente" required
                   [(ngModel)]="almacen.almacen" #inputProvForm disabled />
               </div>
-              <!-- <div class="form-label">
-                <label for="direccion">Domicilio</label>
-                <input class="form-control"  type="text" id="direccion" name="direccion" required 
-                [(ngModel)]="almacen.direccion" disabled />
-              </div> -->
+
               <div class="form-label">
                 <label for="descripcion">Descripcion Domicilio</label>
-                <input class="form-control" type="text" name="descripcion" required [(ngModel)]="almacen.descripcion"
+                <input class="form-control" type="text" name="descripcion" required [(ngModel)]="almacen.domicilio.descripcion"
                   #inputProvForm disabled />
               </div>
               <div class="form-label">
@@ -137,7 +133,17 @@
               <h3 class="subtitle mb-1">Dirección</h3>
               <p>{{almacen.direccion}}</p>
             </div>
-
+            <div class="row mt-5">
+              <h3 class="subtitle col-md-8"> </h3>
+              <div class="col-md-2">
+                <button class=" general-btn" (click)="editar()" type="button" *ngIf="isAlmacenSelected">
+                  <span>Editar</span>
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class=" search-btn  text-center" type="submit">Guardar</button>
+              </div>
+            </div>
 
           </div>
         </div>
