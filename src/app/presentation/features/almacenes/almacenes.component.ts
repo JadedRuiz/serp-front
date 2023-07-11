@@ -133,6 +133,7 @@ export class AlmacenesComponent {
   }
 
   setearAlmacen(response:any) {
+    this.almacenes = []
     response.data.forEach((element: any) => {
       this.almacenes.push(new Almacen(
         element.id_almacen,
