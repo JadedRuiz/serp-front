@@ -73,6 +73,7 @@ export class CatalogoComponent {
   cargarArticulos() {
     this.catalgoo.obtenerArticulos().subscribe(resp => {
       if (resp.ok) {
+        console.log('Ws=>',resp);
         this.articulos = resp.data
         this.familias.obtenerFamilias().subscribe(resp => {
           let familias = resp.data
@@ -152,7 +153,7 @@ export class CatalogoComponent {
 
   // Lógica para conectar los productos del catálogo con el carrito de pedido
   pedido:any = sessionStorage.getItem('carrito') || []
-  
+
   agregarProductoCarrito(item: any) {
     this.pedido.push(item)
     sessionStorage.setItem('carrito', JSON.stringify(this.pedido))
