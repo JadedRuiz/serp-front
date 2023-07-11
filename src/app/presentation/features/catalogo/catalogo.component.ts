@@ -18,8 +18,8 @@ export class CatalogoComponent {
   articulos: Articulo[] = [];
   articulo: Articulo = new Articulo(0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '', true, 0);
 
-  items: Product[] = [];
   //  Lista de elementos
+  items: Product[] = [];
   item: Product = new Product(
     0,
     1,
