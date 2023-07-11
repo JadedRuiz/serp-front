@@ -1,3 +1,5 @@
+import { Foto } from "./fotografias.model";
+
 export class Product {
   constructor (
     public id_articulo:number,
@@ -20,7 +22,8 @@ export class Product {
     public minimo:number,
     public maximo:number,
     public reorden:number,
-    public peso_producto:number
+    public peso_producto:number,
+    public imagenes:Foto[]
   ){}
 
 }

@@ -204,6 +204,7 @@ export class AlmacenesComponent {
       this.searchList = true;
       this.almaService.obtenerAlmacenes(json).subscribe(
         (resp) => {
+          console.log('Ws=>',this.almacenes);
           if (resp.ok) {
             this.setearAlmacen(resp)
             this.autocompleteAlmacen = this.almacenes.filter((almacen) =>

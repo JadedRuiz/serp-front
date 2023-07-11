@@ -12,7 +12,7 @@ import { forkJoin } from 'rxjs';
   providedIn: 'root',
 })
 export class CatalogoService {
-  @Output() disparadorDeProductos: EventEmitter<any> = new EventEmitter();
+  // @Output() disparadorDeProductos: EventEmitter<any> = new EventEmitter();
 
   constructor(public http: HttpClient, private famService:FamiliaService) {}
 
@@ -78,13 +78,13 @@ obtenerArticulos(): Observable<any> {
   //Para Guardar Fotografias
   guardarFotos(fotos :any): Observable<any>{
     let url ='https://serp-inventarios.serteza.com/public/api/articulos/guardarFotografia';
-   const observables = fotos.map((foto:any)=>{
+   const observables = fotos.map((foto:string)=>{
      const parametros = {
        id_articulo_fotografia: 0,
        id_articulo: 0,
-       id_fotografia: 1,
+       id_fotografia: 0,
        token: "012354SDSDS01",
-       foto_base64: foto.base64,
+       foto_base64: foto,
        extencion: "JPG"
      }
      return this.http.post(url,parametros).pipe(

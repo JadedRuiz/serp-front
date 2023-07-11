@@ -88,6 +88,7 @@ export class VendedoresComponent {
       this.vendedorService
         .editarVendedor(this.vendedor.id_vendedor, this.vendedor)
         .subscribe((objeto) => {});
+    this.obtenerVendedor();
       console.log('editamos');
     } else {
       this.vendedorService
@@ -96,7 +97,7 @@ export class VendedoresComponent {
           this.vendedorService.obtenerVendedores();
         });
       console.log('guardamos');
-      this.vendedorService.obtenerVendedores();
+    this.obtenerVendedor();
     }
   }
 

@@ -16,10 +16,10 @@ export class CatalogoComponent {
   constructor(private router: Router, private catalgoo: CatalogoService, private familias: FamiliasService) { }
 
   articulos: Articulo[] = [];
-  articulo: Articulo = new Articulo(0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '',true);
+  articulo: Articulo = new Articulo(0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '', true, 0,[]);
 
-  items: Product[] = [];
   //  Lista de elementos
+  items: Product[] = [];
   item: Product = new Product(
     0,
     1,
@@ -41,7 +41,8 @@ export class CatalogoComponent {
     0,
     0,
     0,
-    0
+    0,
+    []
   );
 
   allItems: any[] = [];
@@ -60,7 +61,7 @@ export class CatalogoComponent {
     this.allItems = [...this.items];
   }
 
- // Filtra los elementos del catálogo
+  // Filtra los elementos del catálogo
   itemsFiltrados() {
     this.filteredItems = this.articulos.filter(articulo => {
       return this.familiasActivas.some(familia => familia.id_familia === articulo.id_familia)
@@ -73,12 +74,14 @@ export class CatalogoComponent {
   cargarArticulos() {
     this.catalgoo.obtenerArticulos().subscribe(resp => {
       if (resp.ok) {
+        console.log('Ws=>',resp);
         this.articulos = resp.data
-        this.familias.obtenerFamilias().subscribe(resp => {
-          let familias = resp.data
-          this.familiasActivas = familias.filter((familia: Familia) => familia.activo == 1)
-          this.itemsFiltrados()
-        })
+        console.log(this.articulos);
+        // this.familias.obtenerFamilias().subscribe(resp => {
+        //   let familias = resp.data
+        //   this.familiasActivas = familias.filter((familia: Familia) => familia.activo == 1)
+        //   this.itemsFiltrados()
+        // })
       }
     })
   }
@@ -88,7 +91,7 @@ export class CatalogoComponent {
     if (this.searchTitle === '' && this.searchFam === '') {
       this.itemsFiltrados()
     } else {
-      this.filteredItems =this.filteredItems2.filter(articulo =>
+      this.filteredItems = this.filteredItems2.filter(articulo =>
         articulo.articulo.toLowerCase().includes(this.searchTitle.toLowerCase())
         && articulo.familia.toLowerCase().includes(this.searchFam.toLowerCase())
       );
@@ -152,7 +155,7 @@ export class CatalogoComponent {
 
   // Lógica para conectar los productos del catálogo con el carrito de pedido
   pedido:any = sessionStorage.getItem('carrito') || []
-  
+
   agregarProductoCarrito(item: any) {
     this.pedido.push(item)
     sessionStorage.setItem('carrito', JSON.stringify(this.pedido))

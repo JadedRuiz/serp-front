@@ -21,12 +21,12 @@
       <h2 class="orders-cart__title">PEDIDOS</h2>
       <!-- Sección 2 -->
       <div class="orders-cart__products">
-        <article class="orders-cart__product" *ngFor="let item of carrito">
+        <article class="orders-cart__product" *ngFor="let item of pedido">
           <div class="d-flex flex-row">
-            <img [src]="item.imageUrl" alt="imagen de un producto" class="orders-cart__product__image" />
+            <img src="https://koonol.mx/KN/public/segmentos/lacteos.png" alt="imagen de un producto" class="orders-cart__product__image" />
             <section class="">
               <h2 class="">{{ item.articulo}}</h2>
-              <h4 class="">{{ item.fam }}</h4>
+              <h4 class="">{{ item.familia }}</h4>
               <section class="orders-cart__product__quantity__box">
                 <div class="btn-decrease" [class.btn-quantity-off]="btnQuantityOff"
                   (click)="decreaseItemQuantity(item)">
@@ -41,11 +41,11 @@
               </section>
             </section>
           </div>
-          <button class="orders-cart__product__btn-delete">
+          <button class="orders-cart__product__btn-delete" (click)="deleteProduct(item)">
             <i class="fas fa-trash"></i>
           </button>
           <div class="orders-cart__product-price-box">
-            <h3 class="orders-cart__product-price">${{ item.price }}</h3>
+            <h3 class="orders-cart__product-price">${{ item.precio_venta }}</h3>
           </div>
         </article>
       </div>
