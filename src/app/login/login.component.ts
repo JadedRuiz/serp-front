@@ -38,19 +38,15 @@ export class LoginComponent {
 
   onSubmitForm(){
     Swal.fire('Bien hecho','Te has logueado correctamente, redireccionando ...');
-          localStorage.setItem("token","sKKKASD10239AK120Djkahsda9s8d12jk");
-          this.router.navigate(["home"]);
-    // const data = { ... this.loginForm.value }
-    // if(this.loginForm.valid){
-    //   this.auth.login(data)
-    //   .subscribe( (res : any) => {
-    //     if(res.ok){
-
-    //     }else{
-    //       Notiflix.Block.remove(".form_login");
-    //       Notiflix.Notify.warning("Primero llena los campos obligatorios");
-    //     }
-    //   });
-    // }
+    const data = { ... this.loginForm.value }
+    if(this.loginForm.valid){
+      this.router.navigate(["sis_koonol/catalogos"]);
+      localStorage.setItem("dataPage",'{"id_usuario": 1,"token":"a5a81a5sd16234a6s5d","id_almacen":0}');
+    }else{
+      Notiflix.Block.remove(".form_login");
+      Notiflix.Notify.warning("Primero llena los campos obligatorios");
+    }
   }
 }
+
+
