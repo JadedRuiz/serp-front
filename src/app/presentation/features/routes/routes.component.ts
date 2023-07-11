@@ -81,9 +81,10 @@ export class RoutesComponent {
     }
   }
 
+  //=> editar ruta
   editarRuta(route: any) {
     this.openModal();
-    console.log(route)
+    //console.log(route)
     this.route = route;
   }
 
@@ -96,6 +97,7 @@ export class RoutesComponent {
       this.routeService
         .editarRuta(this.route.id_ruta, this.route)
         .subscribe((objeto) => {});
+        this.routeService.obtenerRutas();
       this.closeModal();
     } else {
       this.routeService.agregarRuta(this.route).subscribe((objeto) => {
@@ -113,7 +115,7 @@ export class RoutesComponent {
   deshabilitarRuta(id_ruta: number, activo: number) {
     this.routeService.desactivarRuta(id_ruta,activo).subscribe((objeto) => {
       this.obtenerRutas();
-      console.log(this.route);
+      //console.log(this.route);
     });
     // this.routeService.obtenerRutas();
   }
