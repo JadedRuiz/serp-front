@@ -24,6 +24,7 @@
       "dom"
     ],
     "paths": {
+      "@sistema_koonol/*" : ["src/app/sistema_koonol/*"],
       "@facades/*" : ["src/app/facades/*"],
       "@presentation/*" : ["src/app/presentation/*"],
       "@domain/*" : ["src/app/domain/*"],
