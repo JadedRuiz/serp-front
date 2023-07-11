@@ -16,7 +16,7 @@ export class CatalogoComponent {
   constructor(private router: Router, private catalgoo: CatalogoService, private familias: FamiliasService) { }
 
   articulos: Articulo[] = [];
-  articulo: Articulo = new Articulo(0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '', true, 0);
+  articulo: Articulo = new Articulo(0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '', true, 0,[]);
 
   //  Lista de elementos
   items: Product[] = [];
@@ -41,7 +41,8 @@ export class CatalogoComponent {
     0,
     0,
     0,
-    0
+    0,
+    []
   );
 
   allItems: any[] = [];
@@ -75,11 +76,12 @@ export class CatalogoComponent {
       if (resp.ok) {
         console.log('Ws=>',resp);
         this.articulos = resp.data
-        this.familias.obtenerFamilias().subscribe(resp => {
-          let familias = resp.data
-          this.familiasActivas = familias.filter((familia: Familia) => familia.activo == 1)
-          this.itemsFiltrados()
-        })
+        console.log(this.articulos);
+        // this.familias.obtenerFamilias().subscribe(resp => {
+        //   let familias = resp.data
+        //   this.familiasActivas = familias.filter((familia: Familia) => familia.activo == 1)
+        //   this.itemsFiltrados()
+        // })
       }
     })
   }

@@ -1,3 +1,5 @@
+import { Foto } from "./fotografias.model";
+
 export class Articulo {
   constructor(
   public id_articulo:Number,
@@ -14,5 +16,6 @@ export class Articulo {
   public medida:string,
   public familiaActiva: boolean,
   public quantity: number,
+  public imagenes:Foto[]
   ){}
 }

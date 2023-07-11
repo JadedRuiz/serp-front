@@ -10,6 +10,7 @@ import { AlmacenService } from 'src/app/services/almacenes/almacen.service';
 import { Almacen } from 'src/app/models/almacen.model';
 import { MedidaService } from'src/app/services/medidas/medida.service';
 import { Medida } from 'src/app/models/medidas.model';
+import { Foto } from 'src/app/models/fotografias.model';
 
 
 
@@ -44,6 +45,8 @@ export class AddProductComponent {
 
   items: Product[] = [];
   //  Lista de elementos
+  foto: Foto = new Foto('')
+  fotos: Foto[] = [this.foto]
   item: Product = new Product(
     0,
     1,
@@ -65,8 +68,10 @@ export class AddProductComponent {
     0,
     0,
     0,
-    0
+    0,
+    []
   );
+
 
 
 
@@ -151,9 +156,10 @@ uploadAndResize() {
     this.imageCompress
       .compressFile(image, orientation, 40, 40, 400, 400)
       .then((result: DataUrl) => {
-        this.uploadedImages.push(result);
+        let image = result.slice(22)
+        console.log('image',image);
+        this.uploadedImages.push(image);
         this.imageCount++;
-
         console.warn('FINAL:', this.imageCompress.byteCount(result));
 
         this.displayImage(this.uploadedImages.length - 1);
@@ -173,7 +179,7 @@ uploadAndResize() {
   //Guardar Fotos
   guardarFotos(){
     const fotos = this.uploadedImages.map((image)=>{
-      console.log('=>',image);
+      console.log('Ws=>',image);
       return {
         base64: image,
       };
