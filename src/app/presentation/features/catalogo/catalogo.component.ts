@@ -16,7 +16,7 @@ export class CatalogoComponent {
   constructor(private router: Router, private catalgoo: CatalogoService, private familias: FamiliasService) { }
 
   articulos: Articulo[] = [];
-  articulo: Articulo = new Articulo(0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '',true);
+  articulo: Articulo = new Articulo(0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '', true, 0);
 
   items: Product[] = [];
   //  Lista de elementos
@@ -60,7 +60,7 @@ export class CatalogoComponent {
     this.allItems = [...this.items];
   }
 
- // Filtra los elementos del catálogo
+  // Filtra los elementos del catálogo
   itemsFiltrados() {
     this.filteredItems = this.articulos.filter(articulo => {
       return this.familiasActivas.some(familia => familia.id_familia === articulo.id_familia)
@@ -88,7 +88,7 @@ export class CatalogoComponent {
     if (this.searchTitle === '' && this.searchFam === '') {
       this.itemsFiltrados()
     } else {
-      this.filteredItems =this.filteredItems2.filter(articulo =>
+      this.filteredItems = this.filteredItems2.filter(articulo =>
         articulo.articulo.toLowerCase().includes(this.searchTitle.toLowerCase())
         && articulo.familia.toLowerCase().includes(this.searchFam.toLowerCase())
       );
@@ -151,9 +151,9 @@ export class CatalogoComponent {
 
 
   // Lógica para conectar los productos del catálogo con el carrito de pedido
-  pedido:any = sessionStorage.getItem('carrito') || []
-  
-  agregarProductoCarrito(item: any) {
+  pedido: Articulo[] = JSON.parse(sessionStorage.getItem('carrito')!) || []
+
+  agregarProductoCarrito(item: Articulo) {
     this.pedido.push(item)
     sessionStorage.setItem('carrito', JSON.stringify(this.pedido))
     console.log(this.pedido);

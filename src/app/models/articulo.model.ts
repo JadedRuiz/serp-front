@@ -13,5 +13,6 @@ export class Articulo {
   public precio_venta:number,
   public medida:string,
   public familiaActiva: boolean,
+  public quantity: number,
   ){}
 }
