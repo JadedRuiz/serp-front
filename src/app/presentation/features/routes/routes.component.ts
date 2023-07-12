@@ -46,7 +46,7 @@ export class RoutesComponent {
           this.routes = response.data;
           this.filteredRoutes = this.routes;
           this.updateRouteStatus();
-          console.log('=>',response.data);
+          //console.log('=>',response.data);
         } else {
           console.log('Ocurrió un error', response.message);
         }
@@ -115,9 +115,8 @@ export class RoutesComponent {
   deshabilitarRuta(id_ruta: number, activo: number) {
     this.routeService.desactivarRuta(id_ruta,activo).subscribe((objeto) => {
       this.obtenerRutas();
-      //console.log(this.route);
+      console.log(this.route);
     });
-    // this.routeService.obtenerRutas();
   }
 
 

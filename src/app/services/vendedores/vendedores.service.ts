@@ -77,25 +77,14 @@ activarVendedor(id_vendedor: number, activo: number) {
   let url = 'https://serp-inventarios.serteza.com/public/api/vendedores/activarVendedor?id_vendedor=' + id_vendedor;
   return this.http.post(url, '').pipe(
     map((resp: any) => {
+      let mensaje = activo == 0 ? 'Activado' : 'Desactivado';
+      Swal.fire({
+        position: 'center',
+        icon:'success',
+        title: `El vendedor fue ${mensaje}`,
+      });
       console.log(resp);
-      if (resp.ok) {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Vendedor Activado',
-        });
-        //console.log(resp);
-        return resp.data;
-      } else {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Error',
-          text: resp.message || 'Ha ocurrido un error',
-        });
-        //console.error(resp);
-        return throwError(resp);
-      }
+      return resp.data;
     }),
     catchError((error: any) => {
       Swal.fire({

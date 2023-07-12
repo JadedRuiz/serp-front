@@ -69,6 +69,8 @@ export class RoutesService {
           showConfirmButton: false,
           timer: 1500,
         });
+      console.log(resp);
+
         return resp.data;
       })
     );

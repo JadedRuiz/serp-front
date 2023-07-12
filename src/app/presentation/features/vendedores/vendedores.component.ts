@@ -95,17 +95,17 @@ export class VendedoresComponent {
         .agregarVendedor(this.vendedor)
         .subscribe((objeto) => {
           this.vendedorService.obtenerVendedores();
+          this.obtenerVendedor();
         });
       console.log('guardamos');
-    this.obtenerVendedor();
     }
   }
 
   // Activar/Desactivar Vendedor =>
   activarVendedor(id_vendedor: number, activo:number) {
-      this.vendedorService.activarVendedor(id_vendedor, this.vendedor.activo).subscribe((objeto) => {
-        this.obtenerVendedor();
-        console.log('activar', this.vendedor);
+      this.vendedorService.activarVendedor(id_vendedor, activo).subscribe((objeto) => {
+        this.vendedorService.obtenerVendedores();
+        console.log('vend=>', this.vendedor);
       });
   }
 
