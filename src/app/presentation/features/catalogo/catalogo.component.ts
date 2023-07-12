@@ -13,10 +13,24 @@ import { Familia } from 'src/app/models/familias.model';
   styleUrls: ['./catalogo.component.scss'],
 })
 export class CatalogoComponent {
-  constructor(private router: Router, private catalgoo: CatalogoService, private familias: FamiliasService) { }
+
+  //Variable para almacenar los productos del pedido para el carrito
+  pedido: Articulo[] = [];
+
+  constructor(
+    private router: Router,
+    private catalogo: CatalogoService,
+    private familias: FamiliasService) {
+  }
+
+  ngOnInit() {
+    this.cargarArticulos();
+    this.allItems = [...this.items];
+    this.catalogo.pedido$.subscribe(pedido => this.pedido = pedido)
+  }
 
   articulos: Articulo[] = [];
-  articulo: Articulo = new Articulo(0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '', true, 0,[]);
+  articulo: Articulo = new Articulo(0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '', true, 0, []);
 
   //  Lista de elementos
   items: Product[] = [];
@@ -56,11 +70,6 @@ export class CatalogoComponent {
   filteredItems2: Articulo[] = [];
   familiasActivas: any[] = []
 
-  ngOnInit() {
-    this.cargarArticulos();
-    this.allItems = [...this.items];
-  }
-
   // Filtra los elementos del catálogo
   itemsFiltrados() {
     this.filteredItems = this.articulos.filter(articulo => {
@@ -72,11 +81,10 @@ export class CatalogoComponent {
   }
 
   cargarArticulos() {
-    this.catalgoo.obtenerArticulos().subscribe(resp => {
+    this.catalogo.obtenerArticulos().subscribe(resp => {
       if (resp.ok) {
-        console.log('Ws=>',resp);
+        console.log('Ws=>', resp);
         this.articulos = resp.data
-        this.articulos.forEach((art) => console.log(art))
         this.familias.obtenerFamilias().subscribe(resp => {
           let familias = resp.data
           this.familiasActivas = familias.filter((familia: Familia) => familia.activo == 1)
@@ -84,6 +92,12 @@ export class CatalogoComponent {
         })
       }
     })
+  }
+
+  //Función para añadir un producto al carrito de pedido
+  agregarProductoCarrito(item: Articulo) {
+    this.pedido.push(item)
+    this.catalogo.updatePedido(this.pedido)
   }
 
   // Filtra los elementos del catálogo
@@ -150,15 +164,5 @@ export class CatalogoComponent {
 
   toggleModalVisibility() {
     this.modalVisibility = !this.modalVisibility;
-  }
-
-
-  // Lógica para conectar los productos del catálogo con el carrito de pedido
-  pedido:any = sessionStorage.getItem('carrito') || []
-
-  agregarProductoCarrito(item: any) {
-    this.pedido.push(item)
-    sessionStorage.setItem('carrito', JSON.stringify(this.pedido))
-    console.log(this.pedido);
   }
 }

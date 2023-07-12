@@ -3,19 +3,39 @@ import { SERVER_API } from 'src/config/config';
 import { Product } from 'src/app/models/products.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 import { FamiliaService } from '@data/services/sfamilia/familia.service';
 import { forkJoin } from 'rxjs';
+import { Articulo } from 'src/app/models/articulo.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CatalogoService {
-  // @Output() disparadorDeProductos: EventEmitter<any> = new EventEmitter();
 
-  constructor(public http: HttpClient, private famService:FamiliaService) {}
+  private pedidoSubject = new BehaviorSubject<Articulo[]>([])
+  pedido$ = this.pedidoSubject.asObservable()
 
+  constructor(public http: HttpClient, private famService:FamiliaService) {
+    this.updatePedidoFromSessionStorage
+  }
+
+  private updatePedidoFromSessionStorage(): void {
+    const pedido = JSON.parse(sessionStorage.getItem('pedido')!) || []
+    this.pedidoSubject.next(pedido);
+  }
+
+  getPedido():Articulo[] {
+    this.updatePedidoFromSessionStorage()
+    console.log("Soy el pedidoSubject: ", this.pedidoSubject.value);
+    return this.pedidoSubject.value;
+  }
+
+  updatePedido(pedido: Articulo[]): void {
+    sessionStorage.setItem('pedido', JSON.stringify(pedido));
+    this.pedidoSubject.next(pedido)
+  }
 
   //=> Obetener familia.acivo
   buscarFamilias(): Observable<any> {
