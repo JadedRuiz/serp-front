@@ -1,3 +1,28 @@
+// Template ligth
+// $bg-sidebar : #f1f1f1;
+$bg-content : #f7f7f7;
+$sidebar : (
+  bg: white,
+  buttons: #f1f1f1,
+  footer: white,
+  txt: black,
+  bx-shadow: #999a9b,
+  hr: #999a9b,
+  btn_close: black,
+  btn_show: white,
+  btn_i: black
+);
+$color-txt : black;
+// Template dark
+// $sidebar : (
+//   bg: white,
+//   buttons: #f1f1f1,
+//   footer: white,
+//   txt: black,
+//   bx-shadow : #999a9b,
+//   hr: #999a9b,
+//   btn_close : #ffffff
+// );
 /* You can add global styles to this file, and also import other style files */
 :root {
   --primary-color: #9F1223;
@@ -6,6 +31,7 @@
 
 
   //Paleta de colores para la aplicación
+  --bg-elements: #f1f1f1;
   --bg-color: #F1F2F5;
   --color-base: #41e94c;
   --hover-base: #f5e612;
@@ -22,6 +48,7 @@
   --black : #525252;
   --gray : #DBDBDB;
 }
+
 /* Fonts */
 @font-face {
   font-family: 'Barlow';

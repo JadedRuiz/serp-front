@@ -1,6 +1,6 @@
 <button type="button" class="orders-cart-btn icon-btn" *ngIf="!ordersVisibility; else closeCart"
   (click)="toggleOrdersVisibility()">
-  <i class="fas fa-shopping-cart"></i>
+  <i class="fa fa-shopping-cart"></i>
 </button>
 <ng-template #closeCart>
   <button type="button" class="orders-cart-btn icon-btn" #closeCart (click)="toggleOrdersVisibility()">

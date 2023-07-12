@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { trigger, style, animate, transition, state } from '@angular/animations';
 import * as Notiflix from 'notiflix';
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-base-logged',
@@ -30,7 +31,13 @@ export class BaseLoggedComponent {
   //#region [Variables globales]
     column_size = "is-10";
     show_menu = true;
-
+    bandMenu = true;
+    id_usuario = parseInt(localStorage.getItem("id_usuario")+"");
+    public usuario = {
+      nombre: "",
+      ape_paterno: ""
+    };
+    public perfil = "";
   //#endregion
 
   ocultarMenu(){
@@ -44,8 +51,35 @@ export class BaseLoggedComponent {
 
   }
 
+  accionMenu(){
+    if(!this.bandMenu){
+      $(".chiller-theme").addClass("toggled");
+      this.bandMenu = true;
+    }else{
+      $(".chiller-theme").removeClass("toggled");
+      this.bandMenu = false;
+    }
+  }
 
-  logout(){
+  abrirOpcion(clase : string){
+    $(".sidebar-submenu").slideUp(200);
+    if($(".sidebar-dropdown > a").parent().hasClass('active')){
+      $(".sidebar-dropdown").removeClass("active");
+      $("."+clase)
+      .parent()
+      .removeClass("active");
+    }else{
+      $(".sidebar-dropdown").removeClass("active");
+      $("."+clase)
+        .next(".sidebar-submenu")
+        .slideDown(200);
+      $("."+clase)
+        .parent()
+        .addClass("active");
+      }
+  }
+
+  logOut(){
     Notiflix.Confirm.show(
       'Estás a punto de cerrar sesión',
       '¿Estás seguro?',

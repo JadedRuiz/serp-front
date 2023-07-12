@@ -1,99 +1,119 @@
-<!-- START NAV -->
-<nav class="navbar is-white">
-  <div class="navbar-brand">
-    <a class="navbar-item" (click)="ocultarMenu()">
-      <i class="fa fa-bars i-menu" aria-hidden="true"></i>
-    </a>
-  </div>
-  <div id="navMenu" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item">
-        <img class="" src="../../../../assets/img/logo_empresa.png">
-      </a>
-    </div>
-  </div>
-</nav>
-<!-- END NAV -->
-<div class="container-fluid contenido">
-  <div class="row">
-    <div class="col-2 is-2 slider" *ngIf="show_menu" [@enterAnimation]>
-      <aside class="menu is-hidden-mobile">
-        <p class="menu-label">
-          INFORMACIÓN GENERAL
-        </p>
-        <ul class="menu-list">
+<div class="page-wrapper chiller-theme toggled">
+  <a id="show-sidebar" class="btn btn-sm btn-custom" (click)="accionMenu()" style="cursor: pointer;">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+  </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+      <div class="sidebar-content">
+      <div class="sidebar-brand">
+          <a href="#">KOONOL</a>
+          <div id="close-sidebar" (click)="accionMenu()" style="cursor: pointer;">
+          <i class="fa fa-times" aria-hidden="true"></i>
+          </div>
+      </div>
+      <div class="sidebar-header">
+          <div class="user-pic">
+          <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+              alt="User picture">
+          </div>
+          <div class="user-info">
+          <span class="user-name">Usuario
+              <strong>Prueba</strong>
+          </span>
+          <span class="user-role">{{perfil}}</span>
+          <span class="user-status">
+              <i class="fa fa-circle"></i>
+              <span>Online</span>
+          </span>
+          </div>
+      </div>
+      <div class="sidebar-menu">
+          <ul>
+          <li class="header-menu">
+              <span>General</span>
+          </li>
           <li>
-            <div class="card card_default my-0">
-              <div class="card-content px-2 mx-1 my-0 py-0">
-                <div class="media">
-                  <div class="media-right">
-                    <figure class="image is-48x48 mb-2">
-                      <img src="../../../../assets/img/user_random.jpeg" alt="Placeholder image">
-                    </figure>
-                  </div>
-                </div>
+              <a style="cursor: pointer;" routerLink="/app/dashboard">
+              <i class="fa fa-home" aria-hidden="true"></i>
+              <span>Inicio</span>
+              </a>
+          </li>
+          <li class="sidebar-dropdown">
+              <a class="item2" (click)="abrirOpcion('item2')" style="cursor: pointer;">
+                  <i class="fa fa-th-large" aria-hidden="true"></i>
+              <span>Catalogos</span>
+              <!-- <span class="badge badge-pill badge-danger">3</span> -->
+              </a>
+              <div class="sidebar-submenu">
+                  <ul>
+                      <li><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/']">Productos</a></li>
+                      <li><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/prov']">Proveedores</a></li>
+                      <li><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/almacen']">Almacen</a></li>
+                      <li><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/clientes']">Clientes</a></li>
+                      <li><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/vendedores']">Vendedores</a></li>
+                      <li><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/buscador']">Familias</a></li>
+                      <li><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/rutas']">Rutas</a></li>
+                  </ul>
               </div>
-            </div>
+          </li>
+          <li class="sidebar-dropdown">
+              <a  class="item4" (click)="abrirOpcion('item4')" style="cursor: pointer;">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+              <span>Reportes</span>
+              </a>
+              <div class="sidebar-submenu">
+                  <ul>
+                      <li>
+                      <a href="#">Pie chart</a>
+                      </li>
+                      <li>
+                      <a href="#">Line chart</a>
+                      </li>
+                      <li>
+                      <a href="#">Bar chart</a>
+                      </li>
+                      <li>
+                      <a href="#">Histogram</a>
+                      </li>
+                  </ul>
+              </div>
+          </li>
+          <li class="header-menu">
+              <span>Extra</span>
           </li>
           <li>
-            <div class="media-contet mt-4">
-              <p class="title is-5">Jaded Ruiz</p>
-              <p class="subtitle is-6">
-                Administrativo
-                <br>
-                <span class="tag is-info is-light">Recursos Humanos</span>
-              </p>
-            </div>
+              <a href="#">
+              <i class="fa fa-shopping-cart"></i>
+              <span>Punto de venta</span>
+              <span class="badge badge-pill badge-primary">Beta</span>
+              </a>
           </li>
-        </ul>
-        <p class="menu-label pb-0 mb-0">
-          Catalogos
-        </p>
-        <ul class="menu-list">
-          <li class="menu-list-element" [routerLink]="['/sis_koonol/catalogos/']">
-            <a><i class="fas fa-boxes ico14"></i><span>Productos</span></a>
+          <li>
+              <a href="#">
+              <i class="fa fa-calendar"></i>
+              <span>Calendario</span>
+              </a>
           </li>
-          <li class="menu-list-element" [routerLink]="['/sis_koonol/catalogos/prov']">
-            <a><i class="fas fa-user-edit ico14"></i><span>Proveedores</span></a>
-          </li>
-          <li class="menu-list-element" [routerLink]="['/sis_koonol/catalogos/almacen']">
-            <a><i class="fas fa-warehouse ico14"></i><span>Almacenes</span></a>
-          </li>
-          <li class="menu-list-element" [routerLink]="['/sis_koonol/catalogos/clientes']">
-            <a><i class="fas fa-portrait ico14"></i><span>Clientes</span></a>
-          </li>
-          <li class="menu-list-element" [routerLink]="['/sis_koonol/catalogos/vendedores']">
-            <a><i class="fas fa-portrait ico14"></i><span>Vendedores</span></a>
-          </li>
-          <li class="menu-list-element" [routerLink]="['/sis_koonol/catalogos/buscador']">
-            <a><i class="fa fa-folder ico14"></i><span>Familias</span></a>
-          </li>
-          <li class="menu-list-element" [routerLink]="['/sis_koonol/catalogos/rutas']">
-            <a><i class="fas fa-map-marked-alt ico14"></i><span>Rutas</span></a>
-          </li>
-        </ul>
-        <p class="menu-label pb-0 mb-0">
-          Procesos
-        </p>
-        <ul class="menu-list">
-          <li class="menu-list-element">
-            <a><i class="fas fa-cogs ico14"></i><span>Administrar almacen</span></a>
-          </li>
-          <li class="menu-list-element" [routerLink]="['/pedidos-realizados']">
-            <a><i class="fas fa-clipboard-list ico14"></i><span>Pedidos</span></a></li>
-        </ul>
-        <p class="menu-label pb-0 mb-0">
-          Opciones
-        </p>
-        <ul class="menu-list">
-          <li class="menu-list-element" (click)="logout()">
-            <a><i class="fas fa-times-circle ico14"></i><span>Cerrar sesión</span></a>
-          </li>
-        </ul>
-      </aside>
-    </div>
-    <div class="col">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
+          </ul>
+      </div>
+      <!-- sidebar-menu  -->
+      </div>
+      <!-- sidebar-content  -->
+      <div class="sidebar-footer">
+      <a style="cursor: pointer;">
+          <i class="fa fa-bell"></i>
+      </a>
+      <a style="cursor: pointer;">
+          <i class="fa fa-cog"></i>
+          <span class="badge-sonar"></span>
+      </a>
+      <a (click)="logOut()" style="cursor: pointer;">
+          <i class="fa fa-power-off"></i>
+      </a>
+      </div>
+  </nav>
+  <main class="page-content">
+      <div class="container-fluid">
+        <router-outlet></router-outlet>
+      </div>
+  </main>
 </div>
