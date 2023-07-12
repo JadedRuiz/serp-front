@@ -1,0 +1,64 @@
+<button type="button" class="orders-cart-btn icon-btn" *ngIf="!ordersVisibility; else closeCart"
+  (click)="toggleOrdersVisibility()">
+  <i class="fa fa-shopping-cart"></i>
+</button>
+<ng-template #closeCart>
+  <button type="button" class="orders-cart-btn icon-btn" #closeCart (click)="toggleOrdersVisibility()">
+    <i class="fas fa-times"></i>
+  </button>
+</ng-template>
+<div class="orders-cart-container" *ngIf="ordersVisibility">
+  <div class="orders-cart">
+    <div class="orders-cart__empty" *ngIf="isCartEmpty">
+      <p class="orders-cart__empty__text">El carrito está vacío</p>
+      <i class="bi bi-cart"></i>
+      <button class="btn btn-danger" (click)="toggleOrdersVisibility()">
+        Añadir productos
+      </button>
+    </div>
+    <div class="orders-cart__normal" *ngIf="!isCartEmpty">
+      <!-- Sección 1 -->
+      <h2 class="orders-cart__title">PEDIDOS</h2>
+      <!-- Sección 2 -->
+      <div class="orders-cart__products">
+        <article class="orders-cart__product" *ngFor="let item of pedido">
+          <div class="d-flex flex-row">
+            <img src="https://koonol.mx/KN/public/segmentos/lacteos.png" alt="imagen de un producto" class="orders-cart__product__image" />
+            <section class="">
+              <h2 class="">{{ item.articulo}}</h2>
+              <h4 class="">{{ item.familia }}</h4>
+              <section class="orders-cart__product__quantity__box">
+                <div class="btn-decrease" [class.btn-quantity-off]="btnQuantityOff"
+                  (click)="decreaseItemQuantity(item)">
+                  -
+                </div>
+                <p class="orders-cart__product__quantity">
+                  {{ item.quantity }}
+                </p>
+                <div class="btn-increase" (click)="increaseItemQuantity(item)">
+                  +
+                </div>
+              </section>
+            </section>
+          </div>
+          <button class="orders-cart__product__btn-delete" (click)="deleteProduct(item)">
+            <i class="fas fa-trash"></i>
+          </button>
+          <div class="orders-cart__product-price-box">
+            <h3 class="orders-cart__product-price">${{ item.precio_venta }}</h3>
+          </div>
+        </article>
+      </div>
+      <!-- Sección 3 -->
+      <div class="orders-cart__checkout">
+        <h3 class="">Total:</h3>
+        <h3 class="">${{ total }}</h3>
+      </div>
+      <div class="orders-cart__checkout justify-content-center">
+        <button class="general-btn" (click)="useToggleModalVisibility()">
+          Finalizar pedido
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
