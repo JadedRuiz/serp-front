@@ -1,0 +1,119 @@
+<div class="page-wrapper chiller-theme toggled">
+  <a id="show-sidebar" class="btn btn-sm btn-custom" (click)="accionMenu()" style="cursor: pointer;">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+  </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+      <div class="sidebar-content">
+      <div class="sidebar-brand">
+          <a href="#">KOONOL</a>
+          <div id="close-sidebar" (click)="accionMenu()" style="cursor: pointer;">
+          <i class="fa fa-times" aria-hidden="true"></i>
+          </div>
+      </div>
+      <div class="sidebar-header">
+          <div class="user-pic">
+          <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+              alt="User picture">
+          </div>
+          <div class="user-info">
+          <span class="user-name">Usuario
+              <strong>Prueba</strong>
+          </span>
+          <span class="user-role">{{perfil}}</span>
+          <span class="user-status">
+              <i class="fa fa-circle"></i>
+              <span>Online</span>
+          </span>
+          </div>
+      </div>
+      <div class="sidebar-menu">
+          <ul>
+          <li class="header-menu">
+              <span>General</span>
+          </li>
+          <li>
+              <a style="cursor: pointer;" routerLink="/app/dashboard">
+              <i class="fa fa-home" aria-hidden="true"></i>
+              <span>Inicio</span>
+              </a>
+          </li>
+          <li class="sidebar-dropdown">
+              <a class="item2" (click)="abrirOpcion('item2')" style="cursor: pointer;">
+                  <i class="fa fa-th-large" aria-hidden="true"></i>
+              <span>Catalogos</span>
+              <!-- <span class="badge badge-pill badge-danger">3</span> -->
+              </a>
+              <div class="sidebar-submenu">
+                  <ul>
+                      <li><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/']">Productos</a></li>
+                      <li><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/prov']">Proveedores</a></li>
+                      <li><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/almacen']">Almacen</a></li>
+                      <li><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/clientes']">Clientes</a></li>
+                      <li><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/vendedores']">Vendedores</a></li>
+                      <li><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/buscador']">Familias</a></li>
+                      <li><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/rutas']">Rutas</a></li>
+                  </ul>
+              </div>
+          </li>
+          <li class="sidebar-dropdown">
+              <a  class="item4" (click)="abrirOpcion('item4')" style="cursor: pointer;">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+              <span>Reportes</span>
+              </a>
+              <div class="sidebar-submenu">
+                  <ul>
+                      <li>
+                      <a href="#">Pie chart</a>
+                      </li>
+                      <li>
+                      <a href="#">Line chart</a>
+                      </li>
+                      <li>
+                      <a href="#">Bar chart</a>
+                      </li>
+                      <li>
+                      <a href="#">Histogram</a>
+                      </li>
+                  </ul>
+              </div>
+          </li>
+          <li class="header-menu">
+              <span>Extra</span>
+          </li>
+          <li>
+              <a href="#">
+              <i class="fa fa-shopping-cart"></i>
+              <span>Punto de venta</span>
+              <span class="badge badge-pill badge-primary">Beta</span>
+              </a>
+          </li>
+          <li>
+              <a href="#">
+              <i class="fa fa-calendar"></i>
+              <span>Calendario</span>
+              </a>
+          </li>
+          </ul>
+      </div>
+      <!-- sidebar-menu  -->
+      </div>
+      <!-- sidebar-content  -->
+      <div class="sidebar-footer">
+      <a style="cursor: pointer;">
+          <i class="fa fa-bell"></i>
+      </a>
+      <a style="cursor: pointer;">
+          <i class="fa fa-cog"></i>
+          <span class="badge-sonar"></span>
+      </a>
+      <a (click)="logOut()" style="cursor: pointer;">
+          <i class="fa fa-power-off"></i>
+      </a>
+      </div>
+  </nav>
+  <main class="page-content">
+      <div class="container-fluid">
+        <router-outlet></router-outlet>
+      </div>
+  </main>
+</div>

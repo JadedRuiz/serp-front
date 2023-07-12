@@ -13,12 +13,12 @@ export const UnloggedGuard: CanActivateFn = (
     state: RouterStateSnapshot
   ) => {
     const router = inject(Router);
-    const token = localStorage.getItem('token');
-  
-    if(!token){
-        return true; 
+    const dataPage = localStorage.getItem('dataPage');
+
+    if(!dataPage){
+        return true;
     }
 
-    router.navigateByUrl('/home');
+    router.navigateByUrl('sis_koonol/catalogos');
     return false;
 };

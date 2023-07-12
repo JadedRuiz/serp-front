@@ -13,10 +13,10 @@ export const LoggedGuard: CanActivateFn = (
     state: RouterStateSnapshot
   ) => {
     const router = inject(Router);
-    const token = localStorage.getItem('token');
-  
-    if(token){
-        return true; 
+    const dataPage = localStorage.getItem('dataPage');
+
+    if(dataPage){
+        return true;
     }
 
     router.navigateByUrl('/auth/login');
