@@ -13,10 +13,9 @@ export const LoggedGuard: CanActivateFn = (
     state: RouterStateSnapshot
   ) => {
     const router = inject(Router);
-    const token = JSON.parse(localStorage.getItem('dataPage')+"").token;
-    console.log(token);
+    const dataPage = localStorage.getItem('dataPage');
 
-    if(token){
+    if(dataPage){
         return true;
     }
 

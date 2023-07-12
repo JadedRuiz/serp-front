@@ -20,16 +20,17 @@ interface item {
 
 export class OrdersCartComponent {
 
-  constructor(
-    private catalgoo: CatalogoService,
-  ) {
-  }
+  pedido: Articulo[] = []
 
-  ngOnInit():void {
+  constructor(private catalogo: CatalogoService) { }
+
+  ngOnInit(): void {
     this.getSubtotal();
     this.getTotal();
     this.noItems();
-    this.getPedido()
+    this.catalogo.pedido$.subscribe(pedido => {
+      this.pedido = pedido
+    })
   }
 
   //Estado para manejar la visibilidad del carrito de pedidos
@@ -37,31 +38,29 @@ export class OrdersCartComponent {
 
   //Función para manejar la visibilidad del carrito de pedidos
   toggleOrdersVisibility() {
+    this.catalogo.getPedido()
     if (this.ordersVisibility) {
       this.ordersVisibility = false;
     } else {
       this.ordersVisibility = true;
     }
-    this.getPedido()
+    this.noItems()
   }
-  
+
   //Estados para manejar las cuentas del carrito
   totalPerItem: number = 0
   subtotal: number = 0
   total: number = 0
   discounts: number = 0 // Normalmente su valor vendrá de la base de datos
   price: number = 0
-  pedido:Articulo[] =  this.getPedido()
-  
-  getPedido():Articulo[] {
-    return this.pedido = JSON.parse(sessionStorage.getItem('carrito')!) || [];
-  }
+
 
   //Estado para manejar si el carrito está vacío o no
   isCartEmpty = true
 
   //Función para manejar el estado del carrito
   noItems() {
+    this.pedido = this.catalogo.getPedido()
     if (this.pedido.length !== 0) {
       this.isCartEmpty = this.isCartEmpty = false
     } else {
@@ -113,13 +112,15 @@ export class OrdersCartComponent {
 
   //Función para eliminar producto del carrito
   deleteProduct(item: Articulo) {
-    const index = this.pedido.findIndex((i) => i.id_articulo === item.id_articulo);
+    const index = this.pedido.findIndex((articulo) => articulo.id_articulo === item.id_articulo);
     if (index !== -1) {
       this.pedido.splice(index, 1);
-      sessionStorage.setItem('carrito', JSON.stringify(this.pedido))
-      this.getPedido()
+      sessionStorage.setItem('pedido', JSON.stringify(this.pedido))
     }
+    this.catalogo.updatePedido(this.pedido)
+    // this.catalogo.getPedido()
     this.getSubtotal()
+    this.noItems()
   }
 
   @Output() toggleModalVisibility = new EventEmitter()

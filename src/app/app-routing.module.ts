@@ -28,7 +28,7 @@ const routes: Routes = [
   {
     path: 'sis_koonol',
     component: BaseLoggedComponent,
-    canActivate: [LoggedGuard],
+     canActivate: [LoggedGuard],
     children: [
       {
         path: 'catalogos',
