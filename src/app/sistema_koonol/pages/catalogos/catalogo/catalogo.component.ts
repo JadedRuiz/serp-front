@@ -76,12 +76,12 @@ export class CatalogoComponent {
       if (resp.ok) {
         console.log('Ws=>',resp);
         this.articulos = resp.data
-        console.log(this.articulos);
-        // this.familias.obtenerFamilias().subscribe(resp => {
-        //   let familias = resp.data
-        //   this.familiasActivas = familias.filter((familia: Familia) => familia.activo == 1)
-        //   this.itemsFiltrados()
-        // })
+        this.articulos.forEach((art) => console.log(art))
+        this.familias.obtenerFamilias().subscribe(resp => {
+          let familias = resp.data
+          this.familiasActivas = familias.filter((familia: Familia) => familia.activo == 1)
+          this.itemsFiltrados()
+        })
       }
     })
   }
