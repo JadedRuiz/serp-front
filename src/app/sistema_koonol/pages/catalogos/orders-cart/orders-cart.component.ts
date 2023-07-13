@@ -15,11 +15,11 @@ export class OrdersCartComponent {
   constructor(private catalogo: CatalogoService) { }
 
   ngOnInit(): void {
-    this.getSubtotal();
-    this.getTotal();
-    this.noItems();
     this.catalogo.pedido$.subscribe(pedido => {
       this.pedido = pedido
+      this.getTotal();
+      this.getSubtotal();
+      this.noItems();
     })
   }
 
@@ -29,8 +29,6 @@ export class OrdersCartComponent {
 
   //Función para manejar la visibilidad del carrito de pedidos
   toggleOrdersVisibility() {
-    this.catalogo.getPedido()
-    this.getSubtotal();
     if (this.ordersVisibility) {
       this.cerrarCarrito = true
       setTimeout(() => {
@@ -40,7 +38,6 @@ export class OrdersCartComponent {
       this.cerrarCarrito = false
       this.ordersVisibility = true;
     }
-    this.noItems()
   }
 
   //Estados para manejar las cuentas del carrito
@@ -57,7 +54,7 @@ export class OrdersCartComponent {
 
   //Función para manejar el estado del carrito
   noItems() {
-    this.pedido = this.catalogo.getPedido()
+    // this.pedido = this.catalogo.getPedido()
     if (this.pedido.length !== 0) {
       this.isCartEmpty = this.isCartEmpty = false
     } else {
@@ -119,7 +116,7 @@ export class OrdersCartComponent {
     this.catalogo.updatePedido(this.pedido)
     // this.catalogo.getPedido()
     this.getSubtotal()
-    this.noItems()
+    // this.noItems()
   }
 
   @Output() toggleModalVisibility = new EventEmitter()

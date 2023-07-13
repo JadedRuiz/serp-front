@@ -5,6 +5,9 @@
     <form class="form-group" #productForm="ngForm" (ngSubmit)="guardarArticulo(productForm)">
       <div class="row">
 
+        <div class="col-md-12 mb-4">
+          <h1 class="mb-4 mt-2 title text-center">Nuevo Producto</h1>
+        </div>
         <div id="dah" class="row">
           <div class="col-md-2">
             <button type="button" class="btn btn-atras" [routerLink]="['/sis_koonol/catalogos/']">
@@ -12,9 +15,6 @@
             </button>
           </div>
 
-        </div>
-        <div class="col-md-12 mb-4">
-          <h1 class="mb-4 mt-2 title text-center">Nuevo Producto</h1>
         </div>
 
         <div class="col">
@@ -121,15 +121,18 @@
           <!-- MINIATURAS -->
           <div class="d-flex flex-row justify-content-center">
             <div *ngFor="let image of uploadedImages; let i = index" class="mb-2">
-              <img style="cursor: pointer;" class="img-thumbnail" [src]="image" alt="miniatura" [style.width.px]="55"
-                [style.height.px]="55" (click)="displayImage(i)" />
+              <img style="cursor: pointer;" class="img-thumbnail" [src]="image" alt="miniatura"
+               [style.width.px]="95"
+                [style.height.px]="95" (click)="displayImage(i)" />
+                <button class="btn btn-sm cancel-btn position-absolute top-0 start-0 translate-middle rounded-circle"
+                id="xImage" (click)="removeImage(i + 1)">x</button>
             </div>
           </div>
           <div>
             <button type="button" class="m-2 btn search-btn" (click)="uploadAndResize()"
               [disabled]="imageCount >= 5">Subir imagen</button>
+              <button type="submit" class="col-md-3 btn general-btn">Guardar</button>
           </div>
-          <button type="submit" class="col-md-3 btn general-btn">Guardar</button>
         </div>
       </div>
     </form>
