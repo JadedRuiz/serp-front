@@ -29,11 +29,11 @@
               <h2 class="">{{ item.articulo}}</h2>
               <h4 class="">{{ item.familia }}</h4>
               <section class="orders-cart_product__quantity_box">
-                <i class="fa fa-minus-square-o btn-decrease" (click)="decreaseItemQuantity(item)"></i>
+                <i class="fa fa-minus-circle btn-decrease" (click)="decreaseItemQuantity(item)"></i>
                 <p class="orders-cart_product_quantity">
                   {{ item.quantity }}
                 </p>
-                <i class="fa fa-plus-square-o btn-increase" (click)="increaseItemQuantity(item)"></i>
+                <i class="fa fa-plus-circle btn-increase" (click)="increaseItemQuantity(item)"></i>
               </section>
             </section>
           </div>

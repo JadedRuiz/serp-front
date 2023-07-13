@@ -34,6 +34,14 @@
   justify-content: center;
   gap: 10px;
 
+  .search-input {
+    &:focus {
+      outline: 0.5px solid var(--color-base);
+      box-shadow: 0px 2px 20px -5px var(--color-base);
+      transition: 300ms;
+    }
+  }
+
 }
 
 // .search-bar.sticky {
@@ -83,11 +91,10 @@
 
 .btn_h:hover {
   background-color: var(--hover-base);
-}
+} 
 
-
-.add-btn {
-  max-width: 400px;
+.search-btn, .add-btn {
+  max-width: 250px;
 }
 
 .cards {
