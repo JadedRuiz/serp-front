@@ -70,17 +70,7 @@
           </div>
         </div>
         <div class="proveedor__data-form row" [class.active]="section === 1">
-          <div class="row">
-            <h3 class="subtitle col-md-8">Datos</h3>
-            <div class="col-md-2">
-              <button class=" general-btn"  (click)="editarProveedor()"
-              type="button">Editar</button>
-            </div>
-            <div class="col-md-2">
-              <button class=" search-btn  text-center"
-              type="submit">Guardar</button>
-            </div>
-          </div>
+
             <div class="proveedor__data-form__section1 col-12 col-md-6">
               <div class="form-label">
                 <label for="cliente">Proveedor</label>
@@ -215,19 +205,20 @@
                 />
               </div>
             </div>
-          </div>
-          <div class="proveedor__address-form row" [class.active]="section === 2">
-            <div class="row">
-              <h3 class="subtitle col-md-8">Dirección</h3>
-              <div class="col-md-2">
+            <div class="row mt-3" >
+              <div class="col-md-6">
                 <button class=" general-btn"  (click)="editarProveedor()"
                 type="button">Editar</button>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-6">
                 <button class=" search-btn  text-center"
                 type="submit">Guardar</button>
               </div>
             </div>
+          </div>
+
+          <div class="proveedor__address-form row" [class.active]="section === 2">
+
             <div class="proveedor__address-form__section1 col-12 col-md-6">
               <div class="form-label">
                 <label for="descripcion">Descripción</label>
@@ -374,7 +365,16 @@
                   disabled
                 />
               </div>
-
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <button class=" general-btn"  (click)="editarProveedor()"
+                  type="button">Editar</button>
+                </div>
+                <div class="col-md-6">
+                  <button class=" search-btn  text-center"
+                  type="submit">Guardar</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

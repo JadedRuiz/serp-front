@@ -42,7 +42,6 @@
         <form class="w-100 form-data" #clientForm="ngForm" (ngSubmit)="guardarCliente(clientForm)">
           <!-- SECCION DATOS -->
           <div class="client__data-form row" [class.active]="section === 1">
-            <h3 class="subtitle">Datos</h3>
             <div class="client__data-form__section1 col-12 col-md-6">
               <div>
                 <label for="cliente">Cliente</label>
@@ -108,7 +107,6 @@
           </div>
           <!-- SECCION DIRECCION -->
           <div class="client__address-form row" [class.active]="section === 2">
-            <h3 class="subtitle">Dirección</h3>
             <div class="client__address-form__section1 col-12 col-md-6">
               <div>
                 <label for="descripcion">Descripción</label>
