@@ -2,45 +2,54 @@
   <div class="almacenes-container">
     <h1 class="text-center title m-0">ALMACENES</h1>
 
-
-    <div class="almacenes__search-bar">
-      <div class="d-flex flex-column">
-        <input class="search-input" type="text" placeholder="Buscar Almacen" aria-label="Buscar Almacen"
-          aria-describedby="button-addon2" [formControl]="searchAlmacenControl" />
-        <div class="search-loader w-100" *ngIf="loader; else almacenesReady">
-          <i class="fas fa-spinner fa-pulse"></i>
-        </div>
-        <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noAlmacen">
-          <h4>No se encontro el Almacen</h4>
-        </div>
-        <ng-template #almacenesReady>
-          <ul class="search-list" *ngIf="searchList">
-            <li class="search-list__element" *ngFor="let almacen of autocompleteAlmacen"
-              (click)="seleccionarAlmacen(almacen.id_almacen)">
-              {{ almacen.almacen }}
-            </li>
-          </ul>
-        </ng-template>
+<div class="row">
+  <div class="almacenes__search-bar col-12 col-md-4">
+    <div class="d-flex flex-column">
+      <input class="search-input" type="text" placeholder="Buscar Almacen" aria-label="Buscar Almacen"
+        aria-describedby="button-addon2" [formControl]="searchAlmacenControl" />
+      <div class="search-loader w-100" *ngIf="loader; else almacenesReady">
+        <i class="fas fa-spinner fa-pulse"></i>
       </div>
-
-      <div class="status">
-        <div *ngIf="status" class="status-inactive">
-          <span>
-            Estado:
-          </span>
-          <div> </div>
-        </div>
-        <div *ngIf="!status" class="status-active">
-          <span>
-            Estado:
-          </span>
-          <div></div>
-        </div>
+      <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noAlmacen">
+        <h4>No se encontro el Almacen</h4>
       </div>
-      <button type="button" id="add-almacen" class="add-btn" (click)="agregarNvoAlmacen()">
-        AGREGAR ALMACEN
-      </button>
+      <ng-template #almacenesReady>
+        <ul class="search-list" *ngIf="searchList">
+          <li class="search-list__element" *ngFor="let almacen of autocompleteAlmacen"
+            (click)="seleccionarAlmacen(almacen.id_almacen)">
+            {{ almacen.almacen }}
+          </li>
+        </ul>
+      </ng-template>
     </div>
+    </div>
+    
+    <div class="status col-12 col-md-4">
+      <div *ngIf="status" class="status-inactive">
+        <span>
+          Estado:
+        </span>
+        <div> </div>
+      </div>
+      <div *ngIf="!status" class="status-active col-12 col-md-4">
+        <span>
+          Estado:
+        </span>
+        <div></div>
+      </div>
+      <div class="almacenes_botones">
+        <button id="estadoBoton" class="danger-btn" (click)="cambiarEstado()">
+          <span *ngIf="status">Activar</span>
+          <span *ngIf="!status">Desactivar</span>
+        </button>
+      </div>
+    </div>
+    <button type="button" id="add-almacen" class="add-btn col-12 col-md-4" (click)="agregarNvoAlmacen()">
+      AGREGAR ALMACEN
+    </button>
+</div>
+    
+    
 
     <div id="form-almacenes">
       <form class="almacen__form" #almaForm="ngForm" (ngSubmit)="guardarAlmacen(almaForm)">
@@ -123,13 +132,13 @@
               <h3 class="subtitle mb-1">Dirección</h3>
               <p>{{almacen.direccion}}</p>
             </div>
-            <div class="row mt-5 justify-content-end">
-              <div class="col-md-6">
-                <button class="general-btn" (click)="editar()" type="button" *ngIf="isAlmacenSelected">
+            <div  class="mt-6 w-100 row justify-content-end">
+              <div>
+                <button class="mr-3 general-btn" (click)="editar()" type="button" *ngIf="isAlmacenSelected">
                   Editar
                 </button>
               </div>
-              <div class="w-100 d-flex justify-content-end mt-3">
+              <div>
                 <button class="search-btn text-center" type="submit">Guardar</button>
               </div>
             </div>
@@ -138,11 +147,5 @@
 
       </form>
     </div>
-    <!-- <div class="almacenes_botones">
-      <button id="estadoBoton" class="danger-btn" (click)="cambiarEstado()">
-        <span *ngIf="status">Activar</span>
-        <span *ngIf="!status">Desactivar</span>
-      </button>
-    </div> -->
   </div>
 </div>

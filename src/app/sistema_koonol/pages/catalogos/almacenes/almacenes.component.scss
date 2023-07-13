@@ -28,10 +28,11 @@
     div {
       position: relative;
       border-radius: 10px;
-      width: min(80%, 400px);
+    //   width: min(80%, 400px);
 
       .search-input {
-          width: 100%;
+          width: 257px;
+
       }
 
       &:focus-within {
@@ -66,7 +67,8 @@
     }
     #add-almacen {
         min-width: 200px;
-        height: 45px;
+        height: 10px;
+        display: flex;
     }
 
     @include xs {
@@ -78,8 +80,6 @@
 }
 
 .status {
-    margin-top: 10px;
-    width: 100%;
     margin-left: 100px;
 
 }
@@ -134,8 +134,8 @@
 .almacenes_botones {
     display: flex;
     width: 100%;
+    margin-top: 0;
     justify-content: end;
-    gap: 20px;
 }
 
 div button:hover {
@@ -193,3 +193,4 @@ div button:hover {
 #direccion {
     height: 100px;
 }
+
