@@ -1,6 +1,6 @@
 <div class="vendedores container shadow row">
   <div class="vendedores-container">
-    <h1 class="text-center title">Vendedores</h1>
+    <h1 class="text-center title">VENDEDORES</h1>
 
     <!-- Barra de Busqueda -->
     <div class="vendedores__search-bar">
@@ -26,15 +26,16 @@
         {{ getVendedorStatusText(vendedor.activo) }}
       </button>
       <button type="button" class="add-btn" (click)="cargarCampos()">
-        AGREGAR Vendedor
+        AGREGAR VENDEDOR
       </button>
     </div>
 
     <!-- Formulario -->
     <form class="vendedor__form" #vendedorForm="ngForm" (ngSubmit)="guardarVendedor(vendedorForm)">
       <div class="vendedor__form-tabs">
+
         <div class="d-flex w-100 align-items-start">
-          <div class="tab" [class.active]="section === 1" (click)="tab(1)">
+          <div class="tab" [class.active]="section === 1" (click)="tab(1)" >
             Datos del Vendedor
           </div>
         </div>
