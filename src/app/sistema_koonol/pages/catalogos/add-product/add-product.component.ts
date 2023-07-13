@@ -145,19 +145,19 @@ uploadAndResize() {
   }
 
   return this.imageCompress.uploadFile().then(({ image, orientation }: UploadResponse) => {
-    console.warn('Tamaño Inicial:', this.imageCompress.byteCount(image));
+    //console.warn('Tamaño Inicial:', this.imageCompress.byteCount(image));
 
     if (this.imageCompress.byteCount(image) > 5 * 1024 * 1024) {
       alert('El tamaño de la imagen excede el límite de 5 MB');
       return;
     }
 
-    console.warn('comprimida y redimensionada a 400x');
+//    console.warn('comprimida y redimensionada a 400x');
     this.imageCompress
       .compressFile(image, orientation, 40, 40, 400, 400)
       .then((result: DataUrl) => {
-        let image = result.slice(22)
-        console.log('image',image);
+        //let image = result.slice(22)
+        //console.log('image',image);
         this.uploadedImages.push(image);
         this.imageCount++;
         console.warn('FINAL:', this.imageCompress.byteCount(result));
@@ -179,9 +179,11 @@ uploadAndResize() {
   //Guardar Fotos
   guardarFotos(){
     const fotos = this.uploadedImages.map((image)=>{
-      console.log('Ws=>',image);
+     // console.log('Ws=>',image);
+        let imagen : string = image.slice(22)
+
       return {
-        base64: image,
+        base64: imagen,
       };
     });
     this.productService.guardarFotos(fotos).subscribe(
@@ -189,10 +191,17 @@ uploadAndResize() {
         console.log('Guardadas',resp);
       },
       (error)=>{
-        console.log('G',fotos);
         console.log('Error',error);
       }
     )
+  }
+  removeImage(index: number) {
+    if (index === 0) {
+      this.imgResultAfterResize = '';
+    } else {
+      this.uploadedImages.splice(index - 1, 1);
+    }
+    this.imageCount--;
   }
 
 
