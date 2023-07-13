@@ -25,7 +25,7 @@ export class OrdersCartComponent {
 
   //Estado para manejar la visibilidad del carrito de pedidos
   ordersVisibility: boolean = false;
-  cerrarCarrito: boolean = false
+  cerrarCarrito: boolean = true
 
   //Función para manejar la visibilidad del carrito de pedidos
   toggleOrdersVisibility() {
