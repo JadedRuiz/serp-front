@@ -21,7 +21,7 @@
             </li>
           </ul>
         </ng-template>
-      </div>     
+      </div>
 
       <div class="status">
         <div *ngIf="status" class="status-inactive">
@@ -46,17 +46,7 @@
       <form class="almacen__form" #almaForm="ngForm" (ngSubmit)="guardarAlmacen(almaForm)">
         <div class="almacen__form-tabs">
           <div class="almacen__data-form row">
-            <div class="row">
-              <h3 class="subtitle col-md-8">Datos</h3>
-              <div class="col-md-2">
-                <!-- <button class=" general-btn" (click)="editar()" type="button" *ngIf="isAlmacenSelected">
-                  <span>Editar</span>
-                </button> -->
-              </div>
-              <div class="col-md-2">
-                <!-- <button class=" search-btn  text-center" type="submit">Guardar</button> -->
-              </div>
-            </div>
+
             <div class="almacen__data-form__section1 col-12 col-md-6">
               <div class="form-label">
                 <label for="cliente">Descripcion del Almacen</label>
@@ -133,29 +123,26 @@
               <h3 class="subtitle mb-1">Dirección</h3>
               <p>{{almacen.direccion}}</p>
             </div>
-            <div class="row mt-5">
-              <h3 class="subtitle col-md-8"> </h3>
-              <div class="col-md-2">
-                <button class=" general-btn" (click)="editar()" type="button" *ngIf="isAlmacenSelected">
-                  <span>Editar</span>
+            <div class="row mt-5 justify-content-end">
+              <div class="col-md-6">
+                <button class="general-btn" (click)="editar()" type="button" *ngIf="isAlmacenSelected">
+                  Editar
                 </button>
               </div>
-              <div class="col-md-2">
-                <button class=" search-btn  text-center" type="submit">Guardar</button>
+              <div class="w-100 d-flex justify-content-end mt-3">
+                <button class="search-btn text-center" type="submit">Guardar</button>
               </div>
             </div>
-
           </div>
         </div>
 
       </form>
     </div>
-    <div class="almacenes_botones">
+    <!-- <div class="almacenes_botones">
       <button id="estadoBoton" class="danger-btn" (click)="cambiarEstado()">
         <span *ngIf="status">Activar</span>
         <span *ngIf="!status">Desactivar</span>
       </button>
-      <!-- <button class="general-btn" type="submit" (click)="guardarAlmacen(almaForm)">Guardar</button> -->
-    </div>
+    </div> -->
   </div>
 </div>
