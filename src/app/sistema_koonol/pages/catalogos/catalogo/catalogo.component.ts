@@ -146,7 +146,7 @@ export class CatalogoComponent {
 
 	//Para el boton .
 	addProducto() {
-		this.router.navigate(['./add-product']);
+		this.router.navigate(['/sis_koonol/catalogos/add-product']);
 	}
 
 	// Para la barra de busqueda
