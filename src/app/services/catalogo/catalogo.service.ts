@@ -28,7 +28,6 @@ export class CatalogoService {
 
   getPedido():Articulo[] {
     this.updatePedidoFromSessionStorage()
-    console.log("Soy el pedidoSubject: ", this.pedidoSubject.value);
     return this.pedidoSubject.value;
   }
 

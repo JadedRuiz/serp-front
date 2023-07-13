@@ -2,16 +2,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Articulo } from 'src/app/models/articulo.model';
 import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
 
-interface item {
-  id?: number,
-  imageUrl?: string,
-  title?: string,
-  fam?: string,
-  description?: string,
-  price?: any,
-  quantity?: any
-}
-
 @Component({
   selector: 'app-orders-cart',
   templateUrl: './orders-cart.component.html',
@@ -21,7 +11,7 @@ interface item {
 export class OrdersCartComponent {
 
   pedido: Articulo[] = []
-
+  
   constructor(private catalogo: CatalogoService) { }
 
   ngOnInit(): void {
@@ -35,13 +25,19 @@ export class OrdersCartComponent {
 
   //Estado para manejar la visibilidad del carrito de pedidos
   ordersVisibility: boolean = false;
+  cerrarCarrito: boolean = false
 
   //Función para manejar la visibilidad del carrito de pedidos
   toggleOrdersVisibility() {
     this.catalogo.getPedido()
+    this.getSubtotal();
     if (this.ordersVisibility) {
-      this.ordersVisibility = false;
+      this.cerrarCarrito = true
+      setTimeout(() => {
+        this.ordersVisibility = false;
+      }, 400)
     } else {
+      this.cerrarCarrito = false
       this.ordersVisibility = true;
     }
     this.noItems()
@@ -53,6 +49,7 @@ export class OrdersCartComponent {
   total: number = 0
   discounts: number = 0 // Normalmente su valor vendrá de la base de datos
   price: number = 0
+  quantity: number = 0
 
 
   //Estado para manejar si el carrito está vacío o no
@@ -97,6 +94,7 @@ export class OrdersCartComponent {
     item.quantity++
     this.btnQuantityOff = false
     this.getSubtotal()
+    this.catalogo.updatePedido(this.pedido)
   }
 
   //Función para disminuir la cantidad de un ítem específico en el carrito
@@ -107,6 +105,7 @@ export class OrdersCartComponent {
     } else {
       this.btnQuantityOff = true
     }
+    this.catalogo.updatePedido(this.pedido)
     this.getSubtotal()
   }
 

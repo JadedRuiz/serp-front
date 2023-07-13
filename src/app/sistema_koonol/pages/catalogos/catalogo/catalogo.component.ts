@@ -96,6 +96,7 @@ export class CatalogoComponent {
 
   //Función para añadir un producto al carrito de pedido
   agregarProductoCarrito(item: Articulo) {
+    item.quantity = 1
     this.pedido.push(item)
     this.catalogo.updatePedido(this.pedido)
   }
