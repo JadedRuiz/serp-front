@@ -9,7 +9,7 @@
   <input type="text" class="search-input" placeholder="Productos" [(ngModel)]="searchTitle">
   <input type="text" class="search-input" placeholder="Familia" [(ngModel)]="searchFam">
   <button type="button" class="b search-btn" (click)="buscar()">BUSCAR</button>
-  <button type="button" class="b add-btn" (click)="addProducto()">AGREGAR</button>
+  <button type="button" class="b add-btn" (click)="addProducto()">NUEVO</button>
 </div>
 
 <div class="text-center" *ngIf="resultsNotFound" style="  color:red; font-size: 40px;">No se encontraron resultados.

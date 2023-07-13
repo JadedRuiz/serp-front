@@ -1,235 +1,137 @@
-<div class="p-2 shadow container">
+<div class="container p-2">
 
   <!-- FORMULARIO -->
-  <div class="container shadow">
-  <form class="form-group"
-  #productForm="ngForm"
-  (ngSubmit)="guardarArticulo(productForm)"
-  >
-    <div class="row">
+  <div class="shadow container">
+    <form class="form-group" #productForm="ngForm" (ngSubmit)="guardarArticulo(productForm)">
+      <div class="row">
 
-      <div id="dah" class="row">
-        <button  type="button" class="btn btn-atras" [routerLink]="['/home']"
-        ><i class="bi bi-arrow-left-circle-fill"></i></button>
-        <h1 class="col-md-10 ms-2 mb-4 mt-2 title text-center">Nuevo Producto</h1>
-      </div>
-
-      <div class="col">
-
-        <div id="producto" class="row text-center">
-          <div class="form-label col-md-3">
-            <label for="inputNombre">Nombre</label>
-            <input
-              type="text"
-              class="form-control"
-              name="articulo"
-              id="inputNombre"
-              required
-              placeholder="Producto..."
-              [(ngModel)]="item.articulo"
-            />
+        <div id="dah" class="row">
+          <div class="col-md-2">
+            <button type="button" class="btn btn-atras" [routerLink]="['/sis_koonol/catalogos/']">
+              <i class="bi bi-arrow-left-circle-fill"></i>
+            </button>
           </div>
-          <div class="form-label col-md-3">
-            <label class="label-label" for="inputFamilia">Familia</label>
-            <select  type="text"
-            class="form-control"
-            title="familia"
-            name="familia"
-            placeholder="..."
-            [(ngModel)]="item.id_familia" >
-            <option name="familia" value={{familia.id_familia}} *ngFor="let familia of familias"
-            >{{familia.familia}}
-            </option>
-            </select>
+
+        </div>
+        <div class="col-md-12 mb-4">
+          <h1 class="mb-4 mt-2 title text-center">Nuevo Producto</h1>
+        </div>
+
+        <div class="col">
+
+          <div id="producto" class="row text-center">
+            <div class="col-md-3">
+              <label for="inputNombre">Nombre</label>
+              <input type="text" class="form-control" name="articulo" id="inputNombre" required placeholder="Producto..."
+                [(ngModel)]="item.articulo" />
+            </div>
+            <div class="col-md-3">
+              <label class="label-label" for="inputFamilia">Familia</label>
+              <select type="text" class="form-control" title="familia" name="familia" placeholder="..."
+                [(ngModel)]="item.id_familia">
+                <option name="familia" value={{familia.id_familia}} *ngFor="let familia of familias">
+                  {{familia.familia}}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="label-label" for="inputAlmacen">Almacen</label>
+              <select type="text" class="form-control" title="alamacen" name="alamacen" placeholder="..."
+                [(ngModel)]="item.id_almacen">
+                <option name="alamcen" value={{almacen.id_almacen}} *ngFor="let almacen of almacenes">
+                  {{almacen.almacen}}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="label-label" for="inputFamilia">Medidas</label>
+              <select type="text" class="form-control" title="medida" name="medida" placeholder="..."
+                [(ngModel)]="item.id_medida">
+                <option name="medida" value={{medida.id_medida}} *ngFor="let medida of medidas">
+                  {{medida.medida}}
+                </option>
+              </select>
+            </div>
           </div>
-        <div class="form-label col-md-3">
-          <label class="label-label" for="inputAlmacen">Almacen</label>
-          <select  type="text"
-          class="form-control"
-          title="alamacen"
-          name="alamacen"
-          placeholder="..."
-          [(ngModel)]="item.id_almacen" >
-          <option name="alamcen" value={{almacen.id_almacen}} *ngFor="let almacen of almacenes"
-          >{{almacen.almacen}}
-          </option>
-          </select>
-        </div>
-        <div class="form-label col-md-3">
-          <label class="label-label" for="inputFamilia">Medidas</label>
-          <select  type="text"
-          class="form-control"
-          title="medida"
-          name="medida"
-          placeholder="..."
-          [(ngModel)]="item.id_medida" >
-          <option name="medida" value={{medida.id_medida}} *ngFor="let medida of medidas"
-          >{{medida.medida}}
-          </option>
-          </select>
-        </div>
-       </div>
 
-        <div id="precio" class="row text-center">
-          <h2 class=" mt-2 fs-3">Precio</h2>
-
-        <div class="form-label col-md-2">
-          <label for="inputPrecio">Precio venta</label>
-          <input
-            type="number"
-            class="form-control"
-            name="precio_venta"
-            id="inputPrecio"
-            placeholder="..."
-            required
-            [(ngModel)]="item.precio_venta"
-            (change)="calcularPrecioMasIva()"
-          />
-        </div>
-        <div class=" text-center form-label col-md-1">
-          <label  for="inputFamilia">% IVA</label>
-          <input
-            type="numero"
-            name="IVA"
-            class="form-control"
-            id="inputFamilia"
-            placeholder="%"
-            required
-            [(ngModel)]="item.tasa_iva"
-            (change)="calcularPrecioMasIva()"
-          />
-        </div>
-
-      <div class="form-label col-md-2">
-        <label for="inputFamilia">Descuento</label>
-        <input
-          type="numero"
-          name="descuento1"
-          class="form-control"
-          id="inputFamilia"
-          placeholder="..."
-          required
-          [(ngModel)]="item.descuento1"
-        (change)="calcularPrecioMasIva()"
-        />
-      </div>
-      <div class="form-label col-md-2">
-        <label for="inputFamilia">Descuento</label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputFamilia"
-          name="descuento2"
-          placeholder="..."
-          [(ngModel)]="item.descuento2"
-        (change)="calcularPrecioMasIva()"
-        />
-      </div>
-      <div class="form-label col-md-2">
-        <label for="inputFamilia">Descuento</label>
-        <input
-          type="text"
-          class="form-control"
-          name="descuento3"
-          id="inputFamilia"
-          placeholder="..."
-          [(ngModel)]="item.descuento3"
-        (change)="calcularPrecioMasIva()"
-        />
-      </div>
-      <div id="precioFinal" class=" col-md-3 ">
-        <label><b>Precio final</b></label>
-      <span> {{precioMasIva | number:'1.2-2'}}</span>
-    </div>
-       </div>
-
-       <div id="existencias" class="row text-center align-items-center justify-content-center d-flex">
-
-        <h5 class="fs-3 mt-2 ">Existencias</h5>
-        <div class="col-md-3 form-label">
-          <label for="inputFamilia">Minimo</label>
-          <input
-            type="text"
-            class="form-control"
-            id="inputFamilia"
-            placeholder="..."
-          />
-        </div>
-        <div class="col-md-3 form-label">
-          <label for="inputFamilia">Maximo</label>
-          <input
-            type="text"
-            class="form-control"
-            id="inputFamilia"
-            placeholder="..."
-          />
-        </div>
-        <div class="col-md-3 form-label">
-          <label for="inputFamilia">Reorden</label>
-          <input
-            type="text"
-            class="form-control"
-            id="inputFamilia"
-            placeholder="..."
-          />
-        </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6 mb-4">
-        <!-- IMAGEN PRINCIPAL -->
-        <div class=" mt-4 d-flex flex-column align-items-center justify-content-center">
-          <div *ngIf="uploadedImages.length > 0" class="text-center mp-3">
-            <img
-              class="img-fluid"
-              [src]="imgResultAfterResize"
-              alt="Imagen comprimida"
-              [style.width.px]="400"
-              [style.height.px]="250"
-            />
+          <div id="precio" class="row text-center">
+            <div class="col-md-2">
+              <label for="inputPrecio">Precio venta</label>
+              <input type="number" class="form-control" name="precio_venta" id="inputPrecio" placeholder="..." required
+                [(ngModel)]="item.precio_venta" (change)="calcularPrecioMasIva()" />
+            </div>
+            <div class="col-md-1">
+              <label for="inputFamilia">% IVA</label>
+              <input type="numero" name="IVA" class="form-control" id="inputFamilia" placeholder="..." required
+                [(ngModel)]="item.tasa_iva" (change)="calcularPrecioMasIva()" />
+            </div>
+            <div class="col-md-2">
+              <label for="inputFamilia">Descuento</label>
+              <input type="numero" name="descuento1" class="form-control" id="inputFamilia" placeholder="..." required
+                [(ngModel)]="item.descuento1" (change)="calcularPrecioMasIva()" />
+            </div>
+            <div class="col-md-2">
+              <label for="inputFamilia">Descuento</label>
+              <input type="text" class="form-control" id="inputFamilia" name="descuento2" placeholder="..."
+                [(ngModel)]="item.descuento2" (change)="calcularPrecioMasIva()" />
+            </div>
+            <div class="col-md-2">
+              <label for="inputFamilia">Descuento</label>
+              <input type="text" class="form-control" name="descuento3" id="inputFamilia" placeholder="..."
+                [(ngModel)]="item.descuento3" (change)="calcularPrecioMasIva()" />
+            </div>
+            <div id="precioFinal" class="col-md-3">
+              <label><b>Precio fina</b></label>
+              <span>{{precioMasIva | number:'1.2-2'}}</span>
+            </div>
           </div>
-          <div *ngIf="uploadedImages.length === 0" class="text-center mp-3">
-            <img
-              class="img-fluid"
-              src="assets\img\frutas-ejemplo.jpg"
-              alt="Imagen de muestra"
-              [style.width.px]="400"
-              [style.height.px]="250"
-            />
+
+          <div id="existencias" class="row text-center align-items-center justify-content-center d-flex">
+            <div class="col-md-3">
+              <label for="inputFamilia">Minimo</label>
+              <input type="text" class="form-control" id="inputFamilia" placeholder="..." />
+            </div>
+            <div class="col-md-3">
+              <label for="inputFamilia">Maximo</label>
+              <input type="text" class="form-control" id="inputFamilia" placeholder="..." />
+            </div>
+            <div class="col-md-3">
+              <label for="inputFamilia">Reorden</label>
+              <input type="text" class="form-control" id="inputFamilia" placeholder="..." />
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-        <!-- MINIATURAS -->
-        <div class="d-flex flex-row justify-content-center ">
-          <div *ngFor="let image of uploadedImages; let i = index" class="mb-2">
-            <img
-              style="cursor: pointer;"
-              class="img-thumbnail"
-              [src]="image"
-              alt="miniatura"
-              [style.width.px]="55"
-              [style.height.px]="55"
-              (click)="displayImage(i)"
-            />
+
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <!-- IMAGEN PRINCIPAL -->
+          <div class="mt-4 d-flex flex-column align-items-center justify-content-center">
+            <div *ngIf="uploadedImages.length > 0" class="text-center mp-3">
+              <img class="img-fluid" [src]="imgResultAfterResize" alt="Imagen comprimida" [style.width.px]="400"
+                [style.height.px]="250" />
+            </div>
+            <div *ngIf="uploadedImages.length === 0" class="text-center mp-3">
+              <img class="img-fluid" src="assets\img\frutas-ejemplo.jpg" alt="Imagen de muestra" [style.width.px]="400"
+                [style.height.px]="250" />
+            </div>
           </div>
         </div>
-        <div>
-          <button type="button" class="m-2 btn search-btn" (click)="uploadAndResize()" [disabled]="imageCount >= 5">
-            Subir imagen
-          </button>
+        <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+          <!-- MINIATURAS -->
+          <div class="d-flex flex-row justify-content-center">
+            <div *ngFor="let image of uploadedImages; let i = index" class="mb-2">
+              <img style="cursor: pointer;" class="img-thumbnail" [src]="image" alt="miniatura" [style.width.px]="55"
+                [style.height.px]="55" (click)="displayImage(i)" />
+            </div>
+          </div>
+          <div>
+            <button type="button" class="m-2 btn search-btn" (click)="uploadAndResize()"
+              [disabled]="imageCount >= 5">Subir imagen</button>
+          </div>
+          <button type="submit" class="col-md-3 btn general-btn">Guardar</button>
         </div>
-        <button type="submit" class="col-md-3 btn general-btn">Guardar</button>
       </div>
-    </div>
-
-
-  </form>
+    </form>
+  </div>
 </div>
-
-
-
-</div>
-
