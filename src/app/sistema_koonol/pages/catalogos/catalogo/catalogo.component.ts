@@ -96,9 +96,10 @@ export class CatalogoComponent {
 
 	//Función para añadir un producto al carrito de pedido
 	agregarProductoCarrito(item: Articulo) {
-		if (this.pedido.some(product => product.id_articulo = item.id_articulo)) {
+		const productoExistente = this.pedido.find(product => product.id_articulo === item.id_articulo);
+		if (productoExistente) {
 			console.log("hola", item.quantity);
-			item.quantity++
+			productoExistente.quantity++
 			console.log("hola", item.quantity);
 		} else {
 			item.quantity = 1
