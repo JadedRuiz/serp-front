@@ -89,6 +89,7 @@ export class CatalogoComponent {
 					let familias = resp.data
 					this.familiasActivas = familias.filter((familia: Familia) => familia.activo == 1)
 					this.itemsFiltrados()
+          console.log(this.filteredItems);
 				})
 			}
 		})

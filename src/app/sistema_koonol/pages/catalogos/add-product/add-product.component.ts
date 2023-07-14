@@ -112,8 +112,7 @@ guardarArticulo(productForm: NgForm){
   console.log(productForm.value);
   this.productService.obtenerArticulos();
     this.productService.agregarProducto(this.item).subscribe((objeto) => {
-      //console.log('guardar Art',objeto);
-      this.guardarFotos();
+      this.guardarFotos(objeto.id_articulo);
     });
 }
 
@@ -157,7 +156,7 @@ uploadAndResize() {
       .compressFile(image, orientation, 40, 40, 400, 400)
       .then((result: DataUrl) => {
         //let image = result.slice(22)
-        //console.log('image',image);
+        console.log('image',image);
         this.uploadedImages.push(image);
         this.imageCount++;
         console.warn('FINAL:', this.imageCompress.byteCount(result));
@@ -177,16 +176,8 @@ uploadAndResize() {
 
 
   //Guardar Fotos
-  guardarFotos(){
-    const fotos = this.uploadedImages.map((image)=>{
-     // console.log('Ws=>',image);
-        let imagen : string = image.slice(22)
-
-      return {
-        base64: imagen,
-      };
-    });
-    this.productService.guardarFotos(fotos).subscribe(
+  guardarFotos(id_articulo : any){
+    this.productService.guardarFotos(id_articulo, this.uploadedImages).subscribe(
       (resp)=>{
         console.log('Guardadas',resp);
       },

@@ -3,7 +3,7 @@
   (toggleModalVisibility)="toggleModalVisibility()"></app-orders-cart-modal>
 
   <div class="container shadow">
-    
+
     <h1 class="mb-2 title text-center m-4">PRODUCTOS</h1>
     <div class="search-bar row" [class.sticky]="isSticky" [class.active]="isSticky">
       <input type="text" class="search-input col-10 col-md-3" placeholder="Productos" [(ngModel)]="searchTitle">
@@ -11,18 +11,25 @@
       <button type="button" class="b search-btn" (click)="buscar()">BUSCAR</button>
       <button type="button" class="b add-btn" (click)="addProducto()">AGREGAR PRODUCTO</button>
     </div>
-    
+
     <div class="text-center" *ngIf="resultsNotFound" style="  color:red; font-size: 40px;">No se encontraron resultados.
     </div>
     <hr />
-    
-    
+
+
     <div class="cards">
       <div class="cards__card" *ngFor="let articulo of filteredItems" >
         <div class="card">
           <a type="button" class="mt-1 me-1 align-self-end btn_h " (click)="agregarProductoCarrito(articulo)">+</a>
-          <!-- <img [src]="articulo.imagenes[0].fotografia" alt="Producto"> -->
+          <img *ngIf="articulo.imagenes.length > 0" [src]="articulo.imagenes[0].fotografia" alt="Producto">
           <div class="card-content">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-3" *ngFor="let img of articulo.imagenes">
+                  <img [src]="img.fotografia" alt="">
+                </div>
+              </div>
+            </div>
             <div class="media">
               <div class="media-content">
                 <h1 class="title mb-1">{{ articulo.articulo }}</h1>
@@ -38,8 +45,8 @@
         </div>
       </div>
     </div>
-    
-    
+
+
     <!-- Modal -->
     <div id="modalProducto" class="modal" [class.is-active]="isModalOpen">
       <div class="modal-background"></div>
