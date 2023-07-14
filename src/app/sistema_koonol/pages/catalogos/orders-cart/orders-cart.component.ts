@@ -125,5 +125,6 @@ export class OrdersCartComponent {
   //Llamada a la función toggleModalVisibility que viene del componente catalogo
   useToggleModalVisibility() {
     this.toggleModalVisibility.emit()
+    this.toggleOrdersVisibility()
   }
 }

@@ -1,21 +1,11 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormControl, NgForm } from '@angular/forms';
+import { ClientsService } from 'src/app/services/clients/clients.service';
+import { GeolocationService } from '../maps/services';
+import { Client } from 'src/app/models/clients.model';
+import { Address } from 'src/app/models/addresses.model';
+import { Subscription, debounceTime } from 'rxjs';
 
-interface Address {
-  idAddress?: number,
-  name?: string,
-  street?: string,
-  numInt?: number,
-  numExt?: number,
-  cross?: string,
-  cross2?: string,
-  colony?: string,
-  city?: string,
-  municipality?: string,
-  state?: string,
-  zipcode?: number,
-  location?: string
-}
 @Component({
   selector: 'app-orders-cart-modal',
   templateUrl: './orders-cart-modal.component.html',
@@ -24,109 +14,119 @@ interface Address {
 
 export class OrdersCartModalComponent {
 
-  //MODAL BASE
-  @Output() toggleModalVisibility = new EventEmitter()
+  //DESPUÉS VENDRÁ DESDE ALGO QUE HARÁ JADED
+  miComprador = 1;
+  miToken = '';
+  miPefil = 'ADMINISTRADOR';
+  miUsuario = 1;
+
+  //VARIABLES FUNDAMENTALES EN LA APLICACIÓN
+  searchClientControl: FormControl = new FormControl();
+  searchClientSubscription: Subscription = new Subscription
+  clients: Client[] = []
+  addresses: Address[] = [];
+  coords: [number, number] = [0, 0]
+
+  constructor(
+    private clientService: ClientsService,
+    private geolocationService: GeolocationService
+  ) { }
 
   //Llamada a la función toggleModalVisibility que viene del componente catalogo
   useToggleModalVisibility() {
     this.toggleModalVisibility.emit()
   }
 
-  //MODAL PARA SELECCIONAR UN CLIENTE
-  //Estado para manipular la visibilidad del modal de seleccionar cliente
-  selectClientModal: boolean = true
+  //LLAMADA A LAS DIRECCIONES DE UN CLIENTE EN ESPECIAL
+  obtenerDireccion(id_cliente: number) {
+    this.clientService.obtenerDirecciones(id_cliente).subscribe(
+      (response) => {
+        if (response.ok) {
+          this.addresses = response.data;
+        } else {
+          console.log('Ocurrió un error', response.message);
+        }
+      },
+      (error) => {
+        console.log('Error de conexión', error);
+      }
+    );
+  }
 
-  keyword: string = 'name'
-  clients: {}[] = [
-    {
-      id: 1,
-      name: 'Juan Pérez López',
-      RFC: 'PELJ850512ABC'
-    },
-    {
-      id: 2,
-      name: 'María García Ramírez',
-      RFC: 'GARM900621XYZ'
-    },
-    {
-      id: 3,
-      name: 'Pedro López Hernández',
-      RFC: 'LOHP880228LMN'
-    },
-    {
-      id: 4,
-      name: 'Laura Martínez Rodríguez',
-      RFC: 'MARR750713IJK'
-    },
-    {
-      id: 5,
-      name: 'Carlos Rodríguez Sánchez',
-      RFC: 'ROSS910430DEF'
-    },
-    {
-      id: 6,
-      name: 'Ana Sánchez González',
-      RFC: 'SAGO850825GHI'
-    },
-    {
-      id: 7,
-      name: 'Luis González Ramírez',
-      RFC: 'GORJ920527JKL'
-    },
-    {
-      id: 8,
-      name: 'Mónica Hernández Martínez',
-      RFC: 'HEMA811124MNO'
-    },
-    {
-      id: 9,
-      name: 'Jorge Ramírez López',
-      RFC: 'RALJ880409PQR'
-    },
-    {
-      id: 10,
-      name: 'Silvia Torres Sánchez',
-      RFC: 'TOSS900602STU'
-    },
-    {
-      id: 11,
-      name: 'Alfonso Quintero Montenegro',
-      RFC: 'QUMA470929F37'
-    },
-    {
-      id: 12,
-      name: 'Ulises Cuevas Pérez',
-      RFC: 'CUPU800825569',
-    },
-    {
-      id: 13,
-      name: 'María Rodríguez López',
-      RFC: 'ROLM900103ABC'
-    },
-    {
-      id: 14,
-      name: 'Pedro González Ramírez',
-      RFC: 'GORP850225XYZ'
-    },
-    {
-      id: 15,
-      name: 'Laura Sánchez Martínez',
-      RFC: 'SAML880511LMN'
-    },
-    {
-      id: 16,
-      name: 'Carlos Martínez Sánchez',
-      RFC: 'MASC910712IJK'
-    },
-    {
-      id: 17,
-      name: 'Ana López Rodríguez',
-      RFC: 'LORA830620DEF'
+  //MODAL BASE
+  @Output() toggleModalVisibility = new EventEmitter()
+
+  //MODAL PARA SELECCIONAR UN CLIENTE
+  clienteVendedorModal: boolean = true
+  searchListCliente: boolean = false
+  loaderCliente: boolean = false
+  noClients: boolean = false
+  autocompleteClients: Client[] = []
+  selectedClient: Client = new Client(0, 0, this.miComprador, this.miToken, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, this.miUsuario, 1)
+  isClientSelected: boolean = false
+  addressSelected: Address = new Address(0, 0, 0, '', '', '', '', '', '', '', 0, '', '', '', '', '', '', 1);
+
+  //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE O RFC
+  buscarCliente(value: string) {
+    let json = {
+      id_cliente: 0,
+      id_comprador: this.miComprador,
+      cliente: '',
+      token: this.miToken,
     }
-  ]
+    if (value.length <= 3) {
+      this.autocompleteClients = [];
+      this.searchListCliente = false;
+    } else {
+      this.loaderCliente = true
+      this.searchListCliente = true;
+      this.clientService.obtenerClientes(json).subscribe(
+        (resp) => {
+          if (resp.ok) {
+            this.clients = resp.data
+            this.autocompleteClients = this.clients.filter((client) =>
+              client.cliente.toLowerCase().includes(value.toLowerCase()) ||
+              client.rfc?.toLowerCase().includes(value.toLowerCase())
+            );
+            console.log(this.autocompleteClients);
+            this.loaderCliente = false
+          }
+        },
+        (err) => {
+          console.log(err)
+          this.loaderCliente = false
+        }
+      );
+    }
+  }
+
+  //FUNCIÓN PARA ESCOGER UN CLIENTE Y GUARDAR SU ID EN addressSelected
+  seleccionarCliente(id_cliente: number) {
+    if (id_cliente) {
+      this.selectedClient = this.autocompleteClients.find(
+        (aclient) => aclient.id_cliente === id_cliente
+      )!;
+      this.searchClientControl.setValue(this.selectedClient.cliente)
+      this.isClientSelected = true;
+      this.obtenerDireccion(id_cliente);
+      this.searchListCliente = false;
+      this.addressSelected.id_cliente = id_cliente;
+      this.searchClientSubscription.unsubscribe();
+    } else {
+      return;
+    }
+  }
+
+  onFocusClientSearch() {
+    this.searchClientSubscription = this.searchClientControl.valueChanges
+    .pipe(debounceTime(500))
+    .subscribe((value) => {
+      this.buscarCliente(value);
+    });
+  }
 
   confirmClient() {
-    this.selectClientModal = false
+    this.clienteVendedorModal = false
     this.selectAddressModal = true
   }
 
@@ -134,132 +134,10 @@ export class OrdersCartModalComponent {
   //Estado para manipular la visibilidad del modal de seleccionar dirección
   selectAddressModal: boolean = false
 
-  addressSelected: Address = {}
-
-  addresses: Address[] = [
-    {
-      idAddress: 0,
-      name: 'Casa',
-      street: 'Calle Principal',
-      numInt: 0,
-      numExt: 10,
-      cross: 'Avenida Central',
-      cross2: 'Avenida Norte',
-      colony: 'Centro',
-      city: 'Ciudad de México',
-      municipality: 'Cuauhtémoc',
-      state: 'Ciudad de México',
-      zipcode: 12345,
-      location: 'Residencial'
-    },
-    {
-      idAddress: 1,
-      name: 'Trabajo',
-      street: 'Avenida Comercial',
-      numExt: 20,
-      numInt: 5,
-      cross: 'Calle Industrial',
-      cross2: 'Boulevard Tecnológico',
-      colony: 'Industrial',
-      city: 'Monterrey',
-      municipality: 'Monterrey',
-      state: 'Nuevo León',
-      zipcode: 67890,
-      location: 'Oficina'
-    },
-    {
-      idAddress: 2,
-      name: 'Vacaciones',
-      street: 'Playa Paraíso',
-      colony: 'Costa Azul',
-      city: 'Cancún',
-      municipality: 'Benito Juárez',
-      state: 'Quintana Roo',
-      zipcode: 54321,
-      location: 'Frente al mar'
-    },
-    {
-      idAddress: 3,
-      name: 'Apartamento',
-      street: 'Avenida Principal',
-      numExt: 15,
-      colony: 'Centro',
-      city: 'Guadalajara',
-      municipality: 'Guadalajara',
-      state: 'Jalisco',
-      zipcode: 98765,
-      location: 'Residencial'
-    },
-    {
-      idAddress: 4,
-      name: 'Oficina',
-      street: 'Calle Comercial',
-      numExt: 8,
-      cross: 'Avenida Industrial',
-      colony: 'Industrial',
-      city: 'Tijuana',
-      municipality: 'Tijuana',
-      state: 'Baja California',
-      zipcode: 43210,
-      location: 'Centro empresarial'
-    },
-    {
-      idAddress: 5,
-      name: 'Segunda Casa',
-      street: 'Avenida Playa',
-      numExt: 25,
-      cross: 'Calle Marina',
-      colony: 'Costa Dorada',
-      city: 'Puerto Vallarta',
-      municipality: 'Puerto Vallarta',
-      state: 'Jalisco',
-      zipcode: 13579,
-      location: 'Vacacional'
-    }
-  ];
-
   backToClientModal() {
-    this.selectClientModal = true
+    this.clienteVendedorModal = true
     this.selectAddressModal = false
   }
 
-  //MODAL PARA CREAR UNA DIRECCIÓN
-  ////Estado para manipular la visibilidad del modal de crear dirección
-  createAddressModal: boolean = false
-  newAddress: Address = {
-  }
-
-  openCreateAddress() {
-    this.selectAddressModal = false
-    this.createAddressModal = true
-  }
-
-  cancelCreateAddress() {
-    this.selectAddressModal = true
-    this.createAddressModal = false
-  }
-
-  createNewAddress(form: NgForm) {
-    if (form.valid) {
-      this.newAddress = {
-        name: form.value.name,
-        street: form.value.street,
-        numInt: form.value.numInt,
-        numExt: form.value.numExt,
-        cross: form.value.cross,
-        cross2: form.value.cross2,
-        colony: form.value.colony,
-        city: form.value.city,
-        municipality: form.value.municipality,
-        state: form.value.state,
-        zipcode: form.value.zipcode,
-        location: form.value.location
-      };
-      const newAdddressCopy = { ...this.newAddress };
-      this.addresses.push(newAdddressCopy);
-    }
-    this.createAddressModal = false;
-    this.selectAddressModal = true;
-  }
 }
 

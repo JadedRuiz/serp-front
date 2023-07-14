@@ -7,7 +7,6 @@ import { CatalogosRoutingModule } from './catalogos-routing.module';
 import { AlmacenesComponent } from './almacenes/almacenes.component';
 
 import { NgxImageCompressService } from 'ngx-image-compress';
-import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { CatalogoComponent } from './catalogo/catalogo.component';
 import { OrdersCartComponent } from './orders-cart/orders-cart.component';
 import { OrdersPlacedComponent } from './orders-placed/orders-placed.component';
@@ -40,10 +39,7 @@ import { SearchFamComponent } from './search-fam/search-fam.component';
     CommonModule,
     FormsModule,
     CatalogosRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
-    AutocompleteLibModule,
-
   ],
   providers : [NgxImageCompressService]
 })

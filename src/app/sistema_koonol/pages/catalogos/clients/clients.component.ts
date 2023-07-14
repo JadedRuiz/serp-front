@@ -104,29 +104,6 @@ export class ClientsComponent {
     }
   }
 
-
-  //LLAMADA A LOS CLIENTES
-  obtenerClientes() {
-    let json = {
-      id_cliente: 0,
-      id_comprador: this.miComprador,
-      cliente: '',
-      token: this.miToken,
-    };
-    this.clientService.obtenerClientes(json).subscribe(
-      (response) => {
-        if (response.ok) {
-          this.clients = response.data;
-        } else {
-          console.log('Ocurrió un error', response.message);
-        }
-      },
-      (error) => {
-        console.log('Error de conexión', error);
-      }
-    );
-  }
-
   //LLAMADA A LAS DIRECCIONES DE UN CLIENTE EN ESPECIAL
   obtenerDireccion(id_cliente: number) {
     this.clientService.obtenerDirecciones(id_cliente).subscribe(
@@ -226,28 +203,9 @@ export class ClientsComponent {
   searchList: boolean = false;
   loader: boolean = false
   noClients: boolean = false
-  addressSelected: Address = new Address(
-    0,
-    0,
-    0,
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    0,
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    1
-  );
+  addressSelected: Address = new Address(0, 0, 0, '', '', '', '', '', '', '', 0, '', '', '', '', '', '', 1);
 
-  //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE
+  //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE O RFC
   buscarCliente(value: string) {
     let json = {
       id_cliente: 0,

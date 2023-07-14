@@ -1,43 +1,35 @@
 <div class="orders-cart__modal">
-  <button
-    class="orders-cart__modal__close icon-btn"
-    (click)="useToggleModalVisibility()"
-  >
+  <button class="orders-cart__modal__close icon-btn" (click)="useToggleModalVisibility()">
     <i class="fa fa-times"></i>
   </button>
-  <div class="orders-modal__client" *ngIf="selectClientModal">
+
+  <div class="orders-modal__client" *ngIf="clienteVendedorModal">
     <h3 class="title text-center">¿Para qué cliente es el pedido?</h3>
     <!-- Autocomplete de clientes -->
     <div class="ng-autocomplete">
-      <ng-autocomplete
-        [data]="clients"
-        [searchKeyword]="keyword"
-        placeholder="Busca y selecciona el cliente"
-        [itemTemplate]="itemTemplate"
-        [notFoundTemplate]="notFoundTemplate"
-        [minQueryLength]="3"
-        [historyListMaxNumber]="10"
-      >
-      </ng-autocomplete>
-      <ng-template #itemTemplate let-item>
-        <a [innerHTML]="item.name"></a>
-      </ng-template>
-      <ng-template #notFoundTemplate let-notFound>
-        <div [innerHTML]="notFound"></div>
+      <input class="search-input" type="text" placeholder="Buscar cliente" aria-label="Buscar cliente"
+        aria-describedby="button-addon2" [formControl]="searchClientControl" (focus)="onFocusClientSearch()" />
+      <div class="search-loader w-100" *ngIf="loaderCliente; else clientsReady">
+        <i class="fas fa-spinner fa-pulse"></i>
+      </div>
+      <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
+        <h4>No se encontraron clientes</h4>
+      </div>
+      <ng-template #clientsReady>
+        <ul class="search-list" *ngIf="searchListCliente">
+          <li class="search-list__element" *ngFor="let client of autocompleteClients"
+            (click)="seleccionarCliente(client.id_cliente)">
+            {{ client.cliente }}
+          </li>
+        </ul>
       </ng-template>
     </div>
     <!-- Termina Autocomplete -->
     <div class="orders-cart__client__buttons mt-auto">
-      <button
-        class="orders-cart__client__btn-cancel danger-btn"
-        (click)="useToggleModalVisibility()"
-      >
+      <button class="orders-cart__client__btn-cancel danger-btn" (click)="useToggleModalVisibility()">
         Cancelar
       </button>
-      <button
-        class="orders-cart__client__btn-confirm general-btn"
-        (click)="confirmClient()"
-      >
+      <button class="orders-cart__client__btn-confirm general-btn" (click)="confirmClient()">
         Confirmar
       </button>
     </div>
@@ -48,13 +40,8 @@
       <div class="orders-cart__addresses-list">
         <div class="orders-cart__address" *ngFor="let address of addresses">
           <label>
-            <input
-              type="radio"
-              name="address"
-              [(ngModel)]="addressSelected"
-              [value]="address"
-            />
-            {{ address.street }}, {{ address.colony }}, {{ address.city }}
+            <input type="radio" name="address" [(ngModel)]="addressSelected" [value]="address" />
+            {{ address.direccion }}
           </label>
         </div>
       </div>

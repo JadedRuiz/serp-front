@@ -40,7 +40,11 @@
 }
 
 .ng-autocomplete {
-    width: min(80%, 500px);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-radius: 10px;
+    width: min(80%, 400px)
 }
 
 .orders-cart__client-select {
