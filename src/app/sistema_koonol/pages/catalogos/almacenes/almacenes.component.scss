@@ -143,10 +143,9 @@ div button:hover {
         .almacen__data-form,
         .almacen__address-form {
             background-color: white;
+            border: 1px solid rgb(0, 0, 0, 0.200);
             width: 100%;
             padding: 20px;
-            border: 1px solid rgb(0, 0, 0, 0.200);
-            border-radius: 0px 10px 10px 10px;
 
             .subtitle {
                 font-weight: bold;

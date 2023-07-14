@@ -82,7 +82,7 @@
 
 .btn_h:hover {
   background-color: var(--hover-base);
-} 
+}
 
 .search-btn, .add-btn {
   max-width: 250px;
@@ -108,6 +108,16 @@
   font-size: 1.3rem;
 }
 
+#image-card{
+  height: 250px;
+  width: min(100%, 350px);
+  display: flex;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
+}
 
 .search-input {
   width: 100%;

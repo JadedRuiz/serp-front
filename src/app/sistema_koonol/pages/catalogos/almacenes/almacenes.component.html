@@ -1,4 +1,4 @@
-<div class="almacenes container shadow row">
+<div class="almacenes container-fluid row">
   <div class="almacenes-container">
     <h1 class="text-center title m-0">ALMACENES</h1>
 
@@ -23,7 +23,7 @@
       </ng-template>
     </div>
     </div>
-    
+
     <div class="status col-12 col-md-4">
       <div *ngIf="status" class="status-inactive">
         <span>
@@ -48,8 +48,8 @@
       AGREGAR ALMACEN
     </button>
 </div>
-    
-    
+
+
 
     <div id="form-almacenes">
       <form class="almacen__form" #almaForm="ngForm" (ngSubmit)="guardarAlmacen(almaForm)">
