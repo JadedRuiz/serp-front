@@ -15,14 +15,15 @@
         <button class="search-btn" type="button" (click)="filtrarRutas()">
           <i class="bi bi-search"> </i> BUSCAR
         </button>
+        <div class="d-md ml-3 -flex align-self-end">
+          <button type="button" class="mb-2 add-btn" (click)="openModal()">
+            AGREGAR RUTA
+          </button>
+        </div>
       </div>
     </div>
 
-    <div class="d-md-flex align-self-end">
-      <button type="button" class="mb-2 add-btn" (click)="openModal()">
-        AGREGAR RUTA
-      </button>
-    </div>
+
 
     <div class="routes-cards">
       <div class="row">
