@@ -66,34 +66,34 @@
                 [(ngModel)]="item.tasa_iva" (change)="calcularPrecioMasIva()" />
             </div>
             <div class="col-md-2">
-              <label for="inputFamilia">Descuento</label>
+              <label for="inputFamilia">% Descuento</label>
               <input type="numero" name="descuento1" class="form-control" id="inputFamilia" placeholder="..." required
                 [(ngModel)]="item.descuento1" (change)="calcularPrecioMasIva()" />
             </div>
             <div class="col-md-2">
-              <label for="inputFamilia">Descuento</label>
+              <label for="inputFamilia">% Descuento</label>
               <input type="text" class="form-control" id="inputFamilia" name="descuento2" placeholder="..."
                 [(ngModel)]="item.descuento2" (change)="calcularPrecioMasIva()" />
             </div>
             <div class="col-md-2">
-              <label for="inputFamilia">Descuento</label>
+              <label for="inputFamilia">% Descuento</label>
               <input type="text" class="form-control" name="descuento3" id="inputFamilia" placeholder="..."
                 [(ngModel)]="item.descuento3" (change)="calcularPrecioMasIva()" />
             </div>
             <div id="precioFinal" class="col-md-3">
-              <label><b>Precio fina</b></label>
-              <span>{{precioMasIva | number:'1.2-2'}}</span>
+              <label><b>Precio final </b></label>
+              <span> {{precioMasIva | number:'1.2-2'}}</span>
             </div>
           </div>
 
           <div id="existencias" class="row text-center align-items-center justify-content-center d-flex">
             <div class="col-md-3">
-              <label for="inputFamilia">Minimo</label>
+              <label for="inputFamilia">Mínimo</label>
               <input type="text" class="form-control" id="inputFamilia" placeholder="..."
               [(ngModel)]="item.minimo" />
             </div>
             <div class="col-md-3">
-              <label for="inputFamilia">Maximo</label>
+              <label for="inputFamilia">Máximo</label>
               <input type="text" class="form-control" id="inputFamilia" placeholder="..."
               [(ngModel)]="item.maximo" />
             </div>
@@ -103,7 +103,7 @@
               [(ngModel)]="item.reorden"/>
             </div>
             <div class="col-md-3">
-              <label for="inputCodigo">Codigo de Barras</label>
+              <label for="inputCodigo">Codigo de barras</label>
               <input type="text" class="form-control"  placeholder="..."
               [(ngModel)]="item.codigo_barras"/>
             </div>
@@ -117,11 +117,11 @@
           <!-- IMAGEN PRINCIPAL -->
           <div class="mt-4 d-flex flex-column align-items-center justify-content-center">
             <div *ngIf="uploadedImages.length > 0" class="text-center mp-3">
-              <img class="img-fluid" [src]="imgResultAfterResize" alt="Imagen comprimida" [style.width.px]="400"
+              <img class="img-fluid shadow" [src]="imgResultAfterResize" alt="Imagen comprimida" [style.width.px]="400"
                 [style.height.px]="250" />
             </div>
             <div *ngIf="uploadedImages.length === 0" class="text-center mp-3">
-              <img class="img-fluid" src="assets\img\frutas-ejemplo.jpg" alt="Imagen de muestra" [style.width.px]="400"
+              <img class="img-fluid shadow" src="assets\img\frutas-ejemplo.jpg" alt="Imagen de muestra" [style.width.px]="400"
                 [style.height.px]="250" />
             </div>
           </div>
