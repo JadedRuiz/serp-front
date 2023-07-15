@@ -138,8 +138,8 @@ const resultado = (precioDescuento3 * (1 + tasaIVA / 100)).toFixed(2);
 
   //PARA LAS IMAGENES =>
 uploadAndResize() {
-  if (this.imageCount >= 5) {
-    alert('Solo se pueden subir un máximo de 5 imágenes');
+  if (this.imageCount >= 4) {
+    alert('Solo se pueden subir un máximo de 4 imágenes');
     return;
   }
 

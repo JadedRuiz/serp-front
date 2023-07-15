@@ -89,15 +89,23 @@
           <div id="existencias" class="row text-center align-items-center justify-content-center d-flex">
             <div class="col-md-3">
               <label for="inputFamilia">Minimo</label>
-              <input type="text" class="form-control" id="inputFamilia" placeholder="..." />
+              <input type="text" class="form-control" id="inputFamilia" placeholder="..."
+              [(ngModel)]="item.minimo" />
             </div>
             <div class="col-md-3">
               <label for="inputFamilia">Maximo</label>
-              <input type="text" class="form-control" id="inputFamilia" placeholder="..." />
+              <input type="text" class="form-control" id="inputFamilia" placeholder="..."
+              [(ngModel)]="item.maximo" />
             </div>
             <div class="col-md-3">
               <label for="inputFamilia">Reorden</label>
-              <input type="text" class="form-control" id="inputFamilia" placeholder="..." />
+              <input type="text" class="form-control" id="inputFamilia" placeholder="..."
+              [(ngModel)]="item.reorden"/>
+            </div>
+            <div class="col-md-3">
+              <label for="inputCodigo">Codigo de Barras</label>
+              <input type="text" class="form-control"  placeholder="..."
+              [(ngModel)]="item.codigo_barras"/>
             </div>
           </div>
         </div>
@@ -105,7 +113,7 @@
 
       <div class="row">
         <div class="col-md-6 mb-4">
-          
+
           <!-- IMAGEN PRINCIPAL -->
           <div class="mt-4 d-flex flex-column align-items-center justify-content-center">
             <div *ngIf="uploadedImages.length > 0" class="text-center mp-3">
@@ -125,8 +133,8 @@
           <div  class="d-flex flex-row justify-content-center">
             <div  *ngFor="let image of uploadedImages; let i = index" class="mb-2">
               <img style="cursor: pointer;" class="img-thumbnail" [src]="image" alt="miniatura"
-               [style.width.px]="95"
-                [style.height.px]="95" (click)="displayImage(i)" />
+               [style.width.px]="75"
+                [style.height.px]="75" (click)="displayImage(i)" />
                 <button class="btn btn-sm cancel-btn  translate-middle "
                 id="xImage" (click)="removeImage(i + 1)"><i class="fa fa-times-circle"></i></button>
             </div>
