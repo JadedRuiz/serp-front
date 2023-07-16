@@ -131,7 +131,7 @@ getFamStatusClass(activo: number): string {
 }
 
 getFamStatusText(activo: number): string {
-  return activo == 1? 'Activo' : 'Desactivado';
+  return activo == 1? 'ACTIVO' : 'DESACTIVADO';
 }
 
 openModal(){

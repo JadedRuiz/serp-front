@@ -6,6 +6,7 @@ import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
 import { Articulo } from 'src/app/models/articulo.model';
 import { FamiliasService } from 'src/app/services/familias/familias.service';
 import { Familia } from 'src/app/models/familias.model';
+import Swal from 'sweetalert2';
 
 @Component({
 	selector: 'app-catalogo',
@@ -91,7 +92,10 @@ export class CatalogoComponent {
 					this.itemsFiltrados()
           console.log(this.filteredItems);
 				})
-			}
+			}else{
+        Swal.fire('Ocurrio un error',resp.message,'error')
+        console.log('==>>');
+      }
 		})
 	}
 

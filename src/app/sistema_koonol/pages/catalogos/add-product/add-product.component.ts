@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { DataUrl, NgxImageCompressService, UploadResponse,} from 'ngx-image-compress';
 import { Product } from 'src/app/models/products.model';
 import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
@@ -22,6 +22,7 @@ import { Foto } from 'src/app/models/fotografias.model';
 
 
 export class AddProductComponent {
+
 
   imgResultAfterResize: string = '';
   uploadedImages: string[] = [];
@@ -109,11 +110,10 @@ obtenerAlmacenes(){
 
 //Para Productos
 guardarArticulo(productForm: NgForm){
-  console.log(productForm.value);
+  this.productService.agregarProducto(this.item).subscribe((objeto) => {
+    this.guardarFotos(objeto.id_articulo);
+  });
   this.productService.obtenerArticulos();
-    this.productService.agregarProducto(this.item).subscribe((objeto) => {
-      this.guardarFotos(objeto.id_articulo);
-    });
 }
 
 //Calcular Iva y aplicar descuentos

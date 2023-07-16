@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { EventEmitter, Injectable, Output, ViewChild } from '@angular/core';
 import { SERVER_API } from 'src/config/config';
 import { Product } from 'src/app/models/products.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -13,6 +13,7 @@ import { Articulo } from 'src/app/models/articulo.model';
   providedIn: 'root',
 })
 export class CatalogoService {
+  @ViewChild('productForm', {static:false})productForm!: any;
 
   private pedidoSubject = new BehaviorSubject<Articulo[]>([])
   pedido$ = this.pedidoSubject.asObservable()
@@ -61,12 +62,15 @@ obtenerArticulos(): Observable<any> {
       id_comprador: 1,
       articulo: '',
       token: '012354SDSDS01',
+      id_almacen: 1,
     };
+
     return this.http.post<any>(SERVER_API, parametros);
   }
 
 
-//Para guardar productos
+  //Para guardar productos
+  vaciarForm = false;
   agregarProducto(producto: Product) {
     let url =
       'https://serp-inventarios.serteza.com/public/api/articulos/guardarArticulo';
@@ -74,8 +78,9 @@ obtenerArticulos(): Observable<any> {
     return this.http.post(url, producto).pipe(
       map((resp :any) => {
         if(resp.ok){
-          console.log('service',resp);
+          //console.log('service',resp);
           Swal.fire('Exito al crear el Articulo', '', 'success');
+          this.vaciarForm = true;
           return resp.data;
         }else {
           Swal.fire({
@@ -93,6 +98,15 @@ obtenerArticulos(): Observable<any> {
       })
     );
   }
+
+//VaciarForm
+vForm(){
+  if(this.vaciarForm){
+    this.productForm.reset();
+this.vaciarForm = false;
+  }
+}
+
 
   //Para Guardar Fotografias
   guardarFotos(id_articulo : any, fotos :any): Observable<any>{
