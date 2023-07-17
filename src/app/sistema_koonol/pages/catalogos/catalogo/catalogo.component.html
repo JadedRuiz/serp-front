@@ -52,40 +52,62 @@
     </div>
 
 
-    <!-- Modal -->
-<div id="modalProducto" class="modal" [class.is-active]="isModalOpen">
-  <div class="modal-dialog">
-    <div class="modal-content">
+<!-- //MODAL -->
+<div id="modalProducto" class="modal" [class.is-active]="isModalOpen" (click)="clickFuera($event)">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content modal-product">
+      <!-- Modal Header -->
       <div class="modal-header">
-        <h5 class="modal-title">{{ selectedCard?.articulo }}</h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+        <h5 class="modal-title product-title mb-0">{{ selectedCard?.articulo }}</h5>
+        <button type="button" class="close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="modal-body">
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+
+      <!-- Modal Body -->
+      <div class="modal-body shadow">
+        <!-- Carrusel de imágenes -->
+        <div id="productCarousel" class="carousel slide carousel-wrap">
           <div class="carousel-inner">
-            <div class="carousel-item" *ngFor="let imagen of selectedCard?.imagenes">
-              <img [src]="imagen.fotografia" class="d-block w-100" alt="Imagen del producto">
+            <div class="carousel-item" *ngFor="let imagen of selectedCard?.imagenes; let i = index;"
+              [ngClass]="{'active': i === inicoSlide}">
+              <div class="product-image">
+                <img [src]="imagen.fotografia" alt="Imagen del producto">
+              </div>
             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+          <button class="carousel-control-prev" type="button" (click)="anteriorSlide()">
+            <span class="carousel-control-prev-icon" aria-hidden="true">
+              <i class="fa fa-chevron-left"></i>
+            </span>
+            <span class="visually-hidden">Anterior</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
+          <button class="carousel-control-next" type="button" (click)="siguienteSlide()">
+            <span class="carousel-control-next-icon" aria-hidden="true">
+              <i class="fa fa-chevron-right"></i>
+            </span>
+            <span class="visually-hidden">Siguiente</span>
           </button>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
-        <button type="button" class="btn btn-primary">Editar</button>
+
+        <!-- Información del producto -->
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <label class="font-weight-bold">Familia:</label>
+            <span> {{ selectedCard?.familia }}</span>
+          </div>
+          <div class="row ">
+            <label class="font-weight-bold">Precio:</label>
+            <span> {{ selectedCard?.precio_venta | currency: 'MX' }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+
+
 
 </div>
 <!-- Buscador -->
