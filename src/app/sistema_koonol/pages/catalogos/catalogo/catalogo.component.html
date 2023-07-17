@@ -22,15 +22,12 @@
         <div class="card">
           <a type="button" class="mt-1 me-1 align-self-end btn_h " (click)="agregarProductoCarrito(articulo)">+</a>
           <div id="image-card" class="img-thumbnail" >
-            <img *ngIf="articulo.imagenes.length == 0" src="../../../../../assets/img/imgK.png" alt="Producto">
-            <img *ngIf="articulo.imagenes.length > 0" [src]="articulo.imagenes[0].fotografia" alt="Producto">
+            <img *ngIf="articulo.imagenes.length == 0" src="../../../../../assets/img/imgK.png" alt="Producto" class="zoom-on" (click)="abrirModalConImagenes(articulo)">
+            <img *ngIf="articulo.imagenes.length > 0" [src]="articulo.imagenes[0].fotografia" alt="Producto" class="zoom-on" (click)="abrirModalConImagenes(articulo)">
           </div>
           <div class="card-content">
             <div class="container">
               <div class="row">
-                <!-- <div class="col-sm-3" *ngFor="let img of articulo.imagenes">
-                  <img [src]="img.fotografia" alt="">
-                </div> -->
               </div>
             </div>
             <div class="media">
@@ -56,55 +53,40 @@
 
 
     <!-- Modal -->
-    <div id="modalProducto" class="modal" [class.is-active]="isModalOpen">
-      <div class="modal-background"></div>
-      <div class="modal-content" *ngIf="selectedCard">
-        <button class="modal-close is-large" aria-label="close" (click)="closeModal()"></button>
-        <div class="box">
-          <div class="media">
-            <div class="media-left">
-              <figure class="image ">
-                <img src="https://koonol.mx/KN/public/segmentos/lacteos.png" alt="Producto">
-              </figure>
+<div id="modalProducto" class="modal" [class.is-active]="isModalOpen">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ selectedCard?.articulo }}</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item" *ngFor="let imagen of selectedCard?.imagenes">
+              <img [src]="imagen.fotografia" class="d-block w-100" alt="Imagen del producto">
             </div>
-            <div class="media-content">
-              <p class="title">{{ selectedCard.articulo }}</p>
-              <p class="fam"> Familia: <b>{{ selectedCard.familia }}</b></p>
-              <p>Price: <b>{{ selectedCard.precio_venta | currency: 'MEX' }}</b></p>
-            </div>
-            <button class=" btn general-btn" type="submit">EDITAR</button>
           </div>
-          <table class="table is-bordered is-fullwidth">
-            <thead>
-              <tr>
-                <th>Almacen</th>
-                <th>Ubicacion</th>
-                <th>Precio</th>
-                <th>Unidad</th>
-                <th>Descuento</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Norte</td>
-                <td>Ubicacion 1</td>
-                <td>$10.00</td>
-                <td>costal (20kg)</td>
-                <td>15%</td>
-              </tr>
-              <tr>
-                <td>SurEste</td>
-                <td>Ubicacion 2</td>
-                <td>$15.00</td>
-                <td>kg</td>
-                <td>20%</td>
-              </tr>
-              <!--Argegar filas -->
-            </tbody>
-          </table>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
+        <button type="button" class="btn btn-primary">Editar</button>
+      </div>
     </div>
+  </div>
+</div>
+
 </div>
 <!-- Buscador -->
 

@@ -129,6 +129,14 @@
   height: 50px;
 }
 
+.zoom-on {
+  transition: transform 0.3s; /* Agregamos una transición para suavizar el efecto */
+}
+
+.zoom-on:hover {
+  transform: scale(1.1); /* Escalamos la imagen al 110% cuando el usuario hace hover */
+}
+
 
 
 
