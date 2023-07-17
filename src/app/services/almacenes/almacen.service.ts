@@ -43,7 +43,31 @@ export class AlmacenService {
           })
         );
     }
-
+    activarAlmacen(id_almacen: number, activo: number) {
+      let url = 'https://serp-inventarios.serteza.com/public/api/almacenes/activarAlmacen?id_almacen=' + id_almacen;
+      return this.http.post(url, '').pipe(
+        map((resp: any) => {
+          let mensaje = activo == 0 ? 'Activado' : 'Desactivado';
+          Swal.fire({
+            position: 'center',
+            icon:'success',
+            title: `El almacen fue ${mensaje}`,
+          });
+          console.log(resp);
+          return resp.data;
+        }),
+        catchError((error: any) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Error',
+            text: 'Ha ocurrido un error',
+          });
+          console.error(error);
+          return throwError(error);
+        })
+      );
+    }
 
 
 }

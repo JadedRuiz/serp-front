@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
-import { debounceTime } from 'rxjs';
+import { Observable, debounceTime } from 'rxjs';
 import { Address } from 'src/app/models/addresses.model';
 import { adress_Almacen } from 'src/app/models/adress-almacen.model';
 import { Almacen } from 'src/app/models/almacen.model';
 import { AlmacenService } from 'src/app/services/almacenes/almacen.service';
+import { SERV_ALMACEN } from 'src/config/config';
 
 
 
@@ -105,7 +106,43 @@ export class AlmacenesComponent {
   }
 
   // =>
+  // ACTIVAR/DESACTIVAR VENDEDOR
+  activarAlmacen(id_almacen: number, activo:number) {
+    let json = {
+      id_almacen: 0,
+      id_comprador: 1,
+      almacen: '',
+      solo_activos: 1,
+      token: '012354SDSDS01',
+    };
 
+    this.almaService.activarAlmacen(id_almacen, activo).subscribe((objeto) => {
+      this.almaService.obtenerAlmacenes(json);
+      console.log('vend=>', this.almacen.activo);
+    });
+}
+
+//Activo
+almacenIsActive: boolean = false;
+updateAlmacenStatus() {
+this.autocompleteAlmacen.forEach(almacen => {
+  if (almacen.activo === 1) {
+    almacen.vendedorIsActive = true;
+  } else {
+    almacen.vendedorIsActive = false;
+  }
+});
+}
+
+
+
+getAlmacenStatusClass(activo: number): string {
+  return activo == 1 ? 'btn-success' : 'btn-danger';
+}
+
+getAlmacenStatusText(activo: number): string {
+  return activo == 1 ? 'ACTIVADO' : 'DESACTIVADO';
+}
 
 
 
@@ -166,7 +203,7 @@ export class AlmacenesComponent {
     })
   }
 
-  obtenerAlmacenes() {
+  obtenerAlmacenes(){
     let json = {
       id_almacen: 0,
       id_comprador: 1,
@@ -174,13 +211,14 @@ export class AlmacenesComponent {
       solo_activos: 1,
       token: '012354SDSDS01',
     };
+
     this.almaService.obtenerAlmacenes(json).subscribe(
       (response) => {
         //=> console.log('=>',response.data);
         if (response.ok) {
           this.setearAlmacen(response)
         } else {
-          console.log('Ocurrió un error', response.message);
+          console.log('Ocurrió un error', response.message);    
         }
       },
       (error) => {
