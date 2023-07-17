@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener,ElementRef,ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@data/services/auth/auth.service';
 import { Product } from 'src/app/models/products.model';
@@ -14,7 +14,30 @@ import { AddProductComponent } from '../add-product/add-product.component';
 	templateUrl: './catalogo.component.html',
 	styleUrls: ['./catalogo.component.scss'],
 })
-export class CatalogoComponent {
+export class CatalogoComponent implements OnInit{
+
+//referencia para el modal
+@ViewChild('modalProducto') modalProducto!: ElementRef;
+	// Para el Modal
+	openModal(item: any) {
+		this.selectedCard = item;
+		this.isModalOpen = true;
+	}
+
+	closeModal() {
+		this.isModalOpen = false;
+	}
+//MODAL
+abrirModalConImagenes(articulo: any){
+  // Establecemos el objeto selectedCard con el producto seleccionado
+  this.selectedCard = articulo;
+
+  // Abrimos el modal estableciendo la variable isModalOpen en true
+  this.isModalOpen = true;
+
+  // Desplazamos el scroll hacia arriba para que el usuario vea el contenido del modal
+  this.modalProducto.nativeElement.scrollIntoView();
+}
 
 	//Variable para almacenar los productos del pedido para el carrito
 	pedido: Articulo[] = [];
@@ -147,15 +170,7 @@ editarArt(id_articulo:any){
 
 
 
-	// Para el Modal
-	openModal(item: any) {
-		this.selectedCard = item;
-		this.isModalOpen = true;
-	}
 
-	closeModal() {
-		this.isModalOpen = false;
-	}
 
 	//Para el boton .
 	addProducto() {
