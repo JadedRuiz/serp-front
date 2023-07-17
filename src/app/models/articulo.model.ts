@@ -18,5 +18,6 @@ export class Articulo {
   public quantity: number,
   public imagenes:Foto[],
   public precio_venta_formateado: string,
+  
   ){}
 }
