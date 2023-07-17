@@ -56,7 +56,7 @@ abrirModalConImagenes(articulo: any){
 	}
 
 	articulos: Articulo[] = [];
-	articulo: Articulo = new Articulo(0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '', true, 0, [], '');
+	articulo: Articulo = new Articulo(0, 0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '', true, 0, [], '');
 
 	//  Lista de elementos
 	items: Product[] = [];
@@ -125,7 +125,7 @@ abrirModalConImagenes(articulo: any){
 
 	//Función para añadir un producto al carrito de pedido
 	agregarProductoCarrito(item: Articulo) {
-		const productoExistente = this.pedido.find(product => product.id_articulo === item.id_articulo);
+		const productoExistente = this.pedido.find(product => product.id_existencia === item.id_existencia);
 		if (productoExistente) {
 			productoExistente.quantity++
 		} else {

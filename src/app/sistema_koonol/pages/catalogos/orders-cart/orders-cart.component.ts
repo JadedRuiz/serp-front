@@ -116,7 +116,7 @@ export class OrdersCartComponent {
 
   //Función para eliminar producto del carrito
   deleteProduct(item: Articulo) {
-    const index = this.pedido.findIndex((articulo) => articulo.id_articulo === item.id_articulo);
+    const index = this.pedido.findIndex((articulo) => articulo.id_existencia === item.id_existencia);
     if (index !== -1) {
       this.pedido.splice(index, 1);
       sessionStorage.setItem('pedido', JSON.stringify(this.pedido))
