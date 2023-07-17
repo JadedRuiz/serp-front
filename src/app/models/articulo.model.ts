@@ -16,6 +16,7 @@ export class Articulo {
   public medida:string,
   public familiaActiva: boolean,
   public quantity: number,
-  public imagenes:Foto[]
+  public imagenes:Foto[],
+  public precio_venta_formateado: string,
   ){}
 }
