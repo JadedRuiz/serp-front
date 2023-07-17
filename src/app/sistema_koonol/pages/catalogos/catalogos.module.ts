@@ -17,6 +17,7 @@ import { RoutesComponent } from './routes/routes.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { VendedoresComponent } from './vendedores/vendedores.component';
 import { SearchFamComponent } from './search-fam/search-fam.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 
@@ -40,6 +41,7 @@ import { SearchFamComponent } from './search-fam/search-fam.component';
     FormsModule,
     CatalogosRoutingModule,
     ReactiveFormsModule,
+    BsDatepickerModule
   ],
   providers : [NgxImageCompressService]
 })

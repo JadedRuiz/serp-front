@@ -3,8 +3,8 @@
     <h1 class="text-center title m-0">ALMACENES</h1>
 
 <div class="row">
-  <div class="almacenes__search-bar col-12 col-md-4">
-    <div class="d-flex flex-column">
+  <div class="almacenes__search-bar">
+    <div class="d-flex">
       <input class="search-input" type="text" placeholder="Buscar Almacen" aria-label="Buscar Almacen"
         aria-describedby="button-addon2" [formControl]="searchAlmacenControl" />
       <div class="search-loader w-100" *ngIf="loader; else almacenesReady">
@@ -22,17 +22,17 @@
         </ul>
       </ng-template>
     </div>
-    </div>
+    
 
     <button type="button" class="btn" [ngClass]="getAlmacenStatusClass(almacen.activo)" [attr.aria-pressed]="almacen.activo === 1 ? 'true' : 'false'" (click)="activarAlmacen(almacen.id_almacen, almacen.activo)">
       {{ getAlmacenStatusText(almacen.activo) }}
     </button>
 
-    <button type="button" id="add-almacen" class="add-btn col-12 col-md-4" (click)="agregarNvoAlmacen()">
+    <button type="button" id="add-almacen" class="add-btn" (click)="agregarNvoAlmacen()">
       AGREGAR ALMACEN
     </button>
 </div>
-
+</div>
 
 
     <div id="form-almacenes">

@@ -4,8 +4,30 @@
   </button>
 
   <div class="orders-modal__client" *ngIf="clienteVendedorModal">
-    <h3 class="title text-center">¿Para qué cliente es el pedido?</h3>
+    <!-- Autocomplete de vendedores -->
+    <h3 class="title text-center" *ngIf="!selectSellerVisibility">¿Qué vendedor está haciendo el pedido?</h3>
+    <div class="ng-autocomplete mb-6" *ngIf="!selectSellerVisibility">
+      <input class="search-input" type="text" placeholder="Buscar vendedor" aria-label="Buscar vendedor"
+        aria-describedby="button-addon2" [formControl]="searchSellerControl" (focus)="onFocusSellerSearch()"/>
+      <div class="search-loader w-100" *ngIf="loaderSeller; else sellersReady">
+        <i class="fa fa-spinner fa-pulse"></i>
+      </div>
+      <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
+        <h4>No se encontraron vendedores</h4>
+      </div>
+      <ng-template #sellersReady>
+        <ul class="search-list" *ngIf="searchListSeller">
+          <li class="search-list__element" *ngFor="let seller of autocompleteSellers"
+            (click)="seleccionarVendedor(seller.id_vendedor)">
+            {{ seller.vendedor }}
+          </li>
+        </ul>
+      </ng-template>
+    </div>
+    <!-- Termina Autocomplete -->
+
     <!-- Autocomplete de clientes -->
+    <h3 class="title text-center">¿Para qué cliente es el pedido?</h3>
     <div class="ng-autocomplete">
       <input class="search-input" type="text" placeholder="Buscar cliente" aria-label="Buscar cliente"
         aria-describedby="button-addon2" [formControl]="searchClientControl" (focus)="onFocusClientSearch()" />
@@ -25,11 +47,12 @@
       </ng-template>
     </div>
     <!-- Termina Autocomplete -->
+    <input type="text" class="form-control search-input" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
     <div class="orders-cart__client__buttons mt-auto">
-      <button class="orders-cart__client__btn-cancel danger-btn" (click)="useToggleModalVisibility()">
+      <button class="danger-btn" (click)="useToggleModalVisibility()">
         Cancelar
       </button>
-      <button class="orders-cart__client__btn-confirm general-btn" (click)="confirmClient()">
+      <button class="general-btn" [ngClass]="{'button-disabled': !isSellerSelected || !isClientSelected}" (click)="confirmClient()" [disabled]="!isClientSelected || !isSellerSelected">
         Confirmar
       </button>
     </div>

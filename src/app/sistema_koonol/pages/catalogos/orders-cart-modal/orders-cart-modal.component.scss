@@ -44,7 +44,11 @@
     flex-direction: column;
     position: relative;
     border-radius: 10px;
-    width: min(80%, 400px)
+    width: min(80%, 400px);
+
+    .search-list {
+        max-height: 200px;
+    }
 }
 
 .orders-cart__client-select {
@@ -54,11 +58,19 @@
     border-radius: 5px;
 }
 
+.custom-datepicker {
+    width: 80%;
+}
+
 .orders-cart__client__buttons {
     margin-right: 10px;
     align-self: flex-end;
     display: flex;
     gap: 20px;
+
+    .button-disabled {
+        background-color: grey;
+    }
 
     // .orders-cart__client__btn-cancel,
     // .orders-cart__client__btn-confirm {
