@@ -11,10 +11,16 @@ import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
 export class OrdersCartComponent {
 
   pedido: Articulo[] = []
-  
+  formatter: any;
+
   constructor(private catalogo: CatalogoService) { }
 
   ngOnInit(): void {
+    this.formatter = new Intl.NumberFormat('en-NZ', {
+      currency: 'NZD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })
     this.catalogo.pedido$.subscribe(pedido => {
       this.pedido = pedido
       this.getTotal();
@@ -63,9 +69,9 @@ export class OrdersCartComponent {
   }
 
   //Función para obtener el total de cada item multiplicándose por su cantidad
-  getTotalPerItem(item: any) {
-    this.totalPerItem = item.price * item.quantity
-  }
+  // getTotalPerItem(item: any) {
+  //   this.totalPerItem = item.price * item.quantity
+  // }
 
   //Función para obtener el subtotal del pedido
   getSubtotal() {
@@ -73,6 +79,7 @@ export class OrdersCartComponent {
     for (let item of this.pedido) {
       this.price = item.precio_venta
       this.subtotal += this.price * item.quantity
+      item.precio_venta_formateado = this.formatter.format(this.price)
     }
     this.getTotal()
   }
@@ -81,6 +88,7 @@ export class OrdersCartComponent {
   getTotal() {
     this.total = 0
     this.total = this.subtotal - this.discounts
+    this.total = this.formatter.format(this.total)
   }
 
   //Estado para manejar el CSS del botón decrease
@@ -108,7 +116,7 @@ export class OrdersCartComponent {
 
   //Función para eliminar producto del carrito
   deleteProduct(item: Articulo) {
-    const index = this.pedido.findIndex((articulo) => articulo.id_articulo === item.id_articulo);
+    const index = this.pedido.findIndex((articulo) => articulo.id_existencia === item.id_existencia);
     if (index !== -1) {
       this.pedido.splice(index, 1);
       sessionStorage.setItem('pedido', JSON.stringify(this.pedido))

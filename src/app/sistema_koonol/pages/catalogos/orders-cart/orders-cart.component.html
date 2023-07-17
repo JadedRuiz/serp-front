@@ -1,12 +1,10 @@
-<button type="button" class="orders-cart-btn icon-btn" *ngIf="!ordersVisibility"
-  (click)="toggleOrdersVisibility()">
+<button type="button" class="orders-cart-btn icon-btn" *ngIf="!ordersVisibility" (click)="toggleOrdersVisibility()">
   <i class="fa fa-shopping-cart"></i>
 </button>
-<!-- <ng-template #closeCart> -->
-  <button type="button" class="orders-cart-btn icon-btn" #closeCart (click)="toggleOrdersVisibility()" *ngIf="!cerrarCarrito">
-    <i class="fa fa-times"></i>
-  </button>
-<!-- </ng-template> -->
+<button type="button" class="orders-cart-btn icon-btn" #closeCart (click)="toggleOrdersVisibility()"
+  *ngIf="!cerrarCarrito">
+  <i class="fa fa-times"></i>
+</button>
 <div *ngIf="ordersVisibility" [ngClass]="{'orders-cart-container': true , 'slider-reverse' : cerrarCarrito}">
   <div class="orders-cart">
     <div class="orders-cart__empty" *ngIf="isCartEmpty">
@@ -21,14 +19,16 @@
       <h2 class="orders-cart__title">PEDIDOS</h2>
       <!-- Sección 2 -->
       <div class="orders-cart__products">
-        <article class="orders-cart__product" *ngFor="let item of pedido">
-          <div class="d-flex flex-row">
-            <img src="https://koonol.mx/KN/public/segmentos/lacteos.png" alt="imagen de un producto"
-              class="orders-cart_product_image" />
-            <section class="">
-              <h2 class="">{{ item.articulo}}</h2>
-              <h4 class="">{{ item.familia }}</h4>
-              <section class="orders-cart_product__quantity_box">
+        <article class="orders-cart__product row" *ngFor="let item of pedido">
+          <div class="orders-cart__product-section1">
+            <div class="cart__product-image">
+              <img *ngIf="item.imagenes.length == 0" src="../../../../../assets/img/imgK.png">
+              <img *ngIf="item.imagenes.length > 0" [src]="item.imagenes[0].fotografia" alt="imagen de un producto" />
+            </div>
+            <section class="cart__product-info">
+              <h2>{{ item.articulo}}</h2>
+              <h4>{{ item.familia }}</h4>
+              <section class="quantity-box">
                 <i class="fa fa-minus-circle btn-decrease" (click)="decreaseItemQuantity(item)"></i>
                 <p class="orders-cart_product_quantity">
                   {{ item.quantity }}
@@ -37,11 +37,11 @@
               </section>
             </section>
           </div>
-          <button class="orders-cart_product_btn-delete" (click)="deleteProduct(item)">
-            <i class="fa fa-trash-o"></i>
-          </button>
-          <div class="orders-cart__product-price-box">
-            <h3 class="orders-cart__product-price">${{ item.precio_venta }}</h3>
+          <div class="orders-cart__product-section2">
+            <button class="orders-cart_product_btn-delete" (click)="deleteProduct(item)">
+              <i class="fa fa-trash-o"></i>
+            </button>
+            <h3 class="orders-cart__product-price">${{ item.precio_venta_formateado }}</h3>
           </div>
         </article>
       </div>
