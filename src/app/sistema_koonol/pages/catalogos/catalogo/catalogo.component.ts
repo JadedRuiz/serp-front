@@ -16,8 +16,9 @@ import { AddProductComponent } from '../add-product/add-product.component';
 })
 export class CatalogoComponent implements OnInit{
 
+
 //referencia para el modal
-@ViewChild('modalProducto') modalProducto!: ElementRef;
+@ViewChild('modalProducto') modalProducto: ElementRef | undefined;
 	// Para el Modal
 	openModal(item: any) {
 		this.selectedCard = item;
@@ -28,16 +29,39 @@ export class CatalogoComponent implements OnInit{
 		this.isModalOpen = false;
 	}
 //MODAL
-abrirModalConImagenes(articulo: any){
-  // Establecemos el objeto selectedCard con el producto seleccionado
+inicoSlide: number =0;
+abrirModalConImagenes(articulo: any) {
   this.selectedCard = articulo;
-
-  // Abrimos el modal estableciendo la variable isModalOpen en true
   this.isModalOpen = true;
-
-  // Desplazamos el scroll hacia arriba para que el usuario vea el contenido del modal
-  this.modalProducto.nativeElement.scrollIntoView();
+  this.inicoSlide = 0;
 }
+siguienteSlide(){
+  this.inicoSlide = (this.inicoSlide + 1) % this.selectedCard?.imagenes.length;
+}
+
+anteriorSlide() {
+  this.inicoSlide = (this.inicoSlide - 1 + this.selectedCard?.imagenes.length) % this.selectedCard?.imagenes.length;
+}
+
+
+
+clickFuera(event: MouseEvent){
+  const cosito = event.target as HTMLElement;
+  const modalcin = document.querySelector('.modal-content')as HTMLElement;
+
+if (!modalcin.contains(cosito)){
+  this.closeModal();
+}else{
+  event.stopPropagation();
+}
+
+}
+
+
+
+
+
+
 
 	//Variable para almacenar los productos del pedido para el carrito
 	pedido: Articulo[] = [];

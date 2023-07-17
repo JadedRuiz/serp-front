@@ -40,37 +40,37 @@ producto: Product | undefined;
 
     ngOnInit() {
       //Editar
-      const idArticulo = this.route.snapshot.params['id'];
-      this.productService.obtenerArticuloId(idArticulo).subscribe(
-        (producto:Product)=>{
-          this.producto = producto;
-          //Asignando los valores al form
-          this.item = new Product(
-            producto.id_articulo,
-            producto.id_comprador,
-            producto.token,
-            producto.articulo,
-            producto.id_almacen,
-            producto.id_medida,
-            producto.id_familia,
-            producto.id_prodserv_sat,
-            producto.tasa_iva,
-            producto.codigo_barras,
-            producto.activo,
-            producto.id_usuario,
-            producto.id_existencia,
-            producto.precio_venta,
-            producto.descuento1,
-            producto.descuento2,
-            producto.descuento3,
-            producto.minimo,
-            producto.maximo,
-            producto.reorden,
-            producto.peso_producto,
-            producto.imagenes
-          );
-        }
-      );
+      // const idArticulo = this.route.snapshot.params['id'];
+      // this.productService.obtenerArticuloId(idArticulo).subscribe(
+      //   (producto:Product)=>{
+      //     this.producto = producto;
+      //     //Asignando los valores al form
+      //     this.item = new Product(
+      //       producto.id_articulo,
+      //       producto.id_comprador=1,
+      //       producto.token="012354SDSDS01",
+      //       producto.articulo,
+      //       producto.id_almacen,
+      //       producto.id_medida,
+      //       producto.id_familia,
+      //       producto.id_prodserv_sat=1,
+      //       producto.tasa_iva,
+      //       producto.codigo_barras,
+      //       producto.activo,
+      //       producto.id_usuario,
+      //       producto.id_existencia,
+      //       producto.precio_venta,
+      //       producto.descuento1,
+      //       producto.descuento2,
+      //       producto.descuento3,
+      //       producto.minimo,
+      //       producto.maximo,
+      //       producto.reorden,
+      //       producto.peso_producto,
+      //       producto.imagenes
+      //     );
+      //   }
+      // );
 
 
       this.obtenerFamilias()
@@ -142,7 +142,7 @@ obtenerAlmacenes(){
 })
 }
 
-//Para Productos
+//Para  guardar Productos
 guardarArticulo(productForm: NgForm){
   this.productService.agregarProducto(this.item).subscribe((objeto) => {
     this.guardarFotos(objeto.id_articulo);

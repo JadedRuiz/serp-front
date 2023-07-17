@@ -9,18 +9,6 @@
   text-align: center;
 }
 
-// @keyframes fadeIn {
-//   0% {
-//     opacity: 0;
-//     transform: translateY(-20px);
-//   }
-
-//   100% {
-//     opacity: 1;
-//     transform: translateY(0);
-//   }
-// }
-
 /* Estilos para los inputs y botones de la barra */
 .search-bar {
 
@@ -35,34 +23,7 @@
   gap: 10px;
 }
 
-// .search-bar.sticky {
-//   animation: fade-in 1.3s forwards;
-//   opacity: 0;
-// }
 
-// @keyframes fade-in {
-//   from {
-//     opacity: 0;
-//   }
-
-//   to {
-//     opacity: 1;
-//   }
-// }
-
-// .search-bar.sticky:not(.active) {
-//   animation: fade-out 1.3s forwards;
-// }
-
-// @keyframes fade-out {
-//   from {
-//     opacity: 1;
-//   }
-
-//   to {
-//     opacity: 0;
-//   }
-// }
 
 //BOTON => ' + '  <=
 .btn_h {
@@ -80,7 +41,8 @@
   position: absolute;
   right: 9px;
   top: 5px;
-  z-index: 1;
+  pointer-events: auto;
+  z-index: 2;
 }
 
 .btn_h:hover {
@@ -108,7 +70,7 @@
 
 // CARD
 .card-price {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 #image-card{
@@ -131,12 +93,165 @@
 }
 
 .zoom-on {
-  transition: transform 0.3s; /* Agregamos una transición para suavizar el efecto */
+  transition: transform 0.4s; /* Agregamos una transición para suavizar el efecto */
 }
 
 .zoom-on:hover {
-  transform: scale(1.1); /* Escalamos la imagen al 110% cuando el usuario hace hover */
+  transform: scale(-0.1); /* Escalamos la imagen al 110% cuando el usuario hace hover */
 }
+/* Estilos para la card */
+.card {
+  /* Otros estilos de la card */
+  overflow: hidden; /* Para ocultar el contenido que se desborde de la card */
+  position: relative; /* Para posicionar el pseudo-elemento de sombra */
+}
+
+/* Estilos para la imagen */
+.card img {
+  width: 100%; /* Tamaño inicial de la imagen */
+  height: auto;
+  transition: transform 0.4s;
+  pointer-events: auto;
+}
+
+/* Estilos para la sombra al hacer hover */
+.card::before {
+  content: ''; /* Agregamos un pseudo-elemento para crear la sombra */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.014);
+  transition: opacity 0.4s;
+  opacity: 0;
+  pointer-events: auto;
+}
+/* Estilos para la card */
+.card {
+  overflow: hidden;
+  position: relative;
+}
+
+/* Estilos para la imagen */
+.card img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.4s;
+}
+
+/* Estilos para la sombra al hacer hover */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.048);
+  transition: opacity 0.4s;
+  opacity: 0;
+  pointer-events: auto;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Zoom hacia dentro de la imagen al hacer hover en la card */
+.card:hover img {
+  transform: scale(1.1);
+}
+
+
+
+
+
+
+.modal-product {
+  .modal-dialog {
+    max-width: 800px; /* Ajusta el ancho máximo del modal */
+  }
+
+  .modal-content {
+    border-radius: 13px; /* Agrega bordes redondeados al modal */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Agrega sombra al modal */
+  }
+
+  .modal-header {
+    background-color: #f8f9fa; /* Cambia el color del fondo del header */
+    border-bottom: none; /* Elimina el borde inferior del header */
+  }
+
+  .modal-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .modal-body {
+    padding: 20px;
+  }
+
+  .carousel-wrap {
+    max-height: 400px; /* Ajusta la altura máxima del carrusel */
+    overflow: hidden;
+    position: relative;
+  }
+
+  .carousel-inner {
+    display: flex; /* Muestra los elementos del carrusel en línea */
+    transition: transform 0.4s; /* Agrega una transición suave al carrusel */
+  }
+
+  .carousel-item {
+    flex: 0 0 100%; /* Hace que cada elemento ocupe el ancho completo */
+    margin-right: 20px; /* Agrega un espacio entre los elementos del carrusel */
+    border-radius: 5px;
+    overflow: hidden; /* Oculta cualquier contenido que se desborde del carrusel */
+  }
+
+  .product-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ajusta las imágenes para que cubran todo el espacio */
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%; /* Hace los controles circulares */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .carousel-control-prev {
+    left: -30px;
+  }
+
+  .carousel-control-next {
+    right: -30px;
+  }
+
+  .row {
+    margin-bottom: 10px; /* Agrega un espacio entre las filas de información */
+  }
+
+  .font-weight-bold {
+    font-weight: bold; /* Agrega negrita a los títulos de información */
+  }
+}
+
+
+
+
+
 
 
 
@@ -161,20 +276,4 @@
 }
 
 
-// MODAL
-#modalProducto{
-  height: 100vh;
-  width: auto;
 
-  .modal-content {
-    position: relative;
-    button {
-      position: absolute;
-    }
-  }
-
-  img{
-    height: 200px;
-    width: 300px;
-  }
-}
