@@ -43,9 +43,9 @@
                 <br>
                 <span><b>Unidad</b> {{articulo.medida}}</span>
               </div>
+              <a class="editar-link" (click)="editarArt(articulo.id_articulo)" style="font-size:18px;color: var(--color-terciario)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
             </div>
-            <a class="" (click)="editarArt(articulo.id_articulo)" style="color: var(--color-terciario)">EDITAR  </a>
-            <span class="card-price ms-4"><strong>{{ articulo.precio_venta | currency: 'MX'}}</strong></span>
+            <span class="card-price ms-4"><strong> {{ articulo.precio_venta | currency: 'MX'}}</strong></span>
           </div>
         </div>
       </div>

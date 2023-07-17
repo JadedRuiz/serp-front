@@ -42,8 +42,14 @@
   right: 9px;
   top: 5px;
   pointer-events: auto;
-  z-index: 2;
+  z-index: 1;
 }
+
+a.editar-link {
+  z-index: 2; /* Ajusta el valor del z-index según sea necesario */
+}
+
+
 
 .btn_h:hover {
   background-color: var(--hover-base);
