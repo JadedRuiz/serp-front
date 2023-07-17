@@ -6,6 +6,8 @@ import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
 import { Articulo } from 'src/app/models/articulo.model';
 import { FamiliasService } from 'src/app/services/familias/familias.service';
 import { Familia } from 'src/app/models/familias.model';
+import Swal from 'sweetalert2';
+import { AddProductComponent } from '../add-product/add-product.component';
 
 @Component({
 	selector: 'app-catalogo',
@@ -91,7 +93,10 @@ export class CatalogoComponent {
 					this.itemsFiltrados()
           console.log(this.filteredItems);
 				})
-			}
+			}else{
+        Swal.fire('Ocurrio un error',resp.message,'error')
+        console.log('==>>');
+      }
 		})
 	}
 
@@ -133,6 +138,14 @@ export class CatalogoComponent {
 		this.items = [...this.allItems];
 		this.resultsNotFound = false;
 	}
+
+
+//Para editar articulos
+editarArt(id_articulo:any){
+  this.router.navigate(['/sis_koonol/catalogos/add-product',id_articulo]);
+}
+
+
 
 	// Para el Modal
 	openModal(item: any) {

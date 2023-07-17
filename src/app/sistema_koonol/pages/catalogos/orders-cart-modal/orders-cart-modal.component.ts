@@ -77,7 +77,9 @@ export class OrdersCartModalComponent {
     if (value.length <= 3) {
       this.autocompleteClients = [];
       this.searchListCliente = false;
-    } else {
+    }
+    else if (!this.searchClientSubscription.closed) {
+      // console.log("Hola, se está haciendo una búsqueda: ", this.searchClientSubscription);
       this.loaderCliente = true
       this.searchListCliente = true;
       this.clientService.obtenerClientes(json).subscribe(
@@ -112,6 +114,7 @@ export class OrdersCartModalComponent {
       this.searchListCliente = false;
       this.addressSelected.id_cliente = id_cliente;
       this.searchClientSubscription.unsubscribe();
+      // console.log("Estás seleccionando un cliente: ", this.searchClientSubscription);
     } else {
       return;
     }
@@ -119,10 +122,11 @@ export class OrdersCartModalComponent {
 
   onFocusClientSearch() {
     this.searchClientSubscription = this.searchClientControl.valueChanges
-    .pipe(debounceTime(500))
-    .subscribe((value) => {
-      this.buscarCliente(value);
-    });
+      .pipe(debounceTime(500))
+      .subscribe((value) => {
+        this.buscarCliente(value);
+      });
+    // console.log("Estás sobre el input: ", this.searchClientSubscription);
   }
 
   confirmClient() {

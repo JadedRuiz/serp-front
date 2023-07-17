@@ -43,7 +43,7 @@
         <div class="vendedor__data-form row" [class.active]="section === 1">
 
 
-          <div class="vendedor__data-form__section1 col-12 col-md-4">
+          <div class="vendedor__data-form__section1 col-12 col-md-6">
             <div class="form-label">
               <label for="cliente">Nombre</label>
               <input class="form-control" type="text" name="nombre" required [(ngModel)]="vendedor.vendedor" #inputProvForm disabled />
@@ -54,11 +54,7 @@
             </div>
           </div>
 
-          <div class="vendedor__data-form__section2 col-12 col-md-6">
-            <!-- <div class="form-group">
-              <label for="comercial">Sector</label>
-              <input class="form-control" type="text" name="comercial" required #inputProvForm disabled />
-            </div> -->
+          <div  class="vendedor__data-form__section2 col-12 col-md-12">
             <div class="mt-2 d-flex justify-content-end">
               <button class="general-btn mr-2" (click)="activarCampos()" type="button">Editar</button>
               <button class="search-btn text-center" type="submit">Guardar</button>

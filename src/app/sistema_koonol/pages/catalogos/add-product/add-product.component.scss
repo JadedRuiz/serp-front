@@ -45,10 +45,15 @@ justify-content: center;
 }
 
 #xImage{
-  color: whitesmoke;
+  color: rgb(249, 6, 6);
 position: relative;
-top: -37px;
-right: 35px;
+top: -23px;
+right: 32px;
 margin-right: -20px;
-font-size: 33px;
+font-size: 21px;
+i{
+  background-color: aliceblue;
+  border-radius: 50%;
 }
+}
+

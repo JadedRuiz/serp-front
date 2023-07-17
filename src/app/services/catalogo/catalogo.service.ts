@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { EventEmitter, Injectable, Output, ViewChild } from '@angular/core';
 import { SERVER_API } from 'src/config/config';
 import { Product } from 'src/app/models/products.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -13,6 +13,7 @@ import { Articulo } from 'src/app/models/articulo.model';
   providedIn: 'root',
 })
 export class CatalogoService {
+  @ViewChild('productForm', {static:false})productForm!: any;
 
   private pedidoSubject = new BehaviorSubject<Articulo[]>([])
   pedido$ = this.pedidoSubject.asObservable()
@@ -61,12 +62,61 @@ obtenerArticulos(): Observable<any> {
       id_comprador: 1,
       articulo: '',
       token: '012354SDSDS01',
+      id_almacen: 1,
     };
+
     return this.http.post<any>(SERVER_API, parametros);
   }
 
+//Para Obtener Artiuculos por Id
+obtenerArticuloId(idProducto:number): Observable<Product>{
+const parametros = {
+  id_articulo: idProducto,
+  id_comprador: 1,
+  token: '012354SDSDS01',
+  id_almacen: 1,
+};
+return this.http.post<any>(SERVER_API,parametros).pipe(
+  map((response)=>{
+    if(response.ok){
+      const producto: Product ={
+        id_articulo: response.data.id_articulo,
+            id_comprador: response.data.id_comprador,
+            token: response.data.token,
+            articulo: response.data.articulo,
+            id_almacen: response.data.id_almacen,
+            id_medida: response.data.id_medida,
+            id_familia: response.data.id_familia,
+            id_prodserv_sat: response.data.id_prodserv_sat,
+            tasa_iva: response.data.tasa_iva,
+            codigo_barras: response.data.codigo_barras,
+            activo: response.data.activo,
+            id_usuario: response.data.id_usuario,
+            id_existencia: response.data.id_existencia,
+            precio_venta: response.data.precio_venta,
+            descuento1: response.data.descuento1,
+            descuento2: response.data.descuento2,
+            descuento3: response.data.descuento3,
+            minimo: response.data.minimo,
+            maximo: response.data.maximo,
+            reorden: response.data.reorden,
+            peso_producto: response.data.peso_producto,
+            imagenes: response.data.imagenes,
+      };
+      return producto;
+    }else {
+      throw new Error('No se pudo obtener el producto');
+    }
+  }),
+  catchError((error)=>{
+    return throwError(error);
+  })
+)
+}
 
-//Para guardar productos
+
+  //Para guardar productos
+  vaciarForm = false;
   agregarProducto(producto: Product) {
     let url =
       'https://serp-inventarios.serteza.com/public/api/articulos/guardarArticulo';
@@ -74,8 +124,9 @@ obtenerArticulos(): Observable<any> {
     return this.http.post(url, producto).pipe(
       map((resp :any) => {
         if(resp.ok){
-          console.log('service',resp);
+          //console.log('service',resp);
           Swal.fire('Exito al crear el Articulo', '', 'success');
+          this.vaciarForm = true;
           return resp.data;
         }else {
           Swal.fire({
@@ -93,6 +144,15 @@ obtenerArticulos(): Observable<any> {
       })
     );
   }
+
+//VaciarForm
+vForm(){
+  if(this.vaciarForm){
+    this.productForm.reset();
+this.vaciarForm = false;
+  }
+}
+
 
   //Para Guardar Fotografias
   guardarFotos(id_articulo : any, fotos :any): Observable<any>{

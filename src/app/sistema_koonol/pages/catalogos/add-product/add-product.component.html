@@ -66,38 +66,46 @@
                 [(ngModel)]="item.tasa_iva" (change)="calcularPrecioMasIva()" />
             </div>
             <div class="col-md-2">
-              <label for="inputFamilia">Descuento</label>
+              <label for="inputFamilia">% Desc</label>
               <input type="numero" name="descuento1" class="form-control" id="inputFamilia" placeholder="..." required
                 [(ngModel)]="item.descuento1" (change)="calcularPrecioMasIva()" />
             </div>
             <div class="col-md-2">
-              <label for="inputFamilia">Descuento</label>
+              <label for="inputFamilia">% Desc</label>
               <input type="text" class="form-control" id="inputFamilia" name="descuento2" placeholder="..."
                 [(ngModel)]="item.descuento2" (change)="calcularPrecioMasIva()" />
             </div>
             <div class="col-md-2">
-              <label for="inputFamilia">Descuento</label>
-              <input type="text" class="form-control" name="descuento3" id="inputFamilia" placeholder="..."
+              <label for="inputFamilia">% Desc</label>
+              <input type="text" class="form-control" name="descuento3" id="inputFamilia" placeholder="%"
                 [(ngModel)]="item.descuento3" (change)="calcularPrecioMasIva()" />
             </div>
             <div id="precioFinal" class="col-md-3">
-              <label><b>Precio fina</b></label>
-              <span>{{precioMasIva | number:'1.2-2'}}</span>
+              <label><b>Precio final </b></label>
+              <span> {{precioMasIva | number:'1.2-2'}}</span>
             </div>
           </div>
 
           <div id="existencias" class="row text-center align-items-center justify-content-center d-flex">
             <div class="col-md-3">
-              <label for="inputFamilia">Minimo</label>
-              <input type="text" class="form-control" id="inputFamilia" placeholder="..." />
+              <label for="inputFamilia">Mínimo</label>
+              <input type="text" class="form-control"name="itemMinimo" id="inputFamilia" placeholder="..."
+              [(ngModel)]="item.minimo" />
             </div>
             <div class="col-md-3">
-              <label for="inputFamilia">Maximo</label>
-              <input type="text" class="form-control" id="inputFamilia" placeholder="..." />
+              <label for="inputFamilia">Máximo</label>
+              <input type="text" class="form-control" name="itemMaximo" id="inputFamilia" placeholder="..."
+              [(ngModel)]="item.maximo" />
             </div>
             <div class="col-md-3">
               <label for="inputFamilia">Reorden</label>
-              <input type="text" class="form-control" id="inputFamilia" placeholder="..." />
+              <input type="text" class="form-control" name="itemReorden" id="inputFamilia" placeholder="..."
+              [(ngModel)]="item.reorden"/>
+            </div>
+            <div class="col-md-3">
+              <label for="inputCodigo">Codigo de barras</label>
+              <input type="text" class="form-control" name="itemCodigoBarras" placeholder="..."
+              [(ngModel)]="item.codigo_barras"/>
             </div>
           </div>
         </div>
@@ -105,33 +113,36 @@
 
       <div class="row">
         <div class="col-md-6 mb-4">
+
           <!-- IMAGEN PRINCIPAL -->
           <div class="mt-4 d-flex flex-column align-items-center justify-content-center">
             <div *ngIf="uploadedImages.length > 0" class="text-center mp-3">
-              <img class="img-fluid" [src]="imgResultAfterResize" alt="Imagen comprimida" [style.width.px]="400"
+              <img class="img-fluid shadow" [src]="imgResultAfterResize" alt="Imagen comprimida" [style.width.px]="400"
                 [style.height.px]="250" />
             </div>
             <div *ngIf="uploadedImages.length === 0" class="text-center mp-3">
-              <img class="img-fluid" src="assets\img\frutas-ejemplo.jpg" alt="Imagen de muestra" [style.width.px]="400"
+              <img class="img-fluid shadow" src="assets\img\frutas-ejemplo.jpg" alt="Imagen de muestra" [style.width.px]="400"
                 [style.height.px]="250" />
             </div>
           </div>
         </div>
         <div  class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+
           <!-- MINIATURAS -->
           <div  class="d-flex flex-row justify-content-center">
             <div  *ngFor="let image of uploadedImages; let i = index" class="mb-2">
               <img style="cursor: pointer;" class="img-thumbnail" [src]="image" alt="miniatura"
-               [style.width.px]="95"
-                [style.height.px]="95" (click)="displayImage(i)" />
+               [style.width.px]="75"
+                [style.height.px]="75" (click)="displayImage(i)" />
                 <button class="btn btn-sm cancel-btn  translate-middle "
                 id="xImage" (click)="removeImage(i + 1)"><i class="fa fa-times-circle"></i></button>
             </div>
           </div>
-          <div>
-            <button type="button" class="m-2 btn search-btn" (click)="uploadAndResize()"
+          <div class="row">
+            <button type="button" class="mr-1 btn search-btn" (click)="uploadAndResize()"
               [disabled]="imageCount >= 5">Subir imagen</button>
-              <button type="submit" class="col-md-3 btn general-btn">Guardar</button>
+              <button type="submit" class=" btn general-btn">Guardar</button>
           </div>
         </div>
       </div>

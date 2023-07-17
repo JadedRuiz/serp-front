@@ -1,6 +1,6 @@
 <div class="routes container-fluid">
   <div class="routes-container">
-    <h1 class="text-center title m-0">RUTAS</h1>
+    <h1 class="text-center title ">RUTAS</h1>
 
     <div class="routes__search-bar col align-self-start">
       <div class="d-flex">
@@ -15,14 +15,15 @@
         <button class="search-btn" type="button" (click)="filtrarRutas()">
           <i class="bi bi-search"> </i> BUSCAR
         </button>
+        <div class="ml-3">
+          <button type="button" class=" add-btn" (click)="openModal()">
+            AGREGAR RUTA
+          </button>
+        </div>
       </div>
     </div>
 
-    <div class="d-md-flex align-self-end">
-      <button type="button" class="mb-2 add-btn" (click)="openModal()">
-        AGREGAR RUTA
-      </button>
-    </div>
+
 
     <div class="routes-cards">
       <div class="row">

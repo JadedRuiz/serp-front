@@ -7,7 +7,7 @@
         <input class="search-input" type="text" placeholder="Buscar cliente" aria-label="Buscar cliente"
           aria-describedby="button-addon2" [formControl]="searchClientControl" />
         <div class="search-loader w-100" *ngIf="loader; else clientsReady">
-          <i class="fas fa-spinner fa-pulse"></i>
+          <i class="fa fa-spinner fa-pulse"></i>
         </div>
         <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
           <h4>No se encontraron clientes</h4>

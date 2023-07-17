@@ -21,8 +21,8 @@
       <div class="cards__card" *ngFor="let articulo of filteredItems" >
         <div class="card">
           <a type="button" class="mt-1 me-1 align-self-end btn_h " (click)="agregarProductoCarrito(articulo)">+</a>
-          <div id="image-card" >
-            <img *ngIf="articulo.imagenes.length == 0" src="../../../../../assets/img/frutas-ejemplo.jpg" alt="Producto">
+          <div id="image-card" class="img-thumbnail" >
+            <img *ngIf="articulo.imagenes.length == 0" src="../../../../../assets/img/imgK.png" alt="Producto">
             <img *ngIf="articulo.imagenes.length > 0" [src]="articulo.imagenes[0].fotografia" alt="Producto">
           </div>
           <div class="card-content">
@@ -37,13 +37,18 @@
               <div class="media-content">
                 <h1 class="title mb-1">{{ articulo.articulo }}</h1>
                 <h2 class="subtitle mb-0 mt-1">{{ articulo.familia}}</h2>
-                <span class="mb-0"><b> 10 / 20 / 30</b></span>
+                <span class="mb-0"><b>
+                  <b>
+                    E- <span style="color: green">{{articulo.existencia}}</span>
+                    P- <span style="color: yellow">{{articulo.pedidos}}</span>
+                    D- <span style="color: red">{{articulo.disponible}}</span>
+                  </b></b></span>
                 <br>
                 <span><b>Unidad</b> {{articulo.medida}}</span>
               </div>
             </div>
-            <a class="" (click)="openModal(articulo)" style="color: var(--color-terciario)">Ver Detalles</a>
-            <span class="card-price ms-4"><strong>{{ articulo.precio_venta | currency: 'MEX'}}</strong></span>
+            <a class="" (click)="editarArt(articulo.id_articulo)" style="color: var(--color-terciario)">EDITAR  </a>
+            <span class="card-price ms-4"><strong>{{ articulo.precio_venta | currency: 'MX'}}</strong></span>
           </div>
         </div>
       </div>
@@ -109,7 +114,7 @@
 
 
 <!-- Logica para la animación de la barra de busqueda -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(window).scroll(function () {
     var scrollTop = $(window).scrollTop();
@@ -121,4 +126,4 @@
       searchBar.removeClass('sticky');
     }
   });
-</script>
+</script> -->
