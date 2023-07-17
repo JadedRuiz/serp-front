@@ -17,6 +17,9 @@ const routes: Routes = [
     component: CatalogoComponent
   },
   {
+    path: 'add-product/:id', component:AddProductComponent
+  },
+  {
     path: 'add-product',
     component: AddProductComponent
   },

@@ -68,6 +68,52 @@ obtenerArticulos(): Observable<any> {
     return this.http.post<any>(SERVER_API, parametros);
   }
 
+//Para Obtener Artiuculos por Id
+obtenerArticuloId(idProducto:number): Observable<Product>{
+const parametros = {
+  id_articulo: idProducto,
+  id_comprador: 1,
+  token: '012354SDSDS01',
+  id_almacen: 1,
+};
+return this.http.post<any>(SERVER_API,parametros).pipe(
+  map((response)=>{
+    if(response.ok){
+      const producto: Product ={
+        id_articulo: response.data.id_articulo,
+            id_comprador: response.data.id_comprador,
+            token: response.data.token,
+            articulo: response.data.articulo,
+            id_almacen: response.data.id_almacen,
+            id_medida: response.data.id_medida,
+            id_familia: response.data.id_familia,
+            id_prodserv_sat: response.data.id_prodserv_sat,
+            tasa_iva: response.data.tasa_iva,
+            codigo_barras: response.data.codigo_barras,
+            activo: response.data.activo,
+            id_usuario: response.data.id_usuario,
+            id_existencia: response.data.id_existencia,
+            precio_venta: response.data.precio_venta,
+            descuento1: response.data.descuento1,
+            descuento2: response.data.descuento2,
+            descuento3: response.data.descuento3,
+            minimo: response.data.minimo,
+            maximo: response.data.maximo,
+            reorden: response.data.reorden,
+            peso_producto: response.data.peso_producto,
+            imagenes: response.data.imagenes,
+      };
+      return producto;
+    }else {
+      throw new Error('No se pudo obtener el producto');
+    }
+  }),
+  catchError((error)=>{
+    return throwError(error);
+  })
+)
+}
+
 
   //Para guardar productos
   vaciarForm = false;

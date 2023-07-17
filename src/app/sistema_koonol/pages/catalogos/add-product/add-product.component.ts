@@ -1,5 +1,5 @@
-import { Router } from '@angular/router';
-import { Component, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataUrl, NgxImageCompressService, UploadResponse,} from 'ngx-image-compress';
 import { Product } from 'src/app/models/products.model';
 import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
@@ -13,7 +13,6 @@ import { Medida } from 'src/app/models/medidas.model';
 import { Foto } from 'src/app/models/fotografias.model';
 
 
-
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -21,8 +20,8 @@ import { Foto } from 'src/app/models/fotografias.model';
 })
 
 
-export class AddProductComponent {
-
+export class AddProductComponent implements OnInit {
+producto: Product | undefined;
 
   imgResultAfterResize: string = '';
   uploadedImages: string[] = [];
@@ -32,6 +31,7 @@ export class AddProductComponent {
 
   constructor(
     private router: Router,
+    private route : ActivatedRoute,
     private imageCompress: NgxImageCompressService,
     private productService: CatalogoService,
     private familiaService: FamiliaService,
@@ -39,6 +39,40 @@ export class AddProductComponent {
     private medidaService: MedidaService) {}
 
     ngOnInit() {
+      //Editar
+      const idArticulo = this.route.snapshot.params['id'];
+      this.productService.obtenerArticuloId(idArticulo).subscribe(
+        (producto:Product)=>{
+          this.producto = producto;
+          //Asignando los valores al form
+          this.item = new Product(
+            producto.id_articulo,
+            producto.id_comprador,
+            producto.token,
+            producto.articulo,
+            producto.id_almacen,
+            producto.id_medida,
+            producto.id_familia,
+            producto.id_prodserv_sat,
+            producto.tasa_iva,
+            producto.codigo_barras,
+            producto.activo,
+            producto.id_usuario,
+            producto.id_existencia,
+            producto.precio_venta,
+            producto.descuento1,
+            producto.descuento2,
+            producto.descuento3,
+            producto.minimo,
+            producto.maximo,
+            producto.reorden,
+            producto.peso_producto,
+            producto.imagenes
+          );
+        }
+      );
+
+
       this.obtenerFamilias()
       this.obtenerAlmacenes()
       this.obtenermedidas()
