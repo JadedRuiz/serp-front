@@ -84,7 +84,6 @@ export class FamiliasService {
           position: 'center',
           icon: 'success',
           title: `La familia fue ${mensaje}`,
-          showConfirmButton: false,
           timer: 1500,
         });
         return resp.data;
