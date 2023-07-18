@@ -33,6 +33,7 @@ return this.http.post(url, vendedor).pipe(map( (resp:any)=> {
   if(resp.ok){
     Swal.fire('Vendedor editado con exito', '', 'success');
     return resp;
+    
   }else{
     Swal.fire({
       position: 'center',
@@ -77,14 +78,23 @@ activarVendedor(id_vendedor: number, activo: number) {
   let url = 'https://serp-inventarios.serteza.com/public/api/vendedores/activarVendedor?id_vendedor=' + id_vendedor;
   return this.http.post(url, '').pipe(
     map((resp: any) => {
-      let mensaje = activo == 0 ? 'Activado' : 'Desactivado';
-      Swal.fire({
-        position: 'center',
-        icon:'success',
-        title: `El vendedor fue ${mensaje}`,
-      });
-      console.log(resp);
-      return resp.data;
+      if(resp.ok){
+        let mensaje = activo == 0 ? 'Activado' : 'Desactivado';
+        Swal.fire({
+          position: 'center',
+          icon:'success',
+          title: `El vendedor fue ${mensaje}`,
+        });
+        console.log('service',resp);
+        return resp.data;
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Error',
+          text: resp.message,
+        });
+      }
     }),
     catchError((error: any) => {
       Swal.fire({

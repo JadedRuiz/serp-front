@@ -2,6 +2,7 @@ import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { Vendedor } from 'src/app/models/vendedor.model';
 import { VendedoresService } from 'src/app/services/vendedores/vendedores.service';
 import { NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-vendedores',
@@ -88,25 +89,39 @@ export class VendedoresComponent {
       this.vendedorService
         .editarVendedor(this.vendedor.id_vendedor, this.vendedor)
         .subscribe((objeto) => {});
-    this.obtenerVendedor();
-      console.log('editamos');
+      //console.log('editamos');
     } else {
       this.vendedorService
         .agregarVendedor(this.vendedor)
         .subscribe((objeto) => {
           this.vendedorService.obtenerVendedores();
-          this.obtenerVendedor();
         });
-      console.log('guardamos');
+        vendedorForm.resetForm();
+     // console.log('guardamos');
     }
   }
 
   // Activar/Desactivar Vendedor =>
   activarVendedor(id_vendedor: number, activo:number) {
-      this.vendedorService.activarVendedor(id_vendedor, activo).subscribe((objeto) => {
-        this.vendedorService.obtenerVendedores();
-        console.log('vend=>', this.vendedor);
-      });
+    console.log(activo);
+    let textoAlert = activo == 1 ? '¿Quieres DESACTIVAR este vendedor?' : '¿Quieres ACTIVAR este vendedor?'
+    Swal.fire({
+      title: textoAlert,
+      showDenyButton: true,
+      confirmButtonText: 'SI',
+      denyButtonText: `NO`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.vendedorService.activarVendedor(id_vendedor, activo).subscribe((objeto) => {
+          this.vendedorService.obtenerVendedores();
+          console.log('vend=>', this.vendedor);
+        });
+      }
+    })
+
+
+
   }
 
 //Activo
@@ -128,7 +143,7 @@ updateVendedorStatus() {
   }
 
   getVendedorStatusText(activo: number): string {
-    return activo == 1 ? 'ACTIVADO' : 'DESACTIVADO';
+    return activo == 1 ? 'ACTIVO' : 'DESACTIVADO';
   }
 
 

@@ -22,7 +22,7 @@
       </div>
 
       <!-- Boton de Status -->
-      <button type="button" class="btn" [ngClass]="getVendedorStatusClass(vendedor.activo)" [attr.aria-pressed]="vendedor.activo === 1 ? 'true' : 'false'" (click)="activarVendedor(vendedor.id_vendedor, vendedor.activo)">
+      <button *ngIf="vendedor && vendedor.id_vendedor" type="button" class="btn" [ngClass]="getVendedorStatusClass(vendedor.activo)" [attr.aria-pressed]="vendedor.activo === 1 ? 'true' : 'false'" (click)="activarVendedor(vendedor.id_vendedor, vendedor.activo)">
         {{ getVendedorStatusText(vendedor.activo) }}
       </button>
       <button type="button" class="add-btn" (click)="cargarCampos()">
@@ -56,7 +56,7 @@
 
           <div  class="vendedor__data-form__section2 col-12 col-md-12">
             <div class="mt-2 d-flex justify-content-end">
-              <button class="general-btn mr-2" (click)="activarCampos()" type="button">Editar</button>
+              <button *ngIf="vendedor && vendedor.id_vendedor" class="general-btn mr-2" (click)="activarCampos()" type="button">Editar</button>
               <button class="search-btn text-center" type="submit">Guardar</button>
             </div>
           </div>
