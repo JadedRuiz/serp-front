@@ -59,11 +59,12 @@ export class AlmacenesComponent {
         })
     }
   }
+
   editarAlmacen() {
     this.provInputs.forEach(
       provInput => {
         provInput.nativeElement.disabled = false
-        // console.log(provInput.nativeElement)
+        //console.log(provInput.nativeElement)
       }
     )
   }
@@ -75,15 +76,8 @@ export class AlmacenesComponent {
       }
     )
   }
-  status = false
-  cambiarEstado() {
-    if (this.status) {
-      this.status = false
-    }
-    else {
-      this.status = true
-    }
-  }
+
+
   addresses: Address[] = []
   modalVisibility: boolean = false
 
@@ -101,9 +95,7 @@ export class AlmacenesComponent {
     if (section === 1) {
       this.section = 1
     }
-    else if (section === 2) {
-      this.section = 2
-    }
+
   }
 
   // =>
@@ -127,6 +119,7 @@ export class AlmacenesComponent {
         this.almaService.activarAlmacen(id_almacen, activo).subscribe((objeto) => {
           this.almaService.obtenerAlmacenes(json);
           console.log('vend=>', this.almacen.activo);
+
         });
       } else if (result.isDenied) {
       }
@@ -147,13 +140,8 @@ this.autocompleteAlmacen.forEach(almacen => {
 
 
 
-getAlmacenStatusClass(activo: number): string {
-  return activo == 1 ? 'btn-success' : 'btn-danger';
-}
 
-getAlmacenStatusText(activo: number): string {
-  return activo == 1 ? 'ACTIVADO' : 'DESACTIVADO';
-}
+
 
 
 
@@ -279,11 +267,13 @@ getAlmacenStatusText(activo: number): string {
       )[0];
       this.isAlmacenSelected = true;
       this.searchList = false;
-      console.log(this.almacen);
     } else {
+      this.modificarAlmacen();
       this.selectedAlmacen = [];
     }
   }
+
+  //Guarda / editar Almacen
   guardarAlmacen(almacenForm: NgForm) {
     let json = {
       id_almacen: 0,
@@ -296,31 +286,32 @@ getAlmacenStatusText(activo: number): string {
       return;
     }
     if (this.almacen.id_almacen) {
+
       Swal.fire({
         title: '¿Quieres GUARDAR los cambios?',
         showDenyButton: true,
         confirmButtonText: 'SI',
         denyButtonText: `NO`,
       }).then((result) => {
+
         if (result.isConfirmed) {
+
           this.almaService.editarAlmacen(this.almacen.id_almacen, this.almacen)
             .subscribe((objeto) => { });
-          console.log("editamos");
-          console.log(this.almacen);
           Swal.fire('Cambios Guardados', '', 'success')
           almacenForm.resetForm()
           this.isAlmacenSelected = false
+          this.modificarAlmacen();
         }
       })
     } else {
       this.almaService.agregarAlmacen(this.almacen).subscribe((objeto) => {
         this.almaService.obtenerAlmacenes(json);
       })
-      console.log("guardamos");
-      console.log(this.almacen);
+      this.modificarAlmacen();
+      almacenForm.resetForm()
       this.almaService.obtenerAlmacenes(json);
     }
-    console.log(this.almacen);
   }
 
 
