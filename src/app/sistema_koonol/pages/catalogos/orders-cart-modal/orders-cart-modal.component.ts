@@ -7,11 +7,33 @@ import { Address } from 'src/app/models/addresses.model';
 import { Subscription, debounceTime } from 'rxjs';
 import { Vendedor } from 'src/app/models/vendedor.model';
 import { VendedoresService } from 'src/app/services/vendedores/vendedores.service';
+import { LOCALE_ID } from '@angular/core';
+//Importes para calendario
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+
+export const DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD-MM-YYYY',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-orders-cart-modal',
   templateUrl: './orders-cart-modal.component.html',
-  styleUrls: ['./orders-cart-modal.component.scss']
+  styleUrls: ['./orders-cart-modal.component.scss'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
+    { provide: LOCALE_ID, useValue: 'de-DE' }, // for German translation. Ignore this if not needed.
+  ],
 })
 
 export class OrdersCartModalComponent implements OnInit {
@@ -35,7 +57,10 @@ export class OrdersCartModalComponent implements OnInit {
   sellers: Vendedor[] = []
   //Coordenadas para la ubicación actual
   coords: [number, number] = [0, 0]
-  
+  //Calendario
+  currentDate: any;
+  selectedDate: any;
+  selectedDateFormatted: string = ''
 
   constructor(
     private clientService: ClientsService,
@@ -44,10 +69,12 @@ export class OrdersCartModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      if(this.vendedor !==0) {
-        this.selectSellerVisibility = true
-        this.isSellerSelected = true
-      }
+    if (this.vendedor !== 0) {
+      this.selectSellerVisibility = true
+      this.isSellerSelected = true
+    }
+    const currentDate = new Date();
+    this.currentDate = currentDate;
   }
 
   //Llamada a la función toggleModalVisibility que viene del componente catalogo
@@ -149,6 +176,7 @@ export class OrdersCartModalComponent implements OnInit {
     }
   }
 
+  //Función para que al dar clic en el input nos suscribamos a los cambios del mismo
   onFocusClientSearch() {
     this.searchClientSubscription = this.searchClientControl.valueChanges
       .pipe(debounceTime(500))
@@ -184,7 +212,8 @@ export class OrdersCartModalComponent implements OnInit {
     }
   }
 
-  seleccionarVendedor(id_vendedor:number) {
+  //FUNCIÓN PARA ESCOGER UN VENDEDOR
+  seleccionarVendedor(id_vendedor: number) {
     if (id_vendedor) {
       this.selectedSeller = this.autocompleteSellers.find(
         (aSeller) => aSeller.id_vendedor === id_vendedor
@@ -199,6 +228,7 @@ export class OrdersCartModalComponent implements OnInit {
     }
   }
 
+  //Función para que al dar clic en el input nos suscribamos a los cambios del mismo
   onFocusSellerSearch() {
     this.searchSellerSubscription = this.searchSellerControl.valueChanges
       .pipe(debounceTime(500))
@@ -207,6 +237,28 @@ export class OrdersCartModalComponent implements OnInit {
       });
   }
 
+  //Función para formatear la fecha que viene del calendario de angular material
+  formatDate(event: MatDatepickerInputEvent<Date>) {
+    // Crear un objeto Date con la cadena de fecha
+    let dateString = this.selectedDate._d //Conseguimos el string en el formato que trae angular material
+    let date = new Date(dateString);
+
+    // Obtener los componentes de la fecha
+    let day = date.getDate();
+    let month = date.getMonth() + 1; // Los meses comienzan desde 0, por lo que debemos sumar 1
+    let year = date.getFullYear();
+
+    // Formatear la fecha en el orden deseado (dd-MM-yyyy)
+    let dateFormatted = day.toString().padStart(2, '0') + '-' +
+      month.toString().padStart(2, '0') + '-' +
+      year.toString();
+
+    this.selectedDateFormatted = dateFormatted
+    console.log('Fecha seleccionada:', event.value);
+    console.log("Fecha ya formateada", dateFormatted);
+  }
+
+  //Función para ir añadiendo la información seleccionada en el pedido y avanzar al siguiente paso
   confirmClient() {
     this.clienteVendedorModal = false
     this.selectAddressModal = true
@@ -215,7 +267,6 @@ export class OrdersCartModalComponent implements OnInit {
   //MODAL PARA SELECCIONAR UNA DIRECCIÓN
   //Estado para manipular la visibilidad del modal de seleccionar dirección
   selectAddressModal: boolean = false
-
   backToClientModal() {
     this.clienteVendedorModal = true
     this.selectAddressModal = false

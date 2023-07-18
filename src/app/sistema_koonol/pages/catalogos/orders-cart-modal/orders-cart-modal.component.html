@@ -6,9 +6,9 @@
   <div class="orders-modal__client" *ngIf="clienteVendedorModal">
     <!-- Autocomplete de vendedores -->
     <h3 class="title text-center" *ngIf="!selectSellerVisibility">¿Qué vendedor está haciendo el pedido?</h3>
-    <div class="ng-autocomplete mb-6" *ngIf="!selectSellerVisibility">
+    <div class="ng-autocomplete mb-5" *ngIf="!selectSellerVisibility">
       <input class="search-input" type="text" placeholder="Buscar vendedor" aria-label="Buscar vendedor"
-        aria-describedby="button-addon2" [formControl]="searchSellerControl" (focus)="onFocusSellerSearch()"/>
+        aria-describedby="button-addon2" [formControl]="searchSellerControl" (focus)="onFocusSellerSearch()" />
       <div class="search-loader w-100" *ngIf="loaderSeller; else sellersReady">
         <i class="fa fa-spinner fa-pulse"></i>
       </div>
@@ -47,12 +47,24 @@
       </ng-template>
     </div>
     <!-- Termina Autocomplete -->
-    <input type="text" class="form-control search-input" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+
+    <!-- Calendario -->
+    <span class="m-0 mt-2">Escoger fecha de entrega:</span>
+    <div class="">
+      <mat-form-field>
+        <input  matInput [matDatepicker]="picker" placeholder="Selecciona una fecha" [(ngModel)]="selectedDate" (dateChange)="formatDate($event)"  [min]="currentDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <!-- Termina calendario -->
+
     <div class="orders-cart__client__buttons mt-auto">
       <button class="danger-btn" (click)="useToggleModalVisibility()">
         Cancelar
       </button>
-      <button class="general-btn" [ngClass]="{'button-disabled': !isSellerSelected || !isClientSelected}" (click)="confirmClient()" [disabled]="!isClientSelected || !isSellerSelected">
+      <button class="general-btn" [ngClass]="{'button-disabled': !isSellerSelected || !isClientSelected}"
+        (click)="confirmClient()" [disabled]="!isClientSelected || !isSellerSelected">
         Confirmar
       </button>
     </div>
