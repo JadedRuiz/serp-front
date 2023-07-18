@@ -24,20 +24,6 @@
 
 
         <!-- //Boton de Status => -->
-            <div class="status">
-                <div *ngIf="status" class="status-inactive">
-                    <span>
-                        Estado:
-                    </span>
-                    <div> </div>
-                </div>
-                <div *ngIf="!status" class="status-active">
-                    <span>
-                        Estado:
-                    </span>
-                    <div></div>
-                </div>
-            </div>
               <button id="estadoBoton" class="danger-btn btn-sm" (click)="desactivarProveedor(proveedor.id_proveedor,proveedor.activo )" (click)="cambiarEstado()">
                   <span *ngIf="status">Activar</span>
                   <span *ngIf="!status">Desactivar</span>
