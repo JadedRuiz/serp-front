@@ -12,6 +12,8 @@ import { LOCALE_ID } from '@angular/core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
+import { Articulo } from 'src/app/models/articulo.model';
 
 export const DATE_FORMATS = {
   parse: {
@@ -61,14 +63,19 @@ export class OrdersCartModalComponent implements OnInit {
   currentDate: any;
   selectedDate: any;
   selectedDateFormatted: string = ''
+  //Variable para almacenar los productos del pedido para el carrito
+  pedido: Articulo[] = [];
 
   constructor(
     private clientService: ClientsService,
     private vendedorService: VendedoresService,
+    private catalogoService: CatalogoService,
     private geolocationService: GeolocationService
   ) { }
 
   ngOnInit(): void {
+    this.catalogoService.getPedido()
+    this.catalogoService.pedido$.subscribe(pedido => this.pedido = pedido)
     if (this.vendedor !== 0) {
       this.selectSellerVisibility = true
       this.isSellerSelected = true
@@ -101,9 +108,6 @@ export class OrdersCartModalComponent implements OnInit {
   //MODAL BASE
   @Output() toggleModalVisibility = new EventEmitter()
 
-  //MODAL PARA SELECCIONAR UN CLIENTE
-  clienteVendedorModal: boolean = true
-
   //Autocomplete Cliente
   searchListCliente: boolean = false
   loaderCliente: boolean = false
@@ -121,6 +125,8 @@ export class OrdersCartModalComponent implements OnInit {
   selectedSeller: Vendedor = new Vendedor(0, 0, '', '', 0, 0)
   isSellerSelected: boolean = false
 
+  //MODAL PARA SELECCIONAR UN CLIENTE
+  clienteVendedorModal: boolean = true
 
   //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE O RFC
   buscarCliente(value: string) {
@@ -267,9 +273,30 @@ export class OrdersCartModalComponent implements OnInit {
   //MODAL PARA SELECCIONAR UNA DIRECCIÓN
   //Estado para manipular la visibilidad del modal de seleccionar dirección
   selectAddressModal: boolean = false
+  isAddressSelected: boolean = false
+
   backToClientModal() {
     this.clienteVendedorModal = true
     this.selectAddressModal = false
+  }
+
+  confirmAddress() {
+    this.selectAddressModal = false
+    this.finPedidoModal = true
+  }
+
+  selectAddress(address: Address) {
+    this.isAddressSelected = true
+    const direccion = address.direccion
+    console.log(direccion);
+  }
+
+  //MODAL PARA FINALIZAR EL PEDIDO
+  finPedidoModal: boolean = false
+
+  backToAddressModal() {
+    this.selectAddressModal = true
+    this.finPedidoModal = false
   }
 
 }

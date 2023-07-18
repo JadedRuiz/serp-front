@@ -26,7 +26,7 @@
 
 .orders-modal__client,
 .orders-modal__addresses,
-.orders-cart__form-container {
+.orders-modal__fin {
     background-color: white;
     border-radius: 10px;
     padding: 25px 10px 25px 10px;
@@ -44,7 +44,7 @@
     flex-direction: column;
     position: relative;
     border-radius: 10px;
-    width: min(80%, 300px);
+    width: min(90%, 300px);
 
     .search-list {
         max-height: 200px;
@@ -58,50 +58,11 @@
     border-radius: 5px;
 }
 
-.custom-datepicker {
-    width: 80%;
-}
-
 .orders-cart__client__buttons {
     margin-right: 10px;
     align-self: flex-end;
     display: flex;
     gap: 20px;
-
-    .button-disabled {
-        background-color: grey;
-    }
-
-    // .orders-cart__client__btn-cancel,
-    // .orders-cart__client__btn-confirm {
-    //     padding: 5px 10px;
-    //     border: 1px solid;
-    //     border-radius: 10px;
-    // }
-
-    // .orders-cart__client__btn-cancel {
-    //     background-color: transparent;
-    //     border-color: var(--color-secundario);
-    //     color: var(--color-secundario);
-
-    //     &:hover {
-    //         background-color: var(--color-secundario);
-    //         color: white;
-    //         transition: 500ms;
-    //     }
-    // }
-
-    // .orders-cart__client__btn-confirm {
-    //     background-color: transparent;
-    //     border-color: var(--color-base);
-    //     color: var(--color-base);
-
-    //     &:hover {
-    //         background-color: var(--color-base);
-    //         color: white;
-    //         transition: 500ms;
-    //     }
-    // }
 }
 
 .orders-cart__addresses-container {
@@ -169,35 +130,39 @@
     display: flex;
     gap: 20px;
 
-    .orders-cart__address__btn-cancel,
-    .orders-cart__address__btn-submit {
-        padding: 5px 10px;
-        border: 1px solid;
-        border-radius: 10px;
-    }
+    // .orders-cart__address__btn-cancel,
+    // .orders-cart__address__btn-submit {
+    //     padding: 5px 10px;
+    //     border: 1px solid;
+    //     border-radius: 10px;
+    // }
+}
+
+.button-disabled {
+    background-color: grey;
 }
 
 
-.orders-modal__form {
-    width: min(90%, 500px);
-    margin-top: 100px;
+// .orders-modal__form {
+//     width: min(90%, 500px);
+//     margin-top: 100px;
 
-    form {
-        padding: 10px;
+//     form {
+//         padding: 10px;
 
-        .btn {
-            padding: 0;
-        }
+//         .btn {
+//             padding: 0;
+//         }
 
-        .row {
-            padding: 0;
-            justify-content: space-around;
+//         .row {
+//             padding: 0;
+//             justify-content: space-around;
 
-            @include sm {
-                justify-content: center;
-            }
-        }
+//             @include sm {
+//                 justify-content: center;
+//             }
+//         }
 
-    }
+//     }
 
-}
+// }
