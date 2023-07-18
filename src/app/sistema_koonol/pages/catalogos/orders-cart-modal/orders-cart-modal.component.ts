@@ -14,6 +14,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
 import { Articulo } from 'src/app/models/articulo.model';
+import { Router } from '@angular/router';
 
 export const DATE_FORMATS = {
   parse: {
@@ -70,7 +71,8 @@ export class OrdersCartModalComponent implements OnInit {
     private clientService: ClientsService,
     private vendedorService: VendedoresService,
     private catalogoService: CatalogoService,
-    private geolocationService: GeolocationService
+    private geolocationService: GeolocationService,
+		private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -297,6 +299,10 @@ export class OrdersCartModalComponent implements OnInit {
   backToAddressModal() {
     this.selectAddressModal = true
     this.finPedidoModal = false
+  }
+
+  finishOrder() {
+    this.router.navigate(['/sis_koonol/catalogos/pedidos-realizados']);
   }
 
 }
