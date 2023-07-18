@@ -10,7 +10,7 @@
           <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noAlmacen">
             <h4>No se encontro el Almacen</h4>
           </div>
-          <div class="search-loader w-100" *ngIf="loader; else almacenesReady">
+          <div class="search-loader" *ngIf="loader; else almacenesReady">
             <i class="fa fa-spinner fa-pulse"></i>
           </div>
           <ng-template #almacenesReady>
@@ -24,11 +24,8 @@
         </div>
 
 
-        <button *ngIf="almacen && almacen.id_almacen" type="button" class="btn act"
-          [ngClass]="getAlmacenStatusClass(almacen.activo)"
-          [attr.aria-pressed]="almacen.activo === 1 ? 'true' : 'false'"
-          (click)="activarAlmacen(almacen.id_almacen, almacen.activo)">
-          {{ getAlmacenStatusText(almacen.activo) }}
+        <button *ngIf="almacen.id_almacen && almacen.almacen" type="button" class="btn btn-success act"
+          (click)="activarAlmacen(almacen.id_almacen, almacen.activo)">ACTIVO
         </button>
 
         <button type="button" id="add-almacen" class="add-btn" (click)="agregarNvoAlmacen()">
@@ -119,7 +116,7 @@
               </div>
             </div>
 
-            <div class="d-flex flex-column mt-3 p-3 border rounded-3" *ngIf="isAlmacenSelected">
+            <div class="d-flex flex-column mt-3 p-3 border rounded" *ngIf="isAlmacenSelected">
               <h3 class="subtitle mb-1">Dirección</h3>
               <p>{{almacen.direccion}}</p>
             </div>

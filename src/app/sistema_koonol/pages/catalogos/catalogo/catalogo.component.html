@@ -32,7 +32,7 @@
             </div>
             <div class="media">
               <div class="media-content">
-                <h1 class="title mb-1">{{ articulo.articulo }}</h1>
+                <h1 class="titulo title mb-1">{{ articulo.articulo }}</h1>
                 <h2 class="subtitle mb-0 mt-1">{{ articulo.familia}}</h2>
                 <span class="mb-0"><b>
                   <b>
@@ -43,7 +43,7 @@
                 <br>
                 <span><b>Unidad</b> {{articulo.medida}}</span>
               </div>
-              <a class="editar-link" (click)="editarArt(articulo.id_articulo)" style="font-size:18px;color: var(--color-terciario)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+              <a class="editar-link" (click)="editarArt(articulo.id_articulo)" style="font-size:18px;color: var(--color-terciario)"><i class="fa fa-pencil-square-o " aria-hidden="true"></i></a>
             </div>
             <span class="card-price ms-4"><strong> {{ articulo.precio_venta | currency: 'MX'}}</strong></span>
           </div>
