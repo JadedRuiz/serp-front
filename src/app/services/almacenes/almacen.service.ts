@@ -33,9 +33,13 @@ export class AlmacenService {
       return this.http.post(url, almacen)
         .pipe(
           map((resp: any) => {
-            console.log(resp);
-            Swal.fire('Almacen creado exitosamente', '', 'success');
-            return resp.data;
+            if(resp.ok){
+              console.log(resp);
+              Swal.fire('Almacen creado exitosamente', '', 'success');
+              return resp.data;
+            }else{
+              Swal.fire('Error al crear Almacen', resp.message, 'error');
+            }
           }),
           catchError(err => {
             Swal.fire('Error al crear Almacen', err.error.message, 'error');
@@ -47,15 +51,16 @@ export class AlmacenService {
       let url = 'https://serp-inventarios.serteza.com/public/api/almacenes/activarAlmacen?id_almacen=' + id_almacen;
       return this.http.post(url, '').pipe(
         map((resp: any) => {
-          let mensaje = activo == 0 ? 'Activado' : 'Desactivado';
-          Swal.fire({
-            position: 'center',
-            icon:'success',
-            title: `El almacen fue ${mensaje}`,
-          });
-          console.log(resp);
-          return resp.data;
-        }),
+          if(resp.ok){
+            let mensaje = activo == 0 ? 'Activado' : 'Desactivado';
+            Swal.fire({
+              position: 'center',
+                        icon:'success',
+                        title: mensaje,
+                      });
+                      return resp.data;
+                    }
+                  }),
         catchError((error: any) => {
           Swal.fire({
             position: 'center',

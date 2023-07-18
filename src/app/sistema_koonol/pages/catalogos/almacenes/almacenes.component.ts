@@ -7,6 +7,7 @@ import { adress_Almacen } from 'src/app/models/adress-almacen.model';
 import { Almacen } from 'src/app/models/almacen.model';
 import { AlmacenService } from 'src/app/services/almacenes/almacen.service';
 import { SERV_ALMACEN } from 'src/config/config';
+import Swal from 'sweetalert2';
 
 
 
@@ -115,11 +116,21 @@ export class AlmacenesComponent {
       solo_activos: 1,
       token: '012354SDSDS01',
     };
-
-    this.almaService.activarAlmacen(id_almacen, activo).subscribe((objeto) => {
-      this.almaService.obtenerAlmacenes(json);
-      console.log('vend=>', this.almacen.activo);
-    });
+    Swal.fire({
+      title: '¿Quieres DESACTIVAR este almacen?',
+      showDenyButton: true,
+      confirmButtonText: 'SI',
+      denyButtonText: `NO`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.almaService.activarAlmacen(id_almacen, activo).subscribe((objeto) => {
+          this.almaService.obtenerAlmacenes(json);
+          console.log('vend=>', this.almacen.activo);
+        });
+      } else if (result.isDenied) {
+      }
+    })
 }
 
 //Activo
@@ -218,7 +229,7 @@ getAlmacenStatusText(activo: number): string {
         if (response.ok) {
           this.setearAlmacen(response)
         } else {
-          console.log('Ocurrió un error', response.message);    
+          console.log('Ocurrió un error', response.message);
         }
       },
       (error) => {
@@ -235,7 +246,7 @@ getAlmacenStatusText(activo: number): string {
       solo_activos: 1,
       token: '012354SDSDS01',
     }
-    if (value.length <= 3) {
+    if (value.length <= 2) {
       this.autocompleteAlmacen = [];
       this.searchList = false;
     } else {
@@ -285,10 +296,22 @@ getAlmacenStatusText(activo: number): string {
       return;
     }
     if (this.almacen.id_almacen) {
-      this.almaService.editarAlmacen(this.almacen.id_almacen, this.almacen)
-        .subscribe((objeto) => { });
-      console.log("editamos");
-      console.log(this.almacen);
+      Swal.fire({
+        title: '¿Quieres GUARDAR los cambios?',
+        showDenyButton: true,
+        confirmButtonText: 'SI',
+        denyButtonText: `NO`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.almaService.editarAlmacen(this.almacen.id_almacen, this.almacen)
+            .subscribe((objeto) => { });
+          console.log("editamos");
+          console.log(this.almacen);
+          Swal.fire('Cambios Guardados', '', 'success')
+          almacenForm.resetForm()
+          this.isAlmacenSelected = false
+        }
+      })
     } else {
       this.almaService.agregarAlmacen(this.almacen).subscribe((objeto) => {
         this.almaService.obtenerAlmacenes(json);
@@ -297,7 +320,6 @@ getAlmacenStatusText(activo: number): string {
       console.log(this.almacen);
       this.almaService.obtenerAlmacenes(json);
     }
-    this.modificarAlmacen()
     console.log(this.almacen);
   }
 

@@ -113,10 +113,26 @@ export class RoutesComponent {
 
 //Activar RUTA
   deshabilitarRuta(id_ruta: number, activo: number) {
-    this.routeService.desactivarRuta(id_ruta,activo).subscribe((objeto) => {
-      this.obtenerRutas();
-      console.log(this.route);
-    });
+    console.log(activo);
+    let textoAlert = activo == 1 ? '¿Quieres DESACTIVAR la ruta?' : '¿Quieres ACTIVAR la ruta?'
+    Swal.fire({
+      title: textoAlert,
+      showDenyButton: true,
+      confirmButtonText: 'SI',
+      denyButtonText: `NO`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.routeService.desactivarRuta(id_ruta,activo).subscribe((objeto) => {
+          this.obtenerRutas();
+          console.log(this.route);
+        });
+       // Swal.fire('Saved!', '', 'success')
+      } else if (result.isDenied) {
+        Swal.fire('No se guardaron los cambios', '', 'info')
+      }
+    })
+
   }
 
 

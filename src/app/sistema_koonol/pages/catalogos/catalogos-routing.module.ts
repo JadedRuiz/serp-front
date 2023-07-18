@@ -6,7 +6,7 @@ import { CatalogoComponent } from './catalogo/catalogo.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { OrdersPlacedComponent } from './orders-placed/orders-placed.component';
 import { ClientsComponent } from './clients/clients.component';
-import { SearchFamComponent } from './search-fam/search-fam.component';
+import { SearchFamComponent } from './familias/search-fam.component';
 import { RoutesComponent } from './routes/routes.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { VendedoresComponent } from './vendedores/vendedores.component';

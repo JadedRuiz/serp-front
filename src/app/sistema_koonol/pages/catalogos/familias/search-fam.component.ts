@@ -121,10 +121,29 @@ console.log(this.familia);
 
 //Activar Familia
 deshabilitarFamilia(id_familia: number, activo: number){
-this.famService.desactivarFamilia(id_familia, activo).subscribe((objeto)=>{
-this.buscarFamilias();
-});
+
+  console.log(activo);
+    let textoAlert = activo == 1 ? '¿Quieres DESACTIVAR la familia?' : '¿Quieres ACTIVAR la familia?'
+    Swal.fire({
+      title: textoAlert,
+      showDenyButton: true,
+      confirmButtonText: 'SI',
+      denyButtonText: `NO`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.famService.desactivarFamilia(id_familia, activo).subscribe((objeto)=>{
+          this.buscarFamilias();
+          });
+      } else if (result.isDenied) {
+        Swal.fire('No se guardaron los cambios', '', 'info')
+      }
+    })
+
+
 }
+
+
 
 getFamStatusClass(activo: number): string {
   return activo == 1? 'btn-success' : 'btn-danger';

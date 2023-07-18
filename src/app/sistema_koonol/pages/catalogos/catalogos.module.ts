@@ -16,10 +16,13 @@ import { ClientsComponent } from './clients/clients.component';
 import { RoutesComponent } from './routes/routes.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { VendedoresComponent } from './vendedores/vendedores.component';
-import { SearchFamComponent } from './search-fam/search-fam.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { SearchFamComponent } from './familias/search-fam.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
+
 
 @NgModule({
   declarations: [
