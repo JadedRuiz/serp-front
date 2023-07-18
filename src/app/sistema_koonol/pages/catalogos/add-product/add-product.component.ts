@@ -39,38 +39,47 @@ producto: Product | undefined;
     private medidaService: MedidaService) {}
 
     ngOnInit() {
+      console.log(this.item.activo);
       //Editar
-      // const idArticulo = this.route.snapshot.params['id'];
-      // this.productService.obtenerArticuloId(idArticulo).subscribe(
-      //   (producto:Product)=>{
-      //     this.producto = producto;
-      //     //Asignando los valores al form
-      //     this.item = new Product(
-      //       producto.id_articulo,
-      //       producto.id_comprador=1,
-      //       producto.token="012354SDSDS01",
-      //       producto.articulo,
-      //       producto.id_almacen,
-      //       producto.id_medida,
-      //       producto.id_familia,
-      //       producto.id_prodserv_sat=1,
-      //       producto.tasa_iva,
-      //       producto.codigo_barras,
-      //       producto.activo,
-      //       producto.id_usuario,
-      //       producto.id_existencia,
-      //       producto.precio_venta,
-      //       producto.descuento1,
-      //       producto.descuento2,
-      //       producto.descuento3,
-      //       producto.minimo,
-      //       producto.maximo,
-      //       producto.reorden,
-      //       producto.peso_producto,
-      //       producto.imagenes
-      //     );
-      //   }
-      // );
+      const idArticulo = this.route.snapshot.params['id'];
+      if (idArticulo) {
+        this.productService.obtenerArticuloId(idArticulo).subscribe(
+          (producto)=>{
+            this.item = producto.data[0]
+            console.log("soy item", this.item);
+            console.log(idArticulo);
+            this.calcularPrecioMasIva()
+
+            // this.producto = producto;
+            //Asignando los valores al form
+            // this.item = new Product(
+            //   producto.id_articulo,
+            //   producto.id_comprador=1,
+            //   producto.token="012354SDSDS01",
+            //   producto.articulo,
+            //   producto.id_almacen,
+            //   producto.id_medida,
+            //   producto.id_familia,
+            //   producto.id_prodserv_sat=1,
+            //   producto.tasa_iva,
+            //   producto.codigo_barras,
+            //   producto.activo,
+            //   producto.id_usuario,
+            //   producto.id_existencia,
+            //   producto.precio_venta,
+            //   producto.descuento1,
+            //   producto.descuento2,
+            //   producto.descuento3,
+            //   producto.minimo,
+            //   producto.maximo,
+            //   producto.reorden,
+            //   producto.peso_producto,
+            //   producto.imagenes
+            //   );
+          }
+        );
+      }
+
 
 
       this.obtenerFamilias()
@@ -165,6 +174,7 @@ const precioDescuento3 = precioDescuento2 - (precioDescuento2 * descuento3 / 100
 
 const resultado = (precioDescuento3 * (1 + tasaIVA / 100)).toFixed(2);
   this.precioMasIva = Number(resultado);
+  console.log();
 }
 
 
