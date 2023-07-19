@@ -28,7 +28,7 @@ export class CatalogoComponent implements OnInit {
 	closeModal() {
 		this.isModalOpen = false;
 	}
-  
+
 	//MODAL
 	inicoSlide: number = 0;
 	abrirModalConImagenes(articulo: any) {
@@ -195,14 +195,16 @@ export class CatalogoComponent implements OnInit {
 	}
 
 
-
-
-
 	//Para el boton .
 	addProducto() {
 		this.router.navigate(['/sis_koonol/catalogos/add-product']);
 	}
 
+  modalVisibility = false;
+
+  toggleModalVisibility() {
+    this.modalVisibility = !this.modalVisibility;
+  }
 	// Para la barra de busqueda
 	isSticky: boolean = false;
 
@@ -220,9 +222,4 @@ export class CatalogoComponent implements OnInit {
 		}
 	}
 
-	modalVisibility = false;
-
-	toggleModalVisibility() {
-		this.modalVisibility = !this.modalVisibility;
-	}
 }

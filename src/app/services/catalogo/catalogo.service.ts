@@ -87,10 +87,10 @@ return this.http.post<any>(SERVER_API,parametros)
     let url =
       'https://serp-inventarios.serteza.com/public/api/articulos/guardarArticulo';
 
+      console.log('service',producto);
     return this.http.post(url, producto).pipe(
       map((resp :any) => {
         if(resp.ok){
-          //console.log('service',resp);
           Swal.fire('Exito al crear el Articulo', '', 'success');
           this.vaciarForm = true;
           return resp.data;

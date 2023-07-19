@@ -148,12 +148,12 @@ a.editar-link {
   }
 
   .modal-content {
-    border-radius: 13px; /* Agrega bordes redondeados al modal */
+    border-radius: 33px; /* Agrega bordes redondeados al modal */
     box-shadow: 0 0 10px rgb(0, 0, 0); /* Agrega sombra al modal */
   }
 
   .modal-header {
-    background-color: #f8f9fa; /* Cambia el color del fondo del header */
+    background-color: #ffffff; /* Cambia el color del fondo del header */
     border-bottom: none; /* Elimina el borde inferior del header */
   }
 
@@ -163,27 +163,14 @@ a.editar-link {
     text-align: center;
   }
 
-  .modal-body {
-    padding: 20px;
-  }
 
-  .carousel-wrap {
-    max-height: 600px; /* Ajusta la altura máxima del carrusel */
-    overflow: hidden;
-    position: relative;
-  }
 
   .carousel-inner {
     display: flex; /* Muestra los elementos del carrusel en línea */
-    transition: transform 0.4s; /* Agrega una transición suave al carrusel */
+    transition: transform 0.7s; /* Agrega una transición suave al carrusel */
   }
 
-  .carousel-item {
-    flex: 0 0 100%; /* Hace que cada elemento ocupe el ancho completo */
-    margin-right: 20px; /* Agrega un espacio entre los elementos del carrusel */
-    border-radius: 5px;
-    overflow: hidden; /* Oculta cualquier contenido que se desborde del carrusel */
-  }
+
 
 
   .carousel-control-prev,
@@ -225,7 +212,17 @@ a.editar-link {
 }
 
 
-
+/* Estilo para el fondo oscuro del modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 3;
+  display: auto;
+}
 
 
 
