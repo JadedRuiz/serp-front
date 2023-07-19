@@ -11,7 +11,7 @@
 
 .proveedores-container {
   display: flex;
-  width: min(90%, 1020px);
+  width: min(97%, 1020px);
   flex-direction: column;
   gap: 30px;
 }
@@ -19,18 +19,20 @@
 .proveedores__search-bar {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 95%;
 
   div {
     position: relative;
     border-radius: 10px;
-    width: min(80%, 300px);
+    width: min(90%, 300px);
 
- 
+
   }
 
   .add-btn {
     max-width: 220px;
+    display: flex;
+    align-items: end;
   }
 
 
@@ -41,32 +43,7 @@
     gap: 30px;
   }
 }
-.status {
-  margin-top: 10px;
-}
 
-.status-active {
-  align-items: center;
-  display: flex;
-  gap: 10px;
-  color: #41e94c;
-  div {
-    width: 15px;
-    height: 15px;
-    background-color: #41e94c;
-  }
-}
-.status-inactive {
-  align-items: center;
-  display: flex;
-  gap: 10px;
-  color: #9f1223;
-  div {
-    width: 15px;
-    height: 15px;
-    background-color: #9f1223;
-  }
-}
 
 .proveedores_catalogo {
   width: 100%;
@@ -92,16 +69,9 @@
   }
 }
 
-.proveedores_botones {
-  display: flex;
-  width: 100%;
-  justify-content: end;
-  gap: 20px;
-}
 
-div button:hover {
-  box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.3);
-}
+
+
 
 .proveedor__form {
   display: flex;

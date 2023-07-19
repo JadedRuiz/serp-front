@@ -191,16 +191,6 @@
                 />
               </div>
             </div>
-            <div class="row mt-3" >
-              <div class="col-md-6">
-                <button class=" general-btn"  (click)="editarProveedor()"
-                type="button">Editar</button>
-              </div>
-              <div class="col-md-6">
-                <button class=" search-btn  text-center"
-                type="submit">Guardar</button>
-              </div>
-            </div>
           </div>
 
           <div class="proveedor__address-form row" [class.active]="section === 2">
@@ -258,7 +248,9 @@
                   disabled
                 />
               </div>
-              <div class="form-label">
+
+              <div class="row">
+              <div class="col form-label">
                 <label for="cruzamiento_uno">Cruzamiento 1</label>
                 <input
                   class="form-control"
@@ -271,7 +263,7 @@
                   disabled
                 />
               </div>
-              <div class="form-label">
+              <div class="col form-label">
                 <label for="cruzamiento_dos">Cruzamiento 2</label>
                 <input
                   class="form-control"
@@ -284,6 +276,8 @@
                   disabled
                 />
               </div>
+            </div>
+
             </div>
             <div class="proveedor__address-form__section2 col-12 col-md-6">
               <div class="form-label">
@@ -351,15 +345,11 @@
                   disabled
                 />
               </div>
-              <div class="row mt-3">
-                <div class="col-md-6">
+              <div  class="row mt-3 d-flex justify-content-end " >
                   <button class=" general-btn"  (click)="editarProveedor()"
                   type="button">Editar</button>
-                </div>
-                <div class="col-md-6">
-                  <button class=" search-btn  text-center"
+                  <button class="ml-3 search-btn  text-center"
                   type="submit">Guardar</button>
-                </div>
               </div>
             </div>
           </div>
