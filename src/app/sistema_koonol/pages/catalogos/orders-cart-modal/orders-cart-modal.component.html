@@ -52,7 +52,8 @@
     <span class="m-0 mt-2">Escoger fecha de entrega:</span>
     <div class="">
       <mat-form-field>
-        <input  matInput [matDatepicker]="picker" placeholder="Selecciona una fecha" [(ngModel)]="selectedDate" (dateChange)="formatDate($event)"  [min]="currentDate">
+        <input matInput [matDatepicker]="picker" placeholder="Selecciona una fecha" [(ngModel)]="selectedDate"
+          (dateChange)="formatDate($event)" [min]="currentDate">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -64,7 +65,7 @@
         Cancelar
       </button>
       <button class="general-btn" [ngClass]="{'button-disabled': !isSellerSelected || !isClientSelected}"
-        (click)="confirmClient()" [disabled]="!isClientSelected || !isSellerSelected">
+        (click)="confirmClient()" [disabled]="!isClientSelected || !isSellerSelected ">
         Confirmar
       </button>
     </div>
@@ -75,7 +76,7 @@
       <div class="orders-cart__addresses-list">
         <div class="orders-cart__address" *ngFor="let address of addresses">
           <label>
-            <input type="radio" name="address" [(ngModel)]="addressSelected" [value]="address" />
+            <input type="radio" name="address" [(ngModel)]="addressSelected" [value]="address" (click)="selectAddress(address)"/>
             {{ address.direccion }}
           </label>
         </div>
@@ -83,7 +84,15 @@
     </div>
     <div class="orders-cart__address__buttons">
       <button class="danger-btn" (click)="backToClientModal()">Regresar</button>
-      <button class="general-btn" [routerLink]="['/pedidos-realizados']">Continuar</button>
+      <button class="general-btn" [ngClass]="{'button-disabled': !isAddressSelected}"
+        (click)="confirmAddress()" [disabled]="!isAddressSelected">Continuar</button>
+    </div>
+  </div>
+  <div class="orders-modal__fin" *ngIf="finPedidoModal">
+    <h3 class="title text-center mt-5">Total: </h3>
+    <div class="orders-cart__address__buttons">
+      <button class="danger-btn" (click)="backToAddressModal()">Regresar</button>
+      <button class="general-btn" (click)="finishOrder()">Finalizar pedido</button>
     </div>
   </div>
 </div>

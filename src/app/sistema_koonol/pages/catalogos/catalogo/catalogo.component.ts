@@ -1,4 +1,4 @@
-import { Component, HostListener,ElementRef,ViewChild, OnInit } from '@angular/core';
+import { Component, HostListener, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@data/services/auth/auth.service';
 import { Product } from 'src/app/models/products.model';
@@ -14,11 +14,11 @@ import { AddProductComponent } from '../add-product/add-product.component';
 	templateUrl: './catalogo.component.html',
 	styleUrls: ['./catalogo.component.scss'],
 })
-export class CatalogoComponent implements OnInit{
+export class CatalogoComponent implements OnInit {
 
 
-//referencia para el modal
-@ViewChild('modalProducto') modalProducto: ElementRef | undefined;
+	//referencia para el modal
+	@ViewChild('modalProducto') modalProducto: ElementRef | undefined;
 	// Para el Modal
 	openModal(item: any) {
 		this.selectedCard = item;
@@ -28,34 +28,34 @@ export class CatalogoComponent implements OnInit{
 	closeModal() {
 		this.isModalOpen = false;
 	}
-//MODAL
-inicoSlide: number =0;
-abrirModalConImagenes(articulo: any) {
-  this.selectedCard = articulo;
-  this.isModalOpen = true;
-  this.inicoSlide = 0;
-}
-siguienteSlide(){
-  this.inicoSlide = (this.inicoSlide + 1) % this.selectedCard?.imagenes.length;
-}
+	//MODAL
+	inicoSlide: number = 0;
+	abrirModalConImagenes(articulo: any) {
+		this.selectedCard = articulo;
+		this.isModalOpen = true;
+		this.inicoSlide = 0;
+	}
+	siguienteSlide() {
+		this.inicoSlide = (this.inicoSlide + 1) % this.selectedCard?.imagenes.length;
+	}
 
-anteriorSlide() {
-  this.inicoSlide = (this.inicoSlide - 1 + this.selectedCard?.imagenes.length) % this.selectedCard?.imagenes.length;
-}
+	anteriorSlide() {
+		this.inicoSlide = (this.inicoSlide - 1 + this.selectedCard?.imagenes.length) % this.selectedCard?.imagenes.length;
+	}
 
 
 
-clickFuera(event: MouseEvent){
-  const cosito = event.target as HTMLElement;
-  const modalcin = document.querySelector('.modal-content')as HTMLElement;
+	clickFuera(event: MouseEvent) {
+		const cosito = event.target as HTMLElement;
+		const modalcin = document.querySelector('.modal-content') as HTMLElement;
 
-if (!modalcin.contains(cosito)){
-  this.closeModal();
-}else{
-  event.stopPropagation();
-}
+		if (!modalcin.contains(cosito)) {
+			this.closeModal();
+		} else {
+			event.stopPropagation();
+		}
 
-}
+	}
 
 
 
@@ -69,7 +69,8 @@ if (!modalcin.contains(cosito)){
 	constructor(
 		private router: Router,
 		private catalogo: CatalogoService,
-		private familias: FamiliasService) {
+		private familias: FamiliasService
+	) {
 	}
 
 	ngOnInit() {
@@ -138,12 +139,12 @@ if (!modalcin.contains(cosito)){
 					let familias = resp.data
 					this.familiasActivas = familias.filter((familia: Familia) => familia.activo == 1)
 					this.itemsFiltrados()
-          console.log(this.filteredItems);
+					console.log(this.filteredItems);
 				})
-			}else{
-        Swal.fire('Ocurrio un error',resp.message,'error')
-        console.log('==>>');
-      }
+			} else {
+				Swal.fire('Ocurrio un error', resp.message, 'error')
+				console.log('==>>');
+			}
 		})
 	}
 
@@ -187,10 +188,10 @@ if (!modalcin.contains(cosito)){
 	}
 
 
-//Para editar articulos
-editarArt(id_articulo:any){
-  this.router.navigate(['/sis_koonol/catalogos/add-product',id_articulo]);
-}
+	//Para editar articulos
+	editarArt(id_articulo: any) {
+		this.router.navigate(['/sis_koonol/catalogos/add-product', id_articulo]);
+	}
 
 
 
