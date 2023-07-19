@@ -64,6 +64,7 @@ export class OrdersCartModalComponent implements OnInit {
   currentDate: any;
   selectedDate: any;
   selectedDateFormatted: string = ''
+  isDateSelected:boolean = false
   //Variable para almacenar los productos del pedido para el carrito
   pedido: Articulo[] = [];
 
@@ -246,7 +247,8 @@ export class OrdersCartModalComponent implements OnInit {
   }
 
   //Función para formatear la fecha que viene del calendario de angular material
-  formatDate(event: MatDatepickerInputEvent<Date>) {
+  seleccionarFecha(event: MatDatepickerInputEvent<Date>) {
+    //FORMATEAR LA FECHA
     // Crear un objeto Date con la cadena de fecha
     let dateString = this.selectedDate._d //Conseguimos el string en el formato que trae angular material
     let date = new Date(dateString);
@@ -261,9 +263,10 @@ export class OrdersCartModalComponent implements OnInit {
       month.toString().padStart(2, '0') + '-' +
       year.toString();
 
-    this.selectedDateFormatted = dateFormatted
-    console.log('Fecha seleccionada:', event.value);
-    console.log("Fecha ya formateada", dateFormatted);
+    this.selectedDateFormatted = dateFormatted //Variable que almacena la fecha ya seleccionada y que se pasará al pedido
+
+    //ACTIVAR EL BOOLEANO DE FECHA SELECCIONADA
+    this.isDateSelected = true
   }
 
   //Función para ir añadiendo la información seleccionada en el pedido y avanzar al siguiente paso

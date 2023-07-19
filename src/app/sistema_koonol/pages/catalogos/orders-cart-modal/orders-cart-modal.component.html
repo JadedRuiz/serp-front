@@ -53,7 +53,7 @@
     <div class="">
       <mat-form-field>
         <input matInput [matDatepicker]="picker" placeholder="Selecciona una fecha" [(ngModel)]="selectedDate"
-          (dateChange)="formatDate($event)" [min]="currentDate">
+          (dateChange)="seleccionarFecha($event)" [min]="currentDate">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -64,8 +64,8 @@
       <button class="danger-btn" (click)="useToggleModalVisibility()">
         Cancelar
       </button>
-      <button class="general-btn" [ngClass]="{'button-disabled': !isSellerSelected || !isClientSelected}"
-        (click)="confirmClient()" [disabled]="!isClientSelected || !isSellerSelected ">
+      <button class="general-btn" [ngClass]="{'button-disabled': !isSellerSelected || !isClientSelected || !isDateSelected}"
+        (click)="confirmClient()" [disabled]="!isClientSelected || !isSellerSelected || !isDateSelected">
         Confirmar
       </button>
     </div>
