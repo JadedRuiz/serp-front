@@ -39,45 +39,45 @@ producto: Product | undefined;
     private medidaService: MedidaService) {}
 
     ngOnInit() {
-      // console.log(this.item.activo);
-      // //Editar
-      // const idArticulo = this.route.snapshot.params['id'];
-      // if (idArticulo) {
-      //   this.productService.obtenerArticuloId(idArticulo).subscribe(
-      //     (producto)=>{
-      //       //this.item = producto.data[0]
-      //       console.log(idArticulo);
+      console.log(this.item.activo);
+      //Editar
+      const idArticulo = this.route.snapshot.params['id'];
+      if (idArticulo) {
+        this.productService.obtenerArticuloId(idArticulo).subscribe(
+          (producto)=>{
+            //this.item = producto.data[0]
+            console.log(idArticulo);
 
-      //       producto = producto.data[0];
-      //      // Asignando los valores al form
-      //      this.item = new Product(
-      //        producto.id_articulo,
-      //         producto.id_comprador=1,
-      //         "012354SDSDS01",
-      //         producto.articulo,
-      //         producto.id_almacen,
-      //         producto.id_medida,
-      //         producto.id_familia,
-      //         producto.id_prodserv_sat=1,
-      //         producto.tasa_iva,
-      //         producto.codigo_barras,
-      //         producto.activo,
-      //         producto.id_usuario,
-      //         producto.id_existencia,
-      //         producto.precio_venta,
-      //         producto.descuento1,
-      //         producto.descuento2,
-      //         producto.descuento3,
-      //         producto.minimo,
-      //         producto.maximo,
-      //         producto.reorden,
-      //         producto.peso_producto,
-      //         producto.imagenes
-      //         );
-      //         this.calcularPrecioMasIva()
-      //       }
-      //   );
-      // }
+            producto = producto.data[0];
+           // Asignando los valores al form
+           this.item = new Product(
+             producto.id_articulo,
+              producto.id_comprador=1,
+              "012354SDSDS01",
+              producto.articulo,
+              producto.id_almacen,
+              producto.id_medida,
+              producto.id_familia,
+              producto.id_prodserv_sat=1,
+              producto.tasa_iva,
+              producto.codigo_barras,
+              producto.activo,
+              producto.id_usuario,
+              producto.id_existencia,
+              producto.precio_venta,
+              producto.descuento1,
+              producto.descuento2,
+              producto.descuento3,
+              producto.minimo,
+              producto.maximo,
+              producto.reorden,
+              producto.peso_producto,
+              producto.imagenes
+              );
+              this.calcularPrecioMasIva()
+            }
+        );
+      }
 
 
 
@@ -153,7 +153,7 @@ obtenerAlmacenes(){
 //Para  guardar Productos
 guardarArticulo(productForm: NgForm){
   this.productService.agregarProducto(this.item).subscribe((objeto) => {
-   // console.log('=>>',objeto.id_articulo);
+    console.log('=>>',objeto.id_articulo);
     this.guardarFotos(objeto.id_articulo);
   });
   this.productService.obtenerArticulos();

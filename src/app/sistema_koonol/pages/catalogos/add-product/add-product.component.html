@@ -111,7 +111,45 @@
         </div>
       </div>
 
-      <div class="row">
+      <div *ngIf="!item.id_existencia" class="row">
+        <div class="col-md-6 mb-4">
+
+          <!-- IMAGEN PRINCIPAL -->
+          <div class="mt-4 d-flex flex-column align-items-center justify-content-center">
+            <div *ngIf="uploadedImages.length > 0" class="text-center mp-3">
+              <img class="img-fluid shadow" [src]="imgResultAfterResize" alt="Imagen comprimida" [style.width.px]="400"
+                [style.height.px]="250" />
+            </div>
+            <div *ngIf="uploadedImages.length === 0 " class="text-center mp-3">
+              <img class="img-fluid shadow" src="assets\img\frutas-ejemplo.jpg" alt="Imagen de muestra" [style.width.px]="400"
+                [style.height.px]="250" />
+            </div>
+          </div>
+        </div>
+        <div  class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+
+          <!-- MINIATURAS -->
+          <div  class="d-flex flex-row justify-content-center">
+            <div  *ngFor="let image of uploadedImages; let i = index" class="mb-2">
+              <img style="cursor: pointer;" class="img-thumbnail" [src]="image" alt="miniatura"
+               [style.width.px]="75"
+                [style.height.px]="75" (click)="displayImage(i)" />
+                <button class="btn btn-sm cancel-btn  translate-middle "
+                id="xImage" (click)="removeImage(i + 1)"><i class="fa fa-times-circle"></i></button>
+            </div>
+          </div>
+          <div class="row">
+            <button type="button" class="mr-1 btn search-btn" (click)="uploadAndResize()"
+              [disabled]="imageCount >= 5">Subir imagen</button>
+              <button type="submit" class=" btn general-btn">Guardar</button>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- //PARA EDITAR ARTICULOS -->
+      <div style="background-color: aqua;" *ngIf="item.id_existencia" class="row">
         <div class="col-md-6 mb-4">
 
           <!-- IMAGEN PRINCIPAL -->
