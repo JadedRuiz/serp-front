@@ -89,6 +89,10 @@
               <input class="form-control" type="text" name="descuento3" id="descuento3" required
                 [(ngModel)]="proveedor.descuento3" #inputProvForm disabled />
             </div>
+            <div class="row mt-3 d-flex justify-content-end ">
+              <button class=" general-btn" (click)="editarProveedor()" type="button" *ngIf="isProveedorSelected">Editar</button>
+              <button class="ml-3 search-btn  text-center" type="submit">Guardar</button>
+            </div>
           </div>
         </div>
 
@@ -98,7 +102,7 @@
             <div class="form-label">
               <label for="descripcion">Descripción</label>
               <input class="form-control" type="text" name="descripcion" id="descripcion" required
-                [(ngModel)]="proveedor.domicilio.colonia" #inputProvForm disabled />
+                [(ngModel)]="proveedor.domicilio.descripcion" #inputProvForm disabled />
             </div>
             <div class="form-label">
               <label for="calle">Calle</label>
@@ -157,7 +161,7 @@
                 [(ngModel)]="proveedor.domicilio.estado" #inputProvForm disabled />
             </div>
             <div class="row mt-3 d-flex justify-content-end ">
-              <button class=" general-btn" (click)="editarProveedor()" type="button">Editar</button>
+              <button class=" general-btn" (click)="editarProveedor()" type="button" *ngIf="isProveedorSelected">Editar</button>
               <button class="ml-3 search-btn  text-center" type="submit">Guardar</button>
             </div>
           </div>

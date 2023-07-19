@@ -86,14 +86,14 @@ producto: Product | undefined;
       this.obtenermedidas()
     }
 
-  items: Product[] = [];
-  //  Lista de elementos
-  foto: Foto = new Foto('')
-  fotos: Foto[] = [this.foto]
+    //  Lista de elementos
+    foto: Foto = new Foto('')
+    fotos: Foto[] = [this.foto]
+    items: Product[] = [];
   item: Product = new Product(
     0,
     1,
-    '',
+    '012354SDSDS01',
     '',
     0,
     0,
@@ -153,6 +153,7 @@ obtenerAlmacenes(){
 //Para  guardar Productos
 guardarArticulo(productForm: NgForm){
   this.productService.agregarProducto(this.item).subscribe((objeto) => {
+    console.log('=>>',objeto.id_articulo);
     this.guardarFotos(objeto.id_articulo);
   });
   this.productService.obtenerArticulos();
