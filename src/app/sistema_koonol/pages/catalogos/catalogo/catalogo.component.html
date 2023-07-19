@@ -67,7 +67,7 @@
       <!-- Modal Body -->
       <div class="modal-body border-radius">
       <!-- Carrusel de imágenes -->
-<div id="productCarousel" class="carousel slide carousel-wrap">
+<div id="productCarousel" class="carousel slide carousel-wrap border-radius">
   <div class="carousel-inner">
     <!-- Verificar si el artículo tiene imágenes o no -->
     <ng-container *ngIf="selectedCard?.imagenes && selectedCard?.imagenes.length > 0; else noImages">
@@ -97,14 +97,14 @@
 
 
         <!-- Información del producto -->
-        <div class="row mt-4">
-          <div class="col-md-6">
-            <label class="font-weight-bold">Familia:</label>
-            <span> {{ selectedCard?.familia }}</span>
+        <div id="info_producto" class="row mt-4 d-flex justify-content-center">
+          <div class="col">
+            <label class="text">Familia:</label>
+            <span> <b>{{ selectedCard?.familia }}</b></span>
           </div>
-          <div class="row ">
-            <label class="font-weight-bold">Precio:</label>
-            <span> {{ selectedCard?.precio_venta | currency: 'MX' }}</span>
+          <div class="col">
+            <label class="text">Precio: </label>
+            <span> <b> {{ selectedCard?.precio_venta | currency: 'MX' }}</b></span>
           </div>
         </div>
       </div>

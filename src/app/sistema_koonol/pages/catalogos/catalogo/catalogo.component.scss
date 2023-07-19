@@ -77,14 +77,14 @@
 .cards {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 17px;
   justify-content: center;
 
   &__card {
-    width: min(90%, 250px);
+    width: min(90%, 270px);
 
     @include xxl {
-      max-width: 300px;
+      max-width: 350px;
     }
   }
 }
@@ -106,6 +106,7 @@ a.editar-link {
     width: 100%;
     object-fit: cover;
     transition: transform 0.4s;
+    cursor: pointer;
   pointer-events: auto;
   }
 
@@ -186,7 +187,11 @@ a.editar-link {
     font-size: 22px;
   }
 
+  #info_producto{
 
+      font-size: 18px;
+
+  }
 
 
 
