@@ -17,16 +17,16 @@
 }
 
 .search-fam__search-bar {
-
+  width: 100%;
   display: flex;
-  margin-bottom: 10px;
+  justify-content: space-between;
 
-  div {
+  .search-fam__search-bar-input {
+    width: min(100%, 400px);
     border-radius: 10px;
 
     .search-input {
       border-radius: 10px 0px 0px 10px;
-      width: 27rem;
     }
 
     .search-btn {
@@ -42,23 +42,20 @@
     }
   }
 
-  @include xs {
+  @include md {
     flex-direction: column;
     align-items: center;
     gap: 30px;
 
-    div {
+    .search-fam__search-bar-input {
+      display: flex;
+      justify-content: center;
       width: 100%;
       /* Ajusta el ancho al 100% */
     }
   }
 
-
 }
-
-
-
-
 
 .modal {
 

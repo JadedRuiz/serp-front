@@ -17,45 +17,44 @@
 }
 
 .routes__search-bar {
-    display: flex;
-    justify-content: space-between;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 
-    div {
-        border-radius: 10px;
+  .routes__search-bar-input {
+    width: min(100%, 400px);
+    border-radius: 10px;
 
-        .search-input {
-            border-radius: 10px 0px 0px 10px;
-            width: 27rem;
-        }
-
-        .search-btn {
-            display: flex;
-            gap: 10px;
-            border-radius: 0px 10px 10px 0px;
-        }
-
-        &:focus-within {
-          outline: 0.5px solid var(--color-base);
-          box-shadow: 0px 2px 20px -5px var(--color-base);
-          transition: 300ms;
-          }
+    .search-input {
+      border-radius: 10px 0px 0px 10px;
     }
 
+    .search-btn {
+      display: flex;
+      gap: 10px;
+      border-radius: 0px 10px 10px 0px;
+    }
 
+    &:focus-within {
+      outline: 0.5px solid var(--color-base);
+      box-shadow: 0px 2px 20px -5px var(--color-base);
+      transition: 300ms;
+    }
+  }
 
-    @include xs {
+  @include md {
     flex-direction: column;
     align-items: center;
     gap: 30px;
-    div {
-      width: 100%; /* Ajusta el ancho al 100% */
-  }
+
+    .routes__search-bar-input {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      /* Ajusta el ancho al 100% */
     }
+  }
 
-}
-
-.routes-cards {
-    width: 100%;
 }
 
 #pin {
@@ -74,5 +73,3 @@
   border-radius: 17px;
   background-color: #ee0914;
 }
-
-

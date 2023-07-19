@@ -1,63 +1,42 @@
 <div class="routes container-fluid">
   <div class="routes-container">
-    <h1 class="text-center title ">RUTAS</h1>
+    <h1 class="text-center title m-0">RUTAS</h1>
 
-    <div class="routes__search-bar col align-self-start">
-      <div class="d-flex">
-        <input
-          class="search-input"
-          type="text"
-          placeholder="Buscar ruta"
-          aria-label="Buscar ruta"
-          aria-describedby="button-addon2"
-          [(ngModel)]="searchRoute"
-        />
+    <div class="routes__search-bar align-self-start">
+      <div class="routes__search-bar-input d-flex">
+        <input class="search-input" type="text" placeholder="Buscar ruta" aria-label="Buscar ruta"
+          aria-describedby="button-addon2" [(ngModel)]="searchRoute" />
         <button class="search-btn" type="button" (click)="filtrarRutas()">
           <i class="bi bi-search"> </i> BUSCAR
         </button>
-        <div class="ml-3">
-          <button type="button" class=" add-btn" (click)="openModal()">
-            AGREGAR RUTA
-          </button>
-        </div>
+      </div>
+      <div>
+        <button type="button" class=" add-btn" (click)="openModal()">AGREGAR RUTA</button>
       </div>
     </div>
 
 
-
-    <div class="routes-cards">
-      <div class="row">
-        <div class="col-sm-12 col-lg-4 mb-3 mb-sm-0" *ngFor="let route of filteredRoutes">
-          <div
-            id="route-card"
-            class="card"
-            [class.active]="route.routeIsActive"
-          >
+    <div class="w-100">
+      <div class="row justify-content-center">
+        <div class="col-sm-10 col-md-6 col-xl-4 mb-3 mb-sm-0" *ngFor="let route of filteredRoutes">
+          <div id="route-card" class="card" [class.active]="route.routeIsActive">
             <div class="card-body">
-              <a
-                class="me-2 d-md-flex justify-content-md-end"
-                (click)="editarRuta(route)"
-                ><i id="pin" class="bi bi-pencil-square"></i
-              ></a>
+              <a class="me-2 d-flex justify-content-end" (click)="editarRuta(route)"><i id="pin"
+                  class="bi bi-pencil-square"></i></a>
               <h2 class="card-title">
                 Ruta: <b>{{ route.ruta | uppercase }}</b>
               </h2>
               <h2 class="card-ID">
                 ID: <b>{{ route.id_ruta }}</b>
               </h2>
-              <div class="d-md-flex justify-content-md-end">
-                <button
-                  type="button"
-                  class="btn"
-                  [ngClass]="getRouteStatusClass(route.activo)"
+              <div class="d-flex justify-content-end">
+                <button type="button" class="btn" [ngClass]="getRouteStatusClass(route.activo)"
                   [attr.aria-pressed]="route.activo === 1 ? 'true' : 'false'"
-                  (click)="deshabilitarRuta(route.id_ruta, route.activo)"
-                  style="
+                  (click)="deshabilitarRuta(route.id_ruta, route.activo)" style="
                     --bs-btn-padding-y: 0.25rem;
                     --bs-btn-padding-x: 0.5rem;
                     --bs-btn-font-size: 0.9rem;
-                  "
-                >
+                  ">
                   {{ getRouteStatusText(route.activo) }}
                 </button>
               </div>
@@ -80,40 +59,22 @@
         <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>EDITAR RUTA</b></h1>
         <a type="button" class="btn-close" (click)="closeModal()"></a>
       </div>
-      <form
-        #routeForm="ngForm"
-        ngNativeValidate
-        (ngSubmit)="guardarRuta(routeForm)"
-      >
+      <form #routeForm="ngForm" ngNativeValidate (ngSubmit)="guardarRuta(routeForm)">
         <div class="modal-body">
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text mb-1" id="">Nuevo nombre</span>
             </div>
             <div class="input-group">
-              <input
-                [(ngModel)]="route.ruta"
-                name="ruta"
-                type="text"
-                class="form-control"
-                required
-              />
+              <input [(ngModel)]="route.ruta" name="ruta" type="text" class="form-control" required />
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn danger-btn"
-            data-bs-dismiss="modal"
-            (click)="closeModal()"
-          >
+          <button type="button" class="btn danger-btn" data-bs-dismiss="modal" (click)="closeModal()">
             Cancelar
           </button>
-          <button
-            type="submit"
-            class="btn general-btn"
-          >
+          <button type="submit" class="btn general-btn">
             Guardar
           </button>
         </div>

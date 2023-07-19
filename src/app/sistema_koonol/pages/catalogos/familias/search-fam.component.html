@@ -2,63 +2,40 @@
   <div class="search-fam-container">
     <h1 class="text-center title m-0">FAMILIAS</h1>
 
-    <div class="search-fam__search-bar col align-self-start">
-      <div class="d-flex">
-        <input
-          class="search-input"
-          type="text"
-          placeholder="Buscar familia"
-          aria-label="Buscar famlia"
-          aria-describedby="button-addon2"
-          [(ngModel)]="searchFam"
-        />
+    <div class="search-fam__search-bar align-self-start">
+      <div class="search-fam__search-bar-input d-flex">
+        <input class="search-input" type="text" placeholder="Buscar familia" aria-label="Buscar famlia"
+          aria-describedby="button-addon2" [(ngModel)]="searchFam" />
         <button class="search-btn" type="button" (click)="filtrarFamilias()">
           <i class="bi bi-search"> </i> BUSCAR
         </button>
       </div>
-      <div class="d-md-flex align-self-end">
-        <a type="button" class="ml-2 btn general-btn" (click)="openModal()"
-          >AGREGAR FAMILIA</a
-        >
+      <div>
+        <button type="button" class="ml-2 btn general-btn" (click)="openModal()">AGREGAR FAMILIA</button>
       </div>
     </div>
 
 
-    <div class="container m-2 w-100">
-      <div class="row">
-        <div class="col-md-4 mb-3 mb-sm-0" *ngFor="let familia of filteredFam">
-          <div
-            id="fam-card"
-            class="card"
-            [class.active]="familia.familiaIsActive"
-          >
+    <div class="w-100">
+      <div class="row justify-content-center">
+        <div class="col-sm-10 col-md-6 col-xl-4 mb-3 mb-sm-0" *ngFor="let familia of filteredFam">
+          <div id="fam-card" class="card" [class.active]="familia.familiaIsActive">
             <div class="card-body">
-              <a
-                style="cursor: pointer"
-                class="me-2 d-md-flex justify-content-md-end"
-                (click)="openModal()"
-                (click)="editarFamilia(familia)"
-                ><i id="pin" class="bi bi-pencil-square"></i
-              ></a>
+              <a style="cursor: pointer" class="me-2  d-flex justify-content-end" (click)="openModal()"
+                (click)="editarFamilia(familia)"><i id="pin" class="bi bi-pencil-square"></i></a>
               <h2 class="card-text">
                 <b>Nombre:</b> {{ familia.familia | uppercase }}
               </h2>
               <h4 class="card-title"><b>ID:</b> {{ familia.id_familia }}</h4>
-              <div class="d-md-flex justify-content-md-end">
-                <button
-                  type="button"
-                  class="btn"
-                  [ngClass]="getFamStatusClass(familia.activo)"
-                  [attr.aria-pressed]="familia.activo === 1 ? 'true' : 'false'"
-                  (click)="
+              <div class=" d-flex justify-content-end">
+                <button type="button" class="btn" [ngClass]="getFamStatusClass(familia.activo)"
+                  [attr.aria-pressed]="familia.activo === 1 ? 'true' : 'false'" (click)="
                     deshabilitarFamilia(familia.id_familia, familia.activo)
-                  "
-                  style="
+                  " style="
                     --bs-btn-padding-y: 0.25rem;
                     --bs-btn-padding-x: 0.5rem;
                     --bs-btn-font-size: 1rem;
-                  "
-                >
+                  ">
                   {{ getFamStatusText(familia.activo) }}
                 </button>
               </div>
@@ -89,21 +66,11 @@
             </div>
           </div>
           <div class="input-group">
-            <input
-              [(ngModel)]="familia.familia"
-              name="familia"
-              type="text"
-              class="form-control"
-              required
-            />
+            <input [(ngModel)]="familia.familia" name="familia" type="text" class="form-control" required />
           </div>
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn danger-btn"
-            (click)="closeModal()"
-          >
+          <button type="button" class="btn danger-btn" (click)="closeModal()">
             Cancelar
           </button>
           <button type="submit" class="btn general-btn">Guardar</button>
