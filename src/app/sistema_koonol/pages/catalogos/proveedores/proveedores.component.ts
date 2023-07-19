@@ -22,6 +22,18 @@ export class ProveedoresComponent {
 
   @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
 
+  modificarProveedor() {
+    this.provInputs.forEach(
+      provInput => {
+        provInput.nativeElement.disabled = true
+        // console.log(provInput.nativeElement)
+      }
+    )
+  }
+
+
+
+
   proveedores: Proveedor[] = []
   searchProveedor: any;
   filteredProveedor: any[] = []
@@ -94,8 +106,6 @@ export class ProveedoresComponent {
     );
   }
 
-
-
   //=>
   buscarProveedor() {
     if (this.searchProveedor.length <= 2) {
@@ -146,30 +156,63 @@ export class ProveedoresComponent {
       }
     })
   }
-
+  //Activo
+proveedorIsActive: boolean = false;
+updateProveedorStatus() {
+this.autocompleteProveedor.forEach(proveedor => {
+  if (proveedor.activo === 1) {
+    proveedor.vendedorIsActive = true;
+  } else {
+    proveedor.vendedorIsActive = false;
+  }
+});
+}
 
   prueba() {
     this.domicilio = new Address(0, 1, 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '', 0)
     this.proveedor = new Proveedor(0, 1, '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, this.domicilio);
     this.editarProveedor();
+    this.isProveedorSelected = false;
   }
 
   guardarProveedor(proveedorForm: NgForm) {
+    let json = {
+      id_almacen: 0,
+      id_comprador: 1,
+      almacen: '',
+      solo_activos: 1,
+      token: '012354SDSDS01',
+    };
     if (proveedorForm.invalid) {
       return;
     }
     if (this.proveedor.id_proveedor) {
+      Swal.fire({
+        title: '¿Quieres GUARDAR los cambios?',
+        showDenyButton: true,
+        confirmButtonText: 'SI',
+        denyButtonText: `NO`,
+      }).then((result) => {
+
+        if (result.isConfirmed) {
       this.provService.editarProveedor(this.proveedor.id_proveedor, this.proveedor)
         .subscribe((objeto) => { });
-      console.log("editamos");
-      //console.log(this.proveedor);
+        Swal.fire('Cambios Guardados', '', 'success')
+          proveedorForm.resetForm()
+          this.isProveedorSelected = false
+          this.modificarProveedor();
+        console.log("EDITAMOS ", this.proveedor);
+    }
+  })
     } else {
       this.provService.agregarProveedor(this.proveedor).subscribe((objeto) => {
         this.provService.obtenerProveedores();
       })
-      console.log("guardamos");
-      //console.log(this.proveedor);
+      console.log("GUARDAMOS ", this.proveedor);
+      this.modificarProveedor();
+      proveedorForm.resetForm()
       this.provService.obtenerProveedores();
+
     }
     //console.log(this.proveedor);
   }

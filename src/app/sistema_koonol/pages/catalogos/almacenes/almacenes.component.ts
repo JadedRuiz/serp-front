@@ -77,7 +77,6 @@ export class AlmacenesComponent {
     )
   }
 
-
   addresses: Address[] = []
   modalVisibility: boolean = false
 
@@ -136,13 +135,6 @@ this.autocompleteAlmacen.forEach(almacen => {
   }
 });
 }
-
-
-
-
-
-
-
 
 
   //Buscar ALMACEN
