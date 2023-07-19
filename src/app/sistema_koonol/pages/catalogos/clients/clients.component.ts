@@ -6,7 +6,8 @@ import { Route } from 'src/app/models/routes.model';
 import { ClientsService } from 'src/app/services/clients/clients.service';
 import { RoutesService } from 'src/app/services/routes/routes.service';
 import { GeolocationService } from '../maps/services';
-import { debounceTime, delay } from 'rxjs';
+import { debounceTime } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-clients',
@@ -33,7 +34,10 @@ export class ClientsComponent {
     this.geolocationService.getUserLocation()
       .then(resp => {
         this.coords = resp
-        console.log(this.coords);
+        this.long = this.coords[0].toString()
+        this.lat = this.coords[1].toString()
+        this.address.longitud = this.long
+        this.address.latitud = this.lat
       })
     this.searchClientControl.valueChanges
       .pipe(debounceTime(500))
@@ -47,6 +51,8 @@ export class ClientsComponent {
   addresses: Address[] = [];
   routes: Route[] = []
   coords: [number, number] = [0, 0]
+  long: string = ''
+  lat: string = ''
 
   //CLIENTE QUE SE UTILIZARÁ AL CREAR UNO NUEVO
   client: Client = new Client(
@@ -87,8 +93,8 @@ export class ClientsComponent {
     '',
     '',
     '',
-    '',
-    '',
+    this.long,
+    this.lat,
     1
   );
 
@@ -139,12 +145,21 @@ export class ClientsComponent {
       return;
     }
     if (this.selectedClient.length > 0) {
-      this.clientService
-        .editarCliente(
-          this.selectedClient[0].id_cliente,
-          this.selectedClient[0]
-        )
-        .subscribe((objeto) => { });
+      Swal.fire({
+        title: '¿Quieres GUARDAR los cambios?',
+        showDenyButton: true,
+        confirmButtonText: 'SI',
+        denyButtonText: `NO`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.clientService
+            .editarCliente(
+              this.selectedClient[0].id_cliente,
+              this.selectedClient[0]
+            )
+            .subscribe((objeto) => { })
+        }
+      })
     } else {
       this.clientService.agregarCliente(this.client).subscribe((objeto) => {
         this.address.id_cliente = objeto.id_cliente;
@@ -162,17 +177,27 @@ export class ClientsComponent {
     }
     //PARA EDITAR UNA DIRECCIÓN
     if (this.addressSelected.id_cliente && this.addressSelected.id_direccion) {
-      this.clientService
-        .editarDireccion(
-          this.addressSelected.id_direccion,
-          this.addressSelected
-        )
-        .subscribe((objeto) => {
-          this.clientService.obtenerDirecciones(this.addressSelected.id_cliente)
-          this.obtenerDireccion(this.addressSelected.id_cliente)
+      Swal.fire({
+        title: '¿Quieres GUARDAR los cambios?',
+        showDenyButton: true,
+        confirmButtonText: 'SI',
+        denyButtonText: `NO`,
+      }).then((result) => {
+
+        if (result.isConfirmed) {
+          this.clientService
+            .editarDireccion(
+              this.addressSelected.id_direccion,
+              this.addressSelected
+            )
+            .subscribe((objeto) => {
+              this.clientService.obtenerDirecciones(this.addressSelected.id_cliente)
+              this.obtenerDireccion(this.addressSelected.id_cliente)
+            }
+            );
+          this.offAddAddressVisibility();
         }
-        );
-      this.offAddAddressVisibility();
+      })
     }
     //PARA AGREGAR UNA DIRECCIÓN A UN CLIENTE YA EXISTENTE
     else if (this.addressSelected.id_cliente) {
@@ -203,7 +228,7 @@ export class ClientsComponent {
   searchList: boolean = false;
   loader: boolean = false
   noClients: boolean = false
-  addressSelected: Address = new Address(0, 0, 0, '', '', '', '', '', '', '', 0, '', '', '', '', '', '', 1);
+  addressSelected: Address = new Address(0, 0, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1);
 
   //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE O RFC
   buscarCliente(value: string) {
@@ -309,7 +334,7 @@ export class ClientsComponent {
       0,
       0,
       0,
-      0
+      1
     );
     this.address = new Address(
       0,
@@ -327,16 +352,16 @@ export class ClientsComponent {
       '',
       '',
       '',
-      '',
-      '',
-      0
+      this.long,
+      this.lat,
+      1
     )
   }
 
   //FUNCIÓN PARA QUE AL QUERER AÑADIR UNA DIRECCIÓN A UN CLIENTE EXISTENTE, SE PASE EL ID DEL MISMO Y SE ABRA EL FORM
   createAddress() {
     this.addressSelected = new Address(
-      0, this.selectedClient[0].id_cliente, 0, '', '', '', '', '', '', '', 0, '', '', '', '', '', '', 1)
+      0, this.selectedClient[0].id_cliente, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1)
     this.addAddressVisibility = true
   }
 }

@@ -310,23 +310,24 @@ p {
   }
 }
 
+.search-loader, .search-list {
+  position: absolute !important;
+  top: 47px;
+  z-index: 1;
+  background-color: white;
+  border-radius: 0 0 10px 10px;
+  border: 1px solid rgb(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 12px 3px rgba(0, 0, 0, 0.315);
+  width: min(100%, 300px) !important;
+}
+
 .search-loader {
   display: flex;
   justify-content: center;
   padding: 10px;
-  border-radius: 0 0 10px 10px;
-  border: 1px solid rgb(0, 0, 0, 0.2);
-  width: min(100%,300px);
 }
 
 .search-list {
-  position: absolute;
-  top: 47px;
-  z-index: 1;
-  width: min(100%,300px);
-  background-color: white;
-  border-radius: 10px 10px 10px 10px;
-  box-shadow: 0px 8px 12px 3px rgba(0, 0, 0, 0.315);
   max-height: 400px;
   overflow-y: auto;
 
