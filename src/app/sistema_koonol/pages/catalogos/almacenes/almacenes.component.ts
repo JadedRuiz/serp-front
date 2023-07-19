@@ -99,7 +99,7 @@ export class AlmacenesComponent {
   }
 
   // =>
-  // ACTIVAR/DESACTIVAR VENDEDOR
+  // ACTIVAR/DESACTIVAR ALMACEN
   activarAlmacen(id_almacen: number, activo:number) {
     let json = {
       id_almacen: 0,
@@ -114,7 +114,6 @@ export class AlmacenesComponent {
       confirmButtonText: 'SI',
       denyButtonText: `NO`,
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.almaService.activarAlmacen(id_almacen, activo).subscribe((objeto) => {
           this.almaService.obtenerAlmacenes(json);
