@@ -45,56 +45,7 @@
   z-index: 1;
 }
 
-a.editar-link {
-  z-index: 1; /* Ajusta el valor del z-index según sea necesario */
-}
 
-
-
-.btn_h:hover {
-  background-color: var(--hover-base);
-}
-
-.search-btn, .add-btn {
-  max-width: 250px;
-}
-
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-
-  &__card {
-    width: min(90%, 320px);
-
-    @include xxl {
-      max-width: 300px;
-    }
-  }
-}
-
-// CARD
-.card-price {
-  font-size: 1.1rem;
-}
-
-.titulo{
-  font-size: 24.3px;
-}
-
-
-
-#image-card{
-  height: 250px;
-  width: min(100%, 350px);
-  display: flex;
-
-  img {
-    width: 100%;
-    object-fit: cover;
-  }
-}
 
 .search-input {
   width: 100%;
@@ -104,53 +55,64 @@ a.editar-link {
   height: 50px;
 }
 
-.zoom-on {
-  transition: transform 0.4s; /* Agregamos una transición para suavizar el efecto */
+.btn_h:hover {
+  background-color: var(--hover-base);
 }
 
-.zoom-on:hover {
-  transform: scale(-0.1); /* Escalamos la imagen al 110% cuando el usuario hace hover */
-}
-/* Estilos para la card */
-.card {
-  /* Otros estilos de la card */
-  overflow: hidden; /* Para ocultar el contenido que se desborde de la card */
-  position: relative; /* Para posicionar el pseudo-elemento de sombra */
+.search-btn, .add-btn {
+  max-width: 250px;
 }
 
-/* Estilos para la imagen */
-.card img {
-  width: 100%; /* Tamaño inicial de la imagen */
-  height: auto;
-  transition: transform 0.4s;
-  pointer-events: auto;
+
+
+// CARD
+.card-price {
+  font-size: 1.1rem;
 }
 
-/* Estilos para la sombra al hacer hover */
-.card::before {
-  content: ''; /* Agregamos un pseudo-elemento para crear la sombra */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.014);
-  transition: opacity 0.4s;
-  opacity: 0;
-  pointer-events: auto;
+.titulo{
+  font-size: 22.3px;
 }
-/* Estilos para la card */
-.card {
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+
+  &__card {
+    width: min(90%, 250px);
+
+    @include xxl {
+      max-width: 300px;
+    }
+  }
+}
+
+a.editar-link {
+  z-index: 1; /* Ajusta el valor del z-index según sea necesario */
+}
+#image-card{
+  height: 250px;
+  width: min(100%, 350px);
+  display: flex;
   overflow: hidden;
-  position: relative;
+  .cards__card {
+    height: 400px; /* Establece una altura fija para todas las tarjetas */
+    overflow: hidden; /* Oculta cualquier contenido que se desborde de la tarjeta */
+  }
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+  pointer-events: auto;
+  }
+
+
 }
 
-/* Estilos para la imagen */
-.card img {
-  width: 100%;
-  height: auto;
-  transition: transform 0.4s;
-}
+
 
 /* Estilos para la sombra al hacer hover */
 .card::before {
@@ -179,15 +141,15 @@ a.editar-link {
 
 
 
-
+//MODAL
 .modal-product {
   .modal-dialog {
-    max-width: 800px; /* Ajusta el ancho máximo del modal */
+    width: 400px; /* Ajusta el ancho máximo del modal */
   }
 
   .modal-content {
     border-radius: 13px; /* Agrega bordes redondeados al modal */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Agrega sombra al modal */
+    box-shadow: 0 0 10px rgb(0, 0, 0); /* Agrega sombra al modal */
   }
 
   .modal-header {
@@ -206,7 +168,7 @@ a.editar-link {
   }
 
   .carousel-wrap {
-    max-height: 400px; /* Ajusta la altura máxima del carrusel */
+    max-height: 600px; /* Ajusta la altura máxima del carrusel */
     overflow: hidden;
     position: relative;
   }
@@ -223,43 +185,44 @@ a.editar-link {
     overflow: hidden; /* Oculta cualquier contenido que se desborde del carrusel */
   }
 
-  .product-image img {
-    width: 100%;
-    height: auto;
-    object-fit: cover; /* Ajusta las imágenes para que cubran todo el espacio */
-  }
 
   .carousel-control-prev,
   .carousel-control-next {
     top: 50%;
-    transform: translateY(-50%);
     width: 30px;
     height: 30px;
-    background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 50%; /* Hace los controles circulares */
+    border-radius: 50%;
+    background-color: rgb(240, 15, 15);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 22px;
   }
 
-  .carousel-control-prev {
-    left: -30px;
-  }
 
-  .carousel-control-next {
-    right: -30px;
-  }
 
-  .row {
-    margin-bottom: 10px; /* Agrega un espacio entre las filas de información */
-  }
+
 
   .font-weight-bold {
     font-weight: bold; /* Agrega negrita a los títulos de información */
   }
 }
 
+/* Estilos para la imagen en el modal */
+.product-image {
+  width: 100%;
+  height: 250px; /* Establecer una altura fija para la imagen */
+  background-color: #f0f0f0ab; /* Color de fondo para el área de la imagen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.product-image img {
+  max-width: 100%;
+  max-height: 100%;
+}
 
 
 

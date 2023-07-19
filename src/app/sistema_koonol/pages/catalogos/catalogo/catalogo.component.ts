@@ -28,6 +28,7 @@ export class CatalogoComponent implements OnInit {
 	closeModal() {
 		this.isModalOpen = false;
 	}
+  
 	//MODAL
 	inicoSlide: number = 0;
 	abrirModalConImagenes(articulo: any) {

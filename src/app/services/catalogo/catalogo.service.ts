@@ -58,7 +58,7 @@ export class CatalogoService {
 //Para obtener Artiuclos
 obtenerArticulos(): Observable<any> {
     const parametros = {
-      id_articulo: 0,
+      id_existencia: 0,
       id_comprador: 1,
       articulo: '',
       token: '012354SDSDS01',
@@ -71,50 +71,13 @@ obtenerArticulos(): Observable<any> {
 //Para Obtener Artiuculos por Id
 obtenerArticuloId(idProducto:number): Observable<any>{
 const parametros = {
-  id_articulo: idProducto,
+  id_existencia: idProducto,
   id_comprador: 1,
   token: '012354SDSDS01',
   id_almacen: 1,
 };
 return this.http.post<any>(SERVER_API,parametros)
-// .pipe(
-  // map((response)=>{
-  //   if(response.ok){
-  //     console.log("hola", response.data);
-  //     const producto: Product ={
-  //       id_articulo: response.data.id_articulo,
-  //           id_comprador: response.data.id_comprador,
-  //           token: response.data.token,
-  //           articulo: response.data.articulo,
-  //           id_almacen: response.data.id_almacen,
-  //           id_medida: response.data.id_medida,
-  //           id_familia: response.data.id_familia,
-  //           id_prodserv_sat: response.data.id_prodserv_sat,
-  //           tasa_iva: response.data.tasa_iva,
-  //           codigo_barras: response.data.codigo_barras,
-  //           activo: response.data.activo,
-  //           id_usuario: response.data.id_usuario,
-  //           id_existencia: response.data.id_existencia,
-  //           precio_venta: response.data.precio_venta,
-  //           descuento1: response.data.descuento1,
-  //           descuento2: response.data.descuento2,
-  //           descuento3: response.data.descuento3,
-  //           minimo: response.data.minimo,
-  //           maximo: response.data.maximo,
-  //           reorden: response.data.reorden,
-  //           peso_producto: response.data.peso_producto,
-  //           imagenes: response.data.imagenes,
-  //     };
-  //     console.log(producto);
-  // //     return producto;
-  //   }else {
-  //     throw new Error('No se pudo obtener el producto');
-  //   }
-//   }),
-//   catchError((error)=>{
-//     return throwError(error);
-//   })
-// )
+
 }
 
 
@@ -165,7 +128,7 @@ this.vaciarForm = false;
      const parametros = {
        id_articulo_fotografia: 0,
        id_articulo: id_articulo,
-       id_comprador: 1,
+       id_comprador: 1,
        id_fotografia: 0,
        token: "012354SDSDS01",
        foto_base64: foto_base64,
