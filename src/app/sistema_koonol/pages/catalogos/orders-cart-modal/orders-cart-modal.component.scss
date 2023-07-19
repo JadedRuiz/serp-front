@@ -26,16 +26,18 @@
 
 .orders-modal__client,
 .orders-modal__addresses,
-.orders-modal__fin {
+.orders-modal__fin,
+.orders-modal__extra {
     background-color: white;
     border-radius: 10px;
-    padding: 25px 10px 25px 10px;
+    // padding: 25px 10px 25px 10px;
+    padding: 25px;
     justify-self: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: min(90%, 600px);
-    height: 400px;
+    height: 420px;
     z-index: 1;
 }
 
@@ -59,14 +61,13 @@
 }
 
 .orders-cart__client__buttons {
-    margin-right: 10px;
     align-self: flex-end;
     display: flex;
     gap: 20px;
 }
 
 .orders-cart__addresses-container {
-    width: 90%;
+    width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.200);
     border-radius: 5px;
 }
@@ -76,7 +77,7 @@
     flex-direction: column;
     align-items: center;
     overflow-y: auto;
-    height: 230px;
+    height: 255px;
 }
 
 .orders-cart__addresses-list::-webkit-scrollbar {
@@ -92,7 +93,7 @@
     display: flex;
     background-color: white;
     width: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.200);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.200);
     padding: 5.5px 10px;
     gap: 10px;
     cursor: pointer;
@@ -125,44 +126,48 @@
 
 .orders-cart__address__buttons {
     margin-top: auto;
-    margin-right: 10px;
     align-self: flex-end;
     display: flex;
     gap: 20px;
-
-    // .orders-cart__address__btn-cancel,
-    // .orders-cart__address__btn-submit {
-    //     padding: 5px 10px;
-    //     border: 1px solid;
-    //     border-radius: 10px;
-    // }
 }
 
 .button-disabled {
     background-color: grey;
 }
 
+.orders-modal__fin {
+    align-items: start;
 
-// .orders-modal__form {
-//     width: min(90%, 500px);
-//     margin-top: 100px;
+    .title {
+        align-self: center;
+    }
 
-//     form {
-//         padding: 10px;
+    .orders-modal__fin-info {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgba(0, 0, 0, 0.200);
+        border-radius: 5px;
+        width: 100%;
 
-//         .btn {
-//             padding: 0;
-//         }
+        p {
+            padding: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.200);
+        }
 
-//         .row {
-//             padding: 0;
-//             justify-content: space-around;
+        .subtitle {
+            padding: 10px;
+        }
+    }
 
-//             @include sm {
-//                 justify-content: center;
-//             }
-//         }
 
-//     }
+    .span-extra {
+        margin: 10px 0 0 10px;
+        color: steelblue;
+        cursor: pointer;
 
-// }
+        &:hover {
+            color: orangered;
+            transition: 500ms;
+        }
+    }
+}

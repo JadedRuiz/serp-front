@@ -308,5 +308,22 @@ export class OrdersCartModalComponent implements OnInit {
     this.router.navigate(['/sis_koonol/catalogos/pedidos-realizados']);
   }
 
+  openExtraModal() {
+    this.extraModal = true
+    this.finPedidoModal = false
+  }
+
+  //MODAL PARA AÑADIR FOTOS AL CLIENTE Y PARA AÑADIRLE UNA UBICACIÓN
+  extraModal:boolean= false
+
+  backToFinishOrder() {
+    this.extraModal = false
+    this.finPedidoModal = true
+  }
+
+  saveExtraChanges() {
+
+  }
+
 }
 

@@ -64,7 +64,8 @@
       <button class="danger-btn" (click)="useToggleModalVisibility()">
         Cancelar
       </button>
-      <button class="general-btn" [ngClass]="{'button-disabled': !isSellerSelected || !isClientSelected || !isDateSelected}"
+      <button class="general-btn"
+        [ngClass]="{'button-disabled': !isSellerSelected || !isClientSelected || !isDateSelected}"
         (click)="confirmClient()" [disabled]="!isClientSelected || !isSellerSelected || !isDateSelected">
         Confirmar
       </button>
@@ -76,7 +77,8 @@
       <div class="orders-cart__addresses-list">
         <div class="orders-cart__address" *ngFor="let address of addresses">
           <label>
-            <input type="radio" name="address" [(ngModel)]="addressSelected" [value]="address" (click)="selectAddress(address)"/>
+            <input type="radio" name="address" [(ngModel)]="addressSelected" [value]="address"
+              (click)="selectAddress(address)" />
             {{ address.direccion }}
           </label>
         </div>
@@ -84,15 +86,25 @@
     </div>
     <div class="orders-cart__address__buttons">
       <button class="danger-btn" (click)="backToClientModal()">Regresar</button>
-      <button class="general-btn" [ngClass]="{'button-disabled': !isAddressSelected}"
-        (click)="confirmAddress()" [disabled]="!isAddressSelected">Continuar</button>
+      <button class="general-btn" [ngClass]="{'button-disabled': !isAddressSelected}" (click)="confirmAddress()"
+        [disabled]="!isAddressSelected">Continuar</button>
     </div>
   </div>
   <div class="orders-modal__fin" *ngIf="finPedidoModal">
-    <h3 class="title text-center mt-5">Total: </h3>
+    <h3 class="title">Datos del pedido</h3>
+    <div class="orders-modal__fin-info">
+      <p><b> Cliente: </b> <span>{{selectedClient.cliente}}</span></p>
+      <p><b> Dirección: </b> <span>{{addressSelected.direccion}}</span></p>
+      <p><b> Fecha de entrega: </b> <span>{{selectedDateFormatted}}</span></p>
+      <h3 class="subtitle text-start">Total: </h3>
+    </div>
+    <span class="span-extra" (click)="openExtraModal()">El cliente no tiene fotos, ¿deseas añadir?</span>
     <div class="orders-cart__address__buttons">
       <button class="danger-btn" (click)="backToAddressModal()">Regresar</button>
       <button class="general-btn" (click)="finishOrder()">Finalizar pedido</button>
     </div>
+  </div>
+  <div class="orders-modal__extra" *ngIf="extraModal">
+
   </div>
 </div>
