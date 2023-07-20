@@ -13,6 +13,7 @@
           aria-describedby="button-addon2"
           [(ngModel)]="searchVendedor"
           (ngModelChange)="buscarVendedor()"
+          data-toggle="tooltip" title="Buscar vendedor"
         />
         <ul class="search-list" *ngIf="searchList">
           <li class="search-list__element" *ngFor="let vendedor of autocompleteVendedor" (click)="selecionarVendedor(vendedor.id_vendedor)">
@@ -22,10 +23,10 @@
       </div>
 
       <!-- Boton de Status -->
-      <button *ngIf="vendedor && vendedor.id_vendedor" type="button" class="btn" [ngClass]="getVendedorStatusClass(vendedor.activo)" [attr.aria-pressed]="vendedor.activo === 1 ? 'true' : 'false'" (click)="activarVendedor(vendedor.id_vendedor, vendedor.activo)">
+      <button data-toggle="tooltip" title="Activar/Desactivar" *ngIf="vendedor && vendedor.id_vendedor" type="button" class="btn" [ngClass]="getVendedorStatusClass(vendedor.activo)" [attr.aria-pressed]="vendedor.activo === 1 ? 'true' : 'false'" (click)="activarVendedor(vendedor.id_vendedor, vendedor.activo)">
         {{ getVendedorStatusText(vendedor.activo) }}
       </button>
-      <button type="button" class="add-btn" (click)="cargarCampos()">
+      <button type="button" class="add-btn" data-toggle="tooltip" title="Agregar vendedor" (click)="cargarCampos()">
         AGREGAR VENDEDOR
       </button>
     </div>
@@ -56,8 +57,8 @@
 
           <div  class="vendedor__data-form__section2 col-12 col-md-12">
             <div class="mt-2 d-flex justify-content-end">
-              <button *ngIf="vendedor && vendedor.id_vendedor" class="general-btn mr-2" (click)="activarCampos()" type="button">Editar</button>
-              <button class="search-btn text-center" type="submit">Guardar</button>
+              <button *ngIf="vendedor && vendedor.id_vendedor" class="general-btn mr-2" (click)="activarCampos()" type="button" data-toggle="tooltip" title="Editar">Editar</button>
+              <button class="search-btn text-center" type="submit" data-toggle="tooltip" title="Guardar" >Guardar</button>
             </div>
           </div>
 

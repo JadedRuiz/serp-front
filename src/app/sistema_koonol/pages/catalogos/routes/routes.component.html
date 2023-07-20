@@ -6,12 +6,12 @@
       <div class="routes__search-bar-input d-flex">
         <input class="search-input" type="text" placeholder="Buscar ruta" aria-label="Buscar ruta"
           aria-describedby="button-addon2" [(ngModel)]="searchRoute" />
-        <button class="search-btn" type="button" (click)="filtrarRutas()">
+        <button class="search-btn" type="button" data-toggle="tooltip" title="Buscar" (click)="filtrarRutas()">
           <i class="bi bi-search"> </i> BUSCAR
         </button>
       </div>
       <div>
-        <button type="button" class=" add-btn" (click)="openModal()">AGREGAR RUTA</button>
+        <button type="button" class=" add-btn" (click)="openModal()" data-toggle="tooltip" title="Agregar ruta">AGREGAR RUTA</button>
       </div>
     </div>
 
@@ -21,7 +21,7 @@
         <div class="col-sm-10 col-md-6 col-xl-4 mb-3 mb-sm-0" *ngFor="let route of filteredRoutes">
           <div id="route-card" class="card" [class.active]="route.routeIsActive">
             <div class="card-body">
-              <a class="me-2 d-flex justify-content-end" (click)="editarRuta(route)"><i id="pin"
+              <a class="me-2 d-flex justify-content-end" data-toggle="tooltip" title="Editar"(click)="editarRuta(route)"><i id="pin"
                   class="bi bi-pencil-square"></i></a>
               <h2 class="card-title">
                 Ruta: <b>{{ route.ruta | uppercase }}</b>
@@ -30,7 +30,7 @@
                 ID: <b>{{ route.id_ruta }}</b>
               </h2>
               <div class="d-flex justify-content-end">
-                <button type="button" class="btn" [ngClass]="getRouteStatusClass(route.activo)"
+                <button type="button" class="btn" data-toggle="tooltip" title="Activar/Desactivar" [ngClass]="getRouteStatusClass(route.activo)"
                   [attr.aria-pressed]="route.activo === 1 ? 'true' : 'false'"
                   (click)="deshabilitarRuta(route.id_ruta, route.activo)" style="
                     --bs-btn-padding-y: 0.25rem;
@@ -57,7 +57,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>EDITAR RUTA</b></h1>
-        <a type="button" class="btn-close" (click)="closeModal()"></a>
+        <a type="button" class="btn-close" (click)="closeModal()" ></a>
       </div>
       <form #routeForm="ngForm" ngNativeValidate (ngSubmit)="guardarRuta(routeForm)">
         <div class="modal-body">
@@ -82,3 +82,6 @@
     </div>
   </div>
 </div>
+
+
+
