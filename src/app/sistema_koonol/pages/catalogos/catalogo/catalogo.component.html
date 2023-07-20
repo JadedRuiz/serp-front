@@ -8,8 +8,8 @@
     <div class="search-bar row" [class.sticky]="isSticky" [class.active]="isSticky">
       <input type="text" class="search-input col-10 col-md-3" placeholder="Productos" [(ngModel)]="searchTitle">
       <input type="text" class="search-input col-10 col-md-3" placeholder="Familia" [(ngModel)]="searchFam">
-      <button type="button" class="b search-btn" (click)="buscar()">BUSCAR</button>
-      <button type="button" class="b add-btn" (click)="addProducto()">AGREGAR PRODUCTO</button>
+      <button type="button" class="b search-btn" (click)="buscar()" data-toggle="tooltip" title="Buscar" >BUSCAR</button>
+      <button type="button" class="b add-btn" (click)="addProducto() "data-toggle="tooltip" title="Agregar producto" >AGREGAR PRODUCTO</button>
     </div>
 
     <div class="text-center" *ngIf="resultsNotFound" style="  color:red; font-size: 40px;">No se encontraron resultados.
@@ -20,7 +20,7 @@
     <div class="cards">
       <div class="cards__card" *ngFor="let articulo of filteredItems" >
         <div class="card">
-          <a type="button" class="mt-1 me-1 align-self-end btn_h " (click)="agregarProductoCarrito(articulo)">+</a>
+          <a type="button" class="mt-1 me-1 align-self-end btn_h " (click)="agregarProductoCarrito(articulo)" data-toggle="tooltip" title="Agregar producto" >+</a>
           <div id="image-card" class="img-thumbnail" >
             <img *ngIf="articulo.imagenes.length == 0" src="../../../../../assets/img/imgK.png" alt="Producto" class="zoom-on" (click)="abrirModalConImagenes(articulo)">
             <img *ngIf="articulo.imagenes.length > 0" [src]="articulo.imagenes[0].fotografia" alt="Producto" class="zoom-on" (click)="abrirModalConImagenes(articulo)">
@@ -43,7 +43,7 @@
                 <br>
                 <span><b>Unidad</b> {{articulo.medida}}</span>
               </div>
-              <a class="editar-link" (click)="editarArt(articulo.id_existencia)" style="font-size:18px;color: var(--color-terciario)"><i class="fa fa-pencil-square-o " aria-hidden="true"></i></a>
+              <a data-toggle="tooltip" title="Editar" class="editar-link" (click)="editarArt(articulo.id_existencia)" style="font-size:18px;color: var(--color-terciario)"><i class="fa fa-pencil-square-o " aria-hidden="true"></i></a>
             </div>
             <span class="card-price ms-4"><strong> {{ articulo.precio_venta | currency: 'MX'}}</strong></span>
           </div>
@@ -59,7 +59,7 @@
       <!-- Modal Header -->
       <div class="modal-header">
         <h5 class="modal-title product-title mb-0">{{ selectedCard?.articulo }}</h5>
-        <button type="button" class="close" (click)="closeModal()">
+        <button data-toggle="tooltip" title="Cerrar" type="button" class="close" (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

@@ -10,7 +10,7 @@
         </div>
         <div id="dah" class="row">
           <div class="col-md-2">
-            <button type="button" class="btn btn-atras" [routerLink]="['/sis_koonol/catalogos/']">
+            <button data-toggle="tooltip" title="Regresar" type="button" class="btn btn-atras" [routerLink]="['/sis_koonol/catalogos/']">
               <i class="bi bi-arrow-left-circle-fill"></i>
             </button>
           </div>
@@ -141,7 +141,7 @@
           <div class="row">
             <button type="button" class="mr-1 btn search-btn" (click)="uploadAndResize()"
               [disabled]="imageCount >= 5">Subir imagen</button>
-            <button type="submit" class=" btn general-btn">Guardar</button>
+            <button data-toggle="tooltip" title="Guardar" type="submit" class=" btn general-btn">Guardar</button>
           </div>
         </div>
       </div>
