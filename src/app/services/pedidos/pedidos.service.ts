@@ -18,5 +18,6 @@ export class PedidosService {
             token: "012354SDSDS01"
         };
         return this.http.post<any>(SERV_PEDIDOS, parametros);
-    }   
+  }
+  
 }
