@@ -22,7 +22,18 @@ export class ProveedoresService {
     let url = 'https://serp-inventarios.serteza.com/public/api/proveedores/guardarProveedor';
     return this.http.post(url, proveedor)
       .pipe(map((resp: any) => {
-        return resp;
+        if(resp.ok){
+          Swal.fire('Proveedor editado con exito', '', 'success');
+          return resp;
+          
+        }else{
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Error',
+            text: resp.message || 'Ha ocurrido un error',
+          });
+        }
       }), catchError(err => {
         Swal.fire("Ha ocurrido un error", err.error.message, 'error');
         return throwError(err);
@@ -35,9 +46,19 @@ export class ProveedoresService {
     return this.http.post(url, proveedor)
       .pipe(
         map((resp: any) => {
-          console.log(resp);
-          Swal.fire('Proveedor creado exitosamente', '', 'success');
-          return resp.data;
+          if(resp.ok){
+            Swal.fire('Proveedor creado con exito', '', 'success');
+            return resp.data;
+          }else {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Error',
+              text: resp.message || 'Ha ocurrido un error',
+            });
+            console.error(resp);
+            return throwError(resp);
+          }
         }),
         catchError(err => {
           Swal.fire('Error al crear proveedor', err.error.message, 'error');

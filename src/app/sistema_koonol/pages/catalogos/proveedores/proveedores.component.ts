@@ -278,6 +278,9 @@ export class ProveedoresComponent {
           this.isProveedorSelected = false
           this.modificarProveedor();
           console.log("EDITAMOS ", this.proveedor);
+          if (result.isDenied){
+            return;
+          }
         }
       })
     } else {
@@ -286,7 +289,7 @@ export class ProveedoresComponent {
       })
       console.log("GUARDAMOS ", this.proveedor);
       this.modificarProveedor();
-      proveedorForm.resetForm()
+      proveedorForm.resetForm();
       this.provService.obtenerProveedores(json);
 
     }
