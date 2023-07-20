@@ -22,8 +22,8 @@
           <div id="producto" class="row text-center">
             <div class="col-md-3">
               <label for="inputNombre">Nombre</label>
-              <input type="text" class="form-control" name="articulo" id="inputNombre" required placeholder="Producto..."
-                [(ngModel)]="item.articulo" />
+              <input type="text" class="form-control" name="articulo" id="inputNombre" required
+                placeholder="Producto..." [(ngModel)]="item.articulo" />
             </div>
             <div class="col-md-3">
               <label class="label-label" for="inputFamilia">Familia</label>
@@ -89,23 +89,23 @@
           <div id="existencias" class="row text-center align-items-center justify-content-center d-flex">
             <div class="col-md-3">
               <label for="inputFamilia">Mínimo</label>
-              <input type="text" class="form-control"name="itemMinimo" id="inputFamilia" placeholder="..."
-              [(ngModel)]="item.minimo" />
+              <input type="text" class="form-control" name="itemMinimo" id="inputFamilia" placeholder="..."
+                [(ngModel)]="item.minimo" />
             </div>
             <div class="col-md-3">
               <label for="inputFamilia">Máximo</label>
               <input type="text" class="form-control" name="itemMaximo" id="inputFamilia" placeholder="..."
-              [(ngModel)]="item.maximo" />
+                [(ngModel)]="item.maximo" />
             </div>
             <div class="col-md-3">
               <label for="inputFamilia">Reorden</label>
               <input type="text" class="form-control" name="itemReorden" id="inputFamilia" placeholder="..."
-              [(ngModel)]="item.reorden"/>
+                [(ngModel)]="item.reorden" />
             </div>
             <div class="col-md-3">
               <label for="inputCodigo">Código de barras</label>
               <input type="text" class="form-control" name="itemCodigoBarras" placeholder="..."
-              [(ngModel)]="item.codigo_barras"/>
+                [(ngModel)]="item.codigo_barras" />
             </div>
           </div>
         </div>
@@ -117,32 +117,31 @@
           <!-- IMAGEN PRINCIPAL -->
           <div class="mt-4 d-flex flex-column align-items-center justify-content-center">
             <div *ngIf="uploadedImages.length > 0" class="text-center mp-3">
-              <img class="img-fluid shadow" [src]="imgResultAfterResize" alt="Imagen comprimida" [style.width.px]="400"
+              <img class="img-fluid shadow" [src]="imgResultAfterResize" alt="Imagen comprimida" [style.width.px]="250"
                 [style.height.px]="250" />
             </div>
             <div *ngIf="uploadedImages.length === 0 " class="text-center mp-3">
-              <img class="img-fluid shadow" src="assets\img\frutas-ejemplo.jpg" alt="Imagen de muestra" [style.width.px]="400"
-                [style.height.px]="250" />
+              <img class="img-fluid shadow" src="assets\img\frutas-ejemplo.jpg" alt="Imagen de muestra"
+                [style.width.px]="250" [style.height.px]="250" />
             </div>
           </div>
         </div>
-        <div  class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+        <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
 
 
           <!-- MINIATURAS -->
-          <div  class="d-flex flex-row justify-content-center">
-            <div  *ngFor="let image of uploadedImages; let i = index" class="mb-2">
-              <img style="cursor: pointer;" class="img-thumbnail" [src]="image" alt="miniatura"
-               [style.width.px]="75"
+          <div class="d-flex flex-row justify-content-center">
+            <div *ngFor="let image of uploadedImages; let i = index" class="mb-2">
+              <img style="cursor: pointer;" class="img-thumbnail" [src]="image" alt="miniatura" [style.width.px]="75"
                 [style.height.px]="75" (click)="displayImage(i)" />
-                <button class="btn btn-sm cancel-btn  translate-middle "
-                id="xImage" (click)="removeImage(i + 1)"><i class="fa fa-times-circle"></i></button>
+              <button class="btn btn-sm cancel-btn  translate-middle " id="xImage" (click)="removeImage(i + 1)"><i
+                  class="fa fa-times-circle"></i></button>
             </div>
           </div>
           <div class="row">
             <button type="button" class="mr-1 btn search-btn" (click)="uploadAndResize()"
               [disabled]="imageCount >= 5">Subir imagen</button>
-              <button type="submit" class=" btn general-btn">Guardar</button>
+            <button type="submit" class=" btn general-btn">Guardar</button>
           </div>
         </div>
       </div>
@@ -155,32 +154,31 @@
           <!-- IMAGEN PRINCIPAL -->
           <div class="mt-4 d-flex flex-column align-items-center justify-content-center">
             <div *ngIf="uploadedImages.length > 0" class="text-center mp-3">
-              <img class="img-fluid shadow" [src]="imgResultAfterResize" alt="Imagen comprimida" [style.width.px]="400"
-                [style.height.px]="250" />
+              <img class="img-fluid shadow" [src]="imgResultAfterResize.fotografia || imgResultAfterResize" alt="Imagen comprimida" [style.width.px]="300"
+                [style.height.px]="300" />
             </div>
             <div *ngIf="uploadedImages.length === 0 " class="text-center mp-3">
-              <img class="img-fluid shadow" src="assets\img\frutas-ejemplo.jpg" alt="Imagen de muestra" [style.width.px]="400"
-                [style.height.px]="250" />
+              <img class="img-fluid shadow" src="assets\img\frutas-ejemplo.jpg" alt="Imagen de muestra"
+                [style.width.px]="300" [style.height.px]="300" />
             </div>
           </div>
         </div>
-        <div  class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+        <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
 
 
           <!-- MINIATURAS -->
-          <div  class="d-flex flex-row justify-content-center">
-            <div  *ngFor="let image of uploadedImages; let i = index" class="mb-2">
-              <img style="cursor: pointer;" class="img-thumbnail" [src]="image" alt="miniatura"
-               [style.width.px]="75"
+          <div class="d-flex flex-row justify-content-center">
+            <div *ngFor="let image of uploadedImages; let i = index" class="mb-2">
+              <img style="cursor: pointer;" class="img-thumbnail" [src]="image.fotografia || image" alt="miniatura" [style.width.px]="75"
                 [style.height.px]="75" (click)="displayImage(i)" />
-                <button class="btn btn-sm cancel-btn  translate-middle "
-                id="xImage" (click)="removeImage(i + 1)"><i class="fa fa-times-circle"></i></button>
+              <button class="btn btn-sm cancel-btn  translate-middle " id="xImage" (click)="removeImage(i + 1)"><i
+                  class="fa fa-times-circle"></i></button>
             </div>
           </div>
           <div class="row">
             <button type="button" class="mr-1 btn search-btn" (click)="uploadAndResize()"
               [disabled]="imageCount >= 5">Subir imagen</button>
-              <button type="submit" class=" btn general-btn">Guardar</button>
+            <button type="submit" class=" btn general-btn">Guardar</button>
           </div>
         </div>
       </div>
