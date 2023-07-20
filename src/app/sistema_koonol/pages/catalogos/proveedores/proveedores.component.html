@@ -6,13 +6,21 @@
     <div class="proveedores__search-bar">
       <div class="d-flex">
         <input class="search-input" type="text" placeholder="Buscar proveedores" aria-label="Buscar proveedores"
-          aria-describedby="button-addon2" [(ngModel)]="searchProveedor" (ngModelChange)="buscarProveedor()" />
+          aria-describedby="button-addon2" [formControl]="searchProveedorControl"/>
+          <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noProveedor">
+            <h4>No se encontro el Almacen</h4>
+          </div>
+          <div class="search-loader" *ngIf="loader; else proveedoresReady">
+            <i class="fa fa-spinner fa-pulse"></i>
+          </div>
+          <ng-template #proveedoresReady>
         <ul class="search-list" *ngIf="searchList">
           <li class="search-list__element" *ngFor="let proveedor of autocompleteProveedor"
             (click)="selecionarProveedor(proveedor.id_proveedor)">
-            {{proveedor.nombre_comercial || proveedor.proveedor}}
+            {{proveedor.proveedor}}
           </li>
         </ul>
+      </ng-template>
       </div>
       <!-- nuevo boton de activado -->
       <button *ngIf="proveedor.id_proveedor && proveedor.proveedor" type="button" class="btn btn-success act"

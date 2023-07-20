@@ -4,7 +4,7 @@
     <!-- SEARCH-BAR -->
     <div class="clients__search-bar">
       <div class="d-flex flex-column">
-        <input class="search-input" type="text" placeholder="Buscar cliente" aria-label="Buscar cliente"
+        <input class="search-input" type="text" placeholder="Buscar cliente" aria-label="Buscar cliente" data-toggle="tooltip" title="Buscar cliente"
           aria-describedby="button-addon2" [formControl]="searchClientControl" />
         <div class="search-loader w-100" *ngIf="loader; else clientsReady">
           <i class="fa fa-spinner fa-pulse"></i>
@@ -21,7 +21,7 @@
           </ul>
         </ng-template>
       </div>
-      <button type="button" class="add-btn" (click)="addClient()" *ngIf="isClientSelected">
+      <button data-toggle="tooltip" title="Agregar cliente" type="button" class="add-btn" (click)="addClient()" *ngIf="isClientSelected">
         AGREGAR CLIENTE
       </button>
     </div>
@@ -100,7 +100,7 @@
               </div>
             </div>
             <div class="w-100 d-flex justify-content-end mt-3">
-              <button type="button" class="client__form-next general-btn align-self-end" [class.active]="section === 1"
+              <button type="button" class="client__form-next general-btn align-self-end" data-toggle="tooltip" title="Siguiente"[class.active]="section === 1"
                 (click)="tab(2)">
                 Siguiente
               </button>
@@ -192,7 +192,7 @@
                 (click)="tab(1)">
                 Regresar
               </button>
-              <button type="submit" class="client__form-save general-btn" [class.active]="section === 2">
+              <button type="submit" class="client__form-save general-btn" data-toggle="tooltip" title="Guardar cliente" [class.active]="section === 2">
                 Guardar cliente
               </button>
             </div>
