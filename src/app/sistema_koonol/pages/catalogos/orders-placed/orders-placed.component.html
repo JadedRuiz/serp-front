@@ -1,9 +1,9 @@
 <article class="orders-placed__container">
   <h3 class="orders-placed__title">PEDIDOS REALIZADOS</h3>
-  <div class=" orders-placed__order">
+  <div class=" orders-placed__order" *ngFor="let pedido of pedidos">
     <div class=" orders-placed__order__section1">
       <div class="orders-placed__order__section1--subsection1">
-        <p>Julio Enrique Méndez Hernández</p>
+        <p>{{pedido.cliente}} </p>
         <span>Vendido por: Un vendedor</span>
         <span><b>Ruta:</b> La gran ruta</span>
       </div>
@@ -17,49 +17,7 @@
         <button class="btn btn-danger">Facturar</button>
       </div>
       <div class="orders-placed__order__section2--subsection2">
-        <span><b>Total: $102</b></span>
-      </div>
-    </div>
-  </div>
-  <div class="orders-placed__order">
-    <div class="orders-placed__order__section1">
-      <div class="orders-placed__order__section1--subsection1">
-        <p>Julio Enrique Méndez Hernández</p>
-        <span>Vendido por: Un vendedor</span>
-        <span>Ruta: La gran ruta</span>
-      </div>
-      <div class="orders-placed__order__section1--subsection2">
-        <span (click)="toggleModalVisibility()">Pedido ID</span>
-      </div>
-    </div>
-    <div class="orders-placed__order__section2">
-      <div class="orders-placed__order__section2--subsection1">
-        <button>Surtir</button>
-        <button>Facturar</button>
-      </div>
-      <div class="orders-placed__order__section2--subsection2">
-        <span>Total: $102</span>
-      </div>
-    </div>
-  </div>
-  <div class="orders-placed__order">
-    <div class="orders-placed__order__section1">
-      <div class="orders-placed__order__section1--subsection1">
-        <p>Julio Enrique Méndez Hernández</p>
-        <span>Vendido por: Un vendedor</span>
-        <span>Ruta: La gran ruta</span>
-      </div>
-      <div class="orders-placed__order__section1--subsection2">
-        <span (click)="toggleModalVisibility()">Pedido ID</span>
-      </div>
-    </div>
-    <div class="orders-placed__order__section2">
-      <div class="orders-placed__order__section2--subsection1">
-        <button>Surtir</button>
-        <button>Facturar</button>
-      </div>
-      <div class="orders-placed__order__section2--subsection2">
-        <span>Total: $102</span>
+        <span><b>Total: {{pedido.precio_total}} </b></span>
       </div>
     </div>
   </div>

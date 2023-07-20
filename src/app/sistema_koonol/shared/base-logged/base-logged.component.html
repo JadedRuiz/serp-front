@@ -58,21 +58,12 @@
           <li class="sidebar-dropdown">
               <a  class="item4" (click)="abrirOpcion('item4')" style="cursor: pointer;">
                   <i class="fa fa-book" aria-hidden="true"></i>
-              <span>Reportes</span>
+              <span>Procesos</span>
               </a>
               <div class="sidebar-submenu">
                   <ul>
                       <li>
-                      <a href="#">Pie chart</a>
-                      </li>
-                      <li>
-                      <a href="#">Line chart</a>
-                      </li>
-                      <li>
-                      <a href="#">Bar chart</a>
-                      </li>
-                      <li>
-                      <a href="#">Histogram</a>
+                      <a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/pedidos-realizados']">Carrito</a>
                       </li>
                   </ul>
               </div>
