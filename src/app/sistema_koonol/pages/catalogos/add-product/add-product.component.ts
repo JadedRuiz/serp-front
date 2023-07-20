@@ -1,6 +1,10 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DataUrl, NgxImageCompressService, UploadResponse, } from 'ngx-image-compress';
+import {
+  DataUrl,
+  NgxImageCompressService,
+  UploadResponse,
+} from 'ngx-image-compress';
 import { Product } from 'src/app/models/products.model';
 import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
 import { NgForm } from '@angular/forms';
@@ -12,14 +16,11 @@ import { MedidaService } from 'src/app/services/medidas/medida.service';
 import { Medida } from 'src/app/models/medidas.model';
 import { Foto } from 'src/app/models/fotografias.model';
 
-
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.scss'],
 })
-
-
 export class AddProductComponent implements OnInit {
   producto: Product | undefined;
 
@@ -28,7 +29,6 @@ export class AddProductComponent implements OnInit {
   imageCount: number = 0;
   precioMasIva: number = 0;
 
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -36,15 +36,17 @@ export class AddProductComponent implements OnInit {
     private productService: CatalogoService,
     private familiaService: FamiliaService,
     private almacenService: AlmacenService,
-    private medidaService: MedidaService) { }
+    private medidaService: MedidaService
+  ) {}
 
   ngOnInit() {
     console.log(this.item.activo);
     //Editar
     const idArticulo = this.route.snapshot.params['id'];
     if (idArticulo) {
-      this.productService.obtenerArticuloId(idArticulo).subscribe(
-        (producto) => {
+      this.productService
+        .obtenerArticuloId(idArticulo)
+        .subscribe((producto) => {
           //this.item = producto.data[0]
           console.log(idArticulo);
 
@@ -52,13 +54,13 @@ export class AddProductComponent implements OnInit {
           // Asignando los valores al form
           this.item = new Product(
             producto.id_articulo,
-            producto.id_comprador = 1,
-            "012354SDSDS01",
+            (producto.id_comprador = 1),
+            '012354SDSDS01',
             producto.articulo,
             producto.id_almacen,
             producto.id_medida,
             producto.id_familia,
-            producto.id_prodserv_sat = 1,
+            (producto.id_prodserv_sat = 1),
             producto.tasa_iva,
             producto.codigo_barras,
             producto.activo,
@@ -74,27 +76,24 @@ export class AddProductComponent implements OnInit {
             producto.peso_producto,
             producto.imagenes
           );
-          this.uploadedImages = producto.imagenes
+          this.uploadedImages = producto.imagenes;
           console.log(this.uploadedImages);
-          this.calcularPrecioMasIva()
+          this.calcularPrecioMasIva();
           // console.log(producto);
           // console.log(this.item);
           // console.log(this.fotos);
-          this.imgResultAfterResize = this.uploadedImages[0].fotografia
-        }
-      );
+          this.imgResultAfterResize = this.uploadedImages[0].fotografia;
+        });
     }
 
-
-
-    this.obtenerFamilias()
-    this.obtenerAlmacenes()
-    this.obtenermedidas()
+    this.obtenerFamilias();
+    this.obtenerAlmacenes();
+    this.obtenermedidas();
   }
 
   //  Lista de elementos
-  foto: Foto = new Foto('')
-  fotos: Foto[] = [this.foto]
+  foto: Foto = new Foto('');
+  fotos: Foto[] = [this.foto];
   items: Product[] = [];
   item: Product = new Product(
     0,
@@ -121,27 +120,24 @@ export class AddProductComponent implements OnInit {
     []
   );
 
-
-
-
   //para familias
-  familias: Familia[] = []
+  familias: Familia[] = [];
   obtenerFamilias() {
     this.familiaService.obtenerFamilias().subscribe((objeto) => {
       this.familias = objeto.data;
-    })
+    });
   }
 
   //para Unidad de medida
-  medidas: Medida[] = []
+  medidas: Medida[] = [];
   obtenermedidas() {
     this.medidaService.obtenerMedidas().subscribe((objeto) => {
       this.medidas = objeto.data;
-    })
+    });
   }
 
   //para Almacen
-  almacenes: Almacen[] = []
+  almacenes: Almacen[] = [];
 
   obtenerAlmacenes() {
     let json = {
@@ -153,7 +149,7 @@ export class AddProductComponent implements OnInit {
     };
     this.almacenService.obtenerAlmacenes(json).subscribe((objeto) => {
       this.almacenes = objeto.data;
-    })
+    });
   }
 
   //Para  guardar Productos
@@ -174,17 +170,16 @@ export class AddProductComponent implements OnInit {
     const tasaIVA = this.item.tasa_iva;
 
     //aplica el descuento
-    const precioDescuento1 = precioVenta - (precioVenta * descuento1 / 100);
-    const precioDescuento2 = precioDescuento1 - (precioDescuento1 * descuento2 / 100);
-    const precioDescuento3 = precioDescuento2 - (precioDescuento2 * descuento3 / 100);
+    const precioDescuento1 = precioVenta - (precioVenta * descuento1) / 100;
+    const precioDescuento2 =
+      precioDescuento1 - (precioDescuento1 * descuento2) / 100;
+    const precioDescuento3 =
+      precioDescuento2 - (precioDescuento2 * descuento3) / 100;
 
     const resultado = (precioDescuento3 * (1 + tasaIVA / 100)).toFixed(2);
     this.precioMasIva = Number(resultado);
     console.log();
   }
-
-
-
 
   //PARA LAS IMAGENES =>
   uploadAndResize() {
@@ -193,30 +188,32 @@ export class AddProductComponent implements OnInit {
       return;
     }
 
-    return this.imageCompress.uploadFile().then(({ image, orientation }: UploadResponse) => {
-      //console.warn('Tamaño Inicial:', this.imageCompress.byteCount(image));
+    return this.imageCompress
+      .uploadFile()
+      .then(({ image, orientation }: UploadResponse) => {
+        //console.warn('Tamaño Inicial:', this.imageCompress.byteCount(image));
 
-      if (this.imageCompress.byteCount(image) > 5 * 1024 * 1024) {
-        alert('El tamaño de la imagen excede el límite de 5 MB');
-        return;
-      }
+        if (this.imageCompress.byteCount(image) > 5 * 1024 * 1024) {
+          alert('El tamaño de la imagen excede el límite de 5 MB');
+          return;
+        }
 
-      //    console.warn('comprimida y redimensionada a 400x');
-      this.imageCompress
-        .compressFile(image, orientation, 40, 40, 400, 400)
-        .then((result: DataUrl) => {
-          //let image = result.slice(22)
-          console.log('image', image);
-          this.uploadedImages.push(image);
-          this.imageCount++;
-          console.warn('FINAL:', this.imageCompress.byteCount(result));
-          console.log(this.uploadedImages);
-          this.displayImage(this.uploadedImages.length - 1);
-
-        });
-    });
+        //    console.warn('comprimida y redimensionada a 400x');
+        this.imageCompress
+          .compressFile(image, orientation, 40, 40, 400, 400)
+          .then((result: DataUrl) => {
+            //let image = result.slice(22)
+            console.log('image', image);
+            this.uploadedImages.push(image);
+            this.imageCount++;
+            console.warn('FINAL:', this.imageCompress.byteCount(result));
+            console.log(this.uploadedImages);
+            this.displayImage(this.uploadedImages.length - 1);
+          });
+      });
   }
 
+  guardarFoto() {}
 
   displayImage(index: number) {
     this.imgResultAfterResize = this.uploadedImages[index];
@@ -224,19 +221,23 @@ export class AddProductComponent implements OnInit {
     console.log(this.uploadedImages);
   }
 
-
-
-
   //Guardar Fotos
   guardarFotos(id_articulo: any) {
-    this.productService.guardarFotos(id_articulo, this.uploadedImages).subscribe(
+    let imagenes = this.uploadedImages.filter((image) => {
+      if (image.fotografia) {
+        return;
+      } else {
+        return image.includes('data:image/jpeg;base64');
+      }
+    });
+    this.productService.guardarFotos(id_articulo, imagenes).subscribe(
       (resp) => {
         console.log('Guardadas', resp);
       },
       (error) => {
         console.log('Error', error);
       }
-    )
+    );
   }
   removeImage(index: number) {
     if (index === 0) {
@@ -246,6 +247,4 @@ export class AddProductComponent implements OnInit {
     }
     this.imageCount--;
   }
-
-
 }

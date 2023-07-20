@@ -125,6 +125,7 @@ this.vaciarForm = false;
     let url ='https://serp-inventarios.serteza.com/public/api/articulos/guardarFotografia';
    const observables = fotos.map((foto:string)=>{
     let foto_base64 = foto.slice(22);
+    console.log(foto_base64);
      const parametros = {
        id_articulo_fotografia: 0,
        id_articulo: id_articulo,

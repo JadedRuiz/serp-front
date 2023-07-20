@@ -6,12 +6,12 @@
       <div class="search-fam__search-bar-input d-flex">
         <input class="search-input" type="text" placeholder="Buscar familia" aria-label="Buscar famlia"
           aria-describedby="button-addon2" [(ngModel)]="searchFam" />
-        <button class="search-btn" type="button" (click)="filtrarFamilias()">
+        <button class="search-btn" type="button" data-toggle="tooltip" title="Buscar" (click)="filtrarFamilias()">
           <i class="bi bi-search"> </i> BUSCAR
         </button>
       </div>
       <div>
-        <button type="button" class="ml-2 btn general-btn" (click)="openModal()">AGREGAR FAMILIA</button>
+        <button type="button" class="ml-2 btn general-btn" data-toggle="tooltip" title="Agregar familia" (click)="openModal()">AGREGAR FAMILIA</button>
       </div>
     </div>
 
@@ -21,14 +21,14 @@
         <div class="col-sm-10 col-md-6 col-xl-4 mb-3 mb-sm-0" *ngFor="let familia of filteredFam">
           <div id="fam-card" class="card" [class.active]="familia.familiaIsActive">
             <div class="card-body">
-              <a style="cursor: pointer" class="me-2  d-flex justify-content-end" (click)="openModal()"
+              <a style="cursor: pointer" class="me-2  d-flex justify-content-end" data-toggle="tooltip" title="Editar" (click)="openModal()"
                 (click)="editarFamilia(familia)"><i id="pin" class="bi bi-pencil-square"></i></a>
               <h2 class="card-text">
                 <b>Nombre:</b> {{ familia.familia | uppercase }}
               </h2>
               <h4 class="card-title"><b>ID:</b> {{ familia.id_familia }}</h4>
               <div class=" d-flex justify-content-end">
-                <button type="button" class="btn" [ngClass]="getFamStatusClass(familia.activo)"
+                <button type="button" class="btn" data-toggle="tooltip" title="Activar/Desactivar" [ngClass]="getFamStatusClass(familia.activo)"
                   [attr.aria-pressed]="familia.activo === 1 ? 'true' : 'false'" (click)="
                     deshabilitarFamilia(familia.id_familia, familia.activo)
                   " style="
