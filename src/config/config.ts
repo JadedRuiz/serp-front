@@ -15,7 +15,7 @@ const API_PROV = "https://serp-inventarios.serteza.com/public/api/proveedores/co
 const API_ALMACEN = "https://serp-inventarios.serteza.com/public/api/almacenes/consultarAlmacenes";
 const API_MEDIDAS = "https://serp-inventarios.serteza.com/public/api/medidas/consultarMedidas"
 const API_VENDEDORES = "https://serp-inventarios.serteza.com/public/api/vendedores/consultarVendedores";
-
+const API_PEDIDOS = "https://serp-inventarios.serteza.com/public/api/pedidos/consultarPedidos";
 
 
 export const SERVER_CP = API_CP;
@@ -31,6 +31,7 @@ export const SERV_PROV = API_PROV
 export const SERV_ALMACEN = API_ALMACEN;
 export const SERV_MEDIDAS = API_MEDIDAS;
 export const SERV_VENDEDORES = API_VENDEDORES;
+export const SERV_PEDIDOS = API_PEDIDOS;
 
 
 
