@@ -14,14 +14,7 @@ export class ProveedoresService {
 
 
   //=>
-  obtenerProveedores(): Observable<any> {
-    let json = {
-      id_proveedor: 0,
-      id_comprador: 1,
-      proveedor: '',
-      solo_activos: 1,
-      token: '012354SDSDS01',
-    };
+  obtenerProveedores(json:any): Observable<any> {
     return this.http.post<any>(SERV_PROV, json);
   }
 
