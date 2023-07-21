@@ -18,6 +18,8 @@ export class Articulo {
     public familiaActiva: boolean,
     public quantity: number,
     public imagenes: Foto[],
-    public precio_venta_formateado: string,
+    public costo_promedio: number,
+    public precio_total: number,
+    public precio_total_formateado: string,
   ) { }
 }

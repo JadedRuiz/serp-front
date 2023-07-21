@@ -45,7 +45,7 @@
               </div>
               <a data-toggle="tooltip" title="Editar" class="editar-link" (click)="editarArt(articulo.id_existencia)" style="font-size:18px;color: var(--color-terciario)"><i class="fa fa-pencil-square-o " aria-hidden="true"></i></a>
             </div>
-            <span class="card-price ms-4"><strong> {{ articulo.precio_venta | currency: 'MX'}}</strong></span>
+            <span class="card-price ms-4"><strong> {{ articulo.precio_total | currency: 'MX'}}</strong></span>
           </div>
         </div>
       </div>
