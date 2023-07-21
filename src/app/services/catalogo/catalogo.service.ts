@@ -64,7 +64,6 @@ obtenerArticulos(): Observable<any> {
       token: '012354SDSDS01',
       id_almacen: 1,
     };
-
     return this.http.post<any>(SERVER_API, parametros);
   }
 

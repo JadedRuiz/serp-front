@@ -26,9 +26,9 @@ export class AddProductComponent implements OnInit {
 
   imgResultAfterResize: any = '';
   uploadedImages: any[] = [];
+  compressedImages: any[] = [];
   imageCount: number = 0;
   precioMasIva: number = 0;
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -83,13 +83,34 @@ export class AddProductComponent implements OnInit {
           // console.log(this.item);
           // console.log(this.fotos);
           this.imgResultAfterResize = this.uploadedImages[0].fotografia;
+          this.transformarImages();
         });
-    }
-
+      }
     this.obtenerFamilias();
     this.obtenerAlmacenes();
     this.obtenermedidas();
   }
+
+//TRasformamos Imagenes => base64
+transformarImages() {
+  const promises = this.uploadedImages.map((image) => {
+    console.log('gg',image.fotografia)
+    return this.imageCompress.compressFile(image.fotografia, -1, 50, 50);
+  });
+
+  // Esperar a que se completen todas las operaciones de compresión antes de continuar
+  Promise.all(promises).then((compressedImages) => {
+    this.compressedImages = compressedImages.map((result) => result);
+    console.log(this.compressedImages); // Aquí puedes utilizar las imágenes comprimidas
+  });
+}
+
+
+
+
+
+
+
 
   //  Lista de elementos
   foto: Foto = new Foto('');
@@ -221,10 +242,16 @@ export class AddProductComponent implements OnInit {
     console.log(this.uploadedImages);
   }
 
+
+
+
+
+
   //Guardar Fotos
   guardarFotos(id_articulo: any) {
     let imagenes = this.uploadedImages.filter((image) => {
       if (image.fotografia) {
+        //
         return;
       } else {
         return image.includes('data:image/jpeg;base64');
@@ -239,6 +266,8 @@ export class AddProductComponent implements OnInit {
       }
     );
   }
+
+
   removeImage(index: number) {
     if (index === 0) {
       this.imgResultAfterResize = '';
@@ -247,4 +276,6 @@ export class AddProductComponent implements OnInit {
     }
     this.imageCount--;
   }
+
+
 }
