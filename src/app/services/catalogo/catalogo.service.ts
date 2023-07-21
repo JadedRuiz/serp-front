@@ -13,12 +13,12 @@ import { Articulo } from 'src/app/models/articulo.model';
   providedIn: 'root',
 })
 export class CatalogoService {
-  @ViewChild('productForm', {static:false})productForm!: any;
+  @ViewChild('productForm', { static: false }) productForm!: any;
 
   private pedidoSubject = new BehaviorSubject<Articulo[]>([])
   pedido$ = this.pedidoSubject.asObservable()
 
-  constructor(public http: HttpClient, private famService:FamiliaService) {
+  constructor(public http: HttpClient, private famService: FamiliaService) {
     this.updatePedidoFromSessionStorage
   }
 
@@ -27,7 +27,7 @@ export class CatalogoService {
     this.pedidoSubject.next(pedido);
   }
 
-  getPedido():Articulo[] {
+  getPedido(): Articulo[] {
     this.updatePedidoFromSessionStorage()
     return this.pedidoSubject.value;
   }
@@ -39,12 +39,12 @@ export class CatalogoService {
 
   //=> Obetener familia.acivo
   buscarFamilias(): Observable<any> {
-     return this.famService.obtenerFamilias().pipe(
+    return this.famService.obtenerFamilias().pipe(
       map((response) => {
-        if (response.ok){
+        if (response.ok) {
           //console.log('service=>',response.data);
           return response.data;
-        }else {
+        } else {
           catchError(err => {
             Swal.fire("Ha ocurrido un error", err.error.message, 'error');
             return throwError(err);
@@ -55,8 +55,8 @@ export class CatalogoService {
     );
   }
 
-//Para obtener Artiuclos
-obtenerArticulos(): Observable<any> {
+  //Para obtener Artiuclos
+  obtenerArticulos(): Observable<any> {
     const parametros = {
       id_existencia: 0,
       id_comprador: 1,
@@ -67,17 +67,17 @@ obtenerArticulos(): Observable<any> {
     return this.http.post<any>(SERVER_API, parametros);
   }
 
-//Para Obtener Artiuculos por Id
-obtenerArticuloId(idProducto:number): Observable<any>{
-const parametros = {
-  id_existencia: idProducto,
-  id_comprador: 1,
-  token: '012354SDSDS01',
-  id_almacen: 1,
-};
-return this.http.post<any>(SERVER_API,parametros)
+  //Para Obtener Artiuculos por Id
+  obtenerArticuloId(idProducto: number): Observable<any> {
+    const parametros = {
+      id_existencia: idProducto,
+      id_comprador: 1,
+      token: '012354SDSDS01',
+      id_almacen: 1,
+    };
+    return this.http.post<any>(SERVER_API, parametros)
 
-}
+  }
 
 
   //Para guardar productos
@@ -86,14 +86,14 @@ return this.http.post<any>(SERVER_API,parametros)
     let url =
       'https://serp-inventarios.serteza.com/public/api/articulos/guardarArticulo';
 
-      return this.http.post(url, producto).pipe(
-        map((resp :any) => {
-          if(resp.ok){
-          console.log('service',resp.data);
+    return this.http.post(url, producto).pipe(
+      map((resp: any) => {
+        if (resp.ok) {
+          console.log('service', resp.data);
           Swal.fire('Exito al crear el Articulo', '', 'success');
           this.vaciarForm = true;
           return resp.data;
-        }else {
+        } else {
           Swal.fire({
             position: 'center',
             icon: 'error',
@@ -110,38 +110,38 @@ return this.http.post<any>(SERVER_API,parametros)
     );
   }
 
-//VaciarForm
-vForm(){
-  if(this.vaciarForm){
-    this.productForm.reset();
-this.vaciarForm = false;
+  //VaciarForm
+  vForm() {
+    if (this.vaciarForm) {
+      this.productForm.reset();
+      this.vaciarForm = false;
+    }
   }
-}
 
 
   //Para Guardar Fotografias
-  guardarFotos(id_articulo : any, fotos :any): Observable<any>{
-    let url ='https://serp-inventarios.serteza.com/public/api/articulos/guardarFotografia';
-   const observables = fotos.map((foto:string)=>{
-    let foto_base64 = foto.slice(22);
-    console.log(foto_base64);
-     const parametros = {
-       id_articulo_fotografia: 0,
-       id_articulo: id_articulo,
-       id_comprador: 1,
-       id_fotografia: 0,
-       token: "012354SDSDS01",
-       foto_base64: foto_base64,
-       extencion: "JPG"
-     }
-     return this.http.post(url,parametros).pipe(
-      map((resp:any)=>{
-        console.log('Foto Guardada',resp);
-        return resp.data
-      })
-     );
-   });
-   return forkJoin(observables);
+  guardarFotos(id_articulo: any, fotos: any): Observable<any> {
+    let url = 'https://serp-inventarios.serteza.com/public/api/articulos/guardarFotografia';
+    const observables = fotos.map((foto: string) => {
+      let foto_base64 = foto.slice(22);
+      console.log(foto_base64);
+      const parametros = {
+        id_articulo_fotografia: 0,
+        id_articulo: id_articulo,
+        id_comprador: 1,
+        id_fotografia: 0,
+        token: "012354SDSDS01",
+        foto_base64: foto_base64,
+        extencion: "JPG"
+      }
+      return this.http.post(url, parametros).pipe(
+        map((resp: any) => {
+          console.log('Foto Guardada', resp);
+          return resp.data
+        })
+      );
+    });
+    return forkJoin(observables);
   }
 
 
