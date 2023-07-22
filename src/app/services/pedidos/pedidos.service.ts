@@ -36,15 +36,15 @@ export class PedidosService {
     }
 
     guardarPedido(pedido: PedidoGuardar) {
-        let url = "https://serp-inventarios.serteza.com/public/api/pedidos/guardarPedido";
-        console.log("hola");
-        console.log(pedido);
+        let url = 'https://serp-inventarios.serteza.com/public/api/pedidos/guardarPedido';
+        // console.log("hola");
+         console.log(pedido);
         return this.http.post(url, pedido).pipe(
             map((resp: any) => {
                 console.log(resp);
                 if (resp.ok) {
-                    console.log("hola si");
-                    console.log(resp);
+                    // console.log("hola si");
+                    // console.log(resp);
                     Swal.fire('Pedido creado exitosamente', '', 'success')
                     return resp.data
                 } else {
@@ -60,6 +60,6 @@ export class PedidosService {
                 console.log("hola no");
                 Swal.fire("Ha ocurrido un error", err.error.message, 'error');
                 return throwError(err);
-            })), console.log("hola después", pedido, url)
+            }))
     }
 }
