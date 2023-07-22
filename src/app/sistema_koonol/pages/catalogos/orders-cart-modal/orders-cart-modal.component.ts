@@ -71,6 +71,8 @@ export class OrdersCartModalComponent implements OnInit {
     //Variable para almacenar los productos del pedido para el carrito
     pedido: Articulo[] = [];
     pedidoFinal: Pedido = new Pedido(0, 1, 0, 0, 0, 0, 0, '012354SDSDS01', '', '', '', '', '', '', '', 0, 0, 0, []);
+    formatter: any;
+    precioTotalFormateado:any;
 
     constructor(
         private clientService: ClientsService,
@@ -82,6 +84,11 @@ export class OrdersCartModalComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.formatter = new Intl.NumberFormat('en-NZ', {
+            currency: 'NZD',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          });
         this.catalogoService.getPedido()
         this.catalogoService.pedido$.subscribe(pedido => this.pedido = pedido)
         if (this.vendedor !== 0) {
@@ -315,6 +322,8 @@ export class OrdersCartModalComponent implements OnInit {
         this.pedidoFinalv2.fecha_entrega = this.pedidoFinal.fecha_entrega
         this.pedidoFinalv2.observaciones = 'Hola'
         this.pedidoFinalv2.articulos = this.pedidoFinal.articulos
+        this.precioTotalFormateado = this.formatter.format(this.pedidoFinal.precio_total) 
+
         console.log(this.pedidoFinalv2);
     }
 

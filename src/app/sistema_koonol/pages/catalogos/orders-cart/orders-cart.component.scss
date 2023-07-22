@@ -226,6 +226,18 @@ ul {
     cursor: pointer;
 }
 
+.orders-cart__clear {
+    color: orangered;
+    cursor: pointer;
+    align-self: flex-end;
+
+    &:hover {
+        transition: 300ms;
+        transform: scale(1.1);
+        color: red;
+    }
+}
+
 .orders-cart__checkout {
     display: flex;
     margin-top: 20px;
