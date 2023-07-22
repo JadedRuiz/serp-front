@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { SERV_PEDIDOS } from 'src/config/config';
 import { Pedido } from 'src/app/models/pedido.model';
 import Swal from 'sweetalert2';
+import { PedidoGuardar } from 'src/app/models/pedidoguardar.model';
 
 @Injectable({
     providedIn: 'root'
@@ -33,19 +35,31 @@ export class PedidosService {
         return this.http.post<any>(SERV_PEDIDOS, parametros);
     }
 
-    guardarPedido(pedido: Pedido) {
+    guardarPedido(pedido: PedidoGuardar) {
         let url = "https://serp-inventarios.serteza.com/public/api/pedidos/guardarPedido";
         console.log("hola");
+        console.log(pedido);
         return this.http.post(url, pedido).pipe(
             map((resp: any) => {
-                console.log("hola si");
                 console.log(resp);
-                Swal.fire('Pedido creado exitosamente', '', 'success')
-                return resp.data
+                if (resp.ok) {
+                    console.log("hola si");
+                    console.log(resp);
+                    Swal.fire('Pedido creado exitosamente', '', 'success')
+                    return resp.data
+                } else {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Error',
+                        text: resp.message || 'Ha ocurrido un error'
+                    });
+                    return throwError(resp);
+                }
             }), catchError(err => {
                 console.log("hola no");
                 Swal.fire("Ha ocurrido un error", err.error.message, 'error');
                 return throwError(err);
-            })), console.log ("hola después",pedido,url)
+            })), console.log("hola después", pedido, url)
     }
 }

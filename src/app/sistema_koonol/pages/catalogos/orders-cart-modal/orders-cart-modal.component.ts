@@ -17,6 +17,7 @@ import { Articulo } from 'src/app/models/articulo.model';
 import { Router } from '@angular/router';
 import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
 import { Pedido } from 'src/app/models/pedido.model';
+import { PedidoGuardar } from 'src/app/models/pedidoguardar.model';
 
 export const DATE_FORMATS = {
     parse: {
@@ -293,7 +294,7 @@ export class OrdersCartModalComponent implements OnInit {
     //Estado para manipular la visibilidad del modal de seleccionar dirección
     selectAddressModal: boolean = false
     isAddressSelected: boolean = false
-    
+
     selectAddress(address: Address) {
         this.isAddressSelected = true
         this.addressSelected = address
@@ -309,11 +310,18 @@ export class OrdersCartModalComponent implements OnInit {
         this.finPedidoModal = true
         this.pedidoFinal.id_cliente_direccion = this.addressSelected.id_cliente_direccion
         this.pedidos.updatePedidoFinal(this.pedidoFinal);
+        this.pedidoFinalv2.id_cliente_direccion = this.pedidoFinal.id_cliente_direccion
+        this.pedidoFinalv2.id_vendedor = this.pedidoFinal.id_vendedor
+        this.pedidoFinalv2.fecha_entrega = this.pedidoFinal.fecha_entrega
+        this.pedidoFinalv2.observaciones = 'Hola'
+        this.pedidoFinalv2.articulos = this.pedidoFinal.articulos
+        console.log(this.pedidoFinalv2);
     }
 
 
     //MODAL PARA FINALIZAR EL PEDIDO
     finPedidoModal: boolean = false
+    pedidoFinalv2: PedidoGuardar = new PedidoGuardar(0, 1, 0, 1, '012354SDSDS01', '', '', 1, [])
 
     backToAddressModal() {
         this.selectAddressModal = true
@@ -321,9 +329,7 @@ export class OrdersCartModalComponent implements OnInit {
     }
 
     finishOrder() {
-        // this.pedidoFinal.articulos = []
-        this.pedidoFinal.token = '012354SDSDS01'
-        this.pedidos.guardarPedido(this.pedidoFinal)
+        this.pedidos.guardarPedido(this.pedidoFinalv2)
         // this.router.navigate(['/sis_koonol/catalogos/pedidos-realizados']);
     }
 

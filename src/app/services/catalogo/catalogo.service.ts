@@ -64,6 +64,7 @@ export class CatalogoService {
       token: '012354SDSDS01',
       id_almacen: 1,
     };
+    console.log
     return this.http.post<any>(SERVER_API, parametros);
   }
 

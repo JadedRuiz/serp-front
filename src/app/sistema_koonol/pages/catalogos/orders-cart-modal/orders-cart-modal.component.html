@@ -96,7 +96,7 @@
       <p><b> Cliente: </b> <span>{{selectedClient.cliente}}</span></p>
       <p><b> Dirección: </b> <span>{{addressSelected.direccion}}</span></p>
       <p><b> Fecha de entrega: </b> <span>{{selectedDateFormatted}}</span></p>
-      <h3 class="subtitle text-start">Total: </h3>
+      <h3 class="subtitle text-start">Total: <span>{{pedidoFinal.precio_total}} </span></h3>
     </div>
     <span class="span-extra" (click)="openExtraModal()">El cliente no tiene fotos, ¿deseas añadir?</span>
     <div class="orders-cart__address__buttons">
