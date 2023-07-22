@@ -107,7 +107,6 @@ export class CatalogoComponent implements OnInit {
 		0,
 		0,
 		0,
-		0,
 		[]
 	);
 

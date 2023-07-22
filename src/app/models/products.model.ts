@@ -12,7 +12,6 @@ export class Product {
     public id_prodserv_sat:number,
     public tasa_iva:number,
     public codigo_barras:string,
-    public activo:number,
     public id_usuario:number,
     public id_existencia:number,
     public precio_venta:number,
@@ -23,7 +22,7 @@ export class Product {
     public maximo:number,
     public reorden:number,
     public peso_producto:number,
-    public imagenes:Foto[]
+    public imagenes:Foto[],
   ){}
 
 }

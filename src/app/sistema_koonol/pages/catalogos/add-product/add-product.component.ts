@@ -40,7 +40,6 @@ export class AddProductComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.item.activo);
     //Editar
     const idArticulo = this.route.snapshot.params['id'];
     if (idArticulo) {
@@ -63,7 +62,6 @@ export class AddProductComponent implements OnInit {
             (producto.id_prodserv_sat = 1),
             producto.tasa_iva,
             producto.codigo_barras,
-            producto.activo,
             producto.id_usuario,
             producto.id_existencia,
             producto.precio_venta,
@@ -129,7 +127,6 @@ transformarImages() {
     '',
     1,
     1,
-    0,
     0,
     0,
     0,
