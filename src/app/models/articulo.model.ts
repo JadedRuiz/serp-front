@@ -20,6 +20,7 @@ export class Articulo {
     public imagenes: Foto[],
     public costo_promedio: number,
     public precio_total: number,
+    public precio_total_carrito: number,
     public precio_total_formateado: string,
   ) { }
 }

@@ -107,7 +107,7 @@ export class OrdersCartModalComponent implements OnInit {
     private geolocationService: GeolocationService,
     private router: Router,
     private pedidos: PedidosService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.formatter = new Intl.NumberFormat('en-NZ', {
@@ -380,11 +380,9 @@ export class OrdersCartModalComponent implements OnInit {
   confirmAddress() {
     this.selectAddressModal = false;
     this.finPedidoModal = true;
-    this.pedidoFinal.id_cliente_direccion =
-      this.addressSelected.id_cliente_direccion;
+    this.pedidoFinal.id_cliente_direccion = this.addressSelected.id_cliente_direccion;
     this.pedidos.updatePedidoFinal(this.pedidoFinal);
-    this.pedidoFinalv2.id_cliente_direccion =
-      this.pedidoFinal.id_cliente_direccion;
+    this.pedidoFinalv2.id_cliente_direccion = this.pedidoFinal.id_cliente_direccion;
     this.pedidoFinalv2.id_vendedor = this.pedidoFinal.id_vendedor;
     this.pedidoFinalv2.fecha_entrega = this.pedidoFinal.fecha_entrega;
     this.pedidoFinalv2.observaciones = 'Hola';
@@ -417,7 +415,7 @@ export class OrdersCartModalComponent implements OnInit {
 
   finishOrder() {
     this.pedidos.guardarPedido(this.pedidoFinalv2).subscribe((resp) => {
-        this.router.navigate(['/sis_koonol/catalogos/pedidos-realizados']);
+      this.router.navigate(['/sis_koonol/catalogos/pedidos-realizados']);
     });
   }
 
@@ -434,5 +432,5 @@ export class OrdersCartModalComponent implements OnInit {
     this.finPedidoModal = true;
   }
 
-  saveExtraChanges() {}
+  saveExtraChanges() { }
 }

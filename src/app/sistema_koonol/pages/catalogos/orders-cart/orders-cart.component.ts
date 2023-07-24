@@ -62,7 +62,7 @@ export class OrdersCartComponent {
             articulo.costo_promedio,
             articulo.quantity,
             articulo.tasa_iva,
-            articulo.precio_total
+            articulo.precio_total_carrito
           )
         );
       });
@@ -135,7 +135,7 @@ export class OrdersCartComponent {
   getTotalPerItem() {
     this.pedido.forEach((articulo) => {
       let articuloIVA = (articulo.precio_venta / 100) * articulo.tasa_iva;
-      articulo.precio_total =
+      articulo.precio_total_carrito =
         (Number(articulo.precio_venta) + articuloIVA) * articulo.quantity;
     });
   }
