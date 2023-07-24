@@ -10,6 +10,7 @@ export class PedidoGuardar {
         public fecha_entrega: string,
         public observaciones: string,
         public id_usuario: number,
-        public articulos: ArticuloPedido[]
+        public articulos: ArticuloPedido[],
+        public precio_total: number
     ) { }
 }

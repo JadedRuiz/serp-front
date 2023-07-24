@@ -1,5 +1,9 @@
 @import '../breakpoints.scss';
 
+.icon-btn {
+    z-index: 2;
+}
+
 .title {
     font-size: 24px;
     margin-bottom: 20px;
@@ -41,12 +45,17 @@
     z-index: 1;
 }
 
+.orders-modal__client-inputs {
+    justify-content: center;
+    gap: 15px;
+}
+
+
 .ng-autocomplete {
     display: flex;
     flex-direction: column;
     position: relative;
     border-radius: 10px;
-    width: min(90%, 300px);
 
     .search-list {
         max-height: 200px;
@@ -58,6 +67,21 @@
     width: 150px;
     margin-top: 10px;
     border-radius: 5px;
+}
+
+.orders-modal__observations {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 100%;
+
+    textarea {
+        max-height: 90px;
+        width: 80%;
+        outline: none;
+        padding: 10px;
+    }
 }
 
 .orders-cart__client__buttons {

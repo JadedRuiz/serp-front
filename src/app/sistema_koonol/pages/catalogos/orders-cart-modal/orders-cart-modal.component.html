@@ -1,115 +1,87 @@
 <div class="orders-cart__modal">
-  <button
-    class="orders-cart__modal__close icon-btn"
-    (click)="useToggleModalVisibility()"
-  >
+  <button class="orders-cart__modal__close icon-btn" (click)="useToggleModalVisibility()">
     <i i class="fa fa-times"></i>
   </button>
 
   <div class="orders-modal__client" *ngIf="clienteVendedorModal">
-    <!-- Autocomplete de vendedores -->
-    <h3 class="title text-center" *ngIf="!selectSellerVisibility">
-      ¿Qué vendedor está haciendo el pedido?
-    </h3>
-    <div class="ng-autocomplete mb-5" *ngIf="!selectSellerVisibility">
-      <input
-        class="search-input"
-        type="text"
-        placeholder="Buscar vendedor"
-        aria-label="Buscar vendedor"
-        aria-describedby="button-addon2"
-        [formControl]="searchSellerControl"
-        (focus)="onFocusSellerSearch()"
-      />
-      <div class="search-loader w-100" *ngIf="loaderSeller; else sellersReady">
-        <i class="fa fa-spinner fa-pulse"></i>
+    <div class="orders-modal__client-inputs row">
+      <!-- Autocomplete de vendedores -->
+      <div class="col-5 p-0">
+        <span *ngIf="!selectSellerVisibility">
+          Vendedor:
+        </span>
+        <div class="ng-autocomplete" *ngIf="!selectSellerVisibility">
+          <input class="search-input" type="text" placeholder="Buscar vendedor" aria-label="Buscar vendedor"
+            aria-describedby="button-addon2" [formControl]="searchSellerControl" (focus)="onFocusSellerSearch()" />
+          <div class="search-loader w-100" *ngIf="loaderSeller; else sellersReady">
+            <i class="fa fa-spinner fa-pulse"></i>
+          </div>
+          <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
+            <h4>No se encontraron vendedores</h4>
+          </div>
+          <ng-template #sellersReady>
+            <ul class="search-list" *ngIf="searchListSeller">
+              <li class="search-list__element" *ngFor="let seller of autocompleteSellers"
+                (click)="seleccionarVendedor(seller.id_vendedor)">
+                {{ seller.vendedor }}
+              </li>
+            </ul>
+          </ng-template>
+        </div>
       </div>
-      <div
-        class="d-flex w-100 justify-content-center p-2 border"
-        *ngIf="noClients"
-      >
-        <h4>No se encontraron vendedores</h4>
-      </div>
-      <ng-template #sellersReady>
-        <ul class="search-list" *ngIf="searchListSeller">
-          <li
-            class="search-list__element"
-            *ngFor="let seller of autocompleteSellers"
-            (click)="seleccionarVendedor(seller.id_vendedor)"
-          >
-            {{ seller.vendedor }}
-          </li>
-        </ul>
-      </ng-template>
-    </div>
-    <!-- Termina Autocomplete -->
 
-    <!-- Autocomplete de clientes -->
-    <h3 class="title text-center">¿Para qué cliente es el pedido?</h3>
-    <div class="ng-autocomplete">
-      <input
-        class="search-input"
-        type="text"
-        placeholder="Buscar cliente"
-        aria-label="Buscar cliente"
-        aria-describedby="button-addon2"
-        [formControl]="searchClientControl"
-        (focus)="onFocusClientSearch()"
-      />
-      <div class="search-loader w-100" *ngIf="loaderCliente; else clientsReady">
-        <i class="fa fa-spinner fa-pulse"></i>
+      <!-- Termina Autocomplete -->
+
+      <!-- Autocomplete de clientes -->
+      <div class="col-5 p-0">
+        <span >Cliente:</span>
+        <div class="ng-autocomplete">
+          <input class="search-input" type="text" placeholder="Buscar cliente" aria-label="Buscar cliente"
+            aria-describedby="button-addon2" [formControl]="searchClientControl" (focus)="onFocusClientSearch()" />
+          <div class="search-loader w-100" *ngIf="loaderCliente; else clientsReady">
+            <i class="fa fa-spinner fa-pulse"></i>
+          </div>
+          <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
+            <h4>No se encontraron clientes</h4>
+          </div>
+          <ng-template #clientsReady>
+            <ul class="search-list" *ngIf="searchListCliente">
+              <li class="search-list__element" *ngFor="let client of autocompleteClients"
+                (click)="seleccionarCliente(client.id_cliente)">
+                {{ client.cliente }}
+              </li>
+            </ul>
+          </ng-template>
+        </div>
       </div>
-      <div
-        class="d-flex w-100 justify-content-center p-2 border"
-        *ngIf="noClients"
-      >
-        <h4>No se encontraron clientes</h4>
-      </div>
-      <ng-template #clientsReady>
-        <ul class="search-list" *ngIf="searchListCliente">
-          <li
-            class="search-list__element"
-            *ngFor="let client of autocompleteClients"
-            (click)="seleccionarCliente(client.id_cliente)"
-          >
-            {{ client.cliente }}
-          </li>
-        </ul>
-      </ng-template>
+      <!-- Termina Autocomplete -->
     </div>
-    <!-- Termina Autocomplete -->
 
     <!-- Calendario -->
     <span class="m-0 mt-2">Escoger fecha de entrega:</span>
     <div class="">
       <mat-form-field>
-        <input
-          matInput
-          [matDatepicker]="picker"
-          placeholder="Selecciona una fecha"
-          [(ngModel)]="selectedDate"
-          (dateChange)="seleccionarFecha($event)"
-          [min]="currentDate"
-        />
+        <input matInput [matDatepicker]="picker" placeholder="Selecciona una fecha" [(ngModel)]="selectedDate"
+          (dateChange)="seleccionarFecha($event)" [min]="currentDate" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
     <!-- Termina calendario -->
 
+    <div class="orders-modal__observations">
+      <span>Observaciones:</span>
+      <textarea type="text" [(ngModel)]="observaciones"></textarea>
+    </div>
+
     <div class="orders-cart__client__buttons mt-auto">
       <button class="danger-btn" (click)="useToggleModalVisibility()">
         Cancelar
       </button>
-      <button
-        class="general-btn"
-        [ngClass]="{
+      <button class="general-btn" [ngClass]="{
           'button-disabled':
             !isSellerSelected || !isClientSelected || !isDateSelected
-        }"
-        (click)="confirmClient()"
-        [disabled]="!isClientSelected || !isSellerSelected || !isDateSelected"
-      >
+        }" (click)="confirmClient()" [disabled]="!isClientSelected || !isSellerSelected || !isDateSelected">
         Confirmar
       </button>
     </div>
@@ -120,13 +92,8 @@
       <div class="orders-cart__addresses-list">
         <div class="orders-cart__address" *ngFor="let address of addresses">
           <label>
-            <input
-              type="radio"
-              name="address"
-              [(ngModel)]="addressSelected"
-              [value]="address"
-              (click)="selectAddress(address)"
-            />
+            <input type="radio" name="address" [(ngModel)]="addressSelected" [value]="address"
+              (click)="selectAddress(address)" />
             {{ address.direccion }}
           </label>
         </div>
@@ -134,12 +101,8 @@
     </div>
     <div class="orders-cart__address__buttons">
       <button class="danger-btn" (click)="backToClientModal()">Regresar</button>
-      <button
-        class="general-btn"
-        [ngClass]="{ 'button-disabled': !isAddressSelected }"
-        (click)="confirmAddress()"
-        [disabled]="!isAddressSelected"
-      >
+      <button class="general-btn" [ngClass]="{ 'button-disabled': !isAddressSelected }" (click)="confirmAddress()"
+        [disabled]="!isAddressSelected">
         Continuar
       </button>
     </div>
@@ -160,9 +123,7 @@
         <b>Total:</b> <span> ${{ precioTotalFormateado }} </span>
       </h3>
     </div>
-    <span class="span-extra" (click)="openExtraModal()"
-      >El cliente no tiene fotos, ¿deseas añadir?</span
-    >
+    <span class="span-extra" (click)="openExtraModal()">El cliente no tiene fotos, ¿deseas añadir?</span>
     <div class="orders-cart__address__buttons">
       <button class="danger-btn" (click)="backToAddressModal()">
         Regresar
