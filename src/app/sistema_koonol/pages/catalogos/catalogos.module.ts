@@ -21,6 +21,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SearchFamComponent } from './familias/search-fam.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { OrdenesDeCompraComponent } from './ordenes-de-compra/ordenes-de-compra.component';
 
 
 
@@ -37,7 +38,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ProveedoresComponent,
     AlmacenesComponent,
     VendedoresComponent,
-    SearchFamComponent
+    SearchFamComponent,
+    OrdenesDeCompraComponent
   ],
   imports: [
     CommonModule,

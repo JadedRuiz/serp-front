@@ -10,6 +10,7 @@ import { SearchFamComponent } from './familias/search-fam.component';
 import { RoutesComponent } from './routes/routes.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { VendedoresComponent } from './vendedores/vendedores.component';
+import { OrdenesDeCompraComponent } from './ordenes-de-compra/ordenes-de-compra.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'pedidos-realizados',
     component: OrdersPlacedComponent
+  },
+  {
+    path: 'ordenes',
+    component: OrdenesDeCompraComponent
   },
   {
     path: 'clientes',
