@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Articulo } from 'src/app/models/articulo.model';
 import { ArticuloPedido } from 'src/app/models/articulopedido.model';
 import { Pedido } from 'src/app/models/pedido.model';
+import { PedidoGuardar } from 'src/app/models/pedidoguardar.model';
 import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
 import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
 import Swal from 'sweetalert2';
@@ -13,27 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class OrdersCartComponent {
   pedido: Articulo[] = [];
-  pedidoFinal: Pedido = new Pedido(
-    0,
-    1,
-    0,
-    0,
-    0,
-    0,
-    0,
-    '012354SDSDS01',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    0,
-    0,
-    0,
-    []
-  );
+  pedidoFinal: PedidoGuardar = new PedidoGuardar(0, 1, 0, 0, 'TOKEN', '', '', 1, [], 0);
   formatter: any;
 
   constructor(
@@ -134,9 +115,10 @@ export class OrdersCartComponent {
 
   getTotalPerItem() {
     this.pedido.forEach((articulo) => {
-      let articuloIVA = (articulo.precio_venta / 100) * articulo.tasa_iva;
-      articulo.precio_total_carrito =
-        (Number(articulo.precio_venta) + articuloIVA) * articulo.quantity;
+      // let articuloIVA = (articulo.precio_total / 100) * articulo.tasa_iva;
+      // articulo.precio_total_carrito =
+        // (Number(articulo.precio_venta) + articuloIVA) * articulo.quantity;
+      articulo.precio_total_carrito = articulo.precio_total * articulo.quantity 
     });
   }
 

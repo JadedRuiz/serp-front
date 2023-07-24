@@ -76,27 +76,7 @@ export class OrdersCartModalComponent implements OnInit {
   isDateSelected: boolean = false;
   //Variable para almacenar los productos del pedido para el carrito
   pedido: Articulo[] = [];
-  pedidoFinal: Pedido = new Pedido(
-    0,
-    1,
-    0,
-    0,
-    0,
-    0,
-    0,
-    '012354SDSDS01',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    0,
-    0,
-    0,
-    []
-  );
+  pedidoFinal: PedidoGuardar = new PedidoGuardar(0, 1, 0, 0, 'TOKEN', '', '', 1, [], 0);
   formatter: any;
   precioTotalFormateado: any;
 
@@ -178,6 +158,7 @@ export class OrdersCartModalComponent implements OnInit {
     this.miUsuario,
     1
   );
+
   isClientSelected: boolean = false;
   addressSelected: Address = new Address(
     0,
@@ -210,6 +191,7 @@ export class OrdersCartModalComponent implements OnInit {
 
   //MODAL PARA SELECCIONAR UN CLIENTE
   clienteVendedorModal: boolean = true;
+  observaciones: string = ''
 
   //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE O RFC
   buscarCliente(value: string) {
@@ -223,7 +205,6 @@ export class OrdersCartModalComponent implements OnInit {
       this.autocompleteClients = [];
       this.searchListCliente = false;
     } else if (!this.searchClientSubscription.closed) {
-      // console.log("Hola, se está haciendo una búsqueda: ", this.searchClientSubscription);
       this.loaderCliente = true;
       this.searchListCliente = true;
       this.clientService.obtenerClientes(json).subscribe(
@@ -340,11 +321,11 @@ export class OrdersCartModalComponent implements OnInit {
 
     // Formatear la fecha en el orden deseado (dd-MM-yyyy)
     let dateFormatted =
-      day.toString().padStart(2, '0') +
+      year.toString() +
       '-' +
       month.toString().padStart(2, '0') +
       '-' +
-      year.toString();
+      day.toString().padStart(2, '0')
 
     this.selectedDateFormatted = dateFormatted; //Variable que almacena la fecha ya seleccionada y que se pasará al pedido
 
@@ -358,8 +339,8 @@ export class OrdersCartModalComponent implements OnInit {
     this.selectAddressModal = true;
     this.pedidoFinal.id_vendedor = this.selectedSeller.id_vendedor;
     this.pedidoFinal.fecha_entrega = this.selectedDateFormatted;
+    this.pedidoFinal.observaciones = this.observaciones;
     this.pedidos.updatePedidoFinal(this.pedidoFinal);
-    console.log(this.pedidoFinal);
   }
 
   //MODAL PARA SELECCIONAR UNA DIRECCIÓN
@@ -381,32 +362,15 @@ export class OrdersCartModalComponent implements OnInit {
     this.selectAddressModal = false;
     this.finPedidoModal = true;
     this.pedidoFinal.id_cliente_direccion = this.addressSelected.id_cliente_direccion;
-    this.pedidos.updatePedidoFinal(this.pedidoFinal);
-    this.pedidoFinalv2.id_cliente_direccion = this.pedidoFinal.id_cliente_direccion;
-    this.pedidoFinalv2.id_vendedor = this.pedidoFinal.id_vendedor;
-    this.pedidoFinalv2.fecha_entrega = this.pedidoFinal.fecha_entrega;
-    this.pedidoFinalv2.observaciones = 'Hola';
-    this.pedidoFinalv2.articulos = this.pedidoFinal.articulos;
     this.precioTotalFormateado = this.formatter.format(
       this.pedidoFinal.precio_total
     );
-
-    console.log(this.pedidoFinalv2);
+    this.pedidos.updatePedidoFinal(this.pedidoFinal);
+    console.log(this.pedidoFinal);
   }
 
   //MODAL PARA FINALIZAR EL PEDIDO
   finPedidoModal: boolean = false;
-  pedidoFinalv2: PedidoGuardar = new PedidoGuardar(
-    0,
-    1,
-    0,
-    1,
-    '012354SDSDS01',
-    '',
-    '',
-    1,
-    []
-  );
 
   backToAddressModal() {
     this.selectAddressModal = true;
@@ -414,7 +378,7 @@ export class OrdersCartModalComponent implements OnInit {
   }
 
   finishOrder() {
-    this.pedidos.guardarPedido(this.pedidoFinalv2).subscribe((resp) => {
+    this.pedidos.guardarPedido(this.pedidoFinal).subscribe((resp) => {
       this.router.navigate(['/sis_koonol/catalogos/pedidos-realizados']);
     });
   }

@@ -9,7 +9,7 @@
   <div class="orders-cart">
     <div class="orders-cart__empty" *ngIf="isCartEmpty">
       <p class="orders-cart_empty_text">El carrito está vacío</p>
-      <i class="bi bi-cart"></i>
+      <i class="emptyCart bi bi-cart"></i>
       <button class="btn btn-danger" (click)="toggleOrdersVisibility()">
         Añadir productos
       </button>
@@ -46,7 +46,7 @@
         </article>
       </div>
       <!-- Sección 3 -->
-      <span class="orders-cart__clear" (click)="clearCart()"><i class="fa fa-ban" title="Vaciar carrito"></i></span>
+      <span class="orders-cart__clear" (click)="clearCart()"><i class="clearCart bi bi-cart" title="Vaciar carrito"></i></span>
       <div class="orders-cart__checkout">
         <h3 class="">Total:</h3>
         <h3 class="">${{ total }}</h3>

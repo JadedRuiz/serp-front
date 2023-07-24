@@ -109,7 +109,7 @@ ul {
     color: #4a4a4a;
 }
 
-.bi-cart {
+.emptyCart {
     font-size: 250px;
 }
 
@@ -230,11 +230,17 @@ ul {
     color: orangered;
     cursor: pointer;
     align-self: flex-end;
+    position: absolute;
+    bottom: 25px;
 
     &:hover {
         transition: 300ms;
         transform: scale(1.1);
-        color: red;
+        color: var(--color-secundario);
+    }
+
+    .clearCart {
+        font-size: 25px;
     }
 }
 
