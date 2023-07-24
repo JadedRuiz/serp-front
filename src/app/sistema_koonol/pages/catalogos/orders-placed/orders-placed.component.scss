@@ -67,11 +67,7 @@ $title-font-size-desktop: 20px;
         gap: 5px;
         align-self: flex-start;
 
-        span {
-            font-size: $default-font-size-mobile;
-        }
-
-        span {
+           span {
             color: steelblue;
             text-decoration: underline;
             cursor: pointer;
@@ -93,12 +89,10 @@ $title-font-size-desktop: 20px;
         gap: 5px;
 
         button {
-            background-color: blueviolet;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 13px;
             cursor: pointer;
-            font-size: $default-font-size-mobile;
         }
     }
 
@@ -121,7 +115,7 @@ $title-font-size-desktop: 20px;
     position: fixed;
     top: 75px;
     left: 0;
-    
+
     .icon-btn {
         position: absolute;
         top: 10px;
