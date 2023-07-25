@@ -22,6 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { SearchFamComponent } from './familias/search-fam.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { OrdenesDeCompraComponent } from './ordenes-de-compra/ordenes-de-compra.component';
+import { WebcamModule } from 'ngx-webcam';
 
 
 
@@ -48,7 +49,8 @@ import { OrdenesDeCompraComponent } from './ordenes-de-compra/ordenes-de-compra.
     ReactiveFormsModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    WebcamModule
   ],
   providers: [
     NgxImageCompressService

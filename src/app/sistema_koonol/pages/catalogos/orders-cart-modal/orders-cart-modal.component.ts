@@ -22,6 +22,9 @@ import { Router } from '@angular/router';
 import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
 import { Pedido } from 'src/app/models/pedido.model';
 import { PedidoGuardar } from 'src/app/models/pedidoguardar.model';
+import { DataUrl, NgxImageCompressService, UploadResponse } from 'ngx-image-compress';
+import { Observable, Subject } from 'rxjs';
+import { WebcamImage } from 'ngx-webcam';
 
 export const DATE_FORMATS = {
   parse: {
@@ -50,6 +53,7 @@ export const DATE_FORMATS = {
   ],
 })
 export class OrdersCartModalComponent implements OnInit {
+
   //DESPUÉS VENDRÁ DESDE ALGO QUE HARÁ JADED
   miComprador = 1;
   vendedor = 0;
@@ -86,7 +90,8 @@ export class OrdersCartModalComponent implements OnInit {
     private catalogoService: CatalogoService,
     private geolocationService: GeolocationService,
     private router: Router,
-    private pedidos: PedidosService
+    private pedidos: PedidosService,
+    private imageCompress: NgxImageCompressService
   ) { }
 
   ngOnInit(): void {
@@ -190,7 +195,7 @@ export class OrdersCartModalComponent implements OnInit {
   isSellerSelected: boolean = false;
 
   //MODAL PARA SELECCIONAR UN CLIENTE
-  clienteVendedorModal: boolean = true;
+  clienteVendedorModal: boolean = false;
   observaciones: string = ''
 
   //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE O RFC
@@ -389,7 +394,83 @@ export class OrdersCartModalComponent implements OnInit {
   }
 
   //MODAL PARA AÑADIR FOTOS AL CLIENTE Y PARA AÑADIRLE UNA UBICACIÓN
-  extraModal: boolean = false;
+  extraModal: boolean = true;
+  imageCount: number = 0;
+  uploadedImages: any[] = [];
+  imageAfterResize: any;
+  mainImage: any;
+  takingPhoto: boolean = false;
+  private trigger: Subject<void> = new Subject<void>();
+  public triggerObservable: Observable<void> = this.trigger.asObservable();
+
+  //Función para subir fotografía desde el dispositivo
+  uploadImage() {
+    if (this.imageCount >= 4) {
+      alert('Solo se pueden subir un máximo de 4 imágenes');
+      return;
+    }
+
+    return this.imageCompress
+      .uploadFile()
+      .then(({ image, orientation }: UploadResponse) => {
+        // console.warn('Tamaño Inicial:', this.imageCompress.byteCount(image));
+        if (this.imageCompress.byteCount(image) > 5 * 1024 * 1024) {
+          alert('El tamaño de la imagen excede el límite de 5 MB');
+          return;
+        }
+
+        //    console.warn('comprimida y redimensionada a 400x');
+        this.imageCompress
+          .compressFile(image, orientation, 40, 40, 400, 400)
+          .then((result: DataUrl) => {
+            //let image = result.slice(22)
+            console.log('image', image);
+            this.uploadedImages.push(image);
+            this.imageCount++;
+            console.warn('FINAL:', this.imageCompress.byteCount(result));
+            console.log(this.uploadedImages);
+            this.displayImage(this.uploadedImages.length - 1);
+          });
+      });
+  }
+
+  //Fucnión para tomar una fotografía
+  takePhoto() {
+    if (this.imageCount >= 4) {
+      alert('Solo se pueden subir un máximo de 4 imágenes');
+      return;
+    }
+    this.takingPhoto = true;
+  }
+
+  capturePhoto() {
+    this.trigger.next()
+  }
+
+  pushPhoto(imagen: WebcamImage) {
+  console.log("Tamaño antes",this.imageCompress.byteCount(imagen.imageAsDataUrl))
+    this.imageCompress
+      .compressFile(imagen.imageAsDataUrl,  -1, 400, 400)
+      .then((result: DataUrl) => {
+        this.uploadedImages.push(imagen.imageAsDataUrl);
+        this.imageCount++;
+        console.warn('FINAL:', this.imageCompress.byteCount(result));
+        console.log(this.uploadedImages);
+        // this.displayImage(this.uploadedImages.length - 1);
+      });
+
+    this.mainImage = imagen.imageAsDataUrl;
+    this.takingPhoto = false;
+    console.log('imagen.imageAsBase64 :>> ', imagen.imageAsBase64);
+    console.log('imagen.imageAsDataUrl :>> ', imagen.imageAsDataUrl);
+  }
+
+
+  //Fucnión para alternar la fotografía principal
+  displayImage(index: number) {
+    this.mainImage = this.uploadedImages[index];
+  }
+
 
   backToFinishOrder() {
     this.extraModal = false;
@@ -397,4 +478,5 @@ export class OrdersCartModalComponent implements OnInit {
   }
 
   saveExtraChanges() { }
+
 }
