@@ -425,7 +425,7 @@ export class OrdersCartModalComponent implements OnInit {
           .then((result: DataUrl) => {
             //let image = result.slice(22)
             console.log('image', image);
-            this.uploadedImages.push(image);
+            this.uploadedImages.push(result);
             this.imageCount++;
             console.warn('FINAL:', this.imageCompress.byteCount(result));
             console.log(this.uploadedImages);
@@ -436,6 +436,10 @@ export class OrdersCartModalComponent implements OnInit {
 
   async compressImage(image: any) {
     return await this.imageCompress.compressFile(image, -1, 50, 50); // Ajusta el nivel de compresión aquí
+  }
+
+  closeWebcam() {
+    this.takingPhoto = false
   }
 
   //Fucnión para tomar una fotografía

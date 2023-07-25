@@ -238,18 +238,41 @@
 }
 
 
-webcam {
+.webcam {
+    display: flex;
+    justify-content: center;
     position: absolute;
     width: 250px;
     height: 250px;
     border-radius: 10px;
     border: 1px solid black;
-    // background-color: grey;
+
+    .webcam-close {
+        position: absolute;
+        right: 0;
+        background-color: red;
+        height: 40px;
+        width: 40px;
+    }
+
+    webcam {
+        position: absolute;
+        width: 100%;
+        height: 250px;
+        border-radius: 10px;
+    }
+
+    .webcam-btn {
+        height: 50px;
+        width: 50px;
+        align-self: flex-end;
+    }
 }
 
-.webcam-btn {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    top: 200px;
+.webcam-wrapper {
+    height: 250px;
+
+    video {
+        height: 250px;
+    }
 }
