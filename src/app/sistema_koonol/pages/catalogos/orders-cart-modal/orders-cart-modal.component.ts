@@ -434,6 +434,10 @@ export class OrdersCartModalComponent implements OnInit {
       });
   }
 
+  async compressImage(image: any) {
+    return await this.imageCompress.compressFile(image, -1, 50, 50); // Ajusta el nivel de compresión aquí
+  }
+
   //Fucnión para tomar una fotografía
   takePhoto() {
     if (this.imageCount >= 4) {
@@ -447,24 +451,16 @@ export class OrdersCartModalComponent implements OnInit {
     this.trigger.next()
   }
 
-  pushPhoto(imagen: WebcamImage) {
-  console.log("Tamaño antes",this.imageCompress.byteCount(imagen.imageAsDataUrl))
-    this.imageCompress
-      .compressFile(imagen.imageAsDataUrl,  -1, 400, 400)
-      .then((result: DataUrl) => {
-        this.uploadedImages.push(imagen.imageAsDataUrl);
-        this.imageCount++;
-        console.warn('FINAL:', this.imageCompress.byteCount(result));
-        console.log(this.uploadedImages);
-        // this.displayImage(this.uploadedImages.length - 1);
-      });
-
-    this.mainImage = imagen.imageAsDataUrl;
-    this.takingPhoto = false;
-    console.log('imagen.imageAsBase64 :>> ', imagen.imageAsBase64);
-    console.log('imagen.imageAsDataUrl :>> ', imagen.imageAsDataUrl);
+  async pushPhoto(imagen: WebcamImage) {
+    console.warn("Tamaño antes", this.imageCompress.byteCount(imagen.imageAsDataUrl))
+    await this.compressImage(imagen.imageAsDataUrl).then((result: DataUrl) => {
+      this.uploadedImages.push(result);
+      this.imageCount++;
+      this.mainImage = result;
+      this.takingPhoto = false;
+    console.warn("Tamaño después", this.imageCompress.byteCount(result))
+    })
   }
-
 
   //Fucnión para alternar la fotografía principal
   displayImage(index: number) {
