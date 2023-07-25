@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <h1 class="title text-center">Ordenes de compra</h1>
     </div>
-    <div id="tabs" class="col-md-12">
+    <div id="tabs" class="col-md-12 col-lg-12">
       <ul class="nav nav-tabs"  role="tablist">
         <li class="nav-item">
           <a class="nav-link active" id="datos-tab" data-toggle="tab" href="#datos" role="tab" aria-controls="datos" aria-selected="true">Datos</a>
@@ -13,7 +13,7 @@
         </li>
       </ul>
     </div>
-    <div id="contenido" class="container rounded shadow">
+    <div id="contenido" class="container-fluid rounded shadow">
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="datos" role="tabpanel" aria-labelledby="datos-tab">
           <form id="form_datos" class="m-3">
@@ -107,7 +107,7 @@
                     <td>Código 789012</td>
                     <td>5</td>
                     <td>
-                      <button type="button" class="m-1 btn btn-info btn-sm">Editar</button>
+                      <button type="button" class="m-1 btn btn-info btn-sm" data-toggle="modal" data-target="#editarModal">Editar</button>
                       <button type="button" class="m-1 btn btn-danger btn-sm">Borrar</button>
                     </td>
                   </tr>
@@ -119,6 +119,60 @@
                 Finalizar
               </button>
             </div>
+
+
+            <!-- Modal para editar artículo -->
+  <div class="modal fade" id="editarModal" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="title modal-title" id="editarModalLabel">Editar Artículo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row m-1">
+            <div class="form-group col-md-4">
+              <label for="editar_articulo">Artículo</label>
+              <input type="text" class="form-control" id="editar_articulo" placeholder="Artículo a editar">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="Unidad">Unidad</label>
+              <input type="text" class="form-control" id="editar_codigo_barras" placeholder="Unidad">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="editar_codigo_barras">Código de proveedor</label>
+              <input type="text" class="form-control" id="editar_codigo_barras" placeholder="Código">
+            </div>
+          </div>
+          <div class="row m-1">
+            <div class="form-group col-md-4">
+              <label for="editar_articulo">Artículo</label>
+              <input type="text" class="form-control" id="editar_articulo" placeholder="Artículo a editar">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="Unidad">Unidad</label>
+              <input type="text" class="form-control" id="editar_codigo_barras" placeholder="Unidad">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="editar_codigo_barras">Código de proveedor</label>
+              <input type="text" class="form-control" id="editar_codigo_barras" placeholder="Código">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="editar_total">Total</label>
+            <input type="number" class="form-control" id="editar_total" placeholder="Total a editar">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary">Guardar cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
           </form>
 
 
@@ -127,4 +181,5 @@
     </div>
   </div>
 </div>
+
 
