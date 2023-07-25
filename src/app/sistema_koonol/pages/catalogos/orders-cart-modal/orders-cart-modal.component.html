@@ -165,8 +165,14 @@
         <button class="add-btn mt-3" (click)="takePhoto()">Tomar foto</button>
       </div>
       <!-- WEBCAM -->
-      <webcam *ngIf="takingPhoto" [trigger]="triggerObservable" (imageCapture)="pushPhoto($event)"></webcam>
-      <button class="icon-btn webcam-btn" *ngIf="takingPhoto" (click)="capturePhoto()" ><i class="fa fa-camera"></i></button>
+      <div *ngIf="takingPhoto" class="webcam">
+        <button class="webcam-close icon-btn" (click)="closeWebcam()">
+          <i i class="fa fa-times"></i>
+        </button>
+        <webcam [trigger]="triggerObservable" (imageCapture)="pushPhoto($event)"></webcam>
+        <button class="icon-btn webcam-btn" (click)="capturePhoto()"><i
+            class="fa fa-camera"></i></button>
+      </div>
     </div>
 
     <!-- SECCIÓN DE BOTONES -->

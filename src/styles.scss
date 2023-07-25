@@ -367,3 +367,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .modal-backdrop {
   z-index: 0 ;
 }
+
+.webcam-wrapper {
+  height: 250px;
+
+  video {
+      height: 250px;
+  }
+}
