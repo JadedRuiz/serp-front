@@ -22,6 +22,9 @@ import { Router } from '@angular/router';
 import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
 import { Pedido } from 'src/app/models/pedido.model';
 import { PedidoGuardar } from 'src/app/models/pedidoguardar.model';
+import { DataUrl, NgxImageCompressService, UploadResponse } from 'ngx-image-compress';
+import { Observable, Subject } from 'rxjs';
+import { WebcamImage } from 'ngx-webcam';
 
 export const DATE_FORMATS = {
   parse: {
@@ -50,6 +53,7 @@ export const DATE_FORMATS = {
   ],
 })
 export class OrdersCartModalComponent implements OnInit {
+
   //DESPUÉS VENDRÁ DESDE ALGO QUE HARÁ JADED
   miComprador = 1;
   vendedor = 0;
@@ -86,7 +90,8 @@ export class OrdersCartModalComponent implements OnInit {
     private catalogoService: CatalogoService,
     private geolocationService: GeolocationService,
     private router: Router,
-    private pedidos: PedidosService
+    private pedidos: PedidosService,
+    private imageCompress: NgxImageCompressService
   ) { }
 
   ngOnInit(): void {
@@ -190,7 +195,7 @@ export class OrdersCartModalComponent implements OnInit {
   isSellerSelected: boolean = false;
 
   //MODAL PARA SELECCIONAR UN CLIENTE
-  clienteVendedorModal: boolean = true;
+  clienteVendedorModal: boolean = false;
   observaciones: string = ''
 
   //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE O RFC
@@ -389,7 +394,83 @@ export class OrdersCartModalComponent implements OnInit {
   }
 
   //MODAL PARA AÑADIR FOTOS AL CLIENTE Y PARA AÑADIRLE UNA UBICACIÓN
-  extraModal: boolean = false;
+  extraModal: boolean = true;
+  imageCount: number = 0;
+  uploadedImages: any[] = [];
+  imageAfterResize: any;
+  mainImage: any;
+  takingPhoto: boolean = false;
+  private trigger: Subject<void> = new Subject<void>();
+  public triggerObservable: Observable<void> = this.trigger.asObservable();
+
+  //Función para subir fotografía desde el dispositivo
+  uploadImage() {
+    if (this.imageCount >= 4) {
+      alert('Solo se pueden subir un máximo de 4 imágenes');
+      return;
+    }
+
+    return this.imageCompress
+      .uploadFile()
+      .then(({ image, orientation }: UploadResponse) => {
+        // console.warn('Tamaño Inicial:', this.imageCompress.byteCount(image));
+        if (this.imageCompress.byteCount(image) > 5 * 1024 * 1024) {
+          alert('El tamaño de la imagen excede el límite de 5 MB');
+          return;
+        }
+
+        //    console.warn('comprimida y redimensionada a 400x');
+        this.imageCompress
+          .compressFile(image, orientation, 40, 40, 400, 400)
+          .then((result: DataUrl) => {
+            //let image = result.slice(22)
+            console.log('image', image);
+            this.uploadedImages.push(result);
+            this.imageCount++;
+            console.warn('FINAL:', this.imageCompress.byteCount(result));
+            console.log(this.uploadedImages);
+            this.displayImage(this.uploadedImages.length - 1);
+          });
+      });
+  }
+
+  async compressImage(image: any) {
+    return await this.imageCompress.compressFile(image, -1, 50, 50); // Ajusta el nivel de compresión aquí
+  }
+
+  closeWebcam() {
+    this.takingPhoto = false
+  }
+
+  //Fucnión para tomar una fotografía
+  takePhoto() {
+    if (this.imageCount >= 4) {
+      alert('Solo se pueden subir un máximo de 4 imágenes');
+      return;
+    }
+    this.takingPhoto = true;
+  }
+
+  capturePhoto() {
+    this.trigger.next()
+  }
+
+  async pushPhoto(imagen: WebcamImage) {
+    console.warn("Tamaño antes", this.imageCompress.byteCount(imagen.imageAsDataUrl))
+    await this.compressImage(imagen.imageAsDataUrl).then((result: DataUrl) => {
+      this.uploadedImages.push(result);
+      this.imageCount++;
+      this.mainImage = result;
+      this.takingPhoto = false;
+    console.warn("Tamaño después", this.imageCompress.byteCount(result))
+    })
+  }
+
+  //Fucnión para alternar la fotografía principal
+  displayImage(index: number) {
+    this.mainImage = this.uploadedImages[index];
+  }
+
 
   backToFinishOrder() {
     this.extraModal = false;
@@ -397,4 +478,5 @@ export class OrdersCartModalComponent implements OnInit {
   }
 
   saveExtraChanges() { }
+
 }

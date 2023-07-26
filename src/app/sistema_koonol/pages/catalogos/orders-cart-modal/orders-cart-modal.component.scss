@@ -9,7 +9,7 @@
     margin-bottom: 20px;
 }
 
-.orders-cart__modal {
+.orders-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -22,7 +22,7 @@
     justify-content: center;
 }
 
-.orders-cart__modal__close {
+.orders-modal__close {
     position: absolute;
     top: 85px;
     right: 10px;
@@ -62,7 +62,7 @@
     }
 }
 
-.orders-cart__client-select {
+.orders-modal__client-select {
     outline: none;
     width: 150px;
     margin-top: 10px;
@@ -84,19 +84,19 @@
     }
 }
 
-.orders-cart__client__buttons {
+.orders-modal__client__buttons {
     align-self: flex-end;
     display: flex;
     gap: 20px;
 }
 
-.orders-cart__addresses-container {
+.orders-modal__addresses-container {
     width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.200);
     border-radius: 5px;
 }
 
-.orders-cart__addresses-list {
+.orders-modal__addresses-list {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -104,16 +104,16 @@
     height: 255px;
 }
 
-.orders-cart__addresses-list::-webkit-scrollbar {
+.orders-modal__addresses-list::-webkit-scrollbar {
     width: 4px;
 }
 
-.orders-cart__addresses-list::-webkit-scrollbar-thumb {
+.orders-modal__addresses-list::-webkit-scrollbar-thumb {
     background-color: rgb(196, 196, 196);
     border-radius: 10px;
 }
 
-.orders-cart__address {
+.orders-modal__address {
     display: flex;
     background-color: white;
     width: 100%;
@@ -136,11 +136,11 @@
     }
 }
 
-.orders-cart__address:hover {
+.orders-modal__address:hover {
     background-color: rgb(214, 214, 214);
 }
 
-.orders-cart__addresses-add {
+.orders-modal__addresses-add {
     text-decoration: underline;
     color: steelblue;
     cursor: pointer;
@@ -148,7 +148,7 @@
     margin: 5px 0 0 30px;
 }
 
-.orders-cart__address__buttons {
+.orders-modal__buttons {
     margin-top: auto;
     align-self: flex-end;
     display: flex;
@@ -193,5 +193,86 @@
             color: orangered;
             transition: 500ms;
         }
+    }
+}
+
+.orders-modal__extra-image,
+.orders-modal__extra-images {
+    display: flex;
+
+    img {
+        object-fit: cover;
+    }
+}
+
+.orders-modal__extra-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    position: relative;
+
+    .orders-modal__extra-image {
+        border: 1px solid black;
+        border-radius: 5px;
+        width: 225px;
+        height: 225px;
+    }
+
+    .orders-modal__extra-images-selector {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .orders-modal__extra-images {
+            border: 0.5px solid black;
+            border-radius: 5px;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+    }
+
+    button {
+        height: 50px;
+    }
+}
+
+
+.webcam {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+    border: 1px solid black;
+
+    .webcam-close {
+        position: absolute;
+        right: 0;
+        background-color: red;
+        height: 40px;
+        width: 40px;
+    }
+
+    webcam {
+        position: absolute;
+        width: 100%;
+        height: 250px;
+        border-radius: 10px;
+    }
+
+    .webcam-btn {
+        height: 50px;
+        width: 50px;
+        align-self: flex-end;
+    }
+}
+
+.webcam-wrapper {
+    height: 250px;
+
+    video {
+        height: 250px;
     }
 }

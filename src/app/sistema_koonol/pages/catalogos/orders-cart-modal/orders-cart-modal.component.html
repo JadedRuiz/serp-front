@@ -1,8 +1,9 @@
-<div class="orders-cart__modal">
-  <button class="orders-cart__modal__close icon-btn" (click)="useToggleModalVisibility()">
+<div class="orders-modal">
+  <button class="orders-modal__close icon-btn" (click)="useToggleModalVisibility()">
     <i i class="fa fa-times"></i>
   </button>
 
+  <!-- MODAL PARA ESCOGER UN VENDEDOR, UN CLIENTE, FECHA DE ENTREGA Y REALIZAR OBSERVACIONES PARA EL PEDIDO -->
   <div class="orders-modal__client" *ngIf="clienteVendedorModal">
     <div class="orders-modal__client-inputs row">
       <!-- Autocomplete de vendedores -->
@@ -34,7 +35,7 @@
 
       <!-- Autocomplete de clientes -->
       <div class="col-5 p-0">
-        <span >Cliente:</span>
+        <span>Cliente:</span>
         <div class="ng-autocomplete">
           <input class="search-input" type="text" placeholder="Buscar cliente" aria-label="Buscar cliente"
             aria-describedby="button-addon2" [formControl]="searchClientControl" (focus)="onFocusClientSearch()" />
@@ -74,7 +75,7 @@
       <textarea type="text" [(ngModel)]="observaciones"></textarea>
     </div>
 
-    <div class="orders-cart__client__buttons mt-auto">
+    <div class="orders-modal__buttons ">
       <button class="danger-btn" (click)="useToggleModalVisibility()">
         Cancelar
       </button>
@@ -86,11 +87,13 @@
       </button>
     </div>
   </div>
+
+  <!-- MODAL PARA SELECCIONAR DIRECCIÓN DEL CLIENTE -->
   <div class="orders-modal__addresses" *ngIf="selectAddressModal">
     <h3 class="title text-center">Selecciona una dirección</h3>
-    <div class="orders-cart__addresses-container">
-      <div class="orders-cart__addresses-list">
-        <div class="orders-cart__address" *ngFor="let address of addresses">
+    <div class="orders-modal__addresses-container">
+      <div class="orders-modal__addresses-list">
+        <div class="orders-modal__address" *ngFor="let address of addresses">
           <label>
             <input type="radio" name="address" [(ngModel)]="addressSelected" [value]="address"
               (click)="selectAddress(address)" />
@@ -99,7 +102,7 @@
         </div>
       </div>
     </div>
-    <div class="orders-cart__address__buttons">
+    <div class="orders-modal__buttons">
       <button class="danger-btn" (click)="backToClientModal()">Regresar</button>
       <button class="general-btn" [ngClass]="{ 'button-disabled': !isAddressSelected }" (click)="confirmAddress()"
         [disabled]="!isAddressSelected">
@@ -107,6 +110,8 @@
       </button>
     </div>
   </div>
+
+  <!-- MODAL PARA VER DETALLES DEL PEDIDO Y FINALIZARLO -->
   <div class="orders-modal__fin" *ngIf="finPedidoModal">
     <h3 class="title">Datos del pedido</h3>
     <div class="orders-modal__fin-info">
@@ -124,7 +129,7 @@
       </h3>
     </div>
     <span class="span-extra" (click)="openExtraModal()">El cliente no tiene fotos, ¿deseas añadir?</span>
-    <div class="orders-cart__address__buttons">
+    <div class="orders-modal__buttons">
       <button class="danger-btn" (click)="backToAddressModal()">
         Regresar
       </button>
@@ -133,14 +138,50 @@
       </button>
     </div>
   </div>
+
+  <!-- MODAL PARA SUBIR FOTOGRAFÍAS DE UN CLIENTE EN CASO DE QUE NO LAS TENGA -->
   <div class="orders-modal__extra" *ngIf="extraModal">
+    <!-- TÍTULO -->
     <h3 class="title">Añadir fotos al cliente {{selectedClient.cliente}}</h3>
-    <div class="orders-cart__address__buttons">
+
+    <!-- CUERPO DEL MODAL -->
+    <div class="orders-modal__extra-container">
+      <!-- IMAGEN PRINCIPAL -->
+      <div class="orders-modal__extra-image">
+        <img src="../../../../../assets/img/Placeholder1.png" alt="placeholder" *ngIf="uploadedImages.length == 0">
+        <img [src]="mainImage" alt="imagen principal" *ngIf="uploadedImages.length !== 0">
+      </div>
+      <!-- SELECTOR DE IMÁGENES -->
+      <div class="orders-modal__extra-images-selector">
+        <div class="orders-modal__extra-images" *ngFor="let image of uploadedImages; let i = index"
+          (click)="displayImage(i)">
+          <img [src]="image" alt="imagen miniatura">
+        </div>
+      </div>
+      <div class="d-flex flex-column">
+        <!-- BOTÓN PARA AÑADIR FOTO -->
+        <button class="search-btn" (click)="uploadImage()">Subir imagen</button>
+        <!-- BOTÓN PARA TOMAR FOTO -->
+        <button class="add-btn mt-3" (click)="takePhoto()">Tomar foto</button>
+      </div>
+      <!-- WEBCAM -->
+      <div *ngIf="takingPhoto" class="webcam">
+        <button class="webcam-close icon-btn" (click)="closeWebcam()">
+          <i i class="fa fa-times"></i>
+        </button>
+        <webcam [trigger]="triggerObservable" (imageCapture)="pushPhoto($event)"></webcam>
+        <button class="icon-btn webcam-btn" (click)="capturePhoto()"><i
+            class="fa fa-camera"></i></button>
+      </div>
+    </div>
+
+    <!-- SECCIÓN DE BOTONES -->
+    <div class="orders-modal__buttons">
       <button class="danger-btn" (click)="backToFinishOrder()">
         Regresar
       </button>
       <button class="general-btn" (click)="backToFinishOrder()">
-        Finalizar pedido
+        Continuar
       </button>
     </div>
   </div>
