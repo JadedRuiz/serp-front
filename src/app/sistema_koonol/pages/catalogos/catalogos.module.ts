@@ -24,6 +24,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { OrdenesDeCompraComponent } from './ordenes-de-compra/ordenes-de-compra.component';
 import { WebcamModule } from 'ngx-webcam';
 import { VisitaClienteComponent } from './visita-cliente/visita-cliente.component';
+import { CobranzaComponent } from './cobranza/cobranza.component';
 
 
 
@@ -42,7 +43,8 @@ import { VisitaClienteComponent } from './visita-cliente/visita-cliente.componen
     VendedoresComponent,
     SearchFamComponent,
     OrdenesDeCompraComponent,
-    VisitaClienteComponent
+    VisitaClienteComponent,
+    CobranzaComponent
   ],
   imports: [
     CommonModule,

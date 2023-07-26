@@ -1,0 +1,196 @@
+<div id="cobranza" class="container-fluid">
+  <h1 class="title text-center">Cobranza</h1>
+  <div class="container">
+    <form id="form_articulos" class="m-4">
+      <div class="row mt-4">
+        <div class="form-group col-md-4">
+          <label for="vendedor">Vendedor</label>
+          <input type="text" class="form-control" placeholder="vendedor">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="cliente">Cliente</label>
+          <input type="text" class="form-control" placeholder="Cliente">
+        </div>
+        <div class="form-group col-md-2">
+          <label for="folio">Folio</label>
+          <input type="number" class="form-control" placeholder="Folio">
+        </div>
+        <div class="col-md-3 mt-1">
+          <button type="button" class=" mt-5 btn search-btn">Buscar</button>
+        </div>
+      </div>
+      <!-- Tarjeta (Card) para mostrar los datos de los pedidos -->
+      <div class="card mt-4">
+        <div class="card-header">
+          <div class="row">
+            <div class="col">
+              <h6 style="font-weight: bold;">Folio: <span style="font-weight: normal;">00033</span></h6>
+            </div>
+            <div class="col text-right">
+              <a href="#cobranza">Detalles</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <p>Fecha: <span>fecha</span></p>
+              <p>Folio: <span>-00056</span></p>
+              <p>Adelanto: <span>10</span></p>
+              <p>Restante: <span>10</span></p>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-end justify-content-end">
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
+              data-target="#pagarModal">Pagar</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="d-flex justify-content-end mt-4">
+        <button type="submit" class="btn general-btn ml-auto">
+          Finalizar
+        </button>
+      </div>
+
+      <!-- modal para Cobranza -->
+      <div class="modal fade" id="pagarModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+              <h5 class="title mb-0 text-center" id="editarModalLabel">Calculadora de Pagos</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h6 class="subtitle">Billetes</h6>
+              <div class="row m-1">
+                <div class="col-2">
+                  <span for="b1000"><b>$1000</b></span>
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                </div>
+              </div>
+              <div class="row m-1">
+                <div class="col-2">
+                  <span for="b500"><b>$500</b></span>
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                </div>
+              </div>
+              <div class="row m-1">
+                <div class="col-2">
+                  <span for="b200"><b>$200</b></span>
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                </div>
+              </div>
+              <div class="row m-1">
+                <div class="col-2">
+                  <span for="b100"><b>$100</b></span>
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                </div>
+              </div>
+              <div class="row m-1">
+                <div class="col-2">
+                  <span for="b50"><b>$50</b></span>
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                </div>
+              </div>
+              <hr>
+              <!-- ... Otras denominaciones de billetes ... -->
+              <h6 class="subtitle">Monedas</h6>
+              <div class="row m-1">
+                <div class="col-2">
+                  <span for="m10"><b>$10</b></span>
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                </div>
+              </div>
+              <div class="row m-1">
+                <div class="col-2">
+                  <span for="m5"><b>$5</b></span>
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                </div>
+              </div>
+              <div class="row m-1">
+                <div class="col-2">
+                  <span for="m2"><b>$2</b></span>
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                </div>
+              </div>
+              <div class="row m-1">
+                <div class="col-2">
+                  <span for="m1"><b>$1</b></span>
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                </div>
+              </div>
+              <hr>
+              <!--Totales-->
+              <div class="row m-1">
+                <div class="col-md-6">
+                  <label for="totalIngresos">Total Ingresos</label>
+                  <input type="number" class="form-control" id="totalIngresos" readonly>
+                </div>
+                <div class="col-md-6">
+                  <label for="totalCambio">Total Cambio</label>
+                  <input type="number" class="form-control" id="totalCambio" readonly>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn search-btn" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn general-btn">Ingresar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </form>
+  </div>
+</div>
