@@ -23,6 +23,8 @@ import { SearchFamComponent } from './familias/search-fam.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { OrdenesDeCompraComponent } from './ordenes-de-compra/ordenes-de-compra.component';
 import { WebcamModule } from 'ngx-webcam';
+import { VisitaClienteComponent } from './visita-cliente/visita-cliente.component';
+import { CobranzaComponent } from './cobranza/cobranza.component';
 
 
 
@@ -40,7 +42,9 @@ import { WebcamModule } from 'ngx-webcam';
     AlmacenesComponent,
     VendedoresComponent,
     SearchFamComponent,
-    OrdenesDeCompraComponent
+    OrdenesDeCompraComponent,
+    VisitaClienteComponent,
+    CobranzaComponent
   ],
   imports: [
     CommonModule,

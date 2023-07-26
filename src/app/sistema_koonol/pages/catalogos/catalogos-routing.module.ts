@@ -11,6 +11,8 @@ import { RoutesComponent } from './routes/routes.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { VendedoresComponent } from './vendedores/vendedores.component';
 import { OrdenesDeCompraComponent } from './ordenes-de-compra/ordenes-de-compra.component';
+import { VisitaClienteComponent } from './visita-cliente/visita-cliente.component';
+import { CobranzaComponent } from './cobranza/cobranza.component';
 
 const routes: Routes = [
   {
@@ -55,6 +57,14 @@ const routes: Routes = [
   {
     path: 'vendedores',
     component: VendedoresComponent
+  },
+  {
+    path: 'visitas',
+    component: VisitaClienteComponent
+  },
+  {
+    path: 'cobranza',
+    component: CobranzaComponent
   }
 ];
 
