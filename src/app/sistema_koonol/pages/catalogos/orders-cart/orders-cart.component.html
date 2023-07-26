@@ -1,10 +1,12 @@
-<button type="button" class="orders-cart-btn icon-btn" *ngIf="!ordersVisibility" (click)="toggleOrdersVisibility()">
-  <i class="fa fa-shopping-cart"></i>
-</button>
-<button type="button" class="orders-cart-btn icon-btn" #closeCart (click)="toggleOrdersVisibility()"
-  *ngIf="!cerrarCarrito">
-  <i class="fa fa-times"></i>
-</button>
+<div class="orders-cart-btn"  (click)="toggleOrdersVisibility()">
+  <span class="orders-cart-counter" *ngIf="pedido.length > 0 && !ordersVisibility"> {{pedido.length}} </span>
+  <button type="button" class="cart-btn icon-btn" *ngIf="!ordersVisibility">
+    <i class="fa fa-shopping-cart"></i>
+  </button>
+  <button type="button" class=" icon-btn" #closeCart *ngIf="!cerrarCarrito">
+    <i class="fa fa-times"></i>
+  </button>
+</div>
 <div *ngIf="ordersVisibility" [ngClass]="{'orders-cart-container': true , 'slider-reverse' : cerrarCarrito}">
   <div class="orders-cart">
     <div class="orders-cart__empty" *ngIf="isCartEmpty">
@@ -41,15 +43,19 @@
             <button class="orders-cart_product_btn-delete" (click)="deleteProduct(item)">
               <i class="fa fa-trash-o"></i>
             </button>
-            <h3 class="orders-cart__product-price">${{ item.precio_total_formateado }}</h3>
+            <input *ngIf="editPrice" class="orders-cart__product-price-edit" type="number" [(ngModel)]="item.precio_carrito">
+            <h3 *ngIf="!editPrice" class="orders-cart__product-price">${{ item.precio_total_formateado }}</h3>
           </div>
         </article>
       </div>
+      <span class="orders-cart__edit-prices" *ngIf="!editPrice" (click)="editPrice = true">Editar precios</span>
+      <span class="orders-cart__edit-prices" *ngIf="editPrice" (click)="guardarEdicionPrecios()">Guardar edición</span>
       <!-- Sección 3 -->
-      <span class="orders-cart__clear" (click)="clearCart()"><i class="clearCart bi bi-cart" title="Vaciar carrito"></i></span>
+      <span class="orders-cart__clear" (click)="clearCart()"><i class="clearCart bi bi-cart"
+          title="Vaciar carrito"></i></span>
       <div class="orders-cart__checkout">
         <h3 class="">Total:</h3>
-        <h3 class="">${{ total }}</h3>
+        <h3 class="">${{ subtotal }}</h3>
       </div>
       <div class="orders-cart__checkout justify-content-center">
         <button class="general-btn" (click)="useToggleModalVisibility()">

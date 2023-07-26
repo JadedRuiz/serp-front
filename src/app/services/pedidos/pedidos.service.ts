@@ -37,14 +37,11 @@ export class PedidosService {
 
     guardarPedido(pedido: PedidoGuardar) {
         let url = 'https://serp-inventarios.serteza.com/public/api/pedidos/guardarPedido';
-        // console.log("hola");
-         console.log(pedido);
+        console.log(pedido);
         return this.http.post(url, pedido).pipe(
             map((resp: any) => {
                 console.log(resp);
                 if (resp.ok) {
-                    // console.log("hola si");
-                    // console.log(resp);
                     Swal.fire('Pedido creado exitosamente', '', 'success')
                     return resp.data
                 } else {
