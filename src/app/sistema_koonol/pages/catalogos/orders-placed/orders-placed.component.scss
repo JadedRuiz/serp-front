@@ -31,7 +31,7 @@ $title-font-size-desktop: 20px;
     flex-direction: column;
     background-color: white;
     border: 1px solid rgba(0, 0, 0, 0.200);
-    width: min(95%, 800px);
+    width: min(100%, 1300px);
     border-radius: 5px;
     padding: 5px 10px;
     margin-top: 30px;
@@ -54,6 +54,7 @@ $title-font-size-desktop: 20px;
         p,
         span {
             font-size: $default-font-size-mobile;
+            
         }
 
         p {
@@ -78,7 +79,6 @@ $title-font-size-desktop: 20px;
         }
     }
 }
-
 .orders-placed__order__section2 {
     display: flex;
     justify-content: space-between;
@@ -87,7 +87,6 @@ $title-font-size-desktop: 20px;
     &--subsection1 {
         display: flex;
         gap: 5px;
-
         button {
             color: white;
             border: none;
