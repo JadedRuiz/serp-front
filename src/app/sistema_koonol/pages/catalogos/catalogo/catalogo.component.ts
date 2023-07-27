@@ -155,6 +155,7 @@ export class CatalogoComponent implements OnInit {
 			productoExistente.quantity++
 		} else {
 			item.quantity = 1
+			item.precio_producto_completo = item.precio_total
 			this.pedido.push(item)
 		}
 		this.catalogo.updatePedido(this.pedido)

@@ -25,6 +25,7 @@ import { PedidoGuardar } from 'src/app/models/pedidoguardar.model';
 import { DataUrl, NgxImageCompressService, UploadResponse } from 'ngx-image-compress';
 import { Observable, Subject } from 'rxjs';
 import { WebcamImage } from 'ngx-webcam';
+import Swal from 'sweetalert2';
 
 export const DATE_FORMATS = {
   parse: {
@@ -88,7 +89,6 @@ export class OrdersCartModalComponent implements OnInit {
     private clientService: ClientsService,
     private vendedorService: VendedoresService,
     private catalogoService: CatalogoService,
-    private geolocationService: GeolocationService,
     private router: Router,
     private pedidos: PedidosService,
     private imageCompress: NgxImageCompressService
@@ -389,9 +389,13 @@ export class OrdersCartModalComponent implements OnInit {
     this.finPedidoModal = false;
   }
 
+  prueba() {
+    console.log("mírame", this.pedidoFinal);
+  }
+
   async saveOrder() {
-    this.pedidos.guardarPedido(this.pedidoFinal).subscribe();
     console.log('this.pedidoFinal antes :>> ', this.pedidoFinal);
+    return this.pedidos.guardarPedido(this.pedidoFinal).subscribe();
   }
 
   async finishOrder() {
@@ -410,6 +414,7 @@ export class OrdersCartModalComponent implements OnInit {
 
   //MODAL PARA AÑADIR FOTOS AL CLIENTE Y PARA AÑADIRLE UNA UBICACIÓN
   extraModal: boolean = false;
+  ubicacionVendedor: any;
   imageCount: number = 0;
   uploadedImages: any[] = [];
   imageAfterResize: any;
@@ -449,16 +454,8 @@ export class OrdersCartModalComponent implements OnInit {
       });
   }
 
-  async compressImage(image: any) {
-    return await this.imageCompress.compressFile(image, -1, 50, 50); // Ajusta el nivel de compresión aquí
-  }
-
-  closeWebcam() {
-    this.takingPhoto = false
-  }
-
-  //Fucnión para tomar una fotografía
-  takePhoto() {
+  //Fucnión para abrir la cámara
+  openWebcam() {
     if (this.imageCount >= 4) {
       alert('Solo se pueden subir un máximo de 4 imágenes');
       return;
@@ -466,10 +463,22 @@ export class OrdersCartModalComponent implements OnInit {
     this.takingPhoto = true;
   }
 
+  //Función para cerrar la cámara
+  closeWebcam() {
+    this.takingPhoto = false
+  }
+
+  //Función para tomar la fotografía
   capturePhoto() {
     this.trigger.next()
   }
 
+  //Función para comprimir las fotografías que se toman
+  async compressImage(image: any) {
+    return await this.imageCompress.compressFile(image, -1, 50, 50); // Ajusta el nivel de compresión aquí
+  }
+
+  //Función para mandar la fotografía al array de fotos subidas y mostrarla
   async pushPhoto(imagen: WebcamImage) {
     console.warn("Tamaño antes", this.imageCompress.byteCount(imagen.imageAsDataUrl))
     await this.compressImage(imagen.imageAsDataUrl).then((result: DataUrl) => {
@@ -484,6 +493,23 @@ export class OrdersCartModalComponent implements OnInit {
   //Fucnión para alternar la fotografía principal
   displayImage(index: number) {
     this.mainImage = this.uploadedImages[index];
+  }
+
+  //Función para guardar la ubicación actual del vendedor
+  guardarUbi() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.ubicacionVendedor = {
+          latitud: position.coords.latitude,
+          longitud: position.coords.longitude
+        };
+        Swal.fire('Ubicacion guardada correctamete', '', 'success');
+        console.log('ubi :>> ', this.ubicacionVendedor);
+      },
+        (error) => {
+          console.log(error);
+        });
+    }
   }
 
 

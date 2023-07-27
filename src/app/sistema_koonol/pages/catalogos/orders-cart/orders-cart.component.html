@@ -43,8 +43,8 @@
             <button class="orders-cart_product_btn-delete" (click)="deleteProduct(item)">
               <i class="fa fa-trash-o"></i>
             </button>
-            <input *ngIf="editPrice" class="orders-cart__product-price-edit" type="number" [(ngModel)]="item.precio_carrito">
-            <h3 *ngIf="!editPrice" class="orders-cart__product-price">${{ item.precio_total_formateado }}</h3>
+            <input *ngIf="editPrice" class="orders-cart__product-price-edit" type="number" [(ngModel)]="item.precio_producto_completo">
+            <h3 *ngIf="!editPrice" class="orders-cart__product-price">${{ item.precio_completo_formateado }}</h3>
           </div>
         </article>
       </div>
@@ -55,10 +55,10 @@
           title="Vaciar carrito"></i></span>
       <div class="orders-cart__checkout">
         <h3 class="">Total:</h3>
-        <h3 class="">${{ subtotal }}</h3>
+        <h3 class="">${{ subtotalFormateado }}</h3>
       </div>
       <div class="orders-cart__checkout justify-content-center">
-        <button class="general-btn" (click)="useToggleModalVisibility()">
+        <button class="general-btn" (click)="createOrder()">
           Realizar pedido
         </button>
       </div>

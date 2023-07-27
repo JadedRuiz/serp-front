@@ -30,7 +30,7 @@ export class OrdersCartComponent {
     });
     this.catalogo.pedido$.subscribe((pedido) => {
       this.pedido = pedido;
-      this.getSubtotal();
+      this.getTotalPerItem();
       this.noItems();
       this.pedidoFinal.articulos = [];
       this.pedido.forEach((articulo) => {
@@ -42,7 +42,7 @@ export class OrdersCartComponent {
             articulo.costo_promedio,
             articulo.quantity,
             articulo.tasa_iva,
-            articulo.precio_total_carrito
+            articulo.precio_producto_total
           )
         );
       });
@@ -73,6 +73,7 @@ export class OrdersCartComponent {
   //Estados para manejar las cuentas del carrito
   totalPerItem: number = 0;
   subtotal: number = 0;
+  subtotalFormateado: any;
   discounts: number = 0; // Normalmente su valor vendrá de la base de datos
   quantity: number = 0;
   editPrice: boolean = false;
@@ -82,7 +83,6 @@ export class OrdersCartComponent {
 
   //Función para manejar el estado del carrito
   noItems() {
-    // this.pedido = this.catalogo.getPedido()
     if (this.pedido.length !== 0) {
       this.isCartEmpty = this.isCartEmpty = false;
     } else {
@@ -92,45 +92,26 @@ export class OrdersCartComponent {
 
   getTotalPerItem() {
     this.pedido.forEach((articulo) => {
-      articulo.precio_total_carrito = articulo.precio_venta
-      articulo.precio_carrito = articulo.precio_total_carrito
-      articulo.precio_total_carrito = articulo.precio_carrito * articulo.quantity
+      articulo.precio_producto_total = articulo.precio_producto_completo * articulo.quantity
     });
+    this.getSubtotal();
   }
 
   guardarEdicionPrecios() {
-    for (let item of this.pedido) {
-      item.precio_total_carrito = item.precio_carrito
-      console.log(item.precio_total_carrito);
-    }
+    this.catalogo.updatePedido(this.pedido);
     this.editPrice = false;
-    this.catalogo.updatePedido(this.pedido)
   }
 
   //Función para obtener el subtotal del pedido
   getSubtotal() {
-    this.getTotalPerItem()
     this.subtotal = 0;
     for (let item of this.pedido) {
-      let itemPrice = item.precio_total_carrito;
-      this.subtotal += itemPrice * item.quantity;
-      item.precio_total_formateado = this.formatter.format(itemPrice);
+      let itemPrice = item.precio_producto_completo;
+      this.subtotal += item.precio_producto_total;
+      item.precio_completo_formateado = this.formatter.format(itemPrice);
     }
-    //   this.pedidoFinal.precio_total = this.total;
-    //   this.pedidos.updatePedidoFinal(this.pedidoFinal);
-    //   this.total = this.formatter.format(this.total);
+    this.subtotalFormateado = this.formatter.format(this.subtotal);
   }
-
-  //Función para obtener el total del pedido
-  // getTotal() {
-  //   this.getTotalPerItem();
-  //   this.total = 0;
-  //   this.total = this.subtotal - this.discounts;
-  //   this.pedidoFinal.precio_total = this.total;
-  //   this.pedidos.updatePedidoFinal(this.pedidoFinal);
-  //   this.total = this.formatter.format(this.total);
-  // }
-
 
   //Estado para manejar el CSS del botón decrease
   btnQuantityOff: boolean = true;
@@ -139,7 +120,6 @@ export class OrdersCartComponent {
   increaseItemQuantity(item: Articulo) {
     item.quantity++;
     this.btnQuantityOff = false;
-    // this.getSubtotal();
     this.catalogo.updatePedido(this.pedido);
   }
 
@@ -152,7 +132,6 @@ export class OrdersCartComponent {
       this.btnQuantityOff = true;
     }
     this.catalogo.updatePedido(this.pedido);
-    // this.getSubtotal();
   }
 
   //Función para eliminar producto del carrito
@@ -165,9 +144,6 @@ export class OrdersCartComponent {
       sessionStorage.setItem('pedido', JSON.stringify(this.pedido));
     }
     this.catalogo.updatePedido(this.pedido);
-    // this.catalogo.getPedido()
-    // this.getSubtotal();
-    // this.noItems()
   }
 
   clearCart() {
@@ -191,5 +167,10 @@ export class OrdersCartComponent {
   useToggleModalVisibility() {
     this.toggleModalVisibility.emit();
     this.toggleOrdersVisibility();
+  }
+
+  createOrder() {
+    this.pedidoFinal.precio_total = this.subtotal
+    this.useToggleModalVisibility()
   }
 }
