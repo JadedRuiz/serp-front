@@ -1,391 +1,423 @@
 <div class="clients container-fluid">
-  <div class="clients-container">
-    <h1 class="text-center title">CLIENTES</h1>
-    <!-- SEARCH-BAR -->
-    <div class="clients__search-bar">
-      <div class="d-flex flex-column">
-        <input class="search-input" type="text" placeholder="Buscar cliente" aria-label="Buscar cliente" data-toggle="tooltip" title="Buscar cliente"
-          aria-describedby="button-addon2" [formControl]="searchClientControl" />
-        <div class="search-loader w-100" *ngIf="loader; else clientsReady">
-          <i class="fa fa-spinner fa-pulse"></i>
+    <div class="clients-container">
+        <h1 class="text-center title">CLIENTES</h1>
+        <!-- SEARCH-BAR -->
+        <div class="clients__search-bar">
+            <div class="d-flex flex-column">
+                <input class="search-input" type="text" placeholder="Buscar cliente" aria-label="Buscar cliente"
+                    title="Buscar cliente" aria-describedby="button-addon2" [formControl]="searchClientControl" />
+                <div class="search-loader w-100" *ngIf="loader; else clientsReady">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                </div>
+                <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
+                    <h4>No se encontraron clientes</h4>
+                </div>
+                <ng-template #clientsReady>
+                    <ul class="search-list" *ngIf="searchList">
+                        <li class="search-list__element" *ngFor="let client of autocompleteClients"
+                            (click)="seleccionarCliente(client.id_cliente)">
+                            {{ client.cliente }}
+                        </li>
+                    </ul>
+                </ng-template>
+            </div>
+            <button data-toggle="tooltip" title="Agregar cliente" type="button" class="add-btn" (click)="addClient()"
+                *ngIf="isClientSelected">
+                AGREGAR CLIENTE
+            </button>
         </div>
-        <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
-          <h4>No se encontraron clientes</h4>
-        </div>
-        <ng-template #clientsReady>
-          <ul class="search-list" *ngIf="searchList">
-            <li class="search-list__element" *ngFor="let client of autocompleteClients"
-              (click)="seleccionarCliente(client.id_cliente)">
-              {{ client.cliente }}
-            </li>
-          </ul>
-        </ng-template>
-      </div>
-      <button data-toggle="tooltip" title="Agregar cliente" type="button" class="add-btn" (click)="addClient()" *ngIf="isClientSelected">
-        AGREGAR CLIENTE
-      </button>
-    </div>
 
-    <!-- VISTA PARA CUANDO NO SE HAN BUSCADO CLIENTES -->
-    <div class="client__form-container añadir" *ngIf="!isClientSelected">
-      <div class="client__form-tabs">
-        <!-- SELECTORES DE TABS -->
-        <div class="d-flex w-100 align-items-start">
-          <div class="tab" [class.active]="section === 1" (click)="tab(1)">
-            Ingresar datos del cliente
-          </div>
-          <div class="tab" [class.active]="section === 2" (click)="tab(2)">
-            Ingresar dirección del cliente
-          </div>
-        </div>
-        <!-- FORMULARIO PARA CLIENTE -->
-        <form class="w-100 form-data" #clientForm="ngForm" (ngSubmit)="guardarCliente(clientForm)">
-          <!-- SECCION DATOS -->
-          <div class="client__data-form row" [class.active]="section === 1">
-            <h3 class="subtitle col-12">Datos</h3>
-            <div class="client__data-form__section1 col-12 col-md-6">
-              <div>
-                <label for="cliente">Cliente</label>
-                <input class="form-control form-label" type="text" name="cliente" id="cliente" required
-                  [(ngModel)]="client.cliente" />
-              </div>
-              <div>
-                <label for="contacto">Contacto</label>
-                <input class="form-control form-label" type="text" name="contacto" id="contacto"
-                  [(ngModel)]="client.contacto" />
-              </div>
-              <div>
-                <label for="rfc">RFC</label>
-                <input class="form-control form-label" type="text" name="rfc" id="rfc" [(ngModel)]="client.rfc" />
-              </div>
-              <div>
-                <label for="celular">Celular</label>
-                <input class="form-control form-label" type="text" name="celular" id="celular"
-                  [(ngModel)]="client.celular" />
-              </div>
-              <div>
-                <label for="telefono">Teléfono</label>
-                <input class="form-control form-label" type="tel" name="telefono" id="telefono"
-                  [(ngModel)]="client.telefono" />
-              </div>
-            </div>
-            <div class="client__data-form__section2 col-12 col-md-6">
-              <div>
-                <label for="correo">Correo</label>
-                <input class="form-control form-label" type="email" name="correo" id="correo"
-                  [(ngModel)]="client.correo" />
-              </div>
-              <div>
-                <label for="descuento1">Descuento 1</label>
-                <input class="form-control form-label" type="text" name="descuento1" id="descuento1"
-                  [(ngModel)]="client.descuento1" />
-              </div>
-              <div>
-                <label for="descuento2">Descuento 2</label>
-                <input class="form-control form-label" type="text" name="descuento2" id="descuento2"
-                  [(ngModel)]="client.descuento2" />
-              </div>
-              <div>
-                <label for="descuento3">Descuento 3</label>
-                <input class="form-control form-label" type="text" name="descuento3" id="descuento3"
-                  [(ngModel)]="client.descuento3" />
-              </div>
-              <div>
-                <label class="label-label" for="ruta">Seleccionar Ruta</label>
-                <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..." required
-                  [(ngModel)]="client.id_ruta">
-                  <option name="familia" value={{route.id_ruta}} *ngFor="let route of routes">{{route.ruta}}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="w-100 d-flex justify-content-end mt-3">
-              <button type="button" class="client__form-next general-btn align-self-end" data-toggle="tooltip" title="Siguiente"[class.active]="section === 1"
-                (click)="tab(2)">
-                Siguiente
-              </button>
-            </div>
-          </div>
-          <!-- SECCION DIRECCION -->
-          <div class="client__address-form row" [class.active]="section === 2">
-            <h3 class="subtitle col-12">Direcciones</h3>
-            <div class="client__address-form__section1 col-12 col-md-6">
-              <div>
-                <label for="descripcion">Descripción</label>
-                <input class="form-control form-label" type="text" name="descripcion" id="descripcion"
-                  [(ngModel)]="address.descripcion" />
-              </div>
-              <div>
-                <label for="calle">Calle</label>
-                <input class="form-control form-label" type="text" name="calle" id="calle" required
-                  [(ngModel)]="address.calle" />
-              </div>
-              <div>
-                <label for="numero_interior">Número interior</label>
-                <input class="form-control form-label" type="text" name="numero_interior" id="numero_interior"
-                  [(ngModel)]="address.numero_interior" />
-              </div>
-              <div>
-                <label for="numero_exterior">Número exterior</label>
-                <input class="form-control form-label" type="text" name="numero_exterior" id="numero_exterior"
-                  [(ngModel)]="address.numero_exterior" />
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <label for="cruzamiento_uno">Cruzamiento 1</label>
-                  <input class="form-control form-label" type="text" name="cruzamiento_uno" id="cruzamiento_uno"
-                    [(ngModel)]="address.cruzamiento_uno" />
+        <!-- VISTA PARA CUANDO NO SE HAN BUSCADO CLIENTES -->
+        <div class="client__form-container añadir" *ngIf="!isClientSelected">
+            <div class="client__form-tabs">
+                <!-- SELECTORES DE TABS -->
+                <div class="d-flex w-100 align-items-start">
+                    <div class="tab" [class.active]="section === 1" (click)="tab(1)">
+                        Ingresar datos del cliente
+                    </div>
+                    <div class="tab" [class.active]="section === 2" (click)="tab(2)">
+                        Ingresar dirección del cliente
+                    </div>
                 </div>
-                <div class="col-6">
-                  <label for="cruzamiento_dos">Cruzamiento 2</label>
-                  <input class="form-control form-label" type="text" name="cruzamiento_dos" id="cruzamiento_dos"
-                    [(ngModel)]="address.cruzamiento_dos" />
-                </div>
-              </div>
-              <div>
-                <label for="codigo_postal">Código Postal</label>
-                <input class="form-control form-label" type="text" name="codigo_postal" id="codigo_postal"
-                  [(ngModel)]="address.codigo_postal" />
-              </div>
-            </div>
-            <div class="client__address-form__section2 col-12 col-md-6">
-              <div>
-                <label for="colonia">Colonia</label>
-                <input class="form-control form-label" type="text" name="colonia" id="colonia"
-                  [(ngModel)]="address.colonia" />
-              </div>
-              <div>
-                <label for="localidad">Localidad</label>
-                <input class="form-control form-label" type="text" name="localidad" id="localidad"
-                  [(ngModel)]="address.localidad" />
-              </div>
-              <div>
-                <label for="municipio">Municipio</label>
-                <input class="form-control form-label" type="text" name="municipio" id="municipio"
-                  [(ngModel)]="address.municipio" />
-              </div>
-              <div>
-                <label for="estado">Estado</label>
-                <input class="form-control form-label" type="text" name="estado" id="estado"
-                  [(ngModel)]="address.estado" />
-              </div>
-              <div>
-                <label for="longitud">Longitud</label>
-                <input class="form-control form-label" type="text" name="longitud" id="longitud"
-                  [(ngModel)]="address.longitud" />
-              </div>
-              <div>
-                <label for="latitud">Latitud</label>
-                <input class="form-control form-label" type="text" name="latitud" id="latitud"
-                  [(ngModel)]="address.latitud" />
-              </div>
-            </div>
-            <div class="w-100 d-flex flex-column align-items-center p-3 mt-3 border rounded">
-              <h5 class="subtitle">Escoger localización</h5>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29820.20622142664!2d-89.78476881980899!3d20.891156151816034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f560d2a69351fd1%3A0xeb94cd869cee985c!2sKoonol%20Productos%20de%20Comercializaci%C3%B3n%20S.A.%20de%20C.V.!5e0!3m2!1ses-419!2smx!4v1688202394015!5m2!1ses-419!2smx"
-                width="100%" height="400px" style="border: 0" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-            <div class="w-100 d-flex justify-content-between mt-3">
-              <button type="button" class="client__form-back danger-btn" [class.active]="section === 2"
-                (click)="tab(1)">
-                Regresar
-              </button>
-              <button type="submit" class="client__form-save general-btn" data-toggle="tooltip" title="Guardar cliente" [class.active]="section === 2">
-                Guardar cliente
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
+                <!-- FORMULARIO PARA CLIENTE -->
+                <form class="w-100 form-data" #clientForm="ngForm" (ngSubmit)="guardarCliente(clientForm)">
+                    <!-- SECCION DATOS -->
+                    <div class="client__data-form row" [class.active]="section === 1">
+                        <h3 class="subtitle col-12">Datos</h3>
+                        <div class="client__data-form__section1 col-12 col-md-6">
+                            <div>
+                                <label for="cliente">Cliente</label>
+                                <input class="form-control form-label" type="text" name="cliente" id="cliente" required
+                                    [(ngModel)]="client.cliente" />
+                            </div>
+                            <div>
+                                <label for="contacto">Contacto</label>
+                                <input class="form-control form-label" type="text" name="contacto" id="contacto"
+                                    [(ngModel)]="client.contacto" />
+                            </div>
+                            <div>
+                                <label for="rfc">RFC</label>
+                                <input class="form-control form-label" type="text" name="rfc" id="rfc"
+                                    [(ngModel)]="client.rfc" />
+                            </div>
+                            <div>
+                                <label for="celular">Celular</label>
+                                <input class="form-control form-label" type="text" name="celular" id="celular"
+                                    [(ngModel)]="client.celular" />
+                            </div>
+                            <div>
+                                <label for="telefono">Teléfono</label>
+                                <input class="form-control form-label" type="tel" name="telefono" id="telefono"
+                                    [(ngModel)]="client.telefono" />
+                            </div>
+                        </div>
+                        <div class="client__data-form__section2 col-12 col-md-6">
+                            <div>
+                                <label for="correo">Correo</label>
+                                <input class="form-control form-label" type="email" name="correo" id="correo"
+                                    [(ngModel)]="client.correo" />
+                            </div>
+                            <div>
+                                <label for="descuento1">Descuento 1</label>
+                                <input class="form-control form-label" type="text" name="descuento1" id="descuento1"
+                                    [(ngModel)]="client.descuento1" />
+                            </div>
+                            <div>
+                                <label for="descuento2">Descuento 2</label>
+                                <input class="form-control form-label" type="text" name="descuento2" id="descuento2"
+                                    [(ngModel)]="client.descuento2" />
+                            </div>
+                            <div>
+                                <label for="descuento3">Descuento 3</label>
+                                <input class="form-control form-label" type="text" name="descuento3" id="descuento3"
+                                    [(ngModel)]="client.descuento3" />
+                            </div>
+                            <div>
+                                <label class="label-label" for="ruta">Seleccionar Ruta</label>
+                                <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..."
+                                    required [(ngModel)]="client.id_ruta">
+                                    <option name="familia" value={{route.id_ruta}} *ngFor="let route of routes">
+                                        {{route.ruta}}
+                                    </option>
+                                </select>
+                            </div>
 
-    <!-- VISTA DE LOS CLIENTES FILTRADOS -->
-    <div class="client__form-container mostrar" *ngIf="isClientSelected">
-      <div class="client__form-tabs">
-        <!-- SELECTORES DE TABS -->
-        <div class="d-flex w-100 align-items-start">
-          <div class="tab" [class.active]="section === 1" (click)="tab(1)">
-            Datos del cliente
-          </div>
-          <div class="tab" [class.active]="section === 2" (click)="tab(2)">
-            Direcciones del cliente
-          </div>
+                            <div>
+                                <label>
+                                    Vendedor asignado:
+                                </label>
+                                <div class="ng-autocomplete">
+                                    <input class="form-control" type="text" placeholder="Busca un vendedor"
+                                        aria-label="Buscar vendedor" aria-describedby="button-addon2"
+                                        [formControl]="searchSellerControl" (focus)="onFocusSellerSearch()" />
+                                    <div class="search-loader w-100" *ngIf="loaderSeller; else sellersReady">
+                                        <i class="fa fa-spinner fa-pulse"></i>
+                                    </div>
+                                    <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
+                                        <h4>No se encontraron vendedores</h4>
+                                    </div>
+                                    <ng-template #sellersReady>
+                                        <ul class="search-list" *ngIf="searchListSeller">
+                                            <li class="search-list__element" *ngFor="let seller of autocompleteSellers"
+                                                (click)="seleccionarVendedor(seller.id_vendedor)">
+                                                {{ seller.vendedor }}
+                                            </li>
+                                        </ul>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100 d-flex justify-content-end mt-3">
+                            <button type="button" class="client__form-next general-btn align-self-end"
+                                data-toggle="tooltip" title="Siguiente" [class.active]="section === 1" (click)="tab(2)">
+                                Siguiente
+                            </button>
+                        </div>
+                    </div>
+                    <!-- SECCION DIRECCION -->
+                    <div class="client__address-form row" [class.active]="section === 2">
+                        <h3 class="subtitle col-12">Direcciones</h3>
+                        <div class="client__address-form__section1 col-12 col-md-6">
+                            <div>
+                                <label for="descripcion">Descripción</label>
+                                <input class="form-control form-label" type="text" name="descripcion" id="descripcion"
+                                    [(ngModel)]="address.descripcion" />
+                            </div>
+                            <div>
+                                <label for="calle">Calle</label>
+                                <input class="form-control form-label" type="text" name="calle" id="calle" required
+                                    [(ngModel)]="address.calle" />
+                            </div>
+                            <div>
+                                <label for="numero_interior">Número interior</label>
+                                <input class="form-control form-label" type="text" name="numero_interior"
+                                    id="numero_interior" [(ngModel)]="address.numero_interior" />
+                            </div>
+                            <div>
+                                <label for="numero_exterior">Número exterior</label>
+                                <input class="form-control form-label" type="text" name="numero_exterior"
+                                    id="numero_exterior" [(ngModel)]="address.numero_exterior" />
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="cruzamiento_uno">Cruzamiento 1</label>
+                                    <input class="form-control form-label" type="text" name="cruzamiento_uno"
+                                        id="cruzamiento_uno" [(ngModel)]="address.cruzamiento_uno" />
+                                </div>
+                                <div class="col-6">
+                                    <label for="cruzamiento_dos">Cruzamiento 2</label>
+                                    <input class="form-control form-label" type="text" name="cruzamiento_dos"
+                                        id="cruzamiento_dos" [(ngModel)]="address.cruzamiento_dos" />
+                                </div>
+                            </div>
+                            <div>
+                                <label for="codigo_postal">Código Postal</label>
+                                <input class="form-control form-label" type="text" name="codigo_postal"
+                                    id="codigo_postal" [(ngModel)]="address.codigo_postal" />
+                            </div>
+                        </div>
+                        <div class="client__address-form__section2 col-12 col-md-6">
+                            <div>
+                                <label for="colonia">Colonia</label>
+                                <input class="form-control form-label" type="text" name="colonia" id="colonia"
+                                    [(ngModel)]="address.colonia" />
+                            </div>
+                            <div>
+                                <label for="localidad">Localidad</label>
+                                <input class="form-control form-label" type="text" name="localidad" id="localidad"
+                                    [(ngModel)]="address.localidad" />
+                            </div>
+                            <div>
+                                <label for="municipio">Municipio</label>
+                                <input class="form-control form-label" type="text" name="municipio" id="municipio"
+                                    [(ngModel)]="address.municipio" />
+                            </div>
+                            <div>
+                                <label for="estado">Estado</label>
+                                <input class="form-control form-label" type="text" name="estado" id="estado"
+                                    [(ngModel)]="address.estado" />
+                            </div>
+                            <div>
+                                <label for="longitud">Longitud</label>
+                                <input class="form-control form-label" type="text" name="longitud" id="longitud"
+                                    [(ngModel)]="address.longitud" />
+                            </div>
+                            <div>
+                                <label for="latitud">Latitud</label>
+                                <input class="form-control form-label" type="text" name="latitud" id="latitud"
+                                    [(ngModel)]="address.latitud" />
+                            </div>
+                        </div>
+                        <div class="w-100 d-flex flex-column align-items-center p-3 mt-3 border rounded">
+                            <h5 class="subtitle">Escoger localización</h5>
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29820.20622142664!2d-89.78476881980899!3d20.891156151816034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f560d2a69351fd1%3A0xeb94cd869cee985c!2sKoonol%20Productos%20de%20Comercializaci%C3%B3n%20S.A.%20de%20C.V.!5e0!3m2!1ses-419!2smx!4v1688202394015!5m2!1ses-419!2smx"
+                                width="100%" height="400px" style="border: 0" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="w-100 d-flex justify-content-between mt-3">
+                            <button type="button" class="client__form-back danger-btn" [class.active]="section === 2"
+                                (click)="tab(1)">
+                                Regresar
+                            </button>
+                            <button type="submit" class="client__form-save general-btn" data-toggle="tooltip"
+                                title="Guardar cliente" [class.active]="section === 2">
+                                Guardar cliente
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <!-- FORMULARIO PARA DATOS DE CLIENTE -->
-        <div class="client__data-form row" [class.active]="section === 1">
-          <h3 class="subtitle">Datos</h3>
-          <form class="w-100 form-address row" #editClientForm="ngForm" (ngSubmit)="guardarCliente(editClientForm)"
-            *ngFor="let client of selectedClient">
-            <div class="client__data-form__section1 col-12 col-md-6">
-              <div>
-                <label for="cliente">Cliente</label>
-                <input class="form-control form-label" type="text" name="cliente" id="cliente" required
-                  [(ngModel)]="client.cliente" />
-              </div>
-              <div>
-                <label for="contacto">Contacto</label>
-                <input class="form-control form-label" type="text" name="contacto" id="contacto"
-                  [(ngModel)]="client.contacto" />
-              </div>
-              <div>
-                <label for="rfc">RFC</label>
-                <input class="form-control form-label" type="text" name="rfc" id="rfc" [(ngModel)]="client.rfc" />
-              </div>
-              <div>
-                <label for="celular">Celular</label>
-                <input class="form-control form-label" type="text" name="celular" id="celular"
-                  [(ngModel)]="client.celular" />
-              </div>
-              <div>
-                <label for="telefono">Teléfono</label>
-                <input class="form-control form-label" type="text" name="telefono" id="telefono"
-                  [(ngModel)]="client.telefono" />
-              </div>
-            </div>
-            <div class="client__data-form__section2 col-12 col-md-6">
-              <div>
-                <label for="correo">Correo</label>
-                <input class="form-control form-label" type="text" name="correo" id="correo"
-                  [(ngModel)]="client.correo" />
-              </div>
-              <div>
-                <label for="descuento1">Descuento 1</label>
-                <input class="form-control form-label" type="text" name="descuento1" id="descuento1"
-                  [(ngModel)]="client.descuento1" />
-              </div>
-              <div>
-                <label for="descuento2">Descuento 2</label>
-                <input class="form-control form-label" type="text" name="descuento2" id="descuento2"
-                  [(ngModel)]="client.descuento2" />
-              </div>
-              <div>
-                <label for="descuento3">Descuento 3</label>
-                <input class="form-control form-label" type="text" name="descuento3" id="descuento3"
-                  [(ngModel)]="client.descuento3" />
-              </div>
-              <div>
-                <label class="label-label" for="ruta">Seleccionar Ruta</label>
-                <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..." required
-                  [(ngModel)]="client.id_ruta">
-                  <option name="familia" value={{route.id_ruta}} *ngFor="let route of routes">{{route.ruta}}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="d-flex justify-content-end mt-3 w-100">
-              <button type="submit" class="general-btn">Guardar cliente</button>
-            </div>
-          </form>
-        </div>
-        <!-- FORMULARIO PARA EDITAR O CREAR DIRECCION -->
-        <div class="client__address-form row" [class.active]="section === 2" *ngIf="addAddressVisibility">
-          <h3 class="subtitle">Crear dirección</h3>
-          <form class="w-100 from-address row" #addressForm="ngForm" (ngSubmit)="guardarDireccion(addressForm)">
-            <div class="client__address-form__section1 col-12 col-md-6">
-              <div>
-                <label for="descripcion">Descripción</label>
-                <input class="form-control form-label" type="text" name="descripcion" id="descripcion"
-                  [(ngModel)]="addressSelected.descripcion" />
-              </div>
-              <div>
-                <label for="calle">Calle</label>
-                <input class="form-control form-label" type="text" name="calle" id="calle" required
-                  [(ngModel)]="addressSelected.calle" />
-              </div>
-              <div>
-                <label for="numero_interior">Número interior</label>
-                <input class="form-control form-label" type="text" name="numero_interior" id="numero_interior"
-                  [(ngModel)]="addressSelected.numero_interior" />
-              </div>
-              <div>
-                <label for="numero_exterior">Número exterior</label>
-                <input class="form-control form-label" type="text" name="numero_exterior" id="numero_exterior"
-                  [(ngModel)]="addressSelected.numero_exterior" />
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <label for="cruzamiento_uno">Cruzamiento 1</label>
-                  <input class="form-control form-label" type="text" name="cruzamiento_uno" id="cruzamiento_uno"
-                    [(ngModel)]="addressSelected.cruzamiento_uno" />
+
+        <!-- VISTA DE LOS CLIENTES FILTRADOS -->
+        <div class="client__form-container mostrar" *ngIf="isClientSelected">
+            <div class="client__form-tabs">
+                <!-- SELECTORES DE TABS -->
+                <div class="d-flex w-100 align-items-start">
+                    <div class="tab" [class.active]="section === 1" (click)="tab(1)">
+                        Datos del cliente
+                    </div>
+                    <div class="tab" [class.active]="section === 2" (click)="tab(2)">
+                        Direcciones del cliente
+                    </div>
                 </div>
-                <div class="col-6">
-                  <label for="cruzamiento_dos">Cruzamiento 2</label>
-                  <input class="form-control form-label" type="text" name="cruzamiento_dos" id="cruzamiento_dos"
-                    [(ngModel)]="addressSelected.cruzamiento_dos" />
+                <!-- FORMULARIO PARA DATOS DE CLIENTE -->
+                <div class="client__data-form row" [class.active]="section === 1">
+                    <h3 class="subtitle">Datos</h3>
+                    <form class="w-100 form-address row" #editClientForm="ngForm"
+                        (ngSubmit)="guardarCliente(editClientForm)">
+                        <div class="client__data-form__section1 col-12 col-md-6">
+                            <div>
+                                <label for="cliente">Cliente</label>
+                                <input class="form-control form-label" type="text" name="cliente" id="cliente" required
+                                    [(ngModel)]="selectedClient.cliente" />
+                            </div>
+                            <div>
+                                <label for="contacto">Contacto</label>
+                                <input class="form-control form-label" type="text" name="contacto" id="contacto"
+                                    [(ngModel)]="selectedClient.contacto" />
+                            </div>
+                            <div>
+                                <label for="rfc">RFC</label>
+                                <input class="form-control form-label" type="text" name="rfc" id="rfc"
+                                    [(ngModel)]="selectedClient.rfc" />
+                            </div>
+                            <div>
+                                <label for="celular">Celular</label>
+                                <input class="form-control form-label" type="text" name="celular" id="celular"
+                                    [(ngModel)]="selectedClient.celular" />
+                            </div>
+                            <div>
+                                <label for="telefono">Teléfono</label>
+                                <input class="form-control form-label" type="text" name="telefono" id="telefono"
+                                    [(ngModel)]="selectedClient.telefono" />
+                            </div>
+                        </div>
+                        <div class="client__data-form__section2 col-12 col-md-6">
+                            <div>
+                                <label for="correo">Correo</label>
+                                <input class="form-control form-label" type="text" name="correo" id="correo"
+                                    [(ngModel)]="selectedClient.correo" />
+                            </div>
+                            <div>
+                                <label for="descuento1">Descuento 1</label>
+                                <input class="form-control form-label" type="text" name="descuento1" id="descuento1"
+                                    [(ngModel)]="selectedClient.descuento1" />
+                            </div>
+                            <div>
+                                <label for="descuento2">Descuento 2</label>
+                                <input class="form-control form-label" type="text" name="descuento2" id="descuento2"
+                                    [(ngModel)]="selectedClient.descuento2" />
+                            </div>
+                            <div>
+                                <label for="descuento3">Descuento 3</label>
+                                <input class="form-control form-label" type="text" name="descuento3" id="descuento3"
+                                    [(ngModel)]="selectedClient.descuento3" />
+                            </div>
+                            <div>
+                                <label class="label-label" for="ruta">Seleccionar Ruta</label>
+                                <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..."
+                                    required [(ngModel)]="selectedClient.id_ruta">
+                                    <option name="familia" value={{route.id_ruta}} *ngFor="let route of routes">
+                                        {{route.ruta}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end mt-3 w-100">
+                            <button type="submit" class="general-btn">Guardar cliente</button>
+                        </div>
+                    </form>
                 </div>
-              </div>
-              <div>
-                <label for="codigo_postal">Código Postal</label>
-                <input class="form-control form-label" type="text" name="codigo_postal" id="codigo_postal"
-                  [(ngModel)]="addressSelected.codigo_postal" />
-              </div>
+                <!-- FORMULARIO PARA EDITAR O CREAR DIRECCION -->
+                <div class="client__address-form row" [class.active]="section === 2" *ngIf="addAddressVisibility">
+                    <h3 class="subtitle">Crear dirección</h3>
+                    <form class="w-100 from-address row" #addressForm="ngForm"
+                        (ngSubmit)="guardarDireccion(addressForm)">
+                        <div class="client__address-form__section1 col-12 col-md-6">
+                            <div>
+                                <label for="descripcion">Descripción</label>
+                                <input class="form-control form-label" type="text" name="descripcion" id="descripcion"
+                                    [(ngModel)]="addressSelected.descripcion" />
+                            </div>
+                            <div>
+                                <label for="calle">Calle</label>
+                                <input class="form-control form-label" type="text" name="calle" id="calle" required
+                                    [(ngModel)]="addressSelected.calle" />
+                            </div>
+                            <div>
+                                <label for="numero_interior">Número interior</label>
+                                <input class="form-control form-label" type="text" name="numero_interior"
+                                    id="numero_interior" [(ngModel)]="addressSelected.numero_interior" />
+                            </div>
+                            <div>
+                                <label for="numero_exterior">Número exterior</label>
+                                <input class="form-control form-label" type="text" name="numero_exterior"
+                                    id="numero_exterior" [(ngModel)]="addressSelected.numero_exterior" />
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="cruzamiento_uno">Cruzamiento 1</label>
+                                    <input class="form-control form-label" type="text" name="cruzamiento_uno"
+                                        id="cruzamiento_uno" [(ngModel)]="addressSelected.cruzamiento_uno" />
+                                </div>
+                                <div class="col-6">
+                                    <label for="cruzamiento_dos">Cruzamiento 2</label>
+                                    <input class="form-control form-label" type="text" name="cruzamiento_dos"
+                                        id="cruzamiento_dos" [(ngModel)]="addressSelected.cruzamiento_dos" />
+                                </div>
+                            </div>
+                            <div>
+                                <label for="codigo_postal">Código Postal</label>
+                                <input class="form-control form-label" type="text" name="codigo_postal"
+                                    id="codigo_postal" [(ngModel)]="addressSelected.codigo_postal" />
+                            </div>
+                        </div>
+                        <div class="client__address-form__section2 col-12 col-md-6">
+                            <div>
+                                <label for="colonia">Colonia</label>
+                                <input class="form-control form-label" type="text" name="colonia" id="colonia"
+                                    [(ngModel)]="addressSelected.colonia" />
+                            </div>
+                            <div>
+                                <label for="localidad">Localidad</label>
+                                <input class="form-control form-label" type="text" name="localidad" id="localidad"
+                                    [(ngModel)]="addressSelected.localidad" />
+                            </div>
+                            <div>
+                                <label for="municipio">Municipio</label>
+                                <input class="form-control form-label" type="text" name="municipio" id="municipio"
+                                    [(ngModel)]="addressSelected.municipio" />
+                            </div>
+                            <div>
+                                <label for="estado">Estado</label>
+                                <input class="form-control form-label" type="text" name="estado" id="estado"
+                                    [(ngModel)]="addressSelected.estado" />
+                            </div>
+                            <div>
+                                <label for="estado">Longitud</label>
+                                <input class="form-control form-label" type="text" name="longitud" id="longitud"
+                                    [defaultValue]="coords[0]" [(ngModel)]="addressSelected.longitud" />
+                            </div>
+                            <div>
+                                <label for="estado">Latitud</label>
+                                <input class="form-control form-label" type="text" name="latitud" id="latitud"
+                                    [defaultValue]="coords[1]" [(ngModel)]="addressSelected.latitud" />
+                            </div>
+                        </div>
+                        <div class="w-100 d-flex flex-column justify-content-center p-3 mt-3 border rounded">
+                            <h5 class="subtitle">Escoger localización</h5>
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29820.20622142664!2d-89.78476881980899!3d20.891156151816034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f560d2a69351fd1%3A0xeb94cd869cee985c!2sKoonol%20Productos%20de%20Comercializaci%C3%B3n%20S.A.%20de%20C.V.!5e0!3m2!1ses-419!2smx!4v1688202394015!5m2!1ses-419!2smx"
+                                width="100%" height="400px" style="border: 0" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="w-100 d-flex justify-content-between mt-3">
+                            <button type="button" class="client__form-back danger-btn" [class.active]="section === 2"
+                                (click)="offAddAddressVisibility()">
+                                Regresar
+                            </button>
+                            <button type="submit" class="client__form-save general-btn" [class.active]="section === 2">
+                                Guardar dirección
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!-- SECCION DIRECCIONES -->
+                <div class="client__addresses" [class.active]="section === 2" *ngIf="!addAddressVisibility">
+                    <h3 class="subtitle">Direcciones</h3>
+                    <ul class="client__addresses-list">
+                        <li *ngFor="let address of addresses">
+                            <span>{{ address.direccion }}</span>
+                            <i class="bi bi-pencil-square" (click)="editarDireccion(address.id_cliente_direccion)"></i>
+                        </li>
+                    </ul>
+                    <button class="general-btn align-self-end" (click)="createAddress()">
+                        Agregar dirección
+                    </button>
+                </div>
             </div>
-            <div class="client__address-form__section2 col-12 col-md-6">
-              <div>
-                <label for="colonia">Colonia</label>
-                <input class="form-control form-label" type="text" name="colonia" id="colonia"
-                  [(ngModel)]="addressSelected.colonia" />
-              </div>
-              <div>
-                <label for="localidad">Localidad</label>
-                <input class="form-control form-label" type="text" name="localidad" id="localidad"
-                  [(ngModel)]="addressSelected.localidad" />
-              </div>
-              <div>
-                <label for="municipio">Municipio</label>
-                <input class="form-control form-label" type="text" name="municipio" id="municipio"
-                  [(ngModel)]="addressSelected.municipio" />
-              </div>
-              <div>
-                <label for="estado">Estado</label>
-                <input class="form-control form-label" type="text" name="estado" id="estado"
-                  [(ngModel)]="addressSelected.estado" />
-              </div>
-              <div>
-                <label for="estado">Longitud</label>
-                <input class="form-control form-label" type="text" name="longitud" id="longitud" [defaultValue]="coords[0]"
-                  [(ngModel)]="addressSelected.longitud" />
-              </div>
-              <div>
-                <label for="estado">Latitud</label>
-                <input class="form-control form-label" type="text" name="latitud" id="latitud" [defaultValue]="coords[1]"
-                  [(ngModel)]="addressSelected.latitud" />
-              </div>
-            </div>
-            <div class="w-100 d-flex flex-column justify-content-center p-3 mt-3 border rounded">
-              <h5 class="subtitle">Escoger localización</h5>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29820.20622142664!2d-89.78476881980899!3d20.891156151816034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f560d2a69351fd1%3A0xeb94cd869cee985c!2sKoonol%20Productos%20de%20Comercializaci%C3%B3n%20S.A.%20de%20C.V.!5e0!3m2!1ses-419!2smx!4v1688202394015!5m2!1ses-419!2smx"
-                width="100%" height="400px" style="border: 0" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-            <div class="w-100 d-flex justify-content-between mt-3">
-              <button type="button" class="client__form-back danger-btn" [class.active]="section === 2"
-                (click)="offAddAddressVisibility()">
-                Regresar
-              </button>
-              <button type="submit" class="client__form-save general-btn" [class.active]="section === 2">
-                Guardar dirección
-              </button>
-            </div>
-          </form>
         </div>
-        <!-- SECCION DIRECCIONES -->
-        <div class="client__addresses" [class.active]="section === 2" *ngIf="!addAddressVisibility">
-          <h3 class="subtitle">Direcciones</h3>
-          <ul class="client__addresses-list">
-            <li *ngFor="let address of addresses">
-              <span>{{ address.direccion }}</span>
-              <i class="bi bi-pencil-square" (click)="editarDireccion(address.id_cliente_direccion)"></i>
-            </li>
-          </ul>
-          <button class="general-btn align-self-end" (click)="createAddress()">
-            Agregar dirección
-          </button>
-        </div>
-      </div>
     </div>
-  </div>
 </div>

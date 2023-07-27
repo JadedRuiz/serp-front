@@ -161,7 +161,8 @@ export class OrdersCartModalComponent implements OnInit {
     0,
     0,
     this.miUsuario,
-    1
+    1,
+    0
   );
 
   isClientSelected: boolean = false;
@@ -272,7 +273,7 @@ export class OrdersCartModalComponent implements OnInit {
     };
     if (value.length <= 3) {
       this.autocompleteSellers = [];
-      this.searchListCliente = false;
+      this.searchListSeller = false;
     } else if (!this.searchSellerSubscription.closed) {
       this.loaderSeller = true;
       this.searchListSeller = true;
