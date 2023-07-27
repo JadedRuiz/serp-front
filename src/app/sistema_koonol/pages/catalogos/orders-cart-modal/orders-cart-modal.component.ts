@@ -195,7 +195,7 @@ export class OrdersCartModalComponent implements OnInit {
   isSellerSelected: boolean = false;
 
   //MODAL PARA SELECCIONAR UN CLIENTE
-  clienteVendedorModal: boolean = false;
+  clienteVendedorModal: boolean = true;
   observaciones: string = ''
 
   //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE O RFC
@@ -389,10 +389,18 @@ export class OrdersCartModalComponent implements OnInit {
     this.finPedidoModal = false;
   }
 
-  finishOrder() {
-    this.pedidos.guardarPedido(this.pedidoFinal).subscribe((resp) => {
+  async saveOrder() {
+    this.pedidos.guardarPedido(this.pedidoFinal).subscribe();
+    console.log('this.pedidoFinal antes :>> ', this.pedidoFinal);
+  }
+
+  async finishOrder() {
+    await this.saveOrder().then(() => {
+      this.pedido = [];
+      this.catalogoService.updatePedido(this.pedido)
+      console.log('this.pedidoFinal después :>> ', this.pedidoFinal);
       this.router.navigate(['/sis_koonol/catalogos/pedidos-realizados']);
-    });
+    })
   }
 
   openExtraModal() {
@@ -401,7 +409,7 @@ export class OrdersCartModalComponent implements OnInit {
   }
 
   //MODAL PARA AÑADIR FOTOS AL CLIENTE Y PARA AÑADIRLE UNA UBICACIÓN
-  extraModal: boolean = true;
+  extraModal: boolean = false;
   imageCount: number = 0;
   uploadedImages: any[] = [];
   imageAfterResize: any;
@@ -469,7 +477,7 @@ export class OrdersCartModalComponent implements OnInit {
       this.imageCount++;
       this.mainImage = result;
       this.takingPhoto = false;
-    console.warn("Tamaño después", this.imageCompress.byteCount(result))
+      console.warn("Tamaño después", this.imageCompress.byteCount(result))
     })
   }
 

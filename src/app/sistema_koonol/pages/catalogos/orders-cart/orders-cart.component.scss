@@ -72,6 +72,28 @@ ul {
     right: 10px;
     top: 85px;
     z-index: 3;
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+    height: 40px;
+    cursor: pointer;
+
+    .orders-cart-counter {
+        position: absolute;
+        align-self: flex-end;
+        font-size: 11px;
+        font-weight: 500;
+        color: white;
+        background-color: orangered;
+        padding: 4px 8px;
+        border-radius: 20px;
+        z-index: 1;
+    }
+
+    .cart-btn {
+        position: absolute;
+        top: 5px;
+    }
 
     .fa-times,
     .fa-shopping-cart {
@@ -85,7 +107,7 @@ ul {
 }
 
 .orders-cart {
-    height: 80vh;
+    height: 85vh;
     padding: 20px;
     border: 1px solid rgb(214, 211, 211);
     border-radius: 10px;
@@ -95,13 +117,12 @@ ul {
     right: 0;
 }
 
-.orders-cart__empty {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
+// .orders-cart__empty {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     // justify-content: space-around;
+// }
 
 .orders-cart_empty_text {
     font-size: 20px;
@@ -113,7 +134,7 @@ ul {
     font-size: 250px;
 }
 
-.orders-cart__normal {
+.orders-cart__normal, .orders-cart__empty {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -215,7 +236,7 @@ ul {
 .orders-cart_product_btn-delete {
     padding: 0;
     border: none;
-    background-color: transparent; 
+    background-color: transparent;
 }
 
 .fa-trash-o {
@@ -224,6 +245,30 @@ ul {
     font-size: 20px;
     font-weight: bolder;
     cursor: pointer;
+}
+
+.orders-cart__product-price-edit {
+    width: 50px;
+    outline: none;
+}
+
+.orders-cart__edit-prices {
+    align-self: flex-end;
+    margin-top: 10px;
+    color: steelblue;
+    cursor: pointer;
+
+    &:hover {
+        transition: 300ms;
+        transform: scale(1.05);
+        color: rgb(228, 122, 145);
+    }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .orders-cart__clear {

@@ -2,13 +2,50 @@
 <div class="row">
   <article class="orders-placed__container">
     <h3 class="title">PEDIDOS REALIZADOS</h3>
-    <div class=" orders-placed__order" *ngFor="let pedido of pedidos">
+    <div class="w-100">
+      <div class="row justify-content-center">
+        <div class="col-sm-10 col-md-6 col-xl-4 mb-3 mb-sm-0" *ngFor="let pedido of pedidos">
+          <div class="card-body border mt-5 orders-placed__order">
+            <h3 class="subtitle mb-3"> <b>{{pedido.cliente}}</b> </h3>
+            <div class="orders-placed__order__section1--subsection2">
+              <span (click)="toggleModalVisibility()"><b>Folio: {{pedido.folio}}</b></span>
+            </div>
+            <div class="hijo">
+              <span>Status:  <b>{{pedido.status}}</b></span>
+            </div>
+            <div class="hijo">
+              <span>Fecha de entrega: <b>{{pedido.fecha_entrega}}</b></span>
+            </div>
+            <div class="hijo">
+              <span>Fecha de pedido: <b>{{pedido.fecha_pedido}}</b></span>
+            </div>
+            <div>
+              <div class="orders-placed__order__section2--subsection2">
+                <span><b>Productos: </b>{{pedido.num_productos}} </span>
+              </div>
+              <div class="orders-placed__order__section2--subsection2">
+                <span><b>Peso: {{pedido.peso_producto}} </b></span>
+              </div>
+              <div class="orders-placed__order__section2--subsection2">
+                <span><b>Total: {{pedido.precio_total | currency: 'MX'}}</b></span>
+              </div>
+            </div>
+            <div class="d-flex mt-5 justify-content-end mb-2 orders-placed__order__section2--subsection1">
+              <button class="btn search-btn">Surtir</button>
+              <button class="btn general-btn">Entregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- <div class=" orders-placed__order" *ngFor="let pedido of pedidos">
       <div class=" orders-placed__order__section1">
         <div class="orders-placed__order__section1--subsection1">
           <h3 class="subtitle mb-3"> <b>{{pedido.cliente}}</b> </h3>
-          <span><b>Status: </b> {{pedido.status}}</span>
-          <span>Fecha de entrega: {{pedido.fecha_entrega}}</span>
-          <span>Fecha de pedido: {{pedido.fecha_pedido}}</span>
+          <span>Status:  <b>{{pedido.status}}</b></span>
+          <span>Fecha de entrega: <b>{{pedido.fecha_entrega}}</b></span>
+          <span>Fecha de pedido: <b>{{pedido.fecha_pedido}}</b></span>
         </div>
         <div class="orders-placed__order__section1--subsection2">
           <span (click)="toggleModalVisibility()"><b>Folio: </b>{{pedido.folio}}</span>
@@ -22,14 +59,14 @@
           <span><b>Peso: {{pedido.peso_producto}} </b></span>
         </div>
         <div class="orders-placed__order__section2--subsection2">
-          <span><b>Total: {{pedido.precio_total}} </b></span>
-        </div>
-        <div class=" mb-2 orders-placed__order__section2--subsection1">
-          <button class="btn search-btn">Surtir</button>
-          <button class="btn general-btn">Entregar</button>
+          <span><b>Total: {{pedido.precio_total | currency: 'MX'}}</b></span>
         </div>
       </div>
-    </div>
+      <div class=" row justify-content-start mb-2 orders-placed__order__section2--subsection1">
+        <button class="btn search-btn">Surtir</button>
+        <button class="btn general-btn">Entregar</button>
+      </div>
+    </div> -->
 
     <!-- Modal -->
     <!-- <div class="orders-placed__modal" *ngIf="modalVisibility">
@@ -118,5 +155,4 @@
   </article>
 </div>
 </div>
-
 

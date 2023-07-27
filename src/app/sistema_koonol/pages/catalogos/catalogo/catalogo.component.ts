@@ -82,7 +82,7 @@ export class CatalogoComponent implements OnInit {
 	}
 
 	articulos: Articulo[] = [];
-	articulo: Articulo = new Articulo(0, 0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '', true, 0, [], 0, 0, 0, '');
+	articulo: Articulo = new Articulo(0, 0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '', true, 0, [], 0, 0, 0, 0, '');
 
 	//  Lista de elementos
 	items: Product[] = [];

@@ -20,7 +20,7 @@ export class OrdersCartComponent {
   constructor(
     private catalogo: CatalogoService,
     private pedidos: PedidosService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.formatter = new Intl.NumberFormat('en-NZ', {
@@ -30,7 +30,6 @@ export class OrdersCartComponent {
     });
     this.catalogo.pedido$.subscribe((pedido) => {
       this.pedido = pedido;
-      this.getTotal();
       this.getSubtotal();
       this.noItems();
       this.pedidoFinal.articulos = [];
@@ -74,10 +73,9 @@ export class OrdersCartComponent {
   //Estados para manejar las cuentas del carrito
   totalPerItem: number = 0;
   subtotal: number = 0;
-  total: number = 0;
   discounts: number = 0; // Normalmente su valor vendrá de la base de datos
-  price: number = 0;
   quantity: number = 0;
+  editPrice: boolean = false;
 
   //Estado para manejar si el carrito está vacío o no
   isCartEmpty = true;
@@ -92,35 +90,47 @@ export class OrdersCartComponent {
     }
   }
 
+  getTotalPerItem() {
+    this.pedido.forEach((articulo) => {
+      articulo.precio_total_carrito = articulo.precio_venta
+      articulo.precio_carrito = articulo.precio_total_carrito
+      articulo.precio_total_carrito = articulo.precio_carrito * articulo.quantity
+    });
+  }
+
+  guardarEdicionPrecios() {
+    for (let item of this.pedido) {
+      item.precio_total_carrito = item.precio_carrito
+      console.log(item.precio_total_carrito);
+    }
+    this.editPrice = false;
+    this.catalogo.updatePedido(this.pedido)
+  }
+
   //Función para obtener el subtotal del pedido
   getSubtotal() {
+    this.getTotalPerItem()
     this.subtotal = 0;
     for (let item of this.pedido) {
-      this.price = item.precio_total;
-      this.subtotal += this.price * item.quantity;
-      item.precio_total_formateado = this.formatter.format(this.price);
+      let itemPrice = item.precio_total_carrito;
+      this.subtotal += itemPrice * item.quantity;
+      item.precio_total_formateado = this.formatter.format(itemPrice);
     }
-    this.getTotal();
+    //   this.pedidoFinal.precio_total = this.total;
+    //   this.pedidos.updatePedidoFinal(this.pedidoFinal);
+    //   this.total = this.formatter.format(this.total);
   }
 
   //Función para obtener el total del pedido
-  getTotal() {
-    this.getTotalPerItem();
-    this.total = 0;
-    this.total = this.subtotal - this.discounts;
-    this.pedidoFinal.precio_total = this.total;
-    this.pedidos.updatePedidoFinal(this.pedidoFinal);
-    this.total = this.formatter.format(this.total);
-  }
+  // getTotal() {
+  //   this.getTotalPerItem();
+  //   this.total = 0;
+  //   this.total = this.subtotal - this.discounts;
+  //   this.pedidoFinal.precio_total = this.total;
+  //   this.pedidos.updatePedidoFinal(this.pedidoFinal);
+  //   this.total = this.formatter.format(this.total);
+  // }
 
-  getTotalPerItem() {
-    this.pedido.forEach((articulo) => {
-      // let articuloIVA = (articulo.precio_total / 100) * articulo.tasa_iva;
-      // articulo.precio_total_carrito =
-        // (Number(articulo.precio_venta) + articuloIVA) * articulo.quantity;
-      articulo.precio_total_carrito = articulo.precio_total * articulo.quantity 
-    });
-  }
 
   //Estado para manejar el CSS del botón decrease
   btnQuantityOff: boolean = true;
@@ -129,7 +139,7 @@ export class OrdersCartComponent {
   increaseItemQuantity(item: Articulo) {
     item.quantity++;
     this.btnQuantityOff = false;
-    this.getSubtotal();
+    // this.getSubtotal();
     this.catalogo.updatePedido(this.pedido);
   }
 
@@ -142,7 +152,7 @@ export class OrdersCartComponent {
       this.btnQuantityOff = true;
     }
     this.catalogo.updatePedido(this.pedido);
-    this.getSubtotal();
+    // this.getSubtotal();
   }
 
   //Función para eliminar producto del carrito
@@ -156,7 +166,7 @@ export class OrdersCartComponent {
     }
     this.catalogo.updatePedido(this.pedido);
     // this.catalogo.getPedido()
-    this.getSubtotal();
+    // this.getSubtotal();
     // this.noItems()
   }
 
