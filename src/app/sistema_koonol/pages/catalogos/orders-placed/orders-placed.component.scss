@@ -30,7 +30,7 @@ $title-font-size-desktop: 20px;
     display: flex;
     flex-direction: column;
     background-color: white;
-    border: 1px solid rgba(0, 0, 0, 0.200);
+    border: 1.5px solid rgba(22, 22, 22, 0.384);
     width: min(100%, 1300px);
     border-radius: 5px;
     padding: 5px 10px;
@@ -54,7 +54,7 @@ $title-font-size-desktop: 20px;
         p,
         span {
             font-size: $default-font-size-mobile;
-            
+
         }
 
         p {
@@ -154,7 +154,7 @@ $title-font-size-desktop: 20px;
     display: flex;
     justify-content: space-between;
     padding: 15px 10px;
-    border: 1px solid rgba(0, 0, 0, 0.200);
+    border: 1px solid rgba(240, 5, 5, 0.2);
 
     img {
         width: 70px;

@@ -12,29 +12,39 @@ import Swal from 'sweetalert2';
 export class VendedoresComponent {
   constructor(private vendedorService: VendedoresService) {}
 
+// VARIABLES GOBLANES
+public id_comprador = 1; //parseInt(window.sessionStorage.getItem("")+"");
+public token = "012354SDSDS01";
+
+//Otras
+vendedores: any[] = [];
+searchVendedor: string = '';
+autocompleteVendedor: any[] = [];
+isVendedorSeleccionado: boolean = false;
+vendedorSeleccionado: Vendedor[] = [];
+searchList: boolean = false;
+vendedor: Vendedor = new Vendedor(0, 1, '', '', 1, 1);
+status: boolean = false;
+
+
+@ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
+
+
   ngOnInit() {
     this.obtenerVendedor();
   }
-  @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
 
-  vendedores: any[] = [];
-  searchVendedor: string = '';
-  autocompleteVendedor: any[] = [];
-  isVendedorSeleccionado: boolean = false;
-  vendedorSeleccionado: Vendedor[] = [];
-  searchList: boolean = false;
-  vendedor: Vendedor = new Vendedor(0, 1, '', '', 1, 1);
-  status: boolean = false;
+
+
 
   //=> Obtener Vendedor
   obtenerVendedor() {
-
-    let json = {
+     let json = {
       id_vendedor: 0,
-      id_comprador: 1,
+      id_comprador: this.id_comprador,
       vendedor: '',
       solo_activos: 1,
-      token: '012354SDSDS01',
+      token: this.token,
     };
     this.vendedorService.obtenerVendedores(json).subscribe(
       (response) => {
@@ -43,6 +53,12 @@ export class VendedoresComponent {
           this.autocompleteVendedor = this.vendedores;
           this.updateVendedorStatus();
         } else {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Error',
+            text: 'Ha ocurrido un error',
+          });
           console.log(response.message);
         }
       },
@@ -54,18 +70,11 @@ export class VendedoresComponent {
 
   //Busca Vendedor =>
   buscarVendedor() {
-    let json = {
-      id_vendedor: 0,
-      id_comprador: 1,
-      vendedor: '',
-      solo_activos: 1,
-      token: '012354SDSDS01',
-    };
-    if (this.searchVendedor.length <= 1) {
+     if (this.searchVendedor.length <= 1) {
       this.autocompleteVendedor = [];
     } else {
       this.searchList = true;
-      this.vendedorService.obtenerVendedores(json);
+      this.obtenerVendedor;
       console.log(this.vendedores);
       this.autocompleteVendedor = this.vendedores.filter((vendedor) =>
         vendedor.vendedor
@@ -97,14 +106,7 @@ export class VendedoresComponent {
 
   //Guarda Vendedor =>
   guardarVendedor(vendedorForm: NgForm) {
-    let json = {
-      id_vendedor: 0,
-      id_comprador: 1,
-      vendedor: '',
-      solo_activos: 1,
-      token: '012354SDSDS01',
-    };
-    if (vendedorForm.invalid) {
+      if (vendedorForm.invalid) {
       return;
     }
     if (this.vendedor.id_vendedor) {
@@ -116,7 +118,7 @@ export class VendedoresComponent {
       this.vendedorService
         .agregarVendedor(this.vendedor)
         .subscribe((objeto) => {
-          this.vendedorService.obtenerVendedores(json);
+          this.obtenerVendedor;
         });
         vendedorForm.resetForm();
      // console.log('guardamos');
@@ -125,14 +127,7 @@ export class VendedoresComponent {
 
   // Activar/Desactivar Vendedor =>
   activarVendedor(id_vendedor: number, activo:number) {
-    let json = {
-      id_vendedor: 0,
-      id_comprador: 1,
-      vendedor: '',
-      solo_activos: 1,
-      token: '012354SDSDS01',
-    };
-    console.log(activo);
+      console.log(activo);
     let textoAlert = activo == 1 ? '¿Quieres DESACTIVAR este vendedor?' : '¿Quieres ACTIVAR este vendedor?'
     Swal.fire({
       title: textoAlert,
@@ -140,17 +135,15 @@ export class VendedoresComponent {
       confirmButtonText: 'SI',
       denyButtonText: `NO`,
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.vendedorService.activarVendedor(id_vendedor, activo).subscribe((objeto) => {
-          this.vendedorService.obtenerVendedores(json);
+         this.obtenerVendedor;
+
+          // this.vendedorService.obtenerVendedores(json);
           console.log('vend=>', this.vendedor);
         });
       }
     })
-
-
-
   }
 
 //Activo

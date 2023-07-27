@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
+
 
 @Component({
   selector: 'app-cobranza',
@@ -6,5 +8,26 @@ import { Component } from '@angular/core';
   styleUrls: ['./cobranza.component.scss']
 })
 export class CobranzaComponent {
+  pedidos: any = []
+
+
+  constructor(
+    private pedidosRealizados:PedidosService,
+  ){}
+
+
+
+  ngOnInit() {
+    this.obtenerPedidos()
+  }
+
+ 
+  obtenerPedidos() {
+    this.pedidosRealizados.obtenerPedidos().subscribe(
+      (response) => {
+        this.pedidos = response.data
+      }
+    )
+  }
 
 }

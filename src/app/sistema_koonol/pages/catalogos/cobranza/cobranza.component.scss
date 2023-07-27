@@ -1,1 +1,50 @@
 /* Estilo para ajustar el ancho de los campos de entrada */
+.orders-placed__order {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 1.5px solid rgba(22, 22, 22, 0.384);
+  width: min(100%, 1300px);
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-top: 30px;
+
+  &:hover {
+      box-shadow: 0 10px 14px rgba(0,0,0, 0.15);
+      transition: 300ms;
+  }
+}
+.orders-placed__order__section1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  &--subsection1 {
+      display: flex;
+      flex-direction: column;
+
+      p,
+      
+
+      p {
+          font-weight: 500;
+      }
+
+  }
+
+  &--subsection2 {
+      display: flex;
+      gap: 5px;
+      align-self: flex-start;
+
+         span {
+          color: steelblue;
+          text-decoration: underline;
+          cursor: pointer;
+
+          &:hover {
+              color: var(--color-base);
+          }
+      }
+  }
+}
