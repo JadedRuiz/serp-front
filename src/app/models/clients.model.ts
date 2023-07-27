@@ -18,5 +18,6 @@ export class Client {
         public descuento3: number,
         public id_usuario: number,
         public activo: number,
+        public id_vendedor: number,
     ) { }
 }

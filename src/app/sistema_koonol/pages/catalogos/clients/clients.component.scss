@@ -94,6 +94,19 @@
                 &.active {
                     display: flex;
                 }
+
+                .ng-autocomplete {
+                    display: flex;
+                    flex-direction: column;
+                    position: relative;
+                    border-radius: 10px;
+
+                    .search-list {
+                        top: 38px;
+                        width: 100% !important;
+                        max-height: 200px;
+                    }
+                }
             }
 
             .client__addresses {

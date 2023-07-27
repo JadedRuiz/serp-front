@@ -83,6 +83,9 @@ export class ProveedoresComponent {
     else if (section === 2) {
       this.section = 2
     }
+    else if (section === 3){
+      this.section = 3
+    }
   }
 
   // =>
