@@ -8,6 +8,8 @@ import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
 })
 export class CobranzaComponent {
   pedidos: any = [];
+  pedidoSeleccionado: any;
+
   b1000: number = 0;
   b500: number = 0;
   b200: number = 0;
@@ -44,6 +46,12 @@ export class CobranzaComponent {
       this.pedidos = response.data;
     });
   }
+
+ // Función para abrir el modal y establecer el pedido seleccionado
+ abrirModalPago(pedido: any) {
+  this.pedidoSeleccionado = pedido;
+  console.log('pedido :>> ', pedido);
+}
 
   //Para la calculadora
   calcular() {
