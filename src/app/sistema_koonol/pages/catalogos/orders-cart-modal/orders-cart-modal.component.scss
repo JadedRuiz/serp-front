@@ -22,9 +22,14 @@
     justify-content: center;
 }
 
+.title {
+    text-align: center;
+    max-width: 88%;
+}
+
 .orders-modal__close {
     position: absolute;
-    top: 85px;
+    top: 10px;
     right: 10px;
 }
 
@@ -32,6 +37,7 @@
 .orders-modal__addresses,
 .orders-modal__fin,
 .orders-modal__extra {
+    position: relative;
     background-color: white;
     border-radius: 10px;
     // padding: 25px 10px 25px 10px;
@@ -41,8 +47,25 @@
     flex-direction: column;
     align-items: center;
     width: min(90%, 600px);
-    height: 420px;
+    height: 450px;
     z-index: 1;
+}
+
+.orders-modal__fin,
+.orders-modal__extra {
+    @include xs {
+        height: 100vh;
+
+        .orders-modal__extra-container {
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+
+            .span-location {
+                margin-top: 10px;
+            }
+        }
+    }
 }
 
 .orders-modal__client-inputs {
@@ -235,6 +258,19 @@
     button {
         height: 50px;
     }
+
+    .span-location {
+        margin-top: auto;
+        color: steelblue;
+        cursor: pointer;
+        align-self: flex-end;
+
+        &:hover {
+            color: orangered;
+            transition: 500ms;
+            transform: scale(1.05);
+        }
+    }
 }
 
 
@@ -266,13 +302,5 @@
         height: 50px;
         width: 50px;
         align-self: flex-end;
-    }
-}
-
-.webcam-wrapper {
-    height: 250px;
-
-    video {
-        height: 250px;
     }
 }
