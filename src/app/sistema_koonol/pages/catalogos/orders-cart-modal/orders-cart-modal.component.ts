@@ -263,13 +263,20 @@ export class OrdersCartModalComponent implements OnInit {
 
   //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE
   buscarVendedor(value: string) {
+    let json = {
+      id_vendedor: 0,
+      id_comprador: 1,
+      vendedor: '',
+      solo_activos: 1,
+      token: '012354SDSDS01',
+    };
     if (value.length <= 3) {
       this.autocompleteSellers = [];
       this.searchListCliente = false;
     } else if (!this.searchSellerSubscription.closed) {
       this.loaderSeller = true;
       this.searchListSeller = true;
-      this.vendedorService.obtenerVendedores().subscribe(
+      this.vendedorService.obtenerVendedores(json).subscribe(
         (resp) => {
           if (resp.ok) {
             this.sellers = resp.data;

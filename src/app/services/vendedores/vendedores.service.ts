@@ -13,16 +13,8 @@ export class VendedoresService {
   constructor(private http: HttpClient) { }
 
   //Obtener Vendedores
-  obtenerVendedores(): Observable<any> {
-    const parametros = {
-      id_vendedor: 0,
-      id_comprador: 1,
-      vendedor: '',
-      solo_activos: 1,
-      token: '012354SDSDS01',
-    };
-
-    return this.http.post<any>(SERV_VENDEDORES, parametros);
+  obtenerVendedores(json:any): Observable<any> {
+    return this.http.post<any>(SERV_VENDEDORES, json);
   }
 
 
@@ -33,7 +25,7 @@ return this.http.post(url, vendedor).pipe(map( (resp:any)=> {
   if(resp.ok){
     Swal.fire('Vendedor editado con exito', '', 'success');
     return resp;
-    
+
   }else{
     Swal.fire({
       position: 'center',

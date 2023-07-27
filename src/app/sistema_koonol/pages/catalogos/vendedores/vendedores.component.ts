@@ -28,7 +28,15 @@ export class VendedoresComponent {
 
   //=> Obtener Vendedor
   obtenerVendedor() {
-    this.vendedorService.obtenerVendedores().subscribe(
+
+    let json = {
+      id_vendedor: 0,
+      id_comprador: 1,
+      vendedor: '',
+      solo_activos: 1,
+      token: '012354SDSDS01',
+    };
+    this.vendedorService.obtenerVendedores(json).subscribe(
       (response) => {
         if (response.ok) {
           this.vendedores = response.data;
@@ -46,11 +54,18 @@ export class VendedoresComponent {
 
   //Busca Vendedor =>
   buscarVendedor() {
+    let json = {
+      id_vendedor: 0,
+      id_comprador: 1,
+      vendedor: '',
+      solo_activos: 1,
+      token: '012354SDSDS01',
+    };
     if (this.searchVendedor.length <= 1) {
       this.autocompleteVendedor = [];
     } else {
       this.searchList = true;
-      this.vendedorService.obtenerVendedores();
+      this.vendedorService.obtenerVendedores(json);
       console.log(this.vendedores);
       this.autocompleteVendedor = this.vendedores.filter((vendedor) =>
         vendedor.vendedor
@@ -82,6 +97,13 @@ export class VendedoresComponent {
 
   //Guarda Vendedor =>
   guardarVendedor(vendedorForm: NgForm) {
+    let json = {
+      id_vendedor: 0,
+      id_comprador: 1,
+      vendedor: '',
+      solo_activos: 1,
+      token: '012354SDSDS01',
+    };
     if (vendedorForm.invalid) {
       return;
     }
@@ -94,7 +116,7 @@ export class VendedoresComponent {
       this.vendedorService
         .agregarVendedor(this.vendedor)
         .subscribe((objeto) => {
-          this.vendedorService.obtenerVendedores();
+          this.vendedorService.obtenerVendedores(json);
         });
         vendedorForm.resetForm();
      // console.log('guardamos');
@@ -103,6 +125,13 @@ export class VendedoresComponent {
 
   // Activar/Desactivar Vendedor =>
   activarVendedor(id_vendedor: number, activo:number) {
+    let json = {
+      id_vendedor: 0,
+      id_comprador: 1,
+      vendedor: '',
+      solo_activos: 1,
+      token: '012354SDSDS01',
+    };
     console.log(activo);
     let textoAlert = activo == 1 ? '¿Quieres DESACTIVAR este vendedor?' : '¿Quieres ACTIVAR este vendedor?'
     Swal.fire({
@@ -114,7 +143,7 @@ export class VendedoresComponent {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.vendedorService.activarVendedor(id_vendedor, activo).subscribe((objeto) => {
-          this.vendedorService.obtenerVendedores();
+          this.vendedorService.obtenerVendedores(json);
           console.log('vend=>', this.vendedor);
         });
       }
