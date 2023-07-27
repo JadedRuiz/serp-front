@@ -49,8 +49,7 @@
                 </div>
               </div>
               <div class="d-flex mt-5 justify-content-end mb-2 orders-placed__order__section2--subsection1">
-                <button class="btn search-btn">Surtir</button>
-                <button class="btn general-btn">Entregar</button>
+                <button class="general-btn" data-toggle="modal" data-target="#pagarModal" >Pagar</button>
               </div>
             </div>
           </div>
@@ -64,7 +63,7 @@
 
       <!-- modal para Cobranza -->
       <div class="modal fade" id="pagarModal">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content">
             <div class="modal-header text-center">
               <h5 class="title mb-0 text-center" id="editarModalLabel">Calculadora de Pagos</h5>
@@ -79,7 +78,7 @@
                   <span for="b1000"><b>$1000</b></span>
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso" name="b1000" [(ngModel)]="b1000" (input)="calcular()">
                 </div>
                 <div class="col-4">
                   <input type="number" class="form-control small-input" placeholder="Cambio">
@@ -90,7 +89,7 @@
                   <span for="b500"><b>$500</b></span>
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso" name="b500" [(ngModel)]="b500" (input)="calcular()">
                 </div>
                 <div class="col-4">
                   <input type="number" class="form-control small-input" placeholder="Cambio">
@@ -101,7 +100,7 @@
                   <span for="b200"><b>$200</b></span>
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso" name="b200" [(ngModel)]="b200" (input)="calcular()">
                 </div>
                 <div class="col-4">
                   <input type="number" class="form-control small-input" placeholder="Cambio">
@@ -112,7 +111,7 @@
                   <span for="b100"><b>$100</b></span>
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso" name="b100" [(ngModel)]="b100" (input)="calcular()">
                 </div>
                 <div class="col-4">
                   <input type="number" class="form-control small-input" placeholder="Cambio">
@@ -123,21 +122,31 @@
                   <span for="b50"><b>$50</b></span>
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso" name="b50" [(ngModel)]="b50" (input)="calcular()">
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                </div>
+              </div>
+              <div class="row m-1">
+                <div class="col-2">
+                  <span for="b20"><b>$20</b></span>
+                </div>
+                <div class="col-4">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso" name="b20" [(ngModel)]="b20" (input)="calcular()">
                 </div>
                 <div class="col-4">
                   <input type="number" class="form-control small-input" placeholder="Cambio">
                 </div>
               </div>
               <hr>
-              <!-- ... Otras denominaciones de billetes ... -->
               <h6 class="subtitle">Monedas</h6>
               <div class="row m-1">
                 <div class="col-2">
                   <span for="m10"><b>$10</b></span>
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso" name="m10" [(ngModel)]="m10" (input)="calcular()">
                 </div>
                 <div class="col-4">
                   <input type="number" class="form-control small-input" placeholder="Cambio">
@@ -148,7 +157,7 @@
                   <span for="m5"><b>$5</b></span>
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso" name="m5" [(ngModel)]="m5" (input)="calcular()">
                 </div>
                 <div class="col-4">
                   <input type="number" class="form-control small-input" placeholder="Cambio">
@@ -159,7 +168,7 @@
                   <span for="m2"><b>$2</b></span>
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso" name="m2" [(ngModel)]="m2" (input)="calcular()">
                 </div>
                 <div class="col-4">
                   <input type="number" class="form-control small-input" placeholder="Cambio">
@@ -170,28 +179,27 @@
                   <span for="m1"><b>$1</b></span>
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Ingreso">
+                  <input type="number" class="form-control small-input" placeholder="Ingreso" name="m1" [(ngModel)]="m1" (input)="calcular()">
                 </div>
                 <div class="col-4">
                   <input type="number" class="form-control small-input" placeholder="Cambio">
                 </div>
               </div>
-              <hr>
-              <!--Totales-->
-              <div class="row m-1">
-                <div class="col-md-6">
-                  <label for="totalIngresos">Total Ingresos</label>
-                  <input type="number" class="form-control" id="totalIngresos" readonly>
-                </div>
-                <div class="col-md-6">
-                  <label for="totalCambio">Total Cambio</label>
-                  <input type="number" class="form-control" id="totalCambio" readonly>
-                </div>
+            </div>
+            <!--Totales-->
+            <div class="row m-1">
+              <div class="col-sm-6">
+                <label for="totalIngresos">Total <b>Ingresos</b></label>
+                <input type="number" class="form-control" id="totalIngresos" readonly>
+              </div>
+              <div class="col-sm-6">
+                <label for="totalCambio">Total <b>Cambio</b></label>
+                <input type="number" class="form-control" id="totalCambio" [(ngModel)]="totalIngresos" readonly>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn search-btn" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn general-btn">Ingresar</button>
+              <button type="button" class="search-btn" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="general-btn">Pagar</button>
             </div>
           </div>
         </div>
