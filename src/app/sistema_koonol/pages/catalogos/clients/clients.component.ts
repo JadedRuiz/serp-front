@@ -6,8 +6,10 @@ import { Route } from 'src/app/models/routes.model';
 import { ClientsService } from 'src/app/services/clients/clients.service';
 import { RoutesService } from 'src/app/services/routes/routes.service';
 import { GeolocationService } from '../maps/services';
-import { debounceTime } from 'rxjs';
+import { Subscription, debounceTime } from 'rxjs';
 import Swal from 'sweetalert2';
+import { VendedoresService } from 'src/app/services/vendedores/vendedores.service';
+import { Vendedor } from 'src/app/models/vendedor.model';
 
 @Component({
   selector: 'app-clients',
@@ -26,6 +28,7 @@ export class ClientsComponent {
   constructor(
     private clientService: ClientsService,
     private routesService: RoutesService,
+    private vendedorService: VendedoresService,
     private geolocationService: GeolocationService
   ) { }
 
@@ -49,6 +52,8 @@ export class ClientsComponent {
   //VARIABLES PARA CADA LLAMADA A LA API
   clients: Client[] = [];
   addresses: Address[] = [];
+  sellers: Vendedor[] = [];
+  selectedSeller: Vendedor = new Vendedor(0, 0, '', '', 0, 0);
   routes: Route[] = []
   coords: [number, number] = [0, 0]
   long: string = ''
@@ -73,7 +78,8 @@ export class ClientsComponent {
     0,
     0,
     0,
-    1
+    1,
+    0
   );
 
   //DIRECCIÓN QUE SE UTILIZARÁ AL CREAR UN CLIENTE NUEVO
@@ -130,13 +136,73 @@ export class ClientsComponent {
   obtenerRutas() {
     this.routesService.obtenerRutas().subscribe(objeto => this.routes = objeto.data)
   }
+  //Autocomplete Vendedor
+  searchSellerControl: FormControl = new FormControl();
+  searchSellerSubscription: Subscription = new Subscription();
+  searchListSeller: boolean = false;
+  loaderSeller: boolean = false;
+  autocompleteSellers: Vendedor[] = [];
+  isSellerSelected: boolean = false;
 
-  //FUNCIÓN PARA SELECCIONAR LA DIRECCIÓN A EDITAR
-  editarDireccion(id_cliente_direccion: number) {
-    this.addressSelected = this.addresses.filter(
-      (address) => address.id_cliente_direccion == id_cliente_direccion
-    )[0];
-    this.addAddressVisibility = true;
+  //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE
+  buscarVendedor(value: string) {
+    let json = {
+      id_vendedor: 0,
+      id_comprador: 1,
+      vendedor: '',
+      solo_activos: 1,
+      token: '012354SDSDS01',
+    };
+    if (value.length <= 3) {
+      this.autocompleteSellers = [];
+      this.searchListSeller = false;
+    } else if (!this.searchSellerSubscription.closed) {
+      this.loaderSeller = true;
+      this.searchListSeller = true;
+      this.vendedorService.obtenerVendedores(json).subscribe(
+        (resp) => {
+          if (resp.ok) {
+            this.sellers = resp.data;
+            this.autocompleteSellers = this.sellers.filter((seller) =>
+              seller.vendedor.toLowerCase().includes(value.toLowerCase())
+            );
+            this.loaderSeller = false;
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.loaderSeller = false;
+        }
+      );
+    }
+  }
+
+  //FUNCIÓN PARA ESCOGER UN VENDEDOR
+  seleccionarVendedor(id_vendedor: number) {
+    if (id_vendedor) {
+      this.selectedSeller = this.autocompleteSellers.find(
+        (aSeller) => aSeller.id_vendedor === id_vendedor
+      )!;
+      this.searchSellerControl.setValue(this.selectedSeller.vendedor);
+      this.isSellerSelected = true;
+      this.searchListSeller = false;
+      this.searchSellerSubscription.unsubscribe();
+      this.client.id_vendedor = this.selectedSeller.id_vendedor
+      console.log("client ::>", this.client);
+      
+      // console.log("Estás seleccionando un cliente: ", this.searchClientSubscription);
+    } else {
+      return;
+    }
+  }
+
+  //Función para que al dar clic en el input nos suscribamos a los cambios del mismo
+  onFocusSellerSearch() {
+    this.searchSellerSubscription = this.searchSellerControl.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((value) => {
+        this.buscarVendedor(value);
+      });
   }
 
   //FUNCIÓN PARA MANEJAR SI UN CLIENTE SE GUARDARÁ O SE EDITARÁ
@@ -144,7 +210,7 @@ export class ClientsComponent {
     if (clientForm.invalid) {
       return;
     }
-    if (this.selectedClient.length > 0) {
+    if (this.selectedClient) {
       Swal.fire({
         title: '¿Quieres GUARDAR los cambios?',
         showDenyButton: true,
@@ -154,8 +220,8 @@ export class ClientsComponent {
         if (result.isConfirmed) {
           this.clientService
             .editarCliente(
-              this.selectedClient[0].id_cliente,
-              this.selectedClient[0]
+              this.selectedClient.id_cliente,
+              this.selectedClient
             )
             .subscribe((objeto) => { })
         }
@@ -222,7 +288,7 @@ export class ClientsComponent {
   //SECCIÓN PARA MANEJAR LA BÚSQUEDA DE CLIENTES Y LOS CLIENTES FILTRADOS
   searchClient: string = '';
   autocompleteClients: any[] = [];
-  selectedClient: Client[] = [];
+  selectedClient: Client = new Client(0, 0, 1, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 0, 0, 0, 0, 0, 0, 1, 0);
   isClientSelected: boolean = false;
   addAddressVisibility: boolean = false;
   searchList: boolean = false;
@@ -266,7 +332,7 @@ export class ClientsComponent {
   //FUNCIÓN PARA ESCOGER UN CLIENTE Y GUARDAR SU ID EN addressSelected
   seleccionarCliente(id_cliente: number) {
     if (id_cliente) {
-      this.selectedClient = this.autocompleteClients.filter(
+      this.selectedClient = this.autocompleteClients.find(
         (aclient) => aclient.id_cliente === id_cliente
       );
       this.isClientSelected = true;
@@ -275,8 +341,16 @@ export class ClientsComponent {
       this.addressSelected.id_cliente = id_cliente;
       this.tab(1);
     } else {
-      this.selectedClient = [];
+      return;
     }
+  }
+
+  //FUNCIÓN PARA SELECCIONAR LA DIRECCIÓN A EDITAR
+  editarDireccion(id_cliente_direccion: number) {
+    this.addressSelected = this.addresses.filter(
+      (address) => address.id_cliente_direccion == id_cliente_direccion
+    )[0];
+    this.addAddressVisibility = true;
   }
 
   //FUNCIÓN PARA DESHABILITAR LA VISTA DE CUANDO SE ESTÁ AÑADIENDO O EDITANDO UNA DIRECCIÓN Y REGRESAMOS A LA PÁGINA DE AÑADIR CLIENTE
@@ -287,7 +361,27 @@ export class ClientsComponent {
 
   //FUNCIÓN QUE SE UTILIZA PARA AÑADIR UN CLIENTE CUANDO YA ESTAMOS DENTRO DE UN CLIENTE ESPECÍFICO
   addClient() {
-    this.selectedClient = []
+    this.selectedClient = new Client(
+      0,
+      0,
+      1,
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    );
     this.addressSelected = new Address(
       0,
       0,
@@ -334,7 +428,8 @@ export class ClientsComponent {
       0,
       0,
       0,
-      1
+      1,
+      0
     );
     this.address = new Address(
       0,
@@ -361,7 +456,7 @@ export class ClientsComponent {
   //FUNCIÓN PARA QUE AL QUERER AÑADIR UNA DIRECCIÓN A UN CLIENTE EXISTENTE, SE PASE EL ID DEL MISMO Y SE ABRA EL FORM
   createAddress() {
     this.addressSelected = new Address(
-      0, this.selectedClient[0].id_cliente, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1)
+      0, this.selectedClient.id_cliente, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1)
     this.addAddressVisibility = true
   }
 }
