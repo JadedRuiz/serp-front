@@ -41,6 +41,9 @@
           <div class="tab" [class.active]="section === 2" (click)="tab(2)">
             Dirección del Proveedor
           </div>
+          <div class="tab" [class.active]="section === 3" (click)="tab(3)">
+            Cuentas Bancarias
+          </div>
         </div>
         <div class="proveedor__data-form row" [class.active]="section === 1">
 
@@ -167,6 +170,47 @@
               <label for="estado">Estado</label>
               <input class="form-control" type="text" name="estado" id="estado" required
                 [(ngModel)]="proveedor.domicilio.estado" #inputProvForm disabled />
+            </div>
+            <div class="row mt-3 d-flex justify-content-end ">
+              <button class=" general-btn" (click)="editarProveedor()" type="button" *ngIf="isProveedorSelected">Editar</button>
+              <button class="ml-3 search-btn  text-center" type="submit">Guardar</button>
+            </div>
+          </div>
+        </div>
+        <div class="proveedor__data-form row" [class.active]="section === 3">
+
+          <div class="proveedor__data-form__section1 col-12 col-md-6">
+            <div class="form-label">
+              <label for="banco">Banco</label>
+              <input class="form-control" type="text" name="banco" id="banco" required
+                [(ngModel)]="proveedor.proveedor" #inputProvForm disabled />
+            </div>
+            <div class="form-label">
+              <label for="cuenta">Número de Cuenta</label>
+              <input class="form-control" type="text" name="cuenta" id="cuenta" required
+                [(ngModel)]="proveedor.contacto" #inputProvForm disabled />
+            </div>
+            <div class="form-label">
+              <label for="tarjeta">Número de Tarjeta</label>
+              <input class="form-control" type="text" name="tarjeta" id="tarjeta" required 
+                [(ngModel)]="proveedor.rfc" #inputProvForm disabled />
+            </div>
+          </div>
+          <div class="proveedor__data-form__section2 col-12 col-md-6">
+            <div class="form-label">
+              <label for="CLABE">CLABE Interbancaria</label>
+              <input class="form-control" type="text" name="CLABE" id="CLABE" required
+                [(ngModel)]="proveedor.celular" #inputProvForm disabled />
+            </div>
+            <div class="form-label">
+              <label for="adeudo">Adeudos</label>
+              <input class="form-control" type="text" name="adeudo" id="adeudo" required
+                [(ngModel)]="proveedor.nombre_comercial" #inputProvForm disabled />
+            </div>
+            <div class="form-label">
+              <label for="saldo">Saldo a Favor</label>
+              <input class="form-control" type="text" name="saldo" id="saldo" required [(ngModel)]="proveedor.correo"
+                #inputProvForm disabled />
             </div>
             <div class="row mt-3 d-flex justify-content-end ">
               <button class=" general-btn" (click)="editarProveedor()" type="button" *ngIf="isProveedorSelected">Editar</button>
