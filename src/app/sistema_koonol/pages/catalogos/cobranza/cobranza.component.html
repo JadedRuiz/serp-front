@@ -22,7 +22,7 @@
       <!-- Tarjeta (Card) para mostrar los datos de los pedidos -->
         <div class="w-100">
         <div class="row justify-content-center">
-          <div class="col-sm-10 col-md-6 col-xl-4 mb-3 mb-sm-0" *ngFor="let pedido of pedidos">
+          <div class="col-sm-12 col-md-12 col-xl-6 mb-3 mb-sm-0" *ngFor="let pedido of pedidos">
             <div class="card-body  mt-5 orders-placed__order">
               <h3 class="subtitle mb-3"> <b>{{pedido.cliente}}</b> </h3>
               <div class="orders-placed__order__section1--subsection2">
@@ -81,7 +81,7 @@
                   <input type="number" class="form-control small-input" placeholder="Ingreso" name="b1000" [(ngModel)]="b1000" (input)="calcular()">
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                  <input type="number" class="form-control small-input" placeholder="Cambio" name="b1000Cambio" [(ngModel)]="b1000Cambio" (input)="calcular()">
                 </div>
               </div>
               <div class="row m-1">
@@ -92,7 +92,7 @@
                   <input type="number" class="form-control small-input" placeholder="Ingreso" name="b500" [(ngModel)]="b500" (input)="calcular()">
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                  <input type="number" class="form-control small-input" placeholder="Cambio" name="b500Cambio" [(ngModel)]="b500Cambio" (input)="calcular()">
                 </div>
               </div>
               <div class="row m-1">
@@ -103,7 +103,7 @@
                   <input type="number" class="form-control small-input" placeholder="Ingreso" name="b200" [(ngModel)]="b200" (input)="calcular()">
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                  <input type="number" class="form-control small-input" placeholder="Cambio" name="b200Cambio" [(ngModel)]="b200Cambio" (input)="calcular()">
                 </div>
               </div>
               <div class="row m-1">
@@ -114,7 +114,7 @@
                   <input type="number" class="form-control small-input" placeholder="Ingreso" name="b100" [(ngModel)]="b100" (input)="calcular()">
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                  <input type="number" class="form-control small-input" placeholder="Cambio" name="b100Cambio" [(ngModel)]="b100Cambio" (input)="calcular()">
                 </div>
               </div>
               <div class="row m-1">
@@ -125,7 +125,7 @@
                   <input type="number" class="form-control small-input" placeholder="Ingreso" name="b50" [(ngModel)]="b50" (input)="calcular()">
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                  <input type="number" class="form-control small-input" placeholder="Cambio" name="b50Cambio" [(ngModel)]="b50Cambio" (input)="calcular()">
                 </div>
               </div>
               <div class="row m-1">
@@ -136,7 +136,7 @@
                   <input type="number" class="form-control small-input" placeholder="Ingreso" name="b20" [(ngModel)]="b20" (input)="calcular()">
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                  <input type="number" class="form-control small-input" placeholder="Cambio" name="b20Cambio" [(ngModel)]="b20Cambio" (input)="calcular()">
                 </div>
               </div>
               <hr>
@@ -149,7 +149,7 @@
                   <input type="number" class="form-control small-input" placeholder="Ingreso" name="m10" [(ngModel)]="m10" (input)="calcular()">
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                  <input type="number" class="form-control small-input" placeholder="Cambio" name="m10Cambio" [(ngModel)]="m10Cambio" (input)="calcular()">
                 </div>
               </div>
               <div class="row m-1">
@@ -160,7 +160,7 @@
                   <input type="number" class="form-control small-input" placeholder="Ingreso" name="m5" [(ngModel)]="m5" (input)="calcular()">
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                  <input type="number" class="form-control small-input" placeholder="Cambio" name="m5Cambio" [(ngModel)]="m5Cambio" (input)="calcular()">
                 </div>
               </div>
               <div class="row m-1">
@@ -171,7 +171,7 @@
                   <input type="number" class="form-control small-input" placeholder="Ingreso" name="m2" [(ngModel)]="m2" (input)="calcular()">
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                  <input type="number" class="form-control small-input" placeholder="Cambio" name="m2Cambio" [(ngModel)]="m2Cambio" (input)="calcular()">
                 </div>
               </div>
               <div class="row m-1">
@@ -182,19 +182,23 @@
                   <input type="number" class="form-control small-input" placeholder="Ingreso" name="m1" [(ngModel)]="m1" (input)="calcular()">
                 </div>
                 <div class="col-4">
-                  <input type="number" class="form-control small-input" placeholder="Cambio">
+                  <input type="number" class="form-control small-input" placeholder="Cambio" name="m1Cambio" [(ngModel)]="m1Cambio" (input)="calcular()">
                 </div>
               </div>
             </div>
             <!--Totales-->
             <div class="row m-1">
               <div class="col-sm-6">
-                <label for="totalIngresos">Total <b>Ingresos</b></label>
-                <input type="number" class="form-control" id="totalIngresos" readonly>
+                <label for="totalIngresos"><b>Total a Pagar</b></label>
+                <span style="font-size:1.5rem;">$4000</span>
               </div>
               <div class="col-sm-6">
-                <label for="totalCambio">Total <b>Cambio</b></label>
-                <input type="number" class="form-control" id="totalCambio" [(ngModel)]="totalIngresos" readonly>
+                <label for="totalIngresos">Total: <b>Ingresos</b></label>
+                <input type="number" class="form-control" id="totalIngresos" name="totalIngresos" [(ngModel)]="totalIngresosReal" readonly>
+              </div>
+              <div class="col-sm-6">
+                <label for="totalCambio">Total: <b>Cambio</b></label>
+                <input type="number" class="form-control" id="totalCambio" name="totalCambio" [(ngModel)]="totalCambio" readonly>
               </div>
             </div>
             <div class="modal-footer">

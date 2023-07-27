@@ -4,7 +4,7 @@
     <!-- SEARCH-BAR -->
     <div class="clients__search-bar">
       <div class="d-flex flex-column">
-        <input class="search-input" type="text" placeholder="Buscar cliente" aria-label="Buscar cliente" data-toggle="tooltip" title="Buscar cliente"
+        <input class="search-input" type="text" placeholder="Buscar cliente" aria-label="Buscar cliente"  title="Buscar cliente"
           aria-describedby="button-addon2" [formControl]="searchClientControl" />
         <div class="search-loader w-100" *ngIf="loader; else clientsReady">
           <i class="fa fa-spinner fa-pulse"></i>

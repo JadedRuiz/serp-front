@@ -6,6 +6,10 @@
         <label for="vendedor">Vendedor</label>
         <input type="text" class="form-control" id="vendedor" placeholder="Nombre del vendedor">
       </div>
+      <div class="col-md-12 form-group">
+        <label for="vendedor">Cliente</label>
+        <input type="text" class="form-control" id="vendedor" placeholder="Nombre del cliente">
+      </div>
       <div class="col-md-6 form-group">
         <label for="fechaVisita">Fecha de Visita</label>
         <input type="date" class="form-control" id="fechaVisita">
@@ -28,7 +32,7 @@
         <button class=" general-btn"  (click)="guardarUbi()" >Ubicación</button>
       </div>
       <div class="m-1  col col-md-3">
-        <button class=" search-btn" >Pedidos</button>
+        <button class=" search-btn" [routerLink]="['/sis_koonol/catalogos/']" >Pedidos</button>
       </div>
       <div class="m-1 col-md-3">
         <button class=" general-btn" >Sin Pedidos</button>
