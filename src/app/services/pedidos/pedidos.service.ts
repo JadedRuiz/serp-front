@@ -35,6 +35,16 @@ export class PedidosService {
         return this.http.post<any>(SERV_PEDIDOS, parametros);
     }
 
+    buscarPedido(id_pedido: number) {
+        let parametros = {
+            id_pedido: id_pedido,
+            token: "012354SDSDS01"
+        }
+        
+        let url = `https://serp-inventarios.serteza.com/public/api/pedidos/buscarPedido`
+        return this.http.post<any>(url, parametros);
+    }
+
     guardarPedido(pedido: PedidoGuardar) {
         let url = 'https://serp-inventarios.serteza.com/public/api/pedidos/guardarPedido';
         console.log(pedido);
