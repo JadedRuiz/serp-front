@@ -252,16 +252,16 @@
             </div>
             <!--Totales-->
             <div class="row m-1">
-              <div class="col-sm-6">
+              <div class="col-sm-6 col-md-4 ">
                 <label for="totalIngresos">Total: </label>
                 <span style="font-size:1.5rem;"> {{pedidoSeleccionado?.precio_total | currency: 'MX'}}</span>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-6 col-md-4">
                 <label for="totalIngresos"><b>Ingresos</b></label>
                 <input type="number" class="form-control" id="totalIngresos" name="totalIngresos"
                   [(ngModel)]="totalIngresosReal" readonly>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-6 col-md-4 ">
                 <label for="totalCambio"><b>Cambio</b></label>
                 <input type="number" class="form-control" id="totalCambio" name="totalCambio" [(ngModel)]="totalCambio"
                   readonly>
