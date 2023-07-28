@@ -151,6 +151,7 @@ transformarImages() {
   obtenermedidas() {
     this.medidaService.obtenerMedidas().subscribe((objeto) => {
       this.medidas = objeto.data;
+      console.log('medida :>> ', this.medidas);
     });
   }
 
