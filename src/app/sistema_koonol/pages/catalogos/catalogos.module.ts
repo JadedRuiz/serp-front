@@ -25,6 +25,7 @@ import { OrdenesDeCompraComponent } from './ordenes-de-compra/ordenes-de-compra.
 import { WebcamModule } from 'ngx-webcam';
 import { VisitaClienteComponent } from './visita-cliente/visita-cliente.component';
 import { CobranzaComponent } from './cobranza/cobranza.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -54,7 +55,8 @@ import { CobranzaComponent } from './cobranza/cobranza.component';
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
-    WebcamModule
+    WebcamModule,
+    NgxPaginationModule
   ],
   providers: [
     NgxImageCompressService

@@ -34,6 +34,13 @@ export class CobranzaComponent {
   totalCambio: number = 0;
   totalIngresosReal: number = 0;
 
+
+  //para paginador
+
+
+itemsPerPage =4;
+p=1;
+
   constructor(private pedidosRealizados: PedidosService) {}
 
   ngOnInit() {
@@ -81,4 +88,8 @@ export class CobranzaComponent {
 
     this.totalIngresosReal = this.totalIngresos - this.totalCambio;
   }
+
+
+
+
 }
