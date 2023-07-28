@@ -44,7 +44,7 @@
               <!-- <span class="badge badge-pill badge-danger">3</span> -->
               </a>
               <div class="sidebar-submenu">
-                  <ul>
+                  <ul (click)="accionMenu()">
                       <li style="list-style-type: none;"><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/']"><i class="fa fa-suitcase" aria-hidden="true"></i>
                         Productos</a></li>
                       <li style="list-style-type: none;"><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/prov']"><i class="fa fa-id-badge" aria-hidden="true"></i>
@@ -69,8 +69,8 @@
               </a>
               <div class="sidebar-submenu">
                   <ul>
-                      <li>
-                      <a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/pedidos-realizados']"><i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                      <li (click)="accionMenu()">
+                      <a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/pedidos-realizados']"><i class="fa fa-shopping-basket" aria-hidden="true"  ></i>
                         Pedidos</a>
                       <a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/ordenes']"><i class="fa fa-shopping-bag" aria-hidden="true"></i>
                         Ordenes de compra</a>
@@ -116,7 +116,7 @@
       </a>
       </div>
   </nav>
-  <main class="page-content">
+  <main class="page-content" (click)="clickFuera($event)">
       <div class="container-fluid">
         <router-outlet></router-outlet>
       </div>

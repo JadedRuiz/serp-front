@@ -38,7 +38,7 @@ export class CobranzaComponent {
   //para paginador
 
 
-itemsPerPage =4;
+itemsPerPage =2;
 p=1;
 
   constructor(private pedidosRealizados: PedidosService) {}
