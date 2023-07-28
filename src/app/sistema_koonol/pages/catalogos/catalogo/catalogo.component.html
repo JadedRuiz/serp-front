@@ -34,18 +34,19 @@
               <div class="media-content">
                 <h1 class="titulo title mb-1">{{ articulo.articulo }}</h1>
                 <h2 class="subtitle mb-0 mt-1">{{ articulo.familia}}</h2>
-                <span class="mb-0"><b>
+                <span class="mb-0">
                   <b>
-                    E- <span style="color: green">{{articulo.existencia}}</span>
-                    P- <span style="color: yellow">{{articulo.pedidos}}</span>
-                    D- <span style="color: red">{{articulo.disponible}}</span>
-                  </b></b></span>
+                    E ( <span style="color: rgb(7, 190, 7)">{{articulo.existencia}}</span> )
+                    P ( <span style="color: rgb(187, 187, 19)">{{articulo.pedidos}}</span> )
+                    D ( <span style="color: rgb(255, 0, 0)">{{articulo.disponible}}</span> )
+                  </b>
+                </span>
                 <br>
                 <span><b>Unidad</b> {{articulo.medida}}</span>
               </div>
               <a data-toggle="tooltip" title="Editar" class="editar-link" (click)="editarArt(articulo.id_existencia)" style="font-size:18px;color: var(--color-terciario)"><i class="fa fa-pencil-square-o " aria-hidden="true"></i></a>
             </div>
-            <span class="card-price ms-4"><strong> {{ articulo.precio_total | currency: 'MX'}}</strong></span>
+            <span class="card-price ms-4"><strong> {{ articulo.precio_total | currency: 'MX '}}</strong></span>
           </div>
         </div>
       </div>
