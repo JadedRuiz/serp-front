@@ -1,130 +1,119 @@
 <div class="container -fluid">
-<div class="row">
-  <article class="orders-placed__container">
-    <h3 class="title">PEDIDOS REALIZADOS</h3>
-    <div class="w-100">
-      <div class="row justify-content-center">
-        <div class="col-sm-10 col-md-6 col-xl-4 mb-3 mb-sm-0" *ngFor="let pedido of pedidos">
-          <div class="card-body  mt-5 orders-placed__order">
-            <h3 class="subtitle mb-3"> <b>{{pedido.cliente}}</b> </h3>
-            <div class="orders-placed__order__section1--subsection2">
-              <p><b>Folio:</b></p><span (click)="toggleModalVisibility()"><b>000{{pedido.folio}}</b></span>
+   <div class="row">
+      <article class="orders-placed__container">
+         <h3 class="title">PEDIDOS REALIZADOS</h3>
+         <div class="w-100">
+            <div class="row justify-content-center">
+               <div class="col-sm-12 col-md-12 col-xl-6 mb-3 mb-sm-0" *ngFor="let pedido of pedidos">
+                  <div class="card-body mt-5 orders-placed__order">
+                     <h3 class="subtitle mb-3"> <b>{{pedido.cliente}}</b> </h3>
+                     <div class="orders-placed__order__section1--subsection2">
+                        <p id="folio"><b>FOLIO: </b> <span
+                              (click)="seleccionarPedido(pedido.id_pedido)"><b>000{{pedido.folio}}</b></span>
+                        </p>
+                     </div>
+                     <div class="hijo">
+                        <span>Status: <b style="color: rgb(97, 187, 8);">{{pedido.status}}</b></span>
+                     </div>
+                     <div class="hijo">
+                        <span>Fecha de entrega: <b>{{pedido.fecha_entrega}}</b></span>
+                     </div>
+                     <div class="hijo">
+                        <span>Fecha de pedido: <b>{{pedido.fecha_pedido}}</b></span>
+                     </div>
+                     <div>
+                        <div class="orders-placed__order__section2--subsection2">
+                           <span>Productos: <b>{{pedido.num_productos}}</b> </span>
+                        </div>
+                        <div class="orders-placed__order__section2--subsection2">
+                           <span>Peso: <b>{{pedido.peso_producto}} </b></span>
+                        </div>
+                        <div class="orders-placed__order__section2--subsection2">
+                           <span>Total: <b>{{pedido.precio_total | currency: 'MX'}}</b></span>
+                        </div>
+                     </div>
+                     <div class="d-flex mt-5 justify-content-end mb-2 orders-placed__order__section2--subsection1">
+                        <button class="btn search-btn">Surtir</button>
+                        <button class="btn general-btn">Entregar</button>
+                     </div>
+                  </div>
+               </div>
             </div>
-            <div class="hijo">
-              <span>Status:  <b style="color: rgb(97, 187, 8);">{{pedido.status}}</b></span>
-            </div>
-            <div class="hijo">
-              <span>Fecha de entrega: <b>{{pedido.fecha_entrega}}</b></span>
-            </div>
-            <div class="hijo">
-              <span>Fecha de pedido: <b>{{pedido.fecha_pedido}}</b></span>
-            </div>
-            <div>
-              <div class="orders-placed__order__section2--subsection2">
-                <span>Productos: <b>{{pedido.num_productos}}</b> </span>
-              </div>
-              <div class="orders-placed__order__section2--subsection2">
-                <span>Peso: <b>{{pedido.peso_producto}} </b></span>
-              </div>
-              <div class="orders-placed__order__section2--subsection2">
-                <span>Total: <b>{{pedido.precio_total | currency: 'MX'}}</b></span>
-              </div>
-            </div>
-            <div class="d-flex mt-5 justify-content-end mb-2 orders-placed__order__section2--subsection1">
-              <button class="btn search-btn">Surtir</button>
-              <button class="btn general-btn">Entregar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+         </div>
 
 
-    <!-- Modal -->
-    <div class="orders-placed__modal" *ngIf="modalVisibility">
-      <button
-        class="icon-btn"
-        (click)="closeModal()"
-      >
-        <i class="fa fa-times"></i>
-      </button>
-      <div class="orders-placed__modal__order" *ngIf="orderVisibility">
-        <h2 class="title text-center">PEDIDO</h2>
-        <div class="orders-placed__modal__order__products">
-          <article
-            class="orders-placed__products__product"
-            *ngFor="let item of items"
-          >
-            <div class="d-flex flex-row">
-              <img
-                [src]="item.imageUrl"
-                alt="imagen de un producto"
-                class="orders-placed__product__image"
-              />
-              <section class="d-flex flex-column">
-                <span class="">{{ item.title }}</span>
-                <span class="">{{ item.fam }}</span>
-              </section>
-            </div>
-            <div class="orders-placed__product-price-box">
-              <span class="orders-placed__product-price">${{ item.price }}</span>
-            </div>
-          </article>
-        </div>
-        <div class="orders-placed__buttons">
-          <button class="general-btn" (click)="openEditOrderVisibility()">Editar</button>
-          <button class="general-btn" (click)="toggleModalVisibility()">De acuerdo</button>
-        </div>
-      </div>
-      <div class="orders-placed__modal__edit-order" *ngIf="editOrderVisibility">
-        <h2 class="title text-center">EDITAR PEDIDO</h2>
-        <div class="orders-placed__modal__order__products">
-          <article
-            class="orders-placed__products__product"
-            *ngFor="let item of items"
-          >
-            <div class="d-flex flex-row">
-              <img
-                [src]="item.imageUrl"
-                alt="imagen de un producto"
-                class="orders-placed__product__image"
-              />
-              <section class="d-flex flex-column">
-                <span class="">{{ item.title }}</span>
-                <span class="">{{ item.fam }}</span>
-                <section class="orders-modal__product__quantity__box">
-                  <div
-                    class="btn-decrease"
-                    [class.btn-quantity-off]="btnQuantityOff"
-                    (click)="decreaseItemQuantity(item)"
-                  >
-                    -
+         <!-- Modal -->
+         <div class="orders-placed__modal" *ngIf="modalVisibility">
+            <div class="orders-placed__modal__order" *ngIf="orderVisibility">
+               <button class="icon-btn" (click)="closeModal()">
+                  <i class="fa fa-times"></i>
+               </button>
+               <!-- TÍTULO -->
+               <h2 class="title text-center mt-4">Pedido #000{{pedidoSeleccionado.folio}} </h2>
+
+               <!-- CUERPO DEL MODAL -->
+               <div class="d-flex flex-column justify-content-start w-100 mb-3">
+                  <span><b>Cliente:</b> {{pedidoSeleccionado.cliente}} </span>
+                  <span><b>Observaciones: </b>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, porro rem ratione quam animi repellendus ad doloremque, suscipit dolorem soluta iure veritatis?</span>
+               </div>
+               <div class="table-custom mb-2">
+                  <div class="d-flex table-head">
+                     <div class="col-3 text-center">Artículo</div>
+                     <div class="col-3 text-center">Cantidad</div>
+                     <div class="col-3 text-center">Precio unitario</div>
+                     <div class="col-3 text-center">Precio total</div>
                   </div>
-                  <p class="orders-modal__product__quantity">
-                    {{ item.quantity }}
-                  </p>
-                  <div class="btn-increase"
-                  (click)="increaseItemQuantity(item)">
-                    +
+                  <div class="d-flex table-body" *ngFor="let articulo of articulosPedido">
+                     <div class="col-3">{{articulo.articulo}} {{articulo.medida}} </div>
+                     <div class="col-3">{{articulo.cantidad_solicitada}}</div>
+                     <div class="col-3">${{(articulo.precio_total / articulo.cantidad_solicitada)}} </div>
+                     <div class="col-3">${{articulo.precio_total}}</div>
                   </div>
+               </div>
+               <div class="d-flex justify-content-between w-100 mt-auto">
+                  <span><b>Total:</b></span>
+                  <span>${{pedidoSeleccionado.precio_total}}</span>
+               </div>
+               <!-- BOTONES -->
+               <div class="orders-placed__buttons mt-4">
+                  <button class="search-btn" (click)="openEditOrderVisibility()">Editar</button>
+                  <button class="general-btn" (click)="toggleModalVisibility()">De acuerdo</button>
+               </div>
+            </div>
+            <!-- <div class="orders-placed__modal__edit-order" *ngIf="editOrderVisibility">
+          <h2 class="title text-center">EDITAR PEDIDO</h2>
+          <div class="orders-placed__modal__order__products">
+            <article class="orders-placed__products__product" *ngFor="let item of items">
+              <div class="d-flex flex-row">
+                <img [src]="item.imageUrl" alt="imagen de un producto" class="orders-placed__product__image" />
+                <section class="d-flex flex-column">
+                  <span class="">{{ item.title }}</span>
+                  <span class="">{{ item.fam }}</span>
+                  <section class="orders-modal__product__quantity__box">
+                    <div class="btn-decrease" [class.btn-quantity-off]="btnQuantityOff"
+                      (click)="decreaseItemQuantity(item)">
+                      -
+                    </div>
+                    <p class="orders-modal__product__quantity">
+                      {{ item.quantity }}
+                    </p>
+                    <div class="btn-increase" (click)="increaseItemQuantity(item)">
+                      +
+                    </div>
+                  </section>
                 </section>
-              </section>
-            </div>
-            <button
-            class="orders-modal__product__btn-delete"
-            (click)="deleteProduct(item)"
-          >
-            <i class="fas fa-trash" ></i>
-          </button>
-          </article>
-        </div>
-        <div class="orders-placed__buttons">
-          <button class="general-btn" [routerLink]="['/catalogo']">Añadir más productos</button>
-          <button class="general-btn" (click)="saveEditedOrder()">Guardar</button>
-        </div>
-      </div>
-    </div>
-  </article>
+              </div>
+              <button class="orders-modal__product__btn-delete" (click)="deleteProduct(item)">
+                <i class="fas fa-trash"></i>
+              </button>
+            </article>
+          </div>
+          <div class="orders-placed__buttons">
+            <button class="general-btn" [routerLink]="['/catalogo']">Añadir más productos</button>
+            <button class="general-btn" (click)="saveEditedOrder()">Guardar</button>
+          </div>
+        </div> -->
+         </div>
+      </article>
+   </div>
 </div>
-</div>
-
