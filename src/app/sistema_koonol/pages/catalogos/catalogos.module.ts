@@ -26,6 +26,7 @@ import { WebcamModule } from 'ngx-webcam';
 import { VisitaClienteComponent } from './visita-cliente/visita-cliente.component';
 import { CobranzaComponent } from './cobranza/cobranza.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { VisitasComponent } from './visitas/visitas.component';
 
 
 
@@ -46,7 +47,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     SearchFamComponent,
     OrdenesDeCompraComponent,
     VisitaClienteComponent,
-    CobranzaComponent
+    CobranzaComponent,
+    VisitasComponent
   ],
   imports: [
     CommonModule,

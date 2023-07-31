@@ -35,7 +35,7 @@
               <div class="media-content">
                 <h1 class="titulo title mb-1">{{ articulo.articulo }}</h1>
                 <h2 class="subtitle mb-0 mt-1">{{ articulo.familia}}</h2>
-                <span class="mb-0">
+                <span class="ml-4 m-2">
                   <b>
                     E ( <span style="color: rgb(7, 190, 7)">{{articulo.existencia}}</span> )
                     P ( <span style="color: rgb(238, 238, 109)">{{articulo.pedidos}}</span> )
@@ -43,7 +43,7 @@
                   </b>
                 </span>
                 <br>
-                <span><b>Unidad</b> {{articulo.medida}}</span>
+                <span><b>Unidad: </b> {{articulo.medida}}</span>
               </div>
               <a data-toggle="tooltip" title="Editar" class="editar-link" (click)="editarArt(articulo.id_existencia)" style="font-size:18px;color: var(--color-terciario)"><i class="fa fa-pencil-square-o " aria-hidden="true"></i></a>
             </div>
