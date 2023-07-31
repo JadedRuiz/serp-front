@@ -34,7 +34,7 @@
                 </option>
               </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <label class="label-label" for="inputAlmacen">Almacen</label>
               <select type="text" class="form-control" title="alamacen" name="alamacen" placeholder="..."
                 [(ngModel)]="item.id_almacen">
@@ -43,11 +43,20 @@
                 </option>
               </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <label class="label-label" for="inputFamilia">Medidas</label>
               <select type="text" class="form-control" title="medida" name="medida" placeholder="..."
                 [(ngModel)]="item.id_medida">
                 <option name="medida" value={{medida.id_medida}} *ngFor="let medida of medidas">
+                  {{medida.medida_compuesto}}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <label class="label-label" for="inputFamilia">Sat</label>
+              <select type="text" class="form-control" title="medida" name="medida" placeholder="..."
+                [(ngModel)]="item.id_medida">
+                <option name="medida" value={{medida.medida_compuesto}} *ngFor="let medida of medidas">
                   {{medida.medida_compuesto}}
                 </option>
               </select>
