@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   trigger,
   style,
@@ -33,7 +33,7 @@ import * as $ from 'jquery';
     ]),
   ],
 })
-export class BaseLoggedComponent {
+export class BaseLoggedComponent implements OnInit {
   //#region [Variables globales]
   column_size = 'is-10';
   show_menu = true;
@@ -46,12 +46,12 @@ export class BaseLoggedComponent {
   public perfil = '';
   //#endregion
 
-  tamañoPantalla: any;
+  clickFueraHabilitado: boolean = false
   ngOnInit() {
-    this.tamañoPantalla = window.screen.width;
-    if (this.tamañoPantalla < 768) {
+    if (window.screen.width < 768) {
       $('.chiller-theme').removeClass('toggled');
       this.bandMenu = false;
+      this.clickFueraHabilitado = true
     }
   }
 
@@ -63,10 +63,8 @@ export class BaseLoggedComponent {
     console.log('cosito', cosito);
 
     // if (!hamburguesa.contains(cosito) && this.bandMenu == true) {
-    console.log(this.bandMenu);
     $('.chiller-theme').removeClass('toggled');
     this.bandMenu = false;
-    console.log(this.bandMenu);
     // } else {
     //   event.stopPropagation();
     // }
