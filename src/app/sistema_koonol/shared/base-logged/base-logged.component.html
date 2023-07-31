@@ -116,7 +116,7 @@
       </a>
       </div>
   </nav>
-  <main class="page-content" (click)="clickFuera($event)">
+  <main class="page-content" (click)="bandMenu && clickFueraHabilitado ? clickFuera($event) : null">
       <div class="container-fluid">
         <router-outlet></router-outlet>
       </div>
