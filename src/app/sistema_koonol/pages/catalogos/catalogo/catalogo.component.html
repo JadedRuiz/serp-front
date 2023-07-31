@@ -9,12 +9,13 @@
       <input type="text" class="search-input col-10 col-md-3" placeholder="Productos" [(ngModel)]="searchTitle">
       <input type="text" class="search-input col-10 col-md-3" placeholder="Familia" [(ngModel)]="searchFam">
       <button type="button" class="b search-btn" (click)="buscar()" data-toggle="tooltip" title="Buscar" >BUSCAR</button>
-      <button type="button" class="b add-btn" (click)="addProducto() "data-toggle="tooltip" title="Agregar producto" >AGREGAR PRODUCTO</button>
+      <button type="button" class="b add-btn" (click)="addProducto() "data-toggle="tooltip" title="HUevos Perro" >AGREGAR PRODUCTO</button>
     </div>
 
     <div class="text-center" *ngIf="resultsNotFound" style="  color:red; font-size: 40px;">No se encontraron resultados.
     </div>
     <hr />
+
 
 
     <div class="cards">
@@ -37,7 +38,7 @@
                 <span class="mb-0">
                   <b>
                     E ( <span style="color: rgb(7, 190, 7)">{{articulo.existencia}}</span> )
-                    P ( <span style="color: rgb(187, 187, 19)">{{articulo.pedidos}}</span> )
+                    P ( <span style="color: rgb(238, 238, 109)">{{articulo.pedidos}}</span> )
                     D ( <span style="color: rgb(255, 0, 0)">{{articulo.disponible}}</span> )
                   </b>
                 </span>
