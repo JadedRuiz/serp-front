@@ -46,7 +46,8 @@
                         <h3 class="subtitle col-12">Datos</h3>
                         <div class="client__data-form__section1 col-12 col-md-6">
                             <div>
-                                <label for="cliente">Cliente</label>
+                                <label for="cliente">Cliente <span class="obligatorio"
+                                        title="Este es un campo obligatorio">*</span> </label>
                                 <input class="form-control form-label" type="text" name="cliente" id="cliente" required
                                     [(ngModel)]="client.cliente" />
                             </div>
@@ -144,7 +145,8 @@
                                     [(ngModel)]="address.descripcion" />
                             </div>
                             <div>
-                                <label for="calle">Calle</label>
+                                <label for="calle">Calle <span class="obligatorio"
+                                        title="Este es un campo obligatorio">*</span></label>
                                 <input class="form-control form-label" type="text" name="calle" id="calle" required
                                     [(ngModel)]="address.calle" />
                             </div>
@@ -198,15 +200,20 @@
                                     [(ngModel)]="address.estado" />
                             </div>
                             <div>
-                                <label for="longitud">Longitud</label>
+                                <label for="longitud">Longitud <i *ngIf="address.longitud" class="fa fa-info-circle"
+                                        title="El valor por defecto que incluye este campo proviene de tu ubicación actual."></i></label>
                                 <input class="form-control form-label" type="text" name="longitud" id="longitud"
                                     [(ngModel)]="address.longitud" />
                             </div>
                             <div>
-                                <label for="latitud">Latitud</label>
+                                <label for="latitud">Latitud <i *ngIf="address.latitud" class="fa fa-info-circle"
+                                        title="El valor por defecto que incluye este campo proviene de tu ubicación actual."></i></label>
                                 <input class="form-control form-label" type="text" name="latitud" id="latitud"
                                     [(ngModel)]="address.latitud" />
                             </div>
+                            <span class="upload-photo" (click)="togglePhotosModal()">
+                                Añadirle fotos al cliente
+                            </span>
                         </div>
                         <div class="w-100 d-flex flex-column align-items-center p-3 mt-3 border rounded">
                             <h5 class="subtitle">Escoger localización</h5>
@@ -311,7 +318,8 @@
                                 <div class="ng-autocomplete">
                                     <input class="form-control" type="text" placeholder="Busca un vendedor"
                                         aria-label="Buscar vendedor" aria-describedby="button-addon2"
-                                        [formControl]="searchSellerControl" (focus)="onFocusSellerSearch()" [(ngModel)]="selectedSeller.vendedor"/>
+                                        [formControl]="searchSellerControl" (focus)="onFocusSellerSearch()"
+                                        [(ngModel)]="selectedSeller.vendedor" />
                                     <div class="search-loader w-100" *ngIf="loaderSeller; else sellersReady">
                                         <i class="fa fa-spinner fa-pulse"></i>
                                     </div>
@@ -441,6 +449,58 @@
                         Agregar dirección
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA SUBIR FOTOS DE UNA DIRECCIÓN DEL CLIENTE -->
+    <div class="client-modal" *ngIf="extraModal">
+        <div class="client-modal__extra">
+            <button class="client-modal__close icon-btn" (click)="togglePhotosModal()">
+                <i i class="fa fa-times"></i>
+            </button>
+            <!-- TÍTULO -->
+            <h3 class="extras-title title">Añadir fotos al cliente {{selectedClient.cliente}}</h3>
+
+            <!-- CUERPO DEL MODAL -->
+            <div class="client-modal__extra-container mt-3">
+                <!-- IMAGEN PRINCIPAL -->
+                <div class="client-modal__extra-image">
+                    <img src="../../../../../assets/img/Placeholder1.png" alt="placeholder"
+                        *ngIf="uploadedImages.length == 0">
+                    <img [src]="mainImage" alt="imagen principal" *ngIf="uploadedImages.length !== 0">
+                </div>
+                <!-- SELECTOR DE IMÁGENES -->
+                <div class="client-modal__extra-images-selector">
+                    <div class="client-modal__extra-images" *ngFor="let image of uploadedImages; let i = index"
+                        (click)="displayImage(i)">
+                        <img [src]="image" alt="imagen miniatura">
+                    </div>
+                </div>
+                <div class="d-flex flex-column">
+                    <!-- BOTÓN PARA AÑADIR FOTO -->
+                    <button class="search-btn" (click)="uploadImage()">Subir imagen</button>
+                    <!-- BOTÓN PARA TOMAR FOTO -->
+                    <button class="add-btn mt-3" (click)="openWebcam()">Tomar foto</button>
+                </div>
+                <!-- WEBCAM -->
+                <div *ngIf="takingPhoto" class="webcam">
+                    <button class="webcam-close icon-btn" (click)="closeWebcam()">
+                        <i i class="fa fa-times"></i>
+                    </button>
+                    <webcam [trigger]="triggerObservable" (imageCapture)="pushPhoto($event)"></webcam>
+                    <button class="icon-btn webcam-btn" (click)="capturePhoto()"><i class="fa fa-camera"></i></button>
+                </div>
+            </div>
+
+            <!-- SECCIÓN DE BOTONES -->
+            <div class="client-modal__buttons">
+                <button class="danger-btn" (click)="togglePhotosModal()">
+                    Cancelar
+                </button>
+                <button class="general-btn" (click)="savePhotos()">
+                    Guardar
+                </button>
             </div>
         </div>
     </div>

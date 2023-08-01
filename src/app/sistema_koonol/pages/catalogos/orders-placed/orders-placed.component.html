@@ -9,7 +9,7 @@
                      <h3 class="subtitle mb-3"> <b>{{pedido.cliente}}</b> </h3>
                      <div class="orders-placed__order__section1--subsection2">
                         <p id="folio"><b>FOLIO: </b> <span
-                              (click)="seleccionarPedido(pedido.id_pedido)"><b>000{{pedido.folio}}</b></span>
+                              (click)="seleccionarPedido(pedido.id_pedido)"><b>{{pedido.folio}}</b></span>
                         </p>
                      </div>
                      <div class="hijo">
@@ -49,7 +49,7 @@
                   <i class="fa fa-times"></i>
                </button>
                <!-- TÍTULO -->
-               <h2 class="title text-center mt-4">Pedido #000{{pedidoSeleccionado.folio}} </h2>
+               <h2 class="title text-center mt-4">Pedido {{pedidoSeleccionado.id_pedido}} </h2>
 
                <!-- CUERPO DEL MODAL -->
                <div class="d-flex flex-column justify-content-start w-100 mb-3">

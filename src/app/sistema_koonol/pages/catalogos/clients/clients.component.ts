@@ -6,10 +6,12 @@ import { Route } from 'src/app/models/routes.model';
 import { ClientsService } from 'src/app/services/clients/clients.service';
 import { RoutesService } from 'src/app/services/routes/routes.service';
 import { GeolocationService } from '../maps/services';
-import { Subscription, debounceTime } from 'rxjs';
+import { Observable, Subject, Subscription, debounceTime } from 'rxjs';
 import Swal from 'sweetalert2';
 import { VendedoresService } from 'src/app/services/vendedores/vendedores.service';
 import { Vendedor } from 'src/app/models/vendedor.model';
+import { DataUrl, NgxImageCompressService, UploadResponse } from 'ngx-image-compress';
+import { WebcamImage } from 'ngx-webcam';
 
 @Component({
   selector: 'app-clients',
@@ -29,7 +31,8 @@ export class ClientsComponent {
     private clientService: ClientsService,
     private routesService: RoutesService,
     private vendedorService: VendedoresService,
-    private geolocationService: GeolocationService
+    private geolocationService: GeolocationService,
+    private imageCompress: NgxImageCompressService
   ) { }
 
   ngOnInit() {
@@ -189,7 +192,7 @@ export class ClientsComponent {
       this.searchSellerSubscription.unsubscribe();
       this.client.id_vendedor = this.selectedSeller.id_vendedor
       console.log("client ::>", this.client);
-      
+
       // console.log("Estás seleccionando un cliente: ", this.searchClientSubscription);
     } else {
       return;
@@ -458,5 +461,100 @@ export class ClientsComponent {
     this.addressSelected = new Address(
       0, this.selectedClient.id_cliente, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1)
     this.addAddressVisibility = true
+  }
+
+  //MODAL PARA AÑADIR FOTOS AL CLIENTE Y PARA AÑADIRLE UNA UBICACIÓN
+  extraModal: boolean = false;
+  ubicacionVendedor: any;
+  imageCount: number = 0;
+  uploadedImages: any[] = [];
+  imageAfterResize: any;
+  mainImage: any;
+  takingPhoto: boolean = false;
+  private trigger: Subject<void> = new Subject<void>();
+  public triggerObservable: Observable<void> = this.trigger.asObservable();
+
+  //FUNCIÓN PARA ABRIR MODAL PARA AÑADIR FOTOS AL CLIENTE
+  togglePhotosModal() {
+    this.extraModal = !this.extraModal;
+    this.uploadedImages = [];
+    this.takingPhoto = false
+  }
+
+  //Función para subir fotografía desde el dispositivo
+  uploadImage() {
+    if (this.imageCount >= 4) {
+      alert('Solo se pueden subir un máximo de 4 imágenes');
+      return;
+    }
+
+    return this.imageCompress
+      .uploadFile()
+      .then(({ image, orientation }: UploadResponse) => {
+        // console.warn('Tamaño Inicial:', this.imageCompress.byteCount(image));
+        if (this.imageCompress.byteCount(image) > 5 * 1024 * 1024) {
+          alert('El tamaño de la imagen excede el límite de 5 MB');
+          return;
+        }
+
+        //    console.warn('comprimida y redimensionada a 400x');
+        this.imageCompress
+          .compressFile(image, orientation, 40, 40, 400, 400)
+          .then((result: DataUrl) => {
+            //let image = result.slice(22)
+            console.log('image', image);
+            this.uploadedImages.push(result);
+            this.imageCount++;
+            console.warn('FINAL:', this.imageCompress.byteCount(result));
+            console.log(this.uploadedImages);
+            this.displayImage(this.uploadedImages.length - 1);
+          });
+      });
+  }
+
+  //Fucnión para abrir la cámara
+  openWebcam() {
+    if (this.imageCount >= 4) {
+      alert('Solo se pueden subir un máximo de 4 imágenes');
+      return;
+    }
+    this.takingPhoto = true;
+  }
+
+  //Función para cerrar la cámara
+  closeWebcam() {
+    this.takingPhoto = false
+    console.log("hola");
+  }
+
+  //Función para tomar la fotografía
+  capturePhoto() {
+    this.trigger.next()
+  }
+
+  //Función para comprimir las fotografías que se toman
+  async compressImage(image: any) {
+    return await this.imageCompress.compressFile(image, -1, 50, 50); // Ajusta el nivel de compresión aquí
+  }
+
+  //Función para mandar la fotografía al array de fotos subidas y mostrarla
+  async pushPhoto(imagen: WebcamImage) {
+    console.warn("Tamaño antes", this.imageCompress.byteCount(imagen.imageAsDataUrl))
+    await this.compressImage(imagen.imageAsDataUrl).then((result: DataUrl) => {
+      this.uploadedImages.push(result);
+      this.imageCount++;
+      this.mainImage = result;
+      this.takingPhoto = false;
+      console.warn("Tamaño después", this.imageCompress.byteCount(result))
+    })
+  }
+
+  //Fucnión para alternar la fotografía principal
+  displayImage(index: number) {
+    this.mainImage = this.uploadedImages[index];
+  }
+
+  savePhotos() {
+
   }
 }

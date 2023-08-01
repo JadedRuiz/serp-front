@@ -56,9 +56,10 @@ export const DATE_FORMATS = {
 export class OrdersCartModalComponent implements OnInit {
 
   //DESPUÉS VENDRÁ DESDE ALGO QUE HARÁ JADED
+  dataStorage:any = JSON.parse(localStorage.getItem('dataPage')!)
   miComprador = 1;
   vendedor = 0;
-  miToken = '';
+  miToken = this.dataStorage.token;
   miPefil = 'ADMINISTRADOR';
   miUsuario = 1;
 
@@ -95,6 +96,8 @@ export class OrdersCartModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(localStorage.getItem('dataPage'))
+    console.log(this.miToken)
     this.formatter = new Intl.NumberFormat('en-NZ', {
       currency: 'NZD',
       minimumFractionDigits: 2,
