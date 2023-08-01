@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,6 +12,12 @@ export class VisitaClienteComponent {
 
   //Ubicacion var
   ubicacionVendedor : any ;
+
+constructor(
+  private router: Router,
+
+){}
+
 
 
   guardarUbi(){
