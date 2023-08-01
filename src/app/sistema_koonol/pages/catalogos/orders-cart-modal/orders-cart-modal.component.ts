@@ -56,7 +56,7 @@ export const DATE_FORMATS = {
 export class OrdersCartModalComponent implements OnInit {
 
   //DESPUÉS VENDRÁ DESDE ALGO QUE HARÁ JADED
-  dataStorage:any = JSON.parse(localStorage.getItem('dataPage')!)
+  dataStorage: any = JSON.parse(localStorage.getItem('dataPage')!)
   miComprador = 1;
   vendedor = 0;
   miToken = this.dataStorage.token;
@@ -165,7 +165,8 @@ export class OrdersCartModalComponent implements OnInit {
     0,
     this.miUsuario,
     1,
-    0
+    0,
+    []
   );
 
   isClientSelected: boolean = false;

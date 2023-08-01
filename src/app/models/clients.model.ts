@@ -1,3 +1,5 @@
+import { Foto } from "./fotografias.model";
+
 export class Client {
     constructor(
         public id_cliente_direccion: number,
@@ -19,5 +21,6 @@ export class Client {
         public id_usuario: number,
         public activo: number,
         public id_vendedor: number,
+        public fotos: Foto[]
     ) { }
 }
