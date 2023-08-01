@@ -83,8 +83,7 @@ export class ClientsComponent {
       0,
       0,
       1,
-      0,
-      []
+      0
    );
 
    //DIRECCIÓN QUE SE UTILIZARÁ AL CREAR UN CLIENTE NUEVO
@@ -106,7 +105,8 @@ export class ClientsComponent {
       '',
       this.long,
       this.lat,
-      1
+      1,
+      []
    );
 
    //VARIABLE PARA DEFINIR LA SECCIÓN ACTUAL DE LAS TABS
@@ -141,6 +141,7 @@ export class ClientsComponent {
    obtenerRutas() {
       this.routesService.obtenerRutas().subscribe(objeto => this.routes = objeto.data)
    }
+
    //Autocomplete Vendedor
    searchSellerControl: FormControl = new FormControl();
    searchSellerSubscription: Subscription = new Subscription();
@@ -301,13 +302,13 @@ export class ClientsComponent {
    //SECCIÓN PARA MANEJAR LA BÚSQUEDA DE CLIENTES Y LOS CLIENTES FILTRADOS
    searchClient: string = '';
    autocompleteClients: Client[] = [];
-   selectedClient: Client = new Client(0, 0, 1, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 0, 0, 0, 0, 0, 0, 1, 0, []);
+   selectedClient: Client = new Client(0, 0, 1, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 0, 0, 0, 0, 0, 0, 1, 0);
    isClientSelected: boolean = false;
    addAddressVisibility: boolean = false;
    searchList: boolean = false;
    loader: boolean = false
    noClients: boolean = false
-   addressSelected: Address = new Address(0, 0, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1);
+   addressSelected: Address = new Address(0, 0, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1, []);
 
    //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE O RFC
    buscarCliente(value: string) {
@@ -326,6 +327,7 @@ export class ClientsComponent {
          this.clientService.obtenerClientes(json).subscribe(
             (resp) => {
                if (resp.ok) {
+                  console.log("hey", resp);
                   this.clients = resp.data
                   this.autocompleteClients = this.clients.filter((client) =>
                      client.cliente.toLowerCase().includes(value.toLowerCase()) ||
@@ -362,13 +364,25 @@ export class ClientsComponent {
 
    //FUNCIÓN PARA SELECCIONAR LA DIRECCIÓN A EDITAR
    editarDireccion(id_cliente_direccion: number) {
-      this.addressSelected = this.addresses.filter(
+      let json = {
+         id_cliente_direccion: id_cliente_direccion,
+         id_comprador: this.miComprador,
+         cliente: '',
+         token: this.miToken,
+      }
+      this.addressSelected = this.addresses.find(
          (address) => address.id_cliente_direccion == id_cliente_direccion
-      )[0];
+      )!;
       this.addAddressVisibility = true;
-      this.uploadedImages = this.selectedClient.fotos
-      console.log('this.selectedClient', this.selectedClient);
-      console.log('this.uploadedImages :>> ', this.uploadedImages);
+      this.clientService.obtenerClientes(json).subscribe(resp => {
+         
+      })
+      if (this.addressSelected.fotos.length > 0) {
+         this.uploadedImages = []
+         this.addressSelected.fotos.forEach((objetoFoto) => {
+            this.uploadedImages.push(objetoFoto.fotografia)
+         })
+      }
    }
 
    //FUNCIÓN PARA DESHABILITAR LA VISTA DE CUANDO SE ESTÁ AÑADIENDO O EDITANDO UNA DIRECCIÓN Y REGRESAMOS A LA PÁGINA DE AÑADIR CLIENTE
@@ -398,8 +412,7 @@ export class ClientsComponent {
          0,
          0,
          1,
-         0,
-         []
+         0
       );
       this.addressSelected = new Address(
          0,
@@ -419,7 +432,9 @@ export class ClientsComponent {
          '',
          '',
          '',
-         1)
+         1,
+         []
+      )
 
       this.isClientSelected = false;
       this.tab(1);
@@ -448,8 +463,7 @@ export class ClientsComponent {
          0,
          0,
          1,
-         0,
-         []
+         0
       );
       this.address = new Address(
          0,
@@ -469,7 +483,8 @@ export class ClientsComponent {
          '',
          this.long,
          this.lat,
-         1
+         1,
+         []
       )
       this.uploadedImages = []
    }
@@ -478,7 +493,7 @@ export class ClientsComponent {
    createAddress() {
       this.uploadedImages = []
       this.addressSelected = new Address(
-         0, this.selectedClient.id_cliente, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1)
+         0, this.selectedClient.id_cliente, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1, [])
       this.addAddressVisibility = true
    }
 

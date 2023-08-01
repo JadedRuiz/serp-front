@@ -165,8 +165,7 @@ export class OrdersCartModalComponent implements OnInit {
     0,
     this.miUsuario,
     1,
-    0,
-    []
+    0
   );
 
   isClientSelected: boolean = false;
@@ -188,7 +187,8 @@ export class OrdersCartModalComponent implements OnInit {
     '',
     '',
     '',
-    1
+    1,
+    []
   );
 
   //Autocomplete Vendedor
