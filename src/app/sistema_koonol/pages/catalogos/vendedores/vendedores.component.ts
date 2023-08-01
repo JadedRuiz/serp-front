@@ -59,7 +59,7 @@ status: boolean = false;
             title: 'Error',
             text: 'Ha ocurrido un error',
           });
-          console.log(response.message);
+          //console.log(response.message);
         }
       },
       (error) => {

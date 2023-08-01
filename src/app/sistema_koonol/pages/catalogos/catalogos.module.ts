@@ -27,6 +27,8 @@ import { VisitaClienteComponent } from './visita-cliente/visita-cliente.componen
 import { CobranzaComponent } from './cobranza/cobranza.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { VisitasComponent } from './visitas/visitas.component';
+import { DatePipe } from '@angular/common';
+
 
 
 
@@ -62,7 +64,8 @@ import { VisitasComponent } from './visitas/visitas.component';
     NgxPaginationModule
   ],
   providers: [
-    NgxImageCompressService
+    NgxImageCompressService,
+    DatePipe
   ],
 
 })

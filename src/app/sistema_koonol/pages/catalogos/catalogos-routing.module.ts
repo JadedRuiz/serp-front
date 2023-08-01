@@ -65,6 +65,10 @@ const routes: Routes = [
     component: VisitasComponent
   },
   {
+    path: 'nueva-visita',
+    component: VisitaClienteComponent
+  },
+  {
     path: 'cobranza',
     component: CobranzaComponent
   }

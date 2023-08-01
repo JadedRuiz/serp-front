@@ -1,1 +1,43 @@
-<p>visitas works!</p>
+<div class="container-fluid">
+  <div class="container">
+    <h1 class="title text-center">Visitas <hr> {{vendedorActual}}</h1>
+
+    <!-- Barra de búsqueda -->
+    <form class="form-inline justify-content-center ">
+      <div class="">
+        <input type="text" class="form-control" placeholder="cliente...">
+      </div>
+      <button type="submit" class="ml-1 general-btn">Buscar</button>
+    </form>
+
+    <!-- Botón para agregar nuevas visitas -->
+    <div class="row justify-content-end fixed-bottom mb-4 mr-4">
+      <div class="col-auto">
+        <button class="btn btn-success btn-lg rounded-circle" (click)="nuevaVisita()" title="Agregar nueva visita">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mostrar visitas en tarjetas -->
+    <div class="row mt-4">
+      <div class="col-md-6" *ngFor="let visita of visitas">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row mb-2">
+              <h3 class="card-title col">Cliente: <b>{{ visita.cliente }}</b></h3>
+            </div>
+            <p class="card-text"><b>Fecha visita: </b>{{ visita.fecha_visita }}</p>
+            <p class="card-text"><b>Contacto:</b> {{ visita.contacto }}</p>
+            <p class="card-text"><b>Notas:</b> {{ visita.notas }}</p>
+            <div class="row mt-2">
+              <p class="card-text col" >Siguiente visita:<b> {{ formatearFecha(visita.fecha_siguiente_visita) }}</b></p>
+            </div>
+          </div>
+          <a type="button" class="col-3 btn btn-primary btn-sm m-1">Detalles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
