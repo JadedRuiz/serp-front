@@ -9,8 +9,8 @@ export class VisitasDTO {
       public contacto: string,
       public notas: string,
       public cancelado: number,
-      public longitud: string,
-      public latitud: string,
       public fecha_siguiente_visita: string,
+      public longitud?: any,
+      public latitud?: any,
       ){}
 }
