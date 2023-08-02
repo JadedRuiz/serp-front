@@ -14,8 +14,36 @@ export class VisitasService {
 
   constructor(private http: HttpClient) { }
 
+
+  //=> Constultar visitas
   consultarVisitas(json:any):Observable<any>{
     return this.http.post<any>(SERV_VISITAS +'visitas/consultarVisitas',json)
   }
+
+//=> Guardar Visitas
+agregarVisitas(visita: VisitasDTO){
+  return this.http.post<any>(SERV_VISITAS +'visitas/guardarVisita',visita).pipe(
+    map((resp: any) => {
+      if (resp.ok) {
+        console.log('service', resp.data);
+        Swal.fire('Exito al crear la visita', '', 'success');
+        return resp.data;
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Error',
+          text: resp.message || 'Ha ocurrido un error'
+        });
+        return throwError(resp);
+      }
+    }),
+    catchError(err => {
+      Swal.fire('Error al crear la visita', err.error.message, 'error');
+      return throwError(err);
+    })
+  );
+}
+
 
 }
