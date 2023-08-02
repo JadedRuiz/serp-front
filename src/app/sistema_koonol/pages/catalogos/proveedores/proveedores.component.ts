@@ -62,7 +62,7 @@ export class ProveedoresComponent {
   loader: boolean = false;
   modalVisibility: boolean = false;
   noProveedor: boolean = false;
-  domicilio: Address = new Address(0, 1, 0, '', '', '', '', '', '', '', 0, '', '', '', '', '', '', 1)
+  domicilio: Address = new Address(0, 1, 0, '', '', '', '', '', '', '', 0, '', '', '', '', '', '', 1, [])
   proveedor: Proveedor = new Proveedor(0, 1, '012354SDSDS01', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, this.domicilio);
 
 
@@ -127,7 +127,7 @@ export class ProveedoresComponent {
   }
 
   prueba() {
-    this.domicilio = new Address(0, 1, 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '', 0)
+    this.domicilio = new Address(0, 1, 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '', 0, [])
     this.proveedor = new Proveedor(0, 1, '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, this.domicilio);
     this.editarProveedor();
     this.isProveedorSelected = false;
@@ -171,7 +171,8 @@ export class ProveedoresComponent {
           element.estado,
           element.longitud = "longitud",
           element.latitud = "latitud",
-          1
+          1,
+          element.fotos
         )
       ))
     })

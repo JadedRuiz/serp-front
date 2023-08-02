@@ -1,3 +1,5 @@
+import { Foto } from "./fotografias.model";
+
 export class Address {
     constructor(
         public id_cliente_direccion: number,
@@ -18,5 +20,6 @@ export class Address {
         public longitud: string,
         public latitud: string,
         public activo: number,
+        public fotos: Foto[]
     ) {}
 }

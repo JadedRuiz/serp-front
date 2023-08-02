@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, forkJoin, map, throwError } from 'rxjs';
 import { Address } from 'src/app/models/addresses.model';
 import { Client } from 'src/app/models/clients.model';
+import { Foto } from 'src/app/models/fotografias.model';
 import { SERV_ADDRESSES, SERV_CLIENTS } from 'src/config/config';
 import Swal from 'sweetalert2';
 
@@ -45,9 +46,12 @@ export class ClientsService {
 
     return this.http.post(url, cliente)
       .pipe(map((resp: any) => {
-        console.log(resp);
-        Swal.fire('Cliente creado exitosamente', '', 'success')
-        return resp.data
+        if (resp.ok) {
+          Swal.fire('Cliente creado exitosamente', '', 'success')
+          return resp.data
+        } else {
+          Swal.fire('Error al crear el cliente', resp.message, 'error');
+        }
       }), catchError(err => {
         Swal.fire("Ha ocurrido un error", err.error.message, 'error');
         return throwError(err);
@@ -61,7 +65,7 @@ export class ClientsService {
     return this.http.post(url, direccion)
       .pipe(map((resp: any) => {
         Swal.fire('Dirección editada exitosamente', '', 'success')
-        return resp;
+        return resp.data;
       }), catchError(err => {
         Swal.fire("Ha ocurrido un error", err.error.message, 'error');
         return throwError(err);
@@ -82,4 +86,28 @@ export class ClientsService {
       }));
   }
 
+  guardarFotosDireccion(id_cliente_direccion: number, fotos: any[]) {
+    let url = "https://serp-inventarios.serteza.com/public/api/clientes/guardarFotografia"
+
+    const observables = fotos.map((foto: string) => {
+      let foto_base64 = foto.slice(22);
+      console.log(foto_base64);
+      const parametros = {
+        id_cliente_fotografia: 0,
+        id_comprador: 1,
+        id_cliente_direccion: id_cliente_direccion,
+        id_fotografia: 0,
+        token: "012354SDSDS01",
+        foto_base64: foto_base64,
+        extencion: "JPG"
+      }
+      return this.http.post(url, parametros).pipe(
+        map((resp: any) => {
+          console.log('Foto Guardada', resp);
+          return resp.data
+        })
+      );
+    });
+    return forkJoin(observables);
+  }
 }

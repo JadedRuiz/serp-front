@@ -12,359 +12,59 @@ import { VendedoresService } from 'src/app/services/vendedores/vendedores.servic
 import { Vendedor } from 'src/app/models/vendedor.model';
 import { DataUrl, NgxImageCompressService, UploadResponse } from 'ngx-image-compress';
 import { WebcamImage } from 'ngx-webcam';
+import { Foto } from 'src/app/models/fotografias.model';
 
 @Component({
-  selector: 'app-clients',
-  templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.scss'],
+   selector: 'app-clients',
+   templateUrl: './clients.component.html',
+   styleUrls: ['./clients.component.scss'],
 })
 
 export class ClientsComponent {
-  //miComprador = window.sessionStorage["comprador_gl"];
-  miComprador = 1;
-  miToken = '';
-  miPefil = 'ADMINISTRADOR';
-  miUsuario = 1;
-  searchClientControl: FormControl = new FormControl();
+   //miComprador = window.sessionStorage["comprador_gl"];
+   miComprador = 1;
+   miToken = '';
+   miPefil = 'ADMINISTRADOR';
+   miUsuario = 1;
+   searchClientControl: FormControl = new FormControl();
 
-  constructor(
-    private clientService: ClientsService,
-    private routesService: RoutesService,
-    private vendedorService: VendedoresService,
-    private geolocationService: GeolocationService,
-    private imageCompress: NgxImageCompressService
-  ) { }
+   constructor(
+      private clientService: ClientsService,
+      private routesService: RoutesService,
+      private vendedorService: VendedoresService,
+      private geolocationService: GeolocationService,
+      private imageCompress: NgxImageCompressService
+   ) { }
 
-  ngOnInit() {
-    this.obtenerRutas()
-    this.geolocationService.getUserLocation()
-      .then(resp => {
-        this.coords = resp
-        this.long = this.coords[0].toString()
-        this.lat = this.coords[1].toString()
-        this.address.longitud = this.long
-        this.address.latitud = this.lat
-      })
-    this.searchClientControl.valueChanges
-      .pipe(debounceTime(500))
-      .subscribe((value) => {
-        this.buscarCliente(value);
-      });
-  }
+   ngOnInit() {
+      this.obtenerRutas()
+      this.geolocationService.getUserLocation()
+         .then(resp => {
+            this.coords = resp
+            this.long = this.coords[0].toString()
+            this.lat = this.coords[1].toString()
+            this.address.longitud = this.long
+            this.address.latitud = this.lat
+         })
+      this.searchClientControl.valueChanges
+         .pipe(debounceTime(500))
+         .subscribe((value) => {
+            this.buscarCliente(value);
+         });
+   }
 
-  //VARIABLES PARA CADA LLAMADA A LA API
-  clients: Client[] = [];
-  addresses: Address[] = [];
-  sellers: Vendedor[] = [];
-  selectedSeller: Vendedor = new Vendedor(0, 0, '', '', 0, 0);
-  routes: Route[] = []
-  coords: [number, number] = [0, 0]
-  long: string = ''
-  lat: string = ''
+   //VARIABLES PARA CADA LLAMADA A LA API
+   clients: Client[] = [];
+   addresses: Address[] = [];
+   sellers: Vendedor[] = [];
+   selectedSeller: Vendedor = new Vendedor(0, 0, '', '', 0, 0);
+   routes: Route[] = []
+   coords: [number, number] = [0, 0]
+   long: string = ''
+   lat: string = ''
 
-  //CLIENTE QUE SE UTILIZARÁ AL CREAR UNO NUEVO
-  client: Client = new Client(
-    0,
-    0,
-    1,
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1,
-    0
-  );
-
-  //DIRECCIÓN QUE SE UTILIZARÁ AL CREAR UN CLIENTE NUEVO
-  address: Address = new Address(
-    0,
-    0,
-    0,
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    0,
-    '',
-    '',
-    '',
-    '',
-    this.long,
-    this.lat,
-    1
-  );
-
-  //VARIABLE PARA DEFINIR LA SECCIÓN ACTUAL DE LAS TABS
-  section: number = 1;
-
-  //FUNCIÓN PARA ALTERNAR ENTRE TABS Y RESETEAR LA TAB ACTUAL EN CIERTOS CASOS
-  tab(section: number) {
-    if (section === 1) {
-      this.section = 1;
-    } else if (section === 2) {
-      this.section = 2;
-    }
-  }
-
-  //LLAMADA A LAS DIRECCIONES DE UN CLIENTE EN ESPECIAL
-  obtenerDireccion(id_cliente: number) {
-    this.clientService.obtenerDirecciones(id_cliente).subscribe(
-      (response) => {
-        if (response.ok) {
-          this.addresses = response.data;
-        } else {
-          console.log('Ocurrió un error', response.message);
-        }
-      },
-      (error) => {
-        console.log('Error de conexión', error);
-      }
-    );
-  }
-
-  //LLAMADA A LAS RUTAS PARA EL SELECT
-  obtenerRutas() {
-    this.routesService.obtenerRutas().subscribe(objeto => this.routes = objeto.data)
-  }
-  //Autocomplete Vendedor
-  searchSellerControl: FormControl = new FormControl();
-  searchSellerSubscription: Subscription = new Subscription();
-  searchListSeller: boolean = false;
-  loaderSeller: boolean = false;
-  autocompleteSellers: Vendedor[] = [];
-  isSellerSelected: boolean = false;
-
-  //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE
-  buscarVendedor(value: string) {
-    let json = {
-      id_vendedor: 0,
-      id_comprador: 1,
-      vendedor: '',
-      solo_activos: 1,
-      token: '012354SDSDS01',
-    };
-    if (value.length <= 3) {
-      this.autocompleteSellers = [];
-      this.searchListSeller = false;
-    } else if (!this.searchSellerSubscription.closed) {
-      this.loaderSeller = true;
-      this.searchListSeller = true;
-      this.vendedorService.obtenerVendedores(json).subscribe(
-        (resp) => {
-          if (resp.ok) {
-            this.sellers = resp.data;
-            this.autocompleteSellers = this.sellers.filter((seller) =>
-              seller.vendedor.toLowerCase().includes(value.toLowerCase())
-            );
-            this.loaderSeller = false;
-          }
-        },
-        (err) => {
-          console.log(err);
-          this.loaderSeller = false;
-        }
-      );
-    }
-  }
-
-  //FUNCIÓN PARA ESCOGER UN VENDEDOR
-  seleccionarVendedor(id_vendedor: number) {
-    if (id_vendedor) {
-      this.selectedSeller = this.autocompleteSellers.find(
-        (aSeller) => aSeller.id_vendedor === id_vendedor
-      )!;
-      this.searchSellerControl.setValue(this.selectedSeller.vendedor);
-      this.isSellerSelected = true;
-      this.searchListSeller = false;
-      this.searchSellerSubscription.unsubscribe();
-      this.client.id_vendedor = this.selectedSeller.id_vendedor
-      console.log("client ::>", this.client);
-
-      // console.log("Estás seleccionando un cliente: ", this.searchClientSubscription);
-    } else {
-      return;
-    }
-  }
-
-  //Función para que al dar clic en el input nos suscribamos a los cambios del mismo
-  onFocusSellerSearch() {
-    this.searchSellerSubscription = this.searchSellerControl.valueChanges
-      .pipe(debounceTime(500))
-      .subscribe((value) => {
-        this.buscarVendedor(value);
-      });
-  }
-
-  //FUNCIÓN PARA MANEJAR SI UN CLIENTE SE GUARDARÁ O SE EDITARÁ
-  guardarCliente(clientForm: NgForm) {
-    if (clientForm.invalid) {
-      return;
-    }
-    if (this.selectedClient) {
-      Swal.fire({
-        title: '¿Quieres GUARDAR los cambios?',
-        showDenyButton: true,
-        confirmButtonText: 'SI',
-        denyButtonText: `NO`,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.clientService
-            .editarCliente(
-              this.selectedClient.id_cliente,
-              this.selectedClient
-            )
-            .subscribe((objeto) => { })
-        }
-      })
-    } else {
-      this.clientService.agregarCliente(this.client).subscribe((objeto) => {
-        this.address.id_cliente = objeto.id_cliente;
-        this.guardarDireccion(clientForm);
-        this.resetClientAddress()
-        this.tab(1)
-      });
-    }
-  }
-
-  //FUNCIÓN PARA EDITAR UNA DIRECCIÓN, AÑADIR UNA DIRECCIÓN A UN CLIENTE EN ESPECÍFICO O CREARLA JUNTO A UN CLIENTE NUEVO
-  guardarDireccion(addressForm: NgForm) {
-    if (addressForm.invalid) {
-      return;
-    }
-    //PARA EDITAR UNA DIRECCIÓN
-    if (this.addressSelected.id_cliente && this.addressSelected.id_direccion) {
-      Swal.fire({
-        title: '¿Quieres GUARDAR los cambios?',
-        showDenyButton: true,
-        confirmButtonText: 'SI',
-        denyButtonText: `NO`,
-      }).then((result) => {
-
-        if (result.isConfirmed) {
-          this.clientService
-            .editarDireccion(
-              this.addressSelected.id_direccion,
-              this.addressSelected
-            )
-            .subscribe((objeto) => {
-              this.clientService.obtenerDirecciones(this.addressSelected.id_cliente)
-              this.obtenerDireccion(this.addressSelected.id_cliente)
-            }
-            );
-          this.offAddAddressVisibility();
-        }
-      })
-    }
-    //PARA AGREGAR UNA DIRECCIÓN A UN CLIENTE YA EXISTENTE
-    else if (this.addressSelected.id_cliente) {
-      this.clientService
-        .agregarDireccion(this.addressSelected)
-        .subscribe((resp) => {
-          this.obtenerDireccion(this.addressSelected.id_cliente);
-        });
-      this.offAddAddressVisibility();
-    }
-    //PARA CREAR UNA DIRECCIÓN JUNTO A UN CLIENTE NUEVO
-    else {
-      this.clientService
-        .agregarDireccion(this.address)
-        .subscribe((resp) => {
-          console.log(resp);
-        });
-    }
-  }
-
-
-  //SECCIÓN PARA MANEJAR LA BÚSQUEDA DE CLIENTES Y LOS CLIENTES FILTRADOS
-  searchClient: string = '';
-  autocompleteClients: any[] = [];
-  selectedClient: Client = new Client(0, 0, 1, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 0, 0, 0, 0, 0, 0, 1, 0);
-  isClientSelected: boolean = false;
-  addAddressVisibility: boolean = false;
-  searchList: boolean = false;
-  loader: boolean = false
-  noClients: boolean = false
-  addressSelected: Address = new Address(0, 0, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1);
-
-  //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE O RFC
-  buscarCliente(value: string) {
-    let json = {
-      id_cliente: 0,
-      id_comprador: this.miComprador,
-      cliente: '',
-      token: this.miToken,
-    }
-    if (value.length <= 3) {
-      this.autocompleteClients = [];
-      this.searchList = false;
-    } else {
-      this.loader = true
-      this.searchList = true;
-      this.clientService.obtenerClientes(json).subscribe(
-        (resp) => {
-          if (resp.ok) {
-            this.clients = resp.data
-            this.autocompleteClients = this.clients.filter((client) =>
-              client.cliente.toLowerCase().includes(value.toLowerCase()) ||
-              client.rfc?.toLowerCase().includes(value.toLowerCase())
-            );
-            this.loader = false
-          }
-        },
-        (err) => {
-          console.log(err)
-          this.loader = false
-        }
-      );
-    }
-  }
-
-  //FUNCIÓN PARA ESCOGER UN CLIENTE Y GUARDAR SU ID EN addressSelected
-  seleccionarCliente(id_cliente: number) {
-    if (id_cliente) {
-      this.selectedClient = this.autocompleteClients.find(
-        (aclient) => aclient.id_cliente === id_cliente
-      );
-      this.isClientSelected = true;
-      this.obtenerDireccion(id_cliente);
-      this.searchList = false;
-      this.addressSelected.id_cliente = id_cliente;
-      this.tab(1);
-    } else {
-      return;
-    }
-  }
-
-  //FUNCIÓN PARA SELECCIONAR LA DIRECCIÓN A EDITAR
-  editarDireccion(id_cliente_direccion: number) {
-    this.addressSelected = this.addresses.filter(
-      (address) => address.id_cliente_direccion == id_cliente_direccion
-    )[0];
-    this.addAddressVisibility = true;
-  }
-
-  //FUNCIÓN PARA DESHABILITAR LA VISTA DE CUANDO SE ESTÁ AÑADIENDO O EDITANDO UNA DIRECCIÓN Y REGRESAMOS A LA PÁGINA DE AÑADIR CLIENTE
-  offAddAddressVisibility() {
-    this.addAddressVisibility = false
-  }
-
-
-  //FUNCIÓN QUE SE UTILIZA PARA AÑADIR UN CLIENTE CUANDO YA ESTAMOS DENTRO DE UN CLIENTE ESPECÍFICO
-  addClient() {
-    this.selectedClient = new Client(
+   //CLIENTE QUE SE UTILIZARÁ AL CREAR UNO NUEVO
+   client: Client = new Client(
       0,
       0,
       1,
@@ -384,57 +84,10 @@ export class ClientsComponent {
       0,
       1,
       0
-    );
-    this.addressSelected = new Address(
-      0,
-      0,
-      0,
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      0,
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      1)
+   );
 
-    this.isClientSelected = false;
-    this.tab(1);
-    this.offAddAddressVisibility();
-    this.resetClientAddress()
-    this.searchClientControl.reset()
-  }
-
-  resetClientAddress() {
-    this.client = new Client(
-      0,
-      0,
-      1,
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      1,
-      0
-    );
-    this.address = new Address(
+   //DIRECCIÓN QUE SE UTILIZARÁ AL CREAR UN CLIENTE NUEVO
+   address: Address = new Address(
       0,
       0,
       0,
@@ -452,109 +105,490 @@ export class ClientsComponent {
       '',
       this.long,
       this.lat,
-      1
-    )
-  }
+      1,
+      []
+   );
 
-  //FUNCIÓN PARA QUE AL QUERER AÑADIR UNA DIRECCIÓN A UN CLIENTE EXISTENTE, SE PASE EL ID DEL MISMO Y SE ABRA EL FORM
-  createAddress() {
-    this.addressSelected = new Address(
-      0, this.selectedClient.id_cliente, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1)
-    this.addAddressVisibility = true
-  }
+   //VARIABLE PARA DEFINIR LA SECCIÓN ACTUAL DE LAS TABS
+   section: number = 1;
 
-  //MODAL PARA AÑADIR FOTOS AL CLIENTE Y PARA AÑADIRLE UNA UBICACIÓN
-  extraModal: boolean = false;
-  ubicacionVendedor: any;
-  imageCount: number = 0;
-  uploadedImages: any[] = [];
-  imageAfterResize: any;
-  mainImage: any;
-  takingPhoto: boolean = false;
-  private trigger: Subject<void> = new Subject<void>();
-  public triggerObservable: Observable<void> = this.trigger.asObservable();
+   //FUNCIÓN PARA ALTERNAR ENTRE TABS Y RESETEAR LA TAB ACTUAL EN CIERTOS CASOS
+   tab(section: number) {
+      if (section === 1) {
+         this.section = 1;
+      } else if (section === 2) {
+         this.section = 2;
+      }
+   }
 
-  //FUNCIÓN PARA ABRIR MODAL PARA AÑADIR FOTOS AL CLIENTE
-  togglePhotosModal() {
-    this.extraModal = !this.extraModal;
-    this.uploadedImages = [];
-    this.takingPhoto = false
-  }
+   //LLAMADA A LAS DIRECCIONES DE UN CLIENTE EN ESPECIAL
+   obtenerDireccion(id_cliente: number) {
+      this.clientService.obtenerDirecciones(id_cliente).subscribe(
+         (response) => {
+            if (response.ok) {
+               this.addresses = response.data;
+            } else {
+               console.log('Ocurrió un error', response.message);
+            }
+         },
+         (error) => {
+            console.log('Error de conexión', error);
+         }
+      );
+   }
 
-  //Función para subir fotografía desde el dispositivo
-  uploadImage() {
-    if (this.imageCount >= 4) {
-      alert('Solo se pueden subir un máximo de 4 imágenes');
-      return;
-    }
+   //LLAMADA A LAS RUTAS PARA EL SELECT
+   obtenerRutas() {
+      this.routesService.obtenerRutas().subscribe(objeto => this.routes = objeto.data)
+   }
 
-    return this.imageCompress
-      .uploadFile()
-      .then(({ image, orientation }: UploadResponse) => {
-        // console.warn('Tamaño Inicial:', this.imageCompress.byteCount(image));
-        if (this.imageCompress.byteCount(image) > 5 * 1024 * 1024) {
-          alert('El tamaño de la imagen excede el límite de 5 MB');
-          return;
-        }
+   //Autocomplete Vendedor
+   searchSellerControl: FormControl = new FormControl();
+   searchSellerSubscription: Subscription = new Subscription();
+   searchListSeller: boolean = false;
+   loaderSeller: boolean = false;
+   autocompleteSellers: Vendedor[] = [];
+   isSellerSelected: boolean = false;
 
-        //    console.warn('comprimida y redimensionada a 400x');
-        this.imageCompress
-          .compressFile(image, orientation, 40, 40, 400, 400)
-          .then((result: DataUrl) => {
-            //let image = result.slice(22)
-            console.log('image', image);
-            this.uploadedImages.push(result);
-            this.imageCount++;
-            console.warn('FINAL:', this.imageCompress.byteCount(result));
-            console.log(this.uploadedImages);
-            this.displayImage(this.uploadedImages.length - 1);
-          });
-      });
-  }
+   //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE
+   buscarVendedor(value: string) {
+      let json = {
+         id_vendedor: 0,
+         id_comprador: 1,
+         vendedor: '',
+         solo_activos: 1,
+         token: '012354SDSDS01',
+      };
+      if (value.length <= 3) {
+         this.autocompleteSellers = [];
+         this.searchListSeller = false;
+      } else if (!this.searchSellerSubscription.closed) {
+         this.loaderSeller = true;
+         this.searchListSeller = true;
+         this.vendedorService.obtenerVendedores(json).subscribe(
+            (resp) => {
+               if (resp.ok) {
+                  this.sellers = resp.data;
+                  this.autocompleteSellers = this.sellers.filter((seller) =>
+                     seller.vendedor.toLowerCase().includes(value.toLowerCase())
+                  );
+                  this.loaderSeller = false;
+               }
+            },
+            (err) => {
+               console.log(err);
+               this.loaderSeller = false;
+            }
+         );
+      }
+   }
 
-  //Fucnión para abrir la cámara
-  openWebcam() {
-    if (this.imageCount >= 4) {
-      alert('Solo se pueden subir un máximo de 4 imágenes');
-      return;
-    }
-    this.takingPhoto = true;
-  }
+   //FUNCIÓN PARA ESCOGER UN VENDEDOR
+   seleccionarVendedor(id_vendedor: number) {
+      if (id_vendedor) {
+         this.selectedSeller = this.autocompleteSellers.find(
+            (aSeller) => aSeller.id_vendedor === id_vendedor
+         )!;
+         this.searchSellerControl.setValue(this.selectedSeller.vendedor);
+         this.isSellerSelected = true;
+         this.searchListSeller = false;
+         this.searchSellerSubscription.unsubscribe();
+         this.client.id_vendedor = this.selectedSeller.id_vendedor
+         console.log("client ::>", this.client);
 
-  //Función para cerrar la cámara
-  closeWebcam() {
-    this.takingPhoto = false
-    console.log("hola");
-  }
+         // console.log("Estás seleccionando un cliente: ", this.searchClientSubscription);
+      } else {
+         return;
+      }
+   }
 
-  //Función para tomar la fotografía
-  capturePhoto() {
-    this.trigger.next()
-  }
+   //Función para que al dar clic en el input nos suscribamos a los cambios del mismo
+   onFocusSellerSearch() {
+      this.searchSellerSubscription = this.searchSellerControl.valueChanges
+         .pipe(debounceTime(500))
+         .subscribe((value) => {
+            this.buscarVendedor(value);
+         });
+   }
 
-  //Función para comprimir las fotografías que se toman
-  async compressImage(image: any) {
-    return await this.imageCompress.compressFile(image, -1, 50, 50); // Ajusta el nivel de compresión aquí
-  }
+   //FUNCIÓN PARA MANEJAR SI UN CLIENTE SE GUARDARÁ O SE EDITARÁ
+   async guardarCliente(clientForm: NgForm) {
+      if (clientForm.invalid) {
+         return;
+      }
+      if (this.selectedClient.id_cliente !== 0) {
+         Swal.fire({
+            title: '¿Quieres GUARDAR los cambios?',
+            showDenyButton: true,
+            confirmButtonText: 'SI',
+            denyButtonText: `NO`,
+         }).then((result) => {
+            if (result.isConfirmed) {
+               this.clientService
+                  .editarCliente(
+                     this.selectedClient.id_cliente,
+                     this.selectedClient
+                  )
+                  .subscribe((objeto) => { })
+            }
+         })
+      } else {
+         this.clientService.agregarCliente(this.client).subscribe((objeto) => {
+            this.address.id_cliente = objeto.id_cliente;
+            this.guardarDireccion(clientForm).then(() => {
+               this.resetClientAddress();
+               this.tab(1);
+            });
+         });
+      }
+   }
 
-  //Función para mandar la fotografía al array de fotos subidas y mostrarla
-  async pushPhoto(imagen: WebcamImage) {
-    console.warn("Tamaño antes", this.imageCompress.byteCount(imagen.imageAsDataUrl))
-    await this.compressImage(imagen.imageAsDataUrl).then((result: DataUrl) => {
-      this.uploadedImages.push(result);
-      this.imageCount++;
-      this.mainImage = result;
-      this.takingPhoto = false;
-      console.warn("Tamaño después", this.imageCompress.byteCount(result))
-    })
-  }
+   //FUNCIÓN PARA EDITAR UNA DIRECCIÓN, AÑADIR UNA DIRECCIÓN A UN CLIENTE EN ESPECÍFICO O CREARLA JUNTO A UN CLIENTE NUEVO
+   async guardarDireccion(addressForm: NgForm) {
+      if (addressForm.invalid) {
+         return;
+      }
+      //PARA EDITAR UNA DIRECCIÓN
+      if (this.addressSelected.id_cliente && this.addressSelected.id_direccion) {
+         Swal.fire({
+            title: '¿Quieres GUARDAR los cambios?',
+            showDenyButton: true,
+            confirmButtonText: 'SI',
+            denyButtonText: `NO`,
+         }).then((result) => {
+            if (result.isConfirmed) {
+               this.clientService
+                  .editarDireccion(
+                     this.addressSelected.id_direccion,
+                     this.addressSelected
+                  ).subscribe((resp) => {
+                     this.addressSelected.id_cliente_direccion = resp.id_cliente_direccion;
+                     this.obtenerDireccion(this.addressSelected.id_cliente);
+                     if (this.uploadedImages.length > 0) {
+                        this.savePhotos(this.addressSelected.id_cliente_direccion, this.uploadedImages)
+                     };
+                  }
+                  );
+               this.offAddAddressVisibility();
+            }
+         })
+      }
+      //PARA AGREGAR UNA DIRECCIÓN A UN CLIENTE YA EXISTENTE
+      else if (this.addressSelected.id_cliente) {
+         this.clientService
+            .agregarDireccion(this.addressSelected)
+            .subscribe((resp) => {
+               this.addressSelected.id_cliente_direccion = resp.id_cliente_direccion;
+               this.obtenerDireccion(this.addressSelected.id_cliente);
+               if (this.uploadedImages.length > 0) {
+                  this.savePhotos(this.addressSelected.id_cliente_direccion, this.uploadedImages)
+               }
+            });
+         this.offAddAddressVisibility();
+      }
+      //PARA CREAR UNA DIRECCIÓN JUNTO A UN CLIENTE NUEVO
+      else {
+         this.clientService
+            .agregarDireccion(this.address)
+            .subscribe((resp) => {
+               this.address.id_cliente_direccion = resp.id_cliente_direccion;
+               if (this.uploadedImages.length > 0) {
+                  this.savePhotos(this.address.id_cliente_direccion, this.uploadedImages)
+               }
+            });
+      }
+   }
 
-  //Fucnión para alternar la fotografía principal
-  displayImage(index: number) {
-    this.mainImage = this.uploadedImages[index];
-  }
+   //SECCIÓN PARA MANEJAR LA BÚSQUEDA DE CLIENTES Y LOS CLIENTES FILTRADOS
+   searchClient: string = '';
+   autocompleteClients: Client[] = [];
+   selectedClient: Client = new Client(0, 0, 1, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 0, 0, 0, 0, 0, 0, 1, 0);
+   isClientSelected: boolean = false;
+   addAddressVisibility: boolean = false;
+   searchList: boolean = false;
+   loader: boolean = false
+   noClients: boolean = false
+   addressSelected: Address = new Address(0, 0, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1, []);
 
-  savePhotos() {
+   //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE O RFC
+   buscarCliente(value: string) {
+      let json = {
+         id_cliente: 0,
+         id_comprador: this.miComprador,
+         cliente: '',
+         token: this.miToken,
+      }
+      if (value.length <= 3) {
+         this.autocompleteClients = [];
+         this.searchList = false;
+      } else {
+         this.loader = true
+         this.searchList = true;
+         this.clientService.obtenerClientes(json).subscribe(
+            (resp) => {
+               if (resp.ok) {
+                  console.log("hey", resp);
+                  this.clients = resp.data
+                  this.autocompleteClients = this.clients.filter((client) =>
+                     client.cliente.toLowerCase().includes(value.toLowerCase()) ||
+                     client.rfc?.toLowerCase().includes(value.toLowerCase())
+                  );
+                  this.loader = false
+               }
+            },
+            (err) => {
+               console.log(err)
+               this.loader = false
+            }
+         );
+      }
+   }
 
-  }
+   //FUNCIÓN PARA ESCOGER UN CLIENTE Y GUARDAR SU ID EN addressSelected
+   seleccionarCliente(id_cliente: number) {
+      if (id_cliente) {
+         console.log('this.autocompleteClients :>> ', this.autocompleteClients);
+         this.selectedClient = this.autocompleteClients.find(
+            (aclient) => aclient.id_cliente === id_cliente
+         )!;
+         console.log('this.selectedClient :>> ', this.selectedClient);
+         this.isClientSelected = true;
+         this.obtenerDireccion(id_cliente);
+         this.searchList = false;
+         this.addressSelected.id_cliente = id_cliente;
+         this.tab(1);
+      } else {
+         return;
+      }
+   }
+
+   //FUNCIÓN PARA SELECCIONAR LA DIRECCIÓN A EDITAR
+   editarDireccion(id_cliente_direccion: number) {
+      let json = {
+         id_cliente_direccion: id_cliente_direccion,
+         id_comprador: this.miComprador,
+         cliente: '',
+         token: this.miToken,
+      }
+      this.addressSelected = this.addresses.find(
+         (address) => address.id_cliente_direccion == id_cliente_direccion
+      )!;
+      this.addAddressVisibility = true;
+      this.clientService.obtenerClientes(json).subscribe(resp => {
+         
+      })
+      if (this.addressSelected.fotos.length > 0) {
+         this.uploadedImages = []
+         this.addressSelected.fotos.forEach((objetoFoto) => {
+            this.uploadedImages.push(objetoFoto.fotografia)
+         })
+      }
+   }
+
+   //FUNCIÓN PARA DESHABILITAR LA VISTA DE CUANDO SE ESTÁ AÑADIENDO O EDITANDO UNA DIRECCIÓN Y REGRESAMOS A LA PÁGINA DE AÑADIR CLIENTE
+   offAddAddressVisibility() {
+      this.addAddressVisibility = false
+   }
+
+
+   //FUNCIÓN QUE SE UTILIZA PARA AÑADIR UN CLIENTE CUANDO YA ESTAMOS DENTRO DE UN CLIENTE ESPECÍFICO
+   addClient() {
+      this.selectedClient = new Client(
+         0,
+         0,
+         1,
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         1,
+         0
+      );
+      this.addressSelected = new Address(
+         0,
+         0,
+         0,
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         0,
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         1,
+         []
+      )
+
+      this.isClientSelected = false;
+      this.tab(1);
+      this.offAddAddressVisibility();
+      this.resetClientAddress()
+      this.searchClientControl.reset()
+   }
+
+   resetClientAddress() {
+      this.client = new Client(
+         0,
+         0,
+         1,
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         1,
+         0
+      );
+      this.address = new Address(
+         0,
+         0,
+         0,
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         0,
+         '',
+         '',
+         '',
+         '',
+         this.long,
+         this.lat,
+         1,
+         []
+      )
+      this.uploadedImages = []
+   }
+
+   //FUNCIÓN PARA QUE AL QUERER AÑADIR UNA DIRECCIÓN A UN CLIENTE EXISTENTE, SE PASE EL ID DEL MISMO Y SE ABRA EL FORM
+   createAddress() {
+      this.uploadedImages = []
+      this.addressSelected = new Address(
+         0, this.selectedClient.id_cliente, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1, [])
+      this.addAddressVisibility = true
+   }
+
+   //MODAL PARA AÑADIR FOTOS AL CLIENTE Y PARA AÑADIRLE UNA UBICACIÓN
+   extraModal: boolean = false;
+   ubicacionVendedor: any;
+   imageCount: number = 0;
+   uploadedImages: any[] = [];
+   imageAfterResize: any;
+   mainImage: any;
+   takingPhoto: boolean = false;
+   private trigger: Subject<void> = new Subject<void>();
+   public triggerObservable: Observable<void> = this.trigger.asObservable();
+
+   //FUNCIÓN PARA ABRIR MODAL PARA AÑADIR FOTOS AL CLIENTE
+   togglePhotosModal() {
+      this.extraModal = !this.extraModal;
+      this.takingPhoto = false
+      console.log(this.uploadedImages);
+   }
+
+   //Función para subir fotografía desde el dispositivo
+   uploadImage() {
+      if (this.imageCount >= 4) {
+         alert('Solo se pueden subir un máximo de 4 imágenes');
+         return;
+      }
+
+      return this.imageCompress
+         .uploadFile()
+         .then(({ image, orientation }: UploadResponse) => {
+            // console.warn('Tamaño Inicial:', this.imageCompress.byteCount(image));
+            if (this.imageCompress.byteCount(image) > 5 * 1024 * 1024) {
+               alert('El tamaño de la imagen excede el límite de 5 MB');
+               return;
+            }
+
+            //    console.warn('comprimida y redimensionada a 400x');
+            this.imageCompress
+               .compressFile(image, orientation, 40, 40, 400, 400)
+               .then((result: DataUrl) => {
+                  //let image = result.slice(22)
+                  console.log('image', image);
+                  this.uploadedImages.push(result);
+                  this.imageCount++;
+                  console.warn('FINAL:', this.imageCompress.byteCount(result));
+                  console.log(this.uploadedImages);
+                  this.displayImage(this.uploadedImages.length - 1);
+               });
+         });
+   }
+
+   //Fucnión para abrir la cámara
+   openWebcam() {
+      if (this.imageCount >= 4) {
+         alert('Solo se pueden subir un máximo de 4 imágenes');
+         return;
+      }
+      this.takingPhoto = true;
+   }
+
+   //Función para cerrar la cámara
+   closeWebcam() {
+      this.takingPhoto = false
+      console.log("hola");
+   }
+
+   //Función para tomar la fotografía
+   capturePhoto() {
+      this.trigger.next()
+   }
+
+   //Función para comprimir las fotografías que se toman
+   async compressImage(image: any) {
+      return await this.imageCompress.compressFile(image, -1, 50, 50); // Ajusta el nivel de compresión aquí
+   }
+
+   //Función para mandar la fotografía al array de fotos subidas y mostrarla
+   async pushPhoto(imagen: WebcamImage) {
+      console.warn("Tamaño antes", this.imageCompress.byteCount(imagen.imageAsDataUrl))
+      await this.compressImage(imagen.imageAsDataUrl).then((result: DataUrl) => {
+         this.uploadedImages.push(result);
+         this.imageCount++;
+         this.mainImage = result;
+         this.takingPhoto = false;
+         console.warn("Tamaño después", this.imageCompress.byteCount(result))
+      })
+   }
+
+   //Fucnión para alternar la fotografía principal
+   displayImage(index: number) {
+      this.mainImage = this.uploadedImages[index];
+   }
+
+   async savePhotos(id_cliente_direccion: number, fotos: Foto[]) {
+      this.clientService.guardarFotosDireccion(id_cliente_direccion, fotos).subscribe()
+   }
 }

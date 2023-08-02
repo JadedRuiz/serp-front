@@ -211,9 +211,11 @@
                                 <input class="form-control form-label" type="text" name="latitud" id="latitud"
                                     [(ngModel)]="address.latitud" />
                             </div>
-                            <span class="upload-photo" (click)="togglePhotosModal()">
-                                Añadirle fotos al cliente
-                            </span>
+                            <div class="w100 d-flex justify-content-end mt-3">
+                                <span class="upload-photo" (click)="togglePhotosModal()">
+                                    Añadir fotos de la dirección
+                                </span>
+                            </div>
                         </div>
                         <div class="w-100 d-flex flex-column align-items-center p-3 mt-3 border rounded">
                             <h5 class="subtitle">Escoger localización</h5>
@@ -417,6 +419,11 @@
                                 <input class="form-control form-label" type="text" name="latitud" id="latitud"
                                     [defaultValue]="coords[1]" [(ngModel)]="addressSelected.latitud" />
                             </div>
+                            <div class="w100 d-flex justify-content-end mt-3">
+                                <span class="upload-photo" (click)="togglePhotosModal()">
+                                    Añadir fotos de la dirección
+                                </span>
+                            </div>
                         </div>
                         <div class="w-100 d-flex flex-column justify-content-center p-3 mt-3 border rounded">
                             <h5 class="subtitle">Escoger localización</h5>
@@ -460,7 +467,7 @@
                 <i i class="fa fa-times"></i>
             </button>
             <!-- TÍTULO -->
-            <h3 class="extras-title title">Añadir fotos al cliente {{selectedClient.cliente}}</h3>
+            <h3 class="extras-title title"> Añadir fotos de la dirección </h3>
 
             <!-- CUERPO DEL MODAL -->
             <div class="client-modal__extra-container mt-3">
@@ -477,11 +484,11 @@
                         <img [src]="image" alt="imagen miniatura">
                     </div>
                 </div>
-                <div class="d-flex flex-column">
+                <div class="upload-buttons">
                     <!-- BOTÓN PARA AÑADIR FOTO -->
                     <button class="search-btn" (click)="uploadImage()">Subir imagen</button>
                     <!-- BOTÓN PARA TOMAR FOTO -->
-                    <button class="add-btn mt-3" (click)="openWebcam()">Tomar foto</button>
+                    <button class="add-btn" (click)="openWebcam()">Tomar foto</button>
                 </div>
                 <!-- WEBCAM -->
                 <div *ngIf="takingPhoto" class="webcam">
@@ -498,7 +505,7 @@
                 <button class="danger-btn" (click)="togglePhotosModal()">
                     Cancelar
                 </button>
-                <button class="general-btn" (click)="savePhotos()">
+                <button class="general-btn" (click)="togglePhotosModal()">
                     Guardar
                 </button>
             </div>
