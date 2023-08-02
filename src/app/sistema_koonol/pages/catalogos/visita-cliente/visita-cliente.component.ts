@@ -37,7 +37,7 @@ constructor(
   clients:Client[]=[];
   searchClient: string = '';
   autocompleteClients: any[] = [];
-  selectedClient: Client = new Client(0, 0, 1, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 0, 0, 0, 0, 0, 0, 1, 0);
+  selectedClient: Client = new Client(0, 0, 1, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 0, 0, 0, 0, 0, 1, 0);
   searchClientSubscription: Subscription = new Subscription();
   isClientSelected: boolean = false;
   searchList: boolean = false;

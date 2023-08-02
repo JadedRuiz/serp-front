@@ -162,7 +162,6 @@ export class OrdersCartModalComponent implements OnInit {
     0,
     0,
     0,
-    0,
     this.miUsuario,
     1,
     0
@@ -170,6 +169,7 @@ export class OrdersCartModalComponent implements OnInit {
 
   isClientSelected: boolean = false;
   addressSelected: Address = new Address(
+    0,
     0,
     0,
     0,

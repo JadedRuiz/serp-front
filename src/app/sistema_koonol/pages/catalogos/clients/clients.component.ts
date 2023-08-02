@@ -81,13 +81,13 @@ export class ClientsComponent {
       0,
       0,
       0,
-      0,
       1,
       0
    );
 
    //DIRECCIÓN QUE SE UTILIZARÁ AL CREAR UN CLIENTE NUEVO
    address: Address = new Address(
+      0,
       0,
       0,
       0,
@@ -127,6 +127,7 @@ export class ClientsComponent {
          (response) => {
             if (response.ok) {
                this.addresses = response.data;
+               console.log('this.addresses :>> ', this.addresses);
             } else {
                console.log('Ocurrió un error', response.message);
             }
@@ -302,13 +303,13 @@ export class ClientsComponent {
    //SECCIÓN PARA MANEJAR LA BÚSQUEDA DE CLIENTES Y LOS CLIENTES FILTRADOS
    searchClient: string = '';
    autocompleteClients: Client[] = [];
-   selectedClient: Client = new Client(0, 0, 1, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 0, 0, 0, 0, 0, 0, 1, 0);
+   selectedClient: Client = new Client(0, 0, 1, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 0, 0, 0, 0, 0, 1, 0);
    isClientSelected: boolean = false;
    addAddressVisibility: boolean = false;
    searchList: boolean = false;
    loader: boolean = false
    noClients: boolean = false
-   addressSelected: Address = new Address(0, 0, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1, []);
+   addressSelected: Address = new Address(0, 0, 0, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1, []);
 
    //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE O RFC
    buscarCliente(value: string) {
@@ -347,15 +348,14 @@ export class ClientsComponent {
    //FUNCIÓN PARA ESCOGER UN CLIENTE Y GUARDAR SU ID EN addressSelected
    seleccionarCliente(id_cliente: number) {
       if (id_cliente) {
-         console.log('this.autocompleteClients :>> ', this.autocompleteClients);
          this.selectedClient = this.autocompleteClients.find(
             (aclient) => aclient.id_cliente === id_cliente
          )!;
-         console.log('this.selectedClient :>> ', this.selectedClient);
          this.isClientSelected = true;
          this.obtenerDireccion(id_cliente);
          this.searchList = false;
          this.addressSelected.id_cliente = id_cliente;
+         this.addAddressVisibility = false;
          this.tab(1);
       } else {
          return;
@@ -364,25 +364,20 @@ export class ClientsComponent {
 
    //FUNCIÓN PARA SELECCIONAR LA DIRECCIÓN A EDITAR
    editarDireccion(id_cliente_direccion: number) {
-      let json = {
-         id_cliente_direccion: id_cliente_direccion,
-         id_comprador: this.miComprador,
-         cliente: '',
-         token: this.miToken,
-      }
-      this.addressSelected = this.addresses.find(
-         (address) => address.id_cliente_direccion == id_cliente_direccion
-      )!;
+      this.clientService.obtenerDirecciones(0, id_cliente_direccion).subscribe(resp => {
+         console.log('resp :>> ', resp);
+         this.addressSelected = resp.data[0]
+         console.log("hey w", this.addressSelected);
+         if (this.addressSelected.fotos.length > 0) {
+            console.log('this.addressSelected :>>', this.addressSelected);
+            this.uploadedImages = []
+            this.addressSelected.fotos.forEach((objetoFoto) => {
+               console.log(objetoFoto.fotografia);
+               this.uploadedImages.push(objetoFoto.fotografia)
+            })
+         }
+      });
       this.addAddressVisibility = true;
-      this.clientService.obtenerClientes(json).subscribe(resp => {
-         
-      })
-      if (this.addressSelected.fotos.length > 0) {
-         this.uploadedImages = []
-         this.addressSelected.fotos.forEach((objetoFoto) => {
-            this.uploadedImages.push(objetoFoto.fotografia)
-         })
-      }
    }
 
    //FUNCIÓN PARA DESHABILITAR LA VISTA DE CUANDO SE ESTÁ AÑADIENDO O EDITANDO UNA DIRECCIÓN Y REGRESAMOS A LA PÁGINA DE AÑADIR CLIENTE
@@ -410,11 +405,11 @@ export class ClientsComponent {
          0,
          0,
          0,
-         0,
          1,
          0
       );
       this.addressSelected = new Address(
+         0,
          0,
          0,
          0,
@@ -461,11 +456,11 @@ export class ClientsComponent {
          0,
          0,
          0,
-         0,
          1,
          0
       );
       this.address = new Address(
+         0,
          0,
          0,
          0,
@@ -493,8 +488,15 @@ export class ClientsComponent {
    createAddress() {
       this.uploadedImages = []
       this.addressSelected = new Address(
-         0, this.selectedClient.id_cliente, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1, [])
+         0, this.selectedClient.id_cliente, 0, 0, '', '', '', '', '', '', '', 0, '', '', '', '', this.long, this.lat, 1, [])
       this.addAddressVisibility = true
+   }
+
+   //FUNCIÓN PARA VER LAS FOTOS DE UNA DIRECCIÓN
+   photosVisibility: boolean = false
+
+   verFotosDireccion(id_cliente_direccion: number) {
+      this.photosVisibility = !this.photosVisibility
    }
 
    //MODAL PARA AÑADIR FOTOS AL CLIENTE Y PARA AÑADIRLE UNA UBICACIÓN

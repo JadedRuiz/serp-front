@@ -17,9 +17,10 @@ export class ClientsService {
     return this.http.post<any>(SERV_CLIENTS, json);
   }
 
-  obtenerDirecciones(id_cliente: number): Observable<any> {
+  obtenerDirecciones(id_cliente: number, id_cliente_direccion?: number): Observable<any> {
     const parametros = {
       id_cliente: id_cliente,
+      id_cliente_direccion: id_cliente_direccion || 0,
       id_comprador: 1,
       cliente: '',
       token: '012354SDSDS01'

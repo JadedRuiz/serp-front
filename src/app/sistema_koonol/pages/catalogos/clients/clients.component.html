@@ -94,16 +94,6 @@
                                     [(ngModel)]="client.descuento3" />
                             </div>
                             <div>
-                                <label class="label-label" for="ruta">Seleccionar Ruta</label>
-                                <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..."
-                                    required [(ngModel)]="client.id_ruta">
-                                    <option name="familia" value={{route.id_ruta}} *ngFor="let route of routes">
-                                        {{route.ruta}}
-                                    </option>
-                                </select>
-                            </div>
-
-                            <div>
                                 <label>
                                     Vendedor asignado:
                                 </label>
@@ -176,6 +166,15 @@
                                 <label for="codigo_postal">Código Postal</label>
                                 <input class="form-control form-label" type="text" name="codigo_postal"
                                     id="codigo_postal" [(ngModel)]="address.codigo_postal" />
+                            </div>
+                            <div>
+                                <label class="label-label" for="ruta">Seleccionar Ruta</label>
+                                <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..."
+                                    required [(ngModel)]="address.id_ruta">
+                                    <option name="familia" value={{route.id_ruta}} *ngFor="let route of routes">
+                                        {{route.ruta}}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="client__address-form__section2 col-12 col-md-6">
@@ -254,7 +253,7 @@
                 <!-- FORMULARIO PARA DATOS DE CLIENTE -->
                 <div class="client__data-form row" [class.active]="section === 1">
                     <h3 class="subtitle">Datos</h3>
-                    <form class="w-100 form-address row" #editClientForm="ngForm"
+                    <form class="w-100 form-address row justify-content-center" #editClientForm="ngForm"
                         (ngSubmit)="guardarCliente(editClientForm)">
                         <div class="client__data-form__section1 col-12 col-md-6">
                             <div>
@@ -305,15 +304,6 @@
                                     [(ngModel)]="selectedClient.descuento3" />
                             </div>
                             <div>
-                                <label class="label-label" for="ruta">Seleccionar Ruta</label>
-                                <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..."
-                                    required [(ngModel)]="selectedClient.id_ruta">
-                                    <option name="familia" value={{route.id_ruta}} *ngFor="let route of routes">
-                                        {{route.ruta}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div>
                                 <label>
                                     Vendedor asignado:
                                 </label>
@@ -347,7 +337,7 @@
                 <!-- FORMULARIO PARA EDITAR O CREAR DIRECCION -->
                 <div class="client__address-form row" [class.active]="section === 2" *ngIf="addAddressVisibility">
                     <h3 class="subtitle">Crear dirección</h3>
-                    <form class="w-100 from-address row" #addressForm="ngForm"
+                    <form class="w-100 form-address" #addressForm="ngForm"
                         (ngSubmit)="guardarDireccion(addressForm)">
                         <div class="client__address-form__section1 col-12 col-md-6">
                             <div>
@@ -386,6 +376,15 @@
                                 <label for="codigo_postal">Código Postal</label>
                                 <input class="form-control form-label" type="text" name="codigo_postal"
                                     id="codigo_postal" [(ngModel)]="addressSelected.codigo_postal" />
+                            </div>
+                            <div>
+                                <label class="label-label" for="ruta">Seleccionar Ruta</label>
+                                <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..."
+                                    required [(ngModel)]="addressSelected.id_ruta">
+                                    <option name="familia" value={{route.id_ruta}} *ngFor="let route of routes">
+                                        {{route.ruta}}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="client__address-form__section2 col-12 col-md-6">
@@ -449,10 +448,11 @@
                     <ul class="client__addresses-list">
                         <li *ngFor="let address of addresses">
                             <span>{{ address.direccion }}</span>
-                            <i class="bi bi-pencil-square" (click)="editarDireccion(address.id_cliente_direccion)"></i>
+                            <i class="fa fa-picture-o" title="Ver fotos de dirección" (click)="verFotosDireccion(address.id_cliente_direccion)"></i>
+                            <i class="bi bi-pencil-square" title="Editar dirección" (click)="editarDireccion(address.id_cliente_direccion)"></i>
                         </li>
                     </ul>
-                    <button class="general-btn align-self-end" (click)="createAddress()">
+                    <button class="general-btn align-self-end mt-auto" (click)="createAddress()">
                         Agregar dirección
                     </button>
                 </div>

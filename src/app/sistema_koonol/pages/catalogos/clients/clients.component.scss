@@ -64,6 +64,14 @@
             color: grey;
         }
 
+        .form-address {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+
         .client__form-tabs {
             display: flex;
             flex-direction: column;
@@ -146,6 +154,7 @@
             }
 
             .client__addresses {
+                height: 480px;
 
                 &.active {
                     display: flex;
@@ -155,7 +164,7 @@
                 .client__addresses-list {
                     padding: 0 10px 10px 10px;
                     border-top: 1px solid rgb(0, 0, 0, 0.2);
-                    max-height: 365px;
+                    max-height: 355px;
                     overflow-y: auto;
 
                     li {
