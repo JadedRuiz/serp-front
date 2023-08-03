@@ -3,12 +3,12 @@
     <h1 class="title text-center">Visitas <hr> {{vendedorActual}}</h1>
 
     <!-- Barra de búsqueda -->
-    <form class="form-inline justify-content-center "(ngSubmit)="obtenerVisitas()">
-      <div class="row">
+    <form class="form-inline  "(ngSubmit)="obtenerVisitas()">
+      <div class=" mb-2 row">
         <div class="col-md-6 form-group">
           <div class="d-flex flex-column">
-          <label for="cliente">Buscar cliente</label>
-            <input class="search-input" type="text" placeholder="cliente / RFC" aria-label="Buscar cliente"
+          <label for="cliente">Cliente</label>
+            <input class="search-input" type="text" placeholder="Nombre / RFC" aria-label="Buscar cliente"
                 title="Buscar cliente" aria-describedby="button-addon2" [formControl]="searchClientControl" (focus)="onFocusClientSearch()" />
             <div class="search-loader w-100" *ngIf="loader; else clientsReady">
                 <i class="fa fa-spinner fa-pulse"></i>
@@ -24,20 +24,23 @@
                     </li>
                 </ul>
             </ng-template>
+          </div>
+        </div>
+
+        <div class="row ml-2">
+          <div class="input-sm col-6 col-md-4 form-group">
+            <label for="fechaSiguienteVisita">Fechas</label>
+            <input type="date" class="form-control" name="fechaInicio"[(ngModel)]="fechaInicio">
+          </div>
+          <div class="input-sm col-6 col-md-4 form-group">
+            <label for="fechaSiguienteVisita"></label>
+            <input type="date" class="form-control" name="fechaFinal"[(ngModel)]="fechaFinal">
+          </div>
+          <div class="col col-md-4">
+            <button type="submit" class="mt-2 ml-1 search-btn">Buscar</button>
+          </div>
         </div>
         </div>
-      </div>
-      <button type="submit" class="mt-2 ml-1 search-btn">Buscar</button>
-      <div class="row">
-        <div class="input-sm col-6 col-md-6 form-group">
-          <label for="fechaSiguienteVisita"></label>
-          <input type="date" class="form-control" name="fechaInicio"[(ngModel)]="fechaInicio">
-        </div>
-        <div class="input-sm col-6 col-md-6 form-group">
-          <label for="fechaSiguienteVisita"></label>
-          <input type="date" class="form-control" name="fechaFinal"[(ngModel)]="fechaFinal">
-        </div>
-      </div>
     </form>
 
     <!-- Botón para agregar nuevas visitas -->
@@ -65,8 +68,8 @@
             </div>
           </div>
           <div class="col d-flex justify-content-center mb-2">
-            <a type="button" class="general-btn m-1"data-toggle="modal" data-target="#editarModal"
-            title="Editar Visita"(click)="abrirModalEditar(visita)">Editar visita</a>
+            <button type="button" class="general-btn m-1"data-toggle="modal" data-target="#editarModal"
+            title="Editar Visita"(click)="abrirModalEditar(visita)">Editar visita</button>
           </div>
         </div>
       </div>
