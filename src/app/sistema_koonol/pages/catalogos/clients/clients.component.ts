@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { Address } from 'src/app/models/addresses.model';
 import { Client } from 'src/app/models/clients.model';
@@ -237,7 +237,6 @@ export class ClientsComponent {
          this.clientService.agregarCliente(this.client).subscribe((objeto) => {
             this.address.id_cliente = objeto.id_cliente;
             this.guardarDireccion(clientForm).then(() => {
-               this.resetClientAddress();
                this.tab(1);
             });
          });
@@ -266,7 +265,10 @@ export class ClientsComponent {
                      this.addressSelected.id_cliente_direccion = resp.id_cliente_direccion;
                      this.obtenerDireccion(this.addressSelected.id_cliente);
                      if (this.uploadedImages.length > 0) {
-                        this.savePhotos(this.addressSelected.id_cliente_direccion, this.uploadedImages)
+                        this.savePhotos(this.addressSelected.id_cliente_direccion, this.uploadedImages).then(() => {
+                           this.obtenerDireccion(this.selectedClient.id_cliente)
+                           this.uploadedImages = []
+                        })
                      };
                   }
                   );
@@ -282,7 +284,10 @@ export class ClientsComponent {
                this.addressSelected.id_cliente_direccion = resp.id_cliente_direccion;
                this.obtenerDireccion(this.addressSelected.id_cliente);
                if (this.uploadedImages.length > 0) {
-                  this.savePhotos(this.addressSelected.id_cliente_direccion, this.uploadedImages)
+                  this.savePhotos(this.addressSelected.id_cliente_direccion, this.uploadedImages).then(() => {
+                     this.obtenerDireccion(this.selectedClient.id_cliente)
+                     this.uploadedImages = []
+                  })
                }
             });
          this.offAddAddressVisibility();
@@ -294,7 +299,10 @@ export class ClientsComponent {
             .subscribe((resp) => {
                this.address.id_cliente_direccion = resp.id_cliente_direccion;
                if (this.uploadedImages.length > 0) {
-                  this.savePhotos(this.address.id_cliente_direccion, this.uploadedImages)
+                  this.savePhotos(this.address.id_cliente_direccion, this.uploadedImages).then(() => {
+                     this.resetClientAddress();
+                     this.obtenerDireccion(this.selectedClient.id_cliente)
+                  })
                }
             });
       }
@@ -375,7 +383,7 @@ export class ClientsComponent {
                console.log(objetoFoto.fotografia);
                this.uploadedImages.push(objetoFoto.fotografia)
             })
-         }
+         } else { this.uploadedImages = [] }
       });
       this.addAddressVisibility = true;
    }
@@ -493,10 +501,16 @@ export class ClientsComponent {
    }
 
    //FUNCIÓN PARA VER LAS FOTOS DE UNA DIRECCIÓN
-   photosVisibility: boolean = false
+   modalPhotos: boolean = false
+   direccionSeleccionadaFotos: Address = new Address(0, 0, 0, 0, '', '', '', '', '', '', '', 0, '', '', '', '', '', '', 1, []);
+
+   toggleModalPhotos() {
+      this.modalPhotos = !this.modalPhotos;
+   }
 
    verFotosDireccion(id_cliente_direccion: number) {
-      this.photosVisibility = !this.photosVisibility
+      this.direccionSeleccionadaFotos = this.addresses.find(address => address.id_cliente_direccion === id_cliente_direccion)!;
+      this.toggleModalPhotos()
    }
 
    //MODAL PARA AÑADIR FOTOS AL CLIENTE Y PARA AÑADIRLE UNA UBICACIÓN
@@ -513,7 +527,8 @@ export class ClientsComponent {
    //FUNCIÓN PARA ABRIR MODAL PARA AÑADIR FOTOS AL CLIENTE
    togglePhotosModal() {
       this.extraModal = !this.extraModal;
-      this.takingPhoto = false
+      this.takingPhoto = false;
+      this.mainImage = this.uploadedImages[0];
       console.log(this.uploadedImages);
    }
 
@@ -543,6 +558,7 @@ export class ClientsComponent {
                   this.imageCount++;
                   console.warn('FINAL:', this.imageCompress.byteCount(result));
                   console.log(this.uploadedImages);
+                  console.log("cuenta", this.imageCount);
                   this.displayImage(this.uploadedImages.length - 1);
                });
          });
@@ -591,6 +607,6 @@ export class ClientsComponent {
    }
 
    async savePhotos(id_cliente_direccion: number, fotos: Foto[]) {
-      this.clientService.guardarFotosDireccion(id_cliente_direccion, fotos).subscribe()
+      this.clientService.guardarFotosDireccion(id_cliente_direccion, fotos).subscribe(resp => console.log(resp))
    }
 }

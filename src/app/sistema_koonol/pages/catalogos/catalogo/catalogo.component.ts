@@ -200,11 +200,11 @@ export class CatalogoComponent implements OnInit {
 		this.router.navigate(['/sis_koonol/catalogos/add-product']);
 	}
 
-  modalVisibility = false;
+	modalVisibility = false;
 
-  toggleModalVisibility() {
-    this.modalVisibility = !this.modalVisibility;
-  }
+	toggleModalVisibility() {
+		this.modalVisibility = !this.modalVisibility;
+	}
 	// Para la barra de busqueda
 	isSticky: boolean = false;
 
