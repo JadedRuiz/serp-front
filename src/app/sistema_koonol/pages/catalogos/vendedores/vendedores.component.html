@@ -1,6 +1,6 @@
 <div class="vendedores container-fluid row">
   <div class="vendedores-container">
-    <h1 class="text-center title m-0">VENDEDORES</h1>
+    <h1 class="text-center title m-0">Vendeodres</h1>
 
     <!-- Barra de Busqueda -->
     <div class="vendedores__search-bar">
@@ -8,7 +8,7 @@
         <input
           class="search-input"
           type="text"
-          placeholder="Buscar Vendedores"
+          placeholder="Buscar vendedores"
           aria-label="Buscar Vendedores"
           aria-describedby="button-addon2"
           [(ngModel)]="searchVendedor"
@@ -27,7 +27,7 @@
         {{ getVendedorStatusText(vendedor.activo) }}
       </button>
       <button type="button" class="add-btn" data-toggle="tooltip" title="Agregar vendedor" (click)="cargarCampos()">
-        AGREGAR VENDEDOR
+        Agregar vendedor
       </button>
     </div>
 
@@ -37,7 +37,7 @@
 
         <div class="d-flex w-100 align-items-start">
           <div class="tab" [class.active]="section === 1" (click)="tab(1)" >
-            Datos del Vendedor
+            Datos del vendedor
           </div>
         </div>
 

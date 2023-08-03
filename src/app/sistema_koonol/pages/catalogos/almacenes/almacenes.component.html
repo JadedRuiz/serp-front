@@ -1,14 +1,14 @@
 <div class="almacenes container-fluid row">
   <div class="almacenes-container">
-    <h1 class="text-center title m-0">ALMACENES</h1>
+    <h1 class="text-center title m-0">Almacenes</h1>
 
     <!-- Barra de Busqueda -->
       <div class="almacenes__search-bar">
         <div class="d-flex flex-column">
-          <input class="search-input" type="text" placeholder="Buscar Almacen" aria-label="Buscar Almacen" data-toggle="tooltip"  title="Buscar almacen"
+          <input class="search-input" type="text" placeholder="Buscar almacen" aria-label="Buscar Almacen" data-toggle="tooltip"  title="Buscar almacen"
             aria-describedby="button-addon2" [formControl]="searchAlmacenControl" />
           <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noAlmacen">
-            <h4>No se encontro el Almacen</h4>
+            <h4>No se encontro el almacen</h4>
           </div>
           <div class="search-loader" *ngIf="loader; else almacenesReady">
             <i class="fa fa-spinner fa-pulse"></i>
@@ -29,7 +29,7 @@
         </button>
 
         <button type="button" id="add-almacen" class="add-btn" data-toggle="tooltip" title="Agregar almacen" (click)="agregarNvoAlmacen()">
-          AGREGAR ALMACEN
+          Agregar almacen
         </button>
       </div>
 
@@ -39,20 +39,20 @@
         <div class="almacen__form-tabs">
           <div class="d-flex w-100 align-items-start">
             <div class="tab" [class.active]="section === 1">
-              Datos del Almacen
+              Datos del almacen
             </div>
           </div>
           <div class="almacen__data-form row">
 
             <div class="almacen__data-form__section1 col-12 col-md-6">
               <div class="form-label">
-                <label for="cliente">Descripcion del Almacen</label>
+                <label for="cliente">Descripcion del almacen</label>
                 <input class="form-control" type="text" name="cliente" id="cliente" required
                   [(ngModel)]="almacen.almacen" #inputProvForm disabled />
               </div>
 
               <div class="form-label">
-                <label for="descripcion">Descripcion Domicilio</label>
+                <label for="descripcion">Descripcion domicilio</label>
                 <input class="form-control" type="text" name="descripcion" required
                   [(ngModel)]="almacen.domicilio.descripcion" #inputProvForm disabled />
               </div>
@@ -64,12 +64,12 @@
 
               <div class="row">
                 <div class="form-label col-md-6">
-                  <label for="numero_exterior">Numero Exterior</label>
+                  <label for="numero_exterior">Numero exterior</label>
                   <input class="form-control" type="text" name="numero_exterior" id="numero_exterior" required
                     [(ngModel)]="almacen.domicilio.numero_exterior" #inputProvForm disabled />
                 </div>
                 <div class="form-label col-md-6">
-                  <label for="numero_interior">Numero Interior</label>
+                  <label for="numero_interior">Numero interior</label>
                   <input class="form-control" type="text" name="numero_interior" id="numero_interior" required
                     [(ngModel)]="almacen.domicilio.numero_interior" #inputProvForm disabled />
                 </div>
@@ -90,7 +90,7 @@
 
             <div class="almacen__data-form__section1 col-12 col-md-6">
               <div class="form-label">
-                <label for="codigo_postal">Codigo Postal</label>
+                <label for="codigo_postal">Codigo postal</label>
                 <input class="form-control" type="number" name="codigo_postal" id="codigo_postal" required
                   [(ngModel)]="almacen.domicilio.codigo_postal" #inputProvForm disabled />
               </div>

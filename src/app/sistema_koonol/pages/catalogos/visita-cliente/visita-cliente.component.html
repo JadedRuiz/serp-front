@@ -1,17 +1,12 @@
 <div class="container-fluid">
   <div id="dah" class="row">
-    <div class="col-md-4">
-      <button title="Regresar" type="button" class="btn btn-danger btn-md rounded-circle" [routerLink]="['/sis_koonol/catalogos/visitas']">
-        <i class="fa fa-arrow-left"></i>
-      </button>
-    </div>
-    <h1 class="col mb-2 title text-center">Visita Cliente</h1>
+        <h1 class="col mb-2 title text-center">Visita cliente</h1>
   </div>
   <form class="container" #visitasForm="ngForm" (ngSubmit)="guardarVisita(visitasForm)" >
     <div class="row">
       <div class="col-md-6 form-group">
         <div class="d-flex flex-column">
-        <label for="vendedor">Buscar Cliente</label>
+        <label for="vendedor">Buscar cliente</label>
           <input class="search-input" type="text" placeholder="cliente / RFC" aria-label="Buscar cliente"
               title="Buscar cliente" aria-describedby="button-addon2" [formControl]="searchClientControl" (focus)="onFocusClientSearch()" />
           <div class="search-loader w-100" *ngIf="loader; else clientsReady">
@@ -63,17 +58,25 @@
       </div>
       <div class="col-md-12 form-group">
         <label for="observaciones">Observaciones</label>
-        <textarea class="form-control" id="observaciones" rows="3" placeholder="Escribe tus observaciones aquí"  name="vendedor" [(ngModel)]="visita.notas"></textarea>
+        <textarea title="Agrega tus observaciones" class="form-control" id="observaciones" rows="3" placeholder="Escribe tus observaciones aquí"  name="vendedor" [(ngModel)]="visita.notas"></textarea>
       </div>
     </div>
     <div class="row text-center">
       <div class="m-1 col col-md-3">
-        <button type="submit" class=" general-btn" >Guardar</button>
+        <button type="submit" class=" general-btn" title="Guardar visita">Guardar</button>
       </div>
-      <div class="m-1  col col-md-3">
+      <!-- <div class="m-1  col col-md-3">
         <button class=" search-btn" [routerLink]="['/sis_koonol/catalogos/']" >Pedidos</button>
-      </div>
+      </div> -->
       </div>
   </form>
 </div>
-
+<!-- Botón para agregar nuevas visitas -->
+<div class="row justify-content-end fixed-bottom mb-4 mr-4">
+  <div class="col-auto">
+    <button class="btn btn-danger btn-lg rounded-circle"
+    title="Agregar nueva visita" [routerLink]="['/sis_koonol/catalogos/visitas']" title="Regresar">
+      <i class="fa fa-arrow-left"></i>
+    </button>
+  </div>
+</div>

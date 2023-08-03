@@ -3,11 +3,41 @@
     <h1 class="title text-center">Visitas <hr> {{vendedorActual}}</h1>
 
     <!-- Barra de búsqueda -->
-    <form class="form-inline justify-content-center ">
-      <div class="">
-        <input type="text" class="form-control" placeholder="cliente...">
+    <form class="form-inline justify-content-center "(ngSubmit)="obtenerVisitas()">
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <div class="d-flex flex-column">
+          <label for="cliente">Buscar cliente</label>
+            <input class="search-input" type="text" placeholder="cliente / RFC" aria-label="Buscar cliente"
+                title="Buscar cliente" aria-describedby="button-addon2" [formControl]="searchClientControl" (focus)="onFocusClientSearch()" />
+            <div class="search-loader w-100" *ngIf="loader; else clientsReady">
+                <i class="fa fa-spinner fa-pulse"></i>
+            </div>
+            <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
+                <h4>No se encontraron clientes</h4>
+            </div>
+            <ng-template #clientsReady>
+                <ul class="search-list" *ngIf="searchList">
+                    <li class="search-list__element" *ngFor="let client of autocompleteClients"
+                        (click)="seleccionarCliente(client.id_cliente)" name="cliente">
+                        {{ client.cliente }}
+                    </li>
+                </ul>
+            </ng-template>
+        </div>
+        </div>
       </div>
-      <button type="submit" class="ml-1 general-btn">Buscar</button>
+      <button type="submit" class="mt-2 ml-1 search-btn">Buscar</button>
+      <div class="row">
+        <div class="input-sm col-6 col-md-6 form-group">
+          <label for="fechaSiguienteVisita"></label>
+          <input type="date" class="form-control" name="fechaInicio"[(ngModel)]="fechaInicio">
+        </div>
+        <div class="input-sm col-6 col-md-6 form-group">
+          <label for="fechaSiguienteVisita"></label>
+          <input type="date" class="form-control" name="fechaFinal"[(ngModel)]="fechaFinal">
+        </div>
+      </div>
     </form>
 
     <!-- Botón para agregar nuevas visitas -->
@@ -30,15 +60,51 @@
             </div>
             <p class="card-text"><b>Fecha visita: </b>{{ visita.fecha_visita }}</p>
             <p class="card-text"><b>Contacto:</b> {{ visita.contacto }}</p>
-            <p class="card-text"><b>Notas:</b> {{ visita.notas }}</p>
             <div class="row mt-2">
               <p class="card-text col" >Siguiente visita:<b> {{ formatearFecha(visita.fecha_siguiente_visita) }}</b></p>
             </div>
           </div>
-          <a type="button" class="col-3 btn btn-primary btn-sm m-1">Detalles</a>
+          <div class="col d-flex justify-content-center mb-2">
+            <a type="button" class="general-btn m-1"data-toggle="modal" data-target="#editarModal"
+            title="Editar Visita"(click)="abrirModalEditar(visita)">Editar visita</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+
+
+<!-- MODAL VISITAS -->
+<form class="modal fade" id="editarModal" #editarForm="ngForm" (ngSubmit)="guardarCambios(editarForm)"
+tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Editar Visita</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cerrarModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Cliente:</strong> {{ editarVisita.cliente }}</p>
+        <p><strong>Fecha visita:</strong> {{ editarVisita.fecha_visita }}</p>
+        <p><strong>Contacto:</strong> {{ editarVisita.contacto }}</p>
+        <div *ngIf="editandoNotas">
+          <label for="notas">Notas:</label>
+          <textarea class="form-control" id="notas" name="notas" [(ngModel)]="editarVisita.notas"></textarea>
+        </div>
+        <div *ngIf="editandoFecha">
+          <label for="fechaSiguienteVisita">Fecha Siguiente Visita:</label>
+          <input type="date" class="form-control" name="fechaSiguienteVisita" [(ngModel)]="editarVisita.fecha_siguiente_visita">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- Botones para guardar o cancelar los cambios -->
+        <button type="button" class="danger-btn" data-dismiss="modal" (click)="cerrarModal()">Cancelar</button>
+        <button type="submit" class="search-btn" >Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</form>
