@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-md-6 form-group">
           <div class="d-flex flex-column">
-          <label for="cliente">Buscar Cliente</label>
+          <label for="cliente">Buscar cliente</label>
             <input class="search-input" type="text" placeholder="cliente / RFC" aria-label="Buscar cliente"
                 title="Buscar cliente" aria-describedby="button-addon2" [formControl]="searchClientControl" (focus)="onFocusClientSearch()" />
             <div class="search-loader w-100" *ngIf="loader; else clientsReady">
@@ -27,7 +27,7 @@
         </div>
         </div>
       </div>
-      <button type="submit" class="mt-2 ml-1 general-btn">Buscar</button>
+      <button type="submit" class="mt-2 ml-1 search-btn">Buscar</button>
       <div class="row">
         <div class="input-sm col-6 col-md-6 form-group">
           <label for="fechaSiguienteVisita"></label>
@@ -65,7 +65,7 @@
             </div>
           </div>
           <div class="col d-flex justify-content-center mb-2">
-            <a type="button" class="search-btn m-1"data-toggle="modal" data-target="#editarModal"
+            <a type="button" class="general-btn m-1"data-toggle="modal" data-target="#editarModal"
             title="Editar Visita"(click)="abrirModalEditar(visita)">Editar visita</a>
           </div>
         </div>
@@ -102,8 +102,8 @@ tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       </div>
       <div class="modal-footer">
         <!-- Botones para guardar o cancelar los cambios -->
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cerrarModal()">Cancelar</button>
-        <button type="submit" class="btn btn-primary" >Guardar Cambios</button>
+        <button type="button" class="danger-btn" data-dismiss="modal" (click)="cerrarModal()">Cancelar</button>
+        <button type="submit" class="search-btn" >Guardar Cambios</button>
       </div>
     </div>
   </div>

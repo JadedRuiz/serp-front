@@ -1,17 +1,17 @@
 <div class="routes container-fluid">
   <div class="routes-container">
-    <h1 class="text-center title m-0">RUTAS</h1>
+    <h1 class="text-center title m-0">Rutas</h1>
 
     <div class="routes__search-bar align-self-start">
       <div class="routes__search-bar-input d-flex">
         <input class="search-input" type="text" placeholder="Buscar ruta" aria-label="Buscar ruta"
           aria-describedby="button-addon2" [(ngModel)]="searchRoute" />
         <button class="search-btn"  type="button" data-toggle="tooltip" title="Buscar" (click)="filtrarRutas()">
-          <i class="bi bi-search"> </i> BUSCAR
+          <i class="bi bi-search"> </i> Buscar
         </button>
       </div>
       <div>
-        <button type="button" class=" add-btn" (click)="openModal()" data-toggle="tooltip" title="Agregar ruta">AGREGAR RUTA</button>
+        <button type="button" class=" add-btn" (click)="openModal()" data-toggle="tooltip" title="Agregar ruta">Agregar ruta</button>
       </div>
     </div>
 
@@ -56,7 +56,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>EDITAR RUTA</b></h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Editar ruta</b></h1>
         <a type="button" class="btn-close" (click)="closeModal()" ></a>
       </div>
       <form #routeForm="ngForm" ngNativeValidate (ngSubmit)="guardarRuta(routeForm)">

@@ -1,6 +1,6 @@
 <div class="proveedores container-fluid row">
   <div class="proveedores-container">
-    <h1 class="text-center title m-0">PROVEEDORES</h1>
+    <h1 class="text-center title m-0">Proveedores</h1>
 
     <!-- //Barra de Busqueda => -->
     <div class="proveedores__search-bar">
@@ -27,7 +27,7 @@
         (click)="activarProveedor(proveedor.id_proveedor, proveedor.activo)">ACTIVO
       </button>
       <button type="button" class="add-btn" (click)="prueba()">
-        AGREGAR PROVEEDOR
+        Agregar proveedor
       </button>
     </div>
 
@@ -36,13 +36,13 @@
       <div class="proveedor__form-tabs">
         <div class="d-flex w-100 align-items-start">
           <div class="tab" [class.active]="section === 1" (click)="tab(1)">
-            Datos del Proveedor
+            Datos del proveedor
           </div>
           <div class="tab" [class.active]="section === 2" (click)="tab(2)">
-            Dirección del Proveedor
+            Dirección del proveedor
           </div>
           <div class="tab" [class.active]="section === 3" (click)="tab(3)">
-            Cuentas Bancarias
+            Cuentas bancarias
           </div>
         </div>
         <div class="proveedor__data-form row" [class.active]="section === 1">
@@ -76,7 +76,7 @@
           </div>
           <div class="proveedor__data-form__section2 col-12 col-md-6">
             <div class="form-label">
-              <label for="comercial">Nombre Comercial</label>
+              <label for="comercial">Nombre comercial</label>
               <input class="form-control" type="text" name="comercial" id="comercial" required
                 [(ngModel)]="proveedor.nombre_comercial" #inputProvForm disabled />
             </div>
@@ -147,7 +147,7 @@
           </div>
           <div class="proveedor__address-form__section2 col-12 col-md-6">
             <div class="form-label">
-              <label for="codigo_postal">Código Postal</label>
+              <label for="codigo_postal">Código postal</label>
               <input class="form-control" type="text" name="codigo_postal" id="codigo_postal" required
                 [(ngModel)]="proveedor.domicilio.codigo_postal" #inputProvForm disabled />
             </div>
@@ -186,13 +186,13 @@
                 [(ngModel)]="proveedor.proveedor" #inputProvForm disabled />
             </div>
             <div class="form-label">
-              <label for="cuenta">Número de Cuenta</label>
+              <label for="cuenta">Número de cuenta</label>
               <input class="form-control" type="text" name="cuenta" id="cuenta" required
                 [(ngModel)]="proveedor.contacto" #inputProvForm disabled />
             </div>
             <div class="form-label">
-              <label for="tarjeta">Número de Tarjeta</label>
-              <input class="form-control" type="text" name="tarjeta" id="tarjeta" required 
+              <label for="tarjeta">Número de tarjeta</label>
+              <input class="form-control" type="text" name="tarjeta" id="tarjeta" required
                 [(ngModel)]="proveedor.rfc" #inputProvForm disabled />
             </div>
           </div>
@@ -208,7 +208,7 @@
                 [(ngModel)]="proveedor.nombre_comercial" #inputProvForm disabled />
             </div>
             <div class="form-label">
-              <label for="saldo">Saldo a Favor</label>
+              <label for="saldo">Saldo a favor</label>
               <input class="form-control" type="text" name="saldo" id="saldo" required [(ngModel)]="proveedor.correo"
                 #inputProvForm disabled />
             </div>

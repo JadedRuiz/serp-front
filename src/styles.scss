@@ -32,10 +32,10 @@ $color-txt : black;
   //Paleta de colores para la aplicación
   --bg-elements: #f1f1f1;
   --bg-color: #F1F2F5;
-  --color-base: #16c7ff;
-  --hover-base: #9084fd;
-  --color-secundario: #FE900B;
-  --color-terciario: #D94B4B;
+  --color-base: #FE900B;
+  --hover-base: #7d71f1;
+  --color-secundario: #16c7ff;
+  --color-terciario: #f82828;
   --danger-color: #6b0c0c;
 
   --red: #D50901;
@@ -260,6 +260,8 @@ p {
 
 
 
+// BOTONES <===
+
 .general-btn {
   background-color: var(--color-base);
 
@@ -278,6 +280,13 @@ p {
 
 .add-btn {
   background-color: var(--color-base);
+
+  &:hover {
+    background-color: var(--hover-base);
+  }
+}
+.search-btn {
+  background-color: var(--color-secundario);
 
   &:hover {
     background-color: var(--hover-base);
@@ -353,13 +362,7 @@ p {
   }
 }
 
-.search-btn {
-  background-color: var(--color-secundario);
 
-  &:hover {
-    background-color: var(--hover-base);
-  }
-}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
