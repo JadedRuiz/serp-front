@@ -534,7 +534,7 @@ export class ClientsComponent {
 
    //Función para subir fotografía desde el dispositivo
    uploadImage() {
-      if (this.imageCount >= 4) {
+      if (this.uploadedImages.length >= 4) {
          alert('Solo se pueden subir un máximo de 4 imágenes');
          return;
       }
@@ -566,7 +566,7 @@ export class ClientsComponent {
 
    //Fucnión para abrir la cámara
    openWebcam() {
-      if (this.imageCount >= 4) {
+      if (this.uploadedImages.length >= 4) {
          alert('Solo se pueden subir un máximo de 4 imágenes');
          return;
       }
@@ -606,7 +606,16 @@ export class ClientsComponent {
       this.mainImage = this.uploadedImages[index];
    }
 
-   async savePhotos(id_cliente_direccion: number, fotos: Foto[]) {
-      this.clientService.guardarFotosDireccion(id_cliente_direccion, fotos).subscribe(resp => console.log(resp))
+   async savePhotos(id_cliente_direccion: number, fotos: any[]) {
+      let imagenes = fotos.filter((image) => {
+         console.log(image);
+         if (image.includes('data:image/jpeg;base64')) {
+            console.log(image);
+            return image;
+         } else {
+            return;
+         }
+      });
+      this.clientService.guardarFotosDireccion(id_cliente_direccion, imagenes).subscribe(resp => console.log(resp))
    }
 }
