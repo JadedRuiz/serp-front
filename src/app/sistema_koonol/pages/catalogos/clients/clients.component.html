@@ -119,7 +119,7 @@
                             </div>
                         </div>
                         <div class="w-100 d-flex justify-content-end mt-3">
-                            <button type="button" class="client__form-next general-btn align-self-end"
+                            <button type="button" class="client__form-next search-btn align-self-end"
                                 data-toggle="tooltip" title="Siguiente" [class.active]="section === 1" (click)="tab(2)">
                                 Siguiente
                             </button>
@@ -229,7 +229,7 @@
                                 (click)="tab(1)">
                                 Regresar
                             </button>
-                            <button type="submit" class="client__form-save general-btn" data-toggle="tooltip"
+                            <button type="submit" class="client__form-save search-btn" data-toggle="tooltip"
                                 title="Guardar cliente" [class.active]="section === 2">
                                 Guardar cliente
                             </button>
@@ -334,7 +334,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end mt-3 w-100">
-                            <button type="submit" class="general-btn">Guardar cliente</button>
+                            <button type="submit" class="search-btn">Guardar cliente</button>
                         </div>
                     </form>
                 </div>
@@ -445,7 +445,7 @@
                                 (click)="offAddAddressVisibility()">
                                 Regresar
                             </button>
-                            <button type="submit" class="client__form-save general-btn" [class.active]="section === 2">
+                            <button type="submit" class="client__form-save search-btn" [class.active]="section === 2">
                                 Guardar dirección
                             </button>
                         </div>
@@ -465,7 +465,7 @@
                             </div>
                         </li>
                     </ul>
-                    <button class="general-btn align-self-end mt-auto" (click)="createAddress()">
+                    <button class="search-btn align-self-end mt-auto" (click)="createAddress()">
                         Agregar dirección
                     </button>
                 </div>
@@ -518,7 +518,7 @@
                 <button class="danger-btn" (click)="togglePhotosModal()">
                     Cancelar
                 </button>
-                <button class="general-btn" (click)="togglePhotosModal()">
+                <button class="search-btn" (click)="togglePhotosModal()">
                     Guardar
                 </button>
             </div>
