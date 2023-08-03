@@ -1,6 +1,6 @@
 <div class="clients container-fluid">
     <div class="clients-container">
-        <h1 class="text-center title">CLIENTES</h1>
+        <h1 class="text-center title">Clientes</h1>
         <!-- SEARCH-BAR -->
         <div class="clients__search-bar">
             <div class="d-flex flex-column">
@@ -252,11 +252,13 @@
                     </div>
                 </div>
                 <!-- FORMULARIO PARA DATOS DE CLIENTE -->
-                <div class="client__data-form row justify-content-center" [class.active]="section === 1">
-                    <form class="w-100 form-address row " #editClientForm="ngForm"
-                        (ngSubmit)="guardarCliente(editClientForm)">
+                <div class="client__data-form form justify-content-center row" [class.active]="section === 1">
+                    <div class="w-100">
                         <h3 class="subtitle">Datos</h3>
-                        <div class="client__data-form__section1 col-12 col-md-6 ">
+                    </div>
+                    <form class="w-100 form-address row" #editClientForm="ngForm"
+                        (ngSubmit)="guardarCliente(editClientForm)">
+                        <div class="client__data-form__section1 col-12 col-md-6">
                             <div>
                                 <label for="cliente">Cliente <span class="obligatorio"
                                         title="Este es un campo obligatorio">*</span></label>
@@ -337,9 +339,13 @@
                     </form>
                 </div>
                 <!-- FORMULARIO PARA EDITAR O CREAR DIRECCION -->
-                <div class="client__address-form row" [class.active]="section === 2" *ngIf="addAddressVisibility">
-                    <h3 class="subtitle">Crear dirección</h3>
-                    <form class="w-100 form-address" #addressForm="ngForm" (ngSubmit)="guardarDireccion(addressForm)">
+                <div class="client__address-form justify-content-center row" [class.active]="section === 2"
+                    *ngIf="addAddressVisibility">
+                    <div class="w-100">
+                        <h3 class="subtitle">Crear dirección</h3>
+                    </div>
+                    <form class="w-100 form-address row" #addressForm="ngForm"
+                        (ngSubmit)="guardarDireccion(addressForm)">
                         <div class="client__address-form__section1 col-12 col-md-6">
                             <div>
                                 <label for="descripcion">Descripción</label>
@@ -451,10 +457,12 @@
                     <ul class="client__addresses-list">
                         <li *ngFor="let address of addresses">
                             <span>{{ address.direccion }}</span>
-                            <i class="fa fa-picture-o" title="Ver fotos de dirección"
-                                (click)="verFotosDireccion(address.id_cliente_direccion)"></i>
-                            <i class="bi bi-pencil-square" title="Editar dirección"
-                                (click)="editarDireccion(address.id_cliente_direccion)"></i>
+                            <div class="addresses-list__buttons">
+                                <i class="fa fa-picture-o" title="Ver fotos de dirección"
+                                    (click)="verFotosDireccion(address.id_cliente_direccion)"></i>
+                                <i class="bi bi-pencil-square" title="Editar dirección"
+                                    (click)="editarDireccion(address.id_cliente_direccion)"></i>
+                            </div>
                         </li>
                     </ul>
                     <button class="general-btn align-self-end mt-auto" (click)="createAddress()">
@@ -517,3 +525,6 @@
         </div>
     </div>
 </div>
+
+<app-addresses-photos-modal [direccionSeleccionada]="direccionSeleccionadaFotos"
+    (toggleModalPhotos)="toggleModalPhotos()" *ngIf="modalPhotos"></app-addresses-photos-modal>
