@@ -58,12 +58,15 @@ constructor(
 
 //=> GUARDAR VISITA
 guardarVisita(visitasForm : NgForm){
-  // let coords = this.geolocationService.userLocation
+   let coords = this.geolocationService.userLocation
   // console.log("hola", coords);
-  // this.visita.latitud = coords[1]
-  this.visitasService.agregarVisitas(this.visita).subscribe((object)=>{
-    console.log('visitasForm :>> ', this.visita);
-  })
+   if (coords) {
+    this.visita.longitud = coords[0];
+    this.visita.latitud = coords[1];
+    this.visitasService.agregarVisitas(this.visita).subscribe((object) => {
+       console.log('visitasForm:', this.visita);
+    });
+ }
 }
 
 
