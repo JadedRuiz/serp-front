@@ -168,7 +168,8 @@
                                     id="codigo_postal" [(ngModel)]="address.codigo_postal" />
                             </div>
                             <div>
-                                <label class="label-label" for="ruta">Seleccionar Ruta</label>
+                                <label class="label-label" for="ruta">Seleccionar Ruta <span class="obligatorio"
+                                        title="Este es un campo obligatorio">*</span></label>
                                 <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..."
                                     required [(ngModel)]="address.id_ruta">
                                     <option name="familia" value={{route.id_ruta}} *ngFor="let route of routes">
@@ -177,7 +178,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="client__address-form__section2 col-12 col-md-6">
+                        <div class="client__address-form__section2 col-12 col-md-6 justify-content-center">
                             <div>
                                 <label for="colonia">Colonia</label>
                                 <input class="form-control form-label" type="text" name="colonia" id="colonia"
@@ -251,13 +252,14 @@
                     </div>
                 </div>
                 <!-- FORMULARIO PARA DATOS DE CLIENTE -->
-                <div class="client__data-form row" [class.active]="section === 1">
-                    <h3 class="subtitle">Datos</h3>
-                    <form class="w-100 form-address row justify-content-center" #editClientForm="ngForm"
+                <div class="client__data-form row justify-content-center" [class.active]="section === 1">
+                    <form class="w-100 form-address row " #editClientForm="ngForm"
                         (ngSubmit)="guardarCliente(editClientForm)">
-                        <div class="client__data-form__section1 col-12 col-md-6">
+                        <h3 class="subtitle">Datos</h3>
+                        <div class="client__data-form__section1 col-12 col-md-6 ">
                             <div>
-                                <label for="cliente">Cliente</label>
+                                <label for="cliente">Cliente <span class="obligatorio"
+                                        title="Este es un campo obligatorio">*</span></label>
                                 <input class="form-control form-label" type="text" name="cliente" id="cliente" required
                                     [(ngModel)]="selectedClient.cliente" />
                             </div>
@@ -337,8 +339,7 @@
                 <!-- FORMULARIO PARA EDITAR O CREAR DIRECCION -->
                 <div class="client__address-form row" [class.active]="section === 2" *ngIf="addAddressVisibility">
                     <h3 class="subtitle">Crear dirección</h3>
-                    <form class="w-100 form-address" #addressForm="ngForm"
-                        (ngSubmit)="guardarDireccion(addressForm)">
+                    <form class="w-100 form-address" #addressForm="ngForm" (ngSubmit)="guardarDireccion(addressForm)">
                         <div class="client__address-form__section1 col-12 col-md-6">
                             <div>
                                 <label for="descripcion">Descripción</label>
@@ -346,7 +347,8 @@
                                     [(ngModel)]="addressSelected.descripcion" />
                             </div>
                             <div>
-                                <label for="calle">Calle</label>
+                                <label for="calle">Calle <span class="obligatorio"
+                                        title="Este es un campo obligatorio">*</span></label>
                                 <input class="form-control form-label" type="text" name="calle" id="calle" required
                                     [(ngModel)]="addressSelected.calle" />
                             </div>
@@ -378,7 +380,8 @@
                                     id="codigo_postal" [(ngModel)]="addressSelected.codigo_postal" />
                             </div>
                             <div>
-                                <label class="label-label" for="ruta">Seleccionar Ruta</label>
+                                <label class="label-label" for="ruta">Seleccionar Ruta <span class="obligatorio"
+                                        title="Este es un campo obligatorio">*</span></label>
                                 <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..."
                                     required [(ngModel)]="addressSelected.id_ruta">
                                     <option name="familia" value={{route.id_ruta}} *ngFor="let route of routes">
@@ -448,8 +451,10 @@
                     <ul class="client__addresses-list">
                         <li *ngFor="let address of addresses">
                             <span>{{ address.direccion }}</span>
-                            <i class="fa fa-picture-o" title="Ver fotos de dirección" (click)="verFotosDireccion(address.id_cliente_direccion)"></i>
-                            <i class="bi bi-pencil-square" title="Editar dirección" (click)="editarDireccion(address.id_cliente_direccion)"></i>
+                            <i class="fa fa-picture-o" title="Ver fotos de dirección"
+                                (click)="verFotosDireccion(address.id_cliente_direccion)"></i>
+                            <i class="bi bi-pencil-square" title="Editar dirección"
+                                (click)="editarDireccion(address.id_cliente_direccion)"></i>
                         </li>
                     </ul>
                     <button class="general-btn align-self-end mt-auto" (click)="createAddress()">
