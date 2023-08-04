@@ -42,7 +42,7 @@
               <input type="date" class="form-control" name="fechaFinal" [(ngModel)]="fechaFinal">
             </div>
             <div class="col-12 col-md-4 d-flex align-items-end">
-              <button type="submit" class="mt-2 m-2 search-btn" [ngStyle]="{'height':'40px'}">Buscar</button>
+              <button type="submit" class="mt-2 search-btn" [ngStyle]="{'height':'40px'}">Buscar</button>
             </div>
           </div>
         </div>
@@ -74,10 +74,10 @@
           </div>
           <div class="row d-flex mb-2">
             <div class="col-6">
-              <button class="search-btn btn-sm ml-2" (click)="realizarPedidoVisita(visita.id_visita)">Nuevo pedido</button>
+              <button class="p-2 search-btn btn-sm ml-2" (click)="realizarPedidoVisita(visita.id_visita)">Nuevo pedido</button>
             </div>
             <div class="col-6">
-              <button type="button" class="general-btn btn-sm" data-toggle="modal" data-target="#editarModal"
+              <button type="button" class="p-2 general-btn btn-sm" data-toggle="modal" data-target="#editarModal"
               title="Editar Visita" (click)="abrirModalEditar(visita)">Editar visita</button>
             </div>
 
@@ -93,10 +93,10 @@
 <!-- MODAL VISITAS -->
 <form class="modal fade" id="editarModal" #editarForm="ngForm" (ngSubmit)="guardarCambios(editarForm)" tabindex="-1"
   role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Editar Visita</h4>
+        <h4 class="mb-0 title">Editar Visita</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cerrarModal()">
           <span aria-hidden="true">&times;</span>
         </button>
