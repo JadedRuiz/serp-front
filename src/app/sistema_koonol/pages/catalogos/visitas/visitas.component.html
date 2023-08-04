@@ -42,7 +42,7 @@
               <input type="date" class="form-control" name="fechaFinal" [(ngModel)]="fechaFinal">
             </div>
             <div class="col-12 col-md-4 d-flex align-items-end">
-              <button type="submit" class="mt-2 m-2 search-btn" [ngStyle]="{'height':'40px'}">Filtrar</button>
+              <button type="submit" class="mt-2 m-2 search-btn" [ngStyle]="{'height':'40px'}">Buscar</button>
             </div>
           </div>
         </div>
@@ -72,11 +72,16 @@
               <p class="card-text col">Siguiente visita:<b> {{ formatearFecha(visita.fecha_siguiente_visita) }}</b></p>
             </div>
           </div>
-          <div class="col d-flex justify-content-between mb-2">
-            <button class="search-btn m-1" (click)="realizarPedidoVisita(visita.id_visita)">Realizar pedido</button>
-            <button type="button" class="general-btn m-1" data-toggle="modal" data-target="#editarModal"
+          <div class="row d-flex mb-2">
+            <div class="col-6">
+              <button class="search-btn btn-sm ml-2" (click)="realizarPedidoVisita(visita.id_visita)">Nuevo pedido</button>
+            </div>
+            <div class="col-6">
+              <button type="button" class="general-btn btn-sm" data-toggle="modal" data-target="#editarModal"
               title="Editar Visita" (click)="abrirModalEditar(visita)">Editar visita</button>
-          </div>
+            </div>
+
+            </div>
         </div>
       </div>
     </div>
