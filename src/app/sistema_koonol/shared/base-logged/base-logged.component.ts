@@ -47,8 +47,12 @@ export class BaseLoggedComponent implements OnInit {
   //#endregion
 
   clickFueraHabilitado: boolean = false
+  pantallaChica: boolean = false
+  tamañoPantalla:number = window.screen.width;
   ngOnInit() {
-    if (window.screen.width < 768) {
+    
+    if (this.tamañoPantalla < 768) {
+      this.pantallaChica = true;
       $('.chiller-theme').removeClass('toggled');
       this.bandMenu = false;
       this.clickFueraHabilitado = true
