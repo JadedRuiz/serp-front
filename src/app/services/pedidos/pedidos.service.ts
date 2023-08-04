@@ -12,7 +12,7 @@ import { PedidoGuardar } from 'src/app/models/pedidoguardar.model';
 })
 export class PedidosService {
 
-    private pedidoFinalSubject = new BehaviorSubject<PedidoGuardar>(new PedidoGuardar(0, 1, 0, 0, 'TOKEN', '', '', 1, [], 0));
+    private pedidoFinalSubject = new BehaviorSubject<PedidoGuardar>(new PedidoGuardar(0, 1, 0, 0, 'TOKEN', '', '', 1, [], 0, 0));
     pedidoFinal$ = this.pedidoFinalSubject.asObservable()
 
     constructor(private http: HttpClient) { }

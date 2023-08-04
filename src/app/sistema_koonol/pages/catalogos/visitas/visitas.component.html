@@ -1,53 +1,58 @@
 <div class="container-fluid">
   <div class="container">
-    <h1 class="title text-center">Visitas <hr> {{vendedorActual}}</h1>
+    <h1 class="title text-center">Visitas
+      <hr> {{vendedorActual}}
+    </h1>
 
     <!-- Barra de búsqueda -->
-    <form class="form-inline  "(ngSubmit)="obtenerVisitas()">
+    <form class="form-inline  " (ngSubmit)="obtenerVisitas()">
       <div class=" mb-2 row">
         <div class="col-md-6 form-group">
           <div class="d-flex flex-column">
-          <label for="cliente">Cliente</label>
+            <label for="cliente">Cliente</label>
             <input class="search-input" type="text" placeholder="Nombre / RFC" aria-label="Buscar cliente"
-                title="Buscar cliente" aria-describedby="button-addon2" [formControl]="searchClientControl" (focus)="onFocusClientSearch()" />
+              title="Buscar cliente" aria-describedby="button-addon2" [formControl]="searchClientControl"
+              (focus)="onFocusClientSearch()" />
             <div class="search-loader w-100" *ngIf="loader; else clientsReady">
-                <i class="fa fa-spinner fa-pulse"></i>
+              <i class="fa fa-spinner fa-pulse"></i>
             </div>
             <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
-                <h4>No se encontraron clientes</h4>
+              <h4>No se encontraron clientes</h4>
             </div>
             <ng-template #clientsReady>
-                <ul class="search-list" *ngIf="searchList">
-                    <li class="search-list__element" *ngFor="let client of autocompleteClients"
-                        (click)="seleccionarCliente(client.id_cliente)" name="cliente">
-                        {{ client.cliente }}
-                    </li>
-                </ul>
+              <ul class="search-list" *ngIf="searchList">
+                <li class="search-list__element" *ngFor="let client of autocompleteClients"
+                  (click)="seleccionarCliente(client.id_cliente)" name="cliente">
+                  {{ client.cliente }}
+                </li>
+              </ul>
             </ng-template>
           </div>
         </div>
 
-        <div class="row ml-2">
-          <div class="input-sm col-6 col-md-4 form-group">
-            <label for="fechaSiguienteVisita">Fechas</label>
-            <input type="date" class="form-control" name="fechaInicio"[(ngModel)]="fechaInicio">
-          </div>
-          <div class="input-sm col-6 col-md-4 form-group">
-            <label for="fechaSiguienteVisita"></label>
-            <input type="date" class="form-control" name="fechaFinal"[(ngModel)]="fechaFinal">
-          </div>
-          <div class="col col-md-4">
-            <button type="submit" class="mt-2 ml-1 search-btn">Buscar</button>
+        <div class="row ml-2 align-items-center justify-content-center w-100">
+          <div class="row">
+            <label class="col-12 d-flex justify-content-center mt-3"><b>Filtrar por fechas:</b></label>
+            <div class="input-sm col-12 col-md-4 d-flex flex-column justify-content-center mt-2">
+              <label for="fechaInicio">Fecha inicial</label>
+              <input type="date" class="form-control" name="fechaInicio" [(ngModel)]="fechaInicio">
+            </div>
+            <div class="input-sm col-12 col-md-4 d-flex flex-column justify-content-center mt-2">
+              <label for="fechaFinal">Fecha final</label>
+              <input type="date" class="form-control" name="fechaFinal" [(ngModel)]="fechaFinal">
+            </div>
+            <div class="col-12 col-md-4 d-flex align-items-end">
+              <button type="submit" class="mt-2 m-2 search-btn" [ngStyle]="{'height':'40px'}">Filtrar</button>
+            </div>
           </div>
         </div>
-        </div>
+      </div>
     </form>
 
     <!-- Botón para agregar nuevas visitas -->
     <div class="row justify-content-end fixed-bottom mb-4 mr-4">
       <div class="col-auto">
-        <button class="btn btn-success btn-lg rounded-circle" (click)="nuevaVisita()"
-        title="Agregar nueva visita">
+        <button class="btn btn-success btn-lg rounded-circle" (click)="nuevaVisita()" title="Agregar nueva visita">
           <i class="fa fa-plus"></i>
         </button>
       </div>
@@ -64,12 +69,13 @@
             <p class="card-text"><b>Fecha visita: </b>{{ visita.fecha_visita }}</p>
             <p class="card-text"><b>Contacto:</b> {{ visita.contacto }}</p>
             <div class="row mt-2">
-              <p class="card-text col" >Siguiente visita:<b> {{ formatearFecha(visita.fecha_siguiente_visita) }}</b></p>
+              <p class="card-text col">Siguiente visita:<b> {{ formatearFecha(visita.fecha_siguiente_visita) }}</b></p>
             </div>
           </div>
-          <div class="col d-flex justify-content-center mb-2">
-            <button type="button" class="general-btn m-1"data-toggle="modal" data-target="#editarModal"
-            title="Editar Visita"(click)="abrirModalEditar(visita)">Editar visita</button>
+          <div class="col d-flex justify-content-between mb-2">
+            <button class="search-btn m-1" (click)="realizarPedidoVisita(visita.id_visita)">Realizar pedido</button>
+            <button type="button" class="general-btn m-1" data-toggle="modal" data-target="#editarModal"
+              title="Editar Visita" (click)="abrirModalEditar(visita)">Editar visita</button>
           </div>
         </div>
       </div>
@@ -80,8 +86,8 @@
 
 
 <!-- MODAL VISITAS -->
-<form class="modal fade" id="editarModal" #editarForm="ngForm" (ngSubmit)="guardarCambios(editarForm)"
-tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<form class="modal fade" id="editarModal" #editarForm="ngForm" (ngSubmit)="guardarCambios(editarForm)" tabindex="-1"
+  role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -100,13 +106,14 @@ tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         </div>
         <div *ngIf="editandoFecha">
           <label for="fechaSiguienteVisita">Fecha Siguiente Visita:</label>
-          <input type="date" class="form-control" name="fechaSiguienteVisita" [(ngModel)]="editarVisita.fecha_siguiente_visita">
+          <input type="date" class="form-control" name="fechaSiguienteVisita"
+            [(ngModel)]="editarVisita.fecha_siguiente_visita">
         </div>
       </div>
       <div class="modal-footer">
         <!-- Botones para guardar o cancelar los cambios -->
         <button type="button" class="danger-btn" data-dismiss="modal" (click)="cerrarModal()">Cancelar</button>
-        <button type="submit" class="search-btn" >Guardar Cambios</button>
+        <button type="submit" class="search-btn">Guardar Cambios</button>
       </div>
     </div>
   </div>
