@@ -26,7 +26,7 @@ agregarVisitas(visita: VisitasDTO){
     map((resp: any) => {
       if (resp.ok) {
         console.log('service', resp.data);
-        Swal.fire('Exito al crear la visita', '', 'success');
+        Swal.fire('Exito', '', 'success');
         return resp.data;
       } else {
         Swal.fire({
