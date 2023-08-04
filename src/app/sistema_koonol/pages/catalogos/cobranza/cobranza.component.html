@@ -3,13 +3,32 @@
   <div class="container-fluid">
     <form id="form_articulos" class="m-4">
       <div class="row mt-4">
+        <div class="row form-group col-md-3">
+          <div class="col-md-6 form-group">
+            <div class="d-flex flex-column">
+            <label for="vendedor">Buscar cliente</label>
+              <input class="search-input" type="text" placeholder="cliente / RFC" aria-label="Buscar cliente"
+                  title="Buscar cliente" aria-describedby="button-addon2" [formControl]="searchClientControl" (focus)="onFocusClientSearch()" />
+              <div class="search-loader w-100" *ngIf="loader; else clientsReady">
+                  <i class="fa fa-spinner fa-pulse"></i>
+              </div>
+              <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
+                  <h4>No se encontraron clientes</h4>
+              </div>
+              <ng-template #clientsReady>
+                  <ul class="search-list" *ngIf="searchList">
+                      <li class="search-list__element" *ngFor="let client of autocompleteClients"
+                          (click)="seleccionarCliente(client.id_cliente)" name="cliente">
+                          {{ client.cliente }}
+                      </li>
+                  </ul>
+              </ng-template>
+          </div>
+          </div>
+        </div>
         <div class="form-group col-md-4">
           <label for="vendedor">Vendedor</label>
           <input type="text" class="form-control" placeholder="vendedor">
-        </div>
-        <div class="form-group col-md-3">
-          <label for="cliente">Cliente</label>
-          <input type="text" class="form-control" placeholder="Cliente">
         </div>
         <div class="form-group col-md-2">
           <label for="folio">Folio</label>
