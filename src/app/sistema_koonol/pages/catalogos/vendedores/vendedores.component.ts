@@ -12,9 +12,13 @@ import Swal from 'sweetalert2';
 export class VendedoresComponent {
   constructor(private vendedorService: VendedoresService) {}
 
-// VARIABLES GOBLANES
-public id_comprador = 1; //parseInt(window.sessionStorage.getItem("")+"");
-public token = "012354SDSDS01";
+
+datastorage: any = JSON.parse(localStorage.getItem('dataPage')!);
+miComprador = 1;
+miToken = this.datastorage.token;
+miPerfil = 'ADMINISTRADOR';
+miUsuario = 1;
+
 
 //Otras
 vendedores: any[] = [];
@@ -41,10 +45,10 @@ status: boolean = false;
   obtenerVendedor() {
      let json = {
       id_vendedor: 0,
-      id_comprador: this.id_comprador,
+      id_comprador: this.miComprador,
       vendedor: '',
       solo_activos: 1,
-      token: this.token,
+      token: this.miToken,
     };
     this.vendedorService.obtenerVendedores(json).subscribe(
       (response) => {

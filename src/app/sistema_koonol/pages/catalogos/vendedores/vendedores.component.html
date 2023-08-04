@@ -1,6 +1,6 @@
 <div class="vendedores container-fluid row">
   <div class="vendedores-container">
-    <h1 class="text-center title m-0">Vendeodres</h1>
+    <h1 class="text-center title m-0">Vendedores</h1>
 
     <!-- Barra de Busqueda -->
     <div class="vendedores__search-bar">
@@ -50,16 +50,24 @@
               <input class="form-control" type="text" name="nombre" required [(ngModel)]="vendedor.vendedor" #inputProvForm disabled />
             </div>
             <div class="form-label">
-              <label for="contacto">Contacto</label>
-              <input class="form-control" type="text" name="contacto" required #inputProvForm disabled />
+              <label for="correo">Correo</label>
+              <input class="form-control" type="text" name="correo" required #inputProvForm disabled />
+            </div>
+            <div class="form-label">
+              <label for="celular">Celular</label>
+              <input class="form-control" type="text" name="celular" required #inputProvForm disabled />
             </div>
           </div>
 
           <div  class="vendedor__data-form__section2 col-12 col-md-12">
-            <div class="mt-2 d-flex justify-content-end">
+            <!-- <div class="form-label">
+              <label for="otro">Algun otro dato que pidan JAJAJA</label>
+              <input class="form-control" type="text" name="otro" required #inputProvForm disabled />
+            </div> -->
+            <div class="mt-3 mr-2 d-flex justify-content-end">
               <button *ngIf="vendedor && vendedor.id_vendedor" class="general-btn mr-2" (click)="activarCampos()" type="button" data-toggle="tooltip" title="Editar">Editar</button>
               <button class="search-btn text-center" type="submit" data-toggle="tooltip" title="Guardar" >Guardar</button>
-            </div>
+            </div>  
           </div>
 
         </div>
