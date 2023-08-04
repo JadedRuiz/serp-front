@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div id="dah" class="row">
-        <h1 class="col mb-2 title text-center">Visita cliente</h1>
+        <h1 class="col mb-4 title text-center">Visita cliente</h1>
   </div>
   <form class="container" #visitasForm="ngForm" (ngSubmit)="guardarVisita(visitasForm)" >
     <div class="row">
@@ -28,7 +28,7 @@
       <div class="col-md-6 form-group">
         <label for="vendedor">Vendedor</label>
         <div class="ng-autocomplete">
-          <input class="form-control" type="text" placeholder="Busca un vendedor"
+          <input  class="iv mt-1 form-control" type="text" placeholder="Busca un vendedor"
               aria-label="Buscar vendedor" aria-describedby="button-addon2"
               [formControl]="searchSellerControl" (focus)="onFocusSellerSearch()" />
           <div class="search-loader w-100" *ngIf="loaderSeller; else sellersReady">
