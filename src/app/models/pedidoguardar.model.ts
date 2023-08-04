@@ -11,6 +11,7 @@ export class PedidoGuardar {
         public observaciones: string,
         public id_usuario: number,
         public articulos: ArticuloPedido[],
-        public precio_total: number
+        public precio_total: number,
+        public id_visita: number
     ) { }
 }

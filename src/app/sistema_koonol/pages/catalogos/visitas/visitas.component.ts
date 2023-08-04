@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormControl,NgForm } from '@angular/forms';
 import { Observable, Subject, Subscription, debounceTime } from 'rxjs';
+import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
+import { PedidoGuardar } from 'src/app/models/pedidoguardar.model';
 
 
 
@@ -23,12 +25,13 @@ export class VisitasComponent implements OnInit {
 
   visitas: VisitasDTO[] = [];
   vendedorActual: any;
-
+  pedidoFinal: PedidoGuardar = new PedidoGuardar(0, 1, 0, 0, 'TOKEN', '', '', 1, [], 0, 0);
 
 
   constructor(
     private visitasService: VisitasService,
     private clienteService: ClientsService,
+    private pedidoService: PedidosService,
     private datePipe: DatePipe,
 		private router: Router,
 
@@ -37,8 +40,6 @@ export class VisitasComponent implements OnInit {
 
 
   ngOnInit() {
-
-
     this.searchClientControl.valueChanges
     .pipe(debounceTime(500))
     .subscribe((value) => {
@@ -46,6 +47,9 @@ export class VisitasComponent implements OnInit {
     });
 
     this.obtenerVisitas();
+    this.pedidoService.pedidoFinal$.subscribe((pedidoFinal) => {
+      this.pedidoFinal = pedidoFinal;
+    });
   }
 
 
@@ -212,5 +216,17 @@ this.visitasService.consultarVisitas(json).subscribe((resp)=>{
       // console.log("Estás sobre el input: ", this.searchClientSubscription);
     }
 
+    async updatePedidoFinal() {
+      this.pedidoService.updatePedidoFinal(this.pedidoFinal)
+    }
+    
+    //PARA REALIZAR UN PEDIDO CON ID_VISTA
+    async realizarPedidoVisita(id_visita: number) {
+      this.pedidoFinal.id_visita = Number(id_visita)
+      await this.updatePedidoFinal().then(() => {
+        this.router.navigate(['/sis_koonol/catalogos/']);
+        console.log(this.pedidoFinal);
+      })
+    }
 
 }

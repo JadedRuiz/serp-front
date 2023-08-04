@@ -18,7 +18,8 @@
     </div>
     <div class="orders-cart__normal" *ngIf="!isCartEmpty">
       <!-- Sección 1 -->
-      <h2 class="orders-cart__title">PEDIDOS</h2>
+      <h2 class="orders-cart__title" *ngIf="pedidoFinal.id_visita !== 0">PEDIDO DE VISITA</h2>
+      <h2 class="orders-cart__title" *ngIf="pedidoFinal.id_visita == 0">PEDIDO</h2>
       <!-- Sección 2 -->
       <div class="orders-cart__products">
         <article class="orders-cart__product row" *ngFor="let item of pedido">

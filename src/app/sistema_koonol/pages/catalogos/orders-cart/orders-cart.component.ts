@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class OrdersCartComponent {
   pedido: Articulo[] = [];
-  pedidoFinal: PedidoGuardar = new PedidoGuardar(0, 1, 0, 0, 'TOKEN', '', '', 1, [], 0);
+  pedidoFinal: PedidoGuardar = new PedidoGuardar(0, 1, 0, 0, 'TOKEN', '', '', 1, [], 0, 0);
   formatter: any;
 
   constructor(
@@ -23,6 +23,10 @@ export class OrdersCartComponent {
   ) { }
 
   ngOnInit(): void {
+    this.pedidos.pedidoFinal$.subscribe((pedidoFinal) => {
+      this.pedidoFinal = pedidoFinal;
+    });
+    console.log(this.pedidoFinal);
     this.formatter = new Intl.NumberFormat('en-NZ', {
       currency: 'NZD',
       minimumFractionDigits: 2,
@@ -47,9 +51,6 @@ export class OrdersCartComponent {
         );
       });
       this.pedidos.updatePedidoFinal(this.pedidoFinal);
-    });
-    this.pedidos.pedidoFinal$.subscribe((pedidoFinal) => {
-      this.pedidoFinal = pedidoFinal;
     });
   }
 

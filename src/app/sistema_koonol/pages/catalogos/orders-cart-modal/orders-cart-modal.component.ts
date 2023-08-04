@@ -82,7 +82,7 @@ export class OrdersCartModalComponent implements OnInit {
   isDateSelected: boolean = false;
   //Variable para almacenar los productos del pedido para el carrito
   pedido: Articulo[] = [];
-  pedidoFinal: PedidoGuardar = new PedidoGuardar(0, 1, 0, 0, 'TOKEN', '', '', 1, [], 0);
+  pedidoFinal: PedidoGuardar = new PedidoGuardar(0, 1, 0, 0, 'TOKEN', '', '', 1, [], 0, 0);
   formatter: any;
   precioTotalFormateado: any;
 
