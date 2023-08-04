@@ -1,3 +1,39 @@
-.search-loader, .search-list {
-  top: 72.5px;
+@import '../breakpoints.scss';
+
+.clients__search-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+
+  div {
+    position: relative;
+    border-radius: 10px;
+    width: min(90%, 300px);
+  }
+
+  @include xs {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+}
+
+#filtrarFechaTexto {
+  display: flex;
+  justify-content: start;
+  width: 100%;
+  margin-left: 15px;
+
+  @include xs {
+    justify-content: center;
+  }
+}
+
+#button-row {
+  @include sm {
+    justify-content: center;
+    margin-top: 10px;
+  }
 }
