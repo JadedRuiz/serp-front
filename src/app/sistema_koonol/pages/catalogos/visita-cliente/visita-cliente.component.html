@@ -1,12 +1,12 @@
 <div class="container-fluid">
   <div id="dah" class="row">
-        <h1 class="col mb-4 title text-center">Visita cliente</h1>
+        <h1 class="col mb-4 title text-center">Visita Cliente</h1>
   </div>
   <form class="container" #visitasForm="ngForm" (ngSubmit)="guardarVisita(visitasForm)" >
     <div class="row">
       <div class="col-md-6 form-group">
         <div class="d-flex flex-column">
-        <label for="vendedor">Buscar cliente</label>
+        <label for="vendedor">Buscar Cliente</label>
           <input class="search-input" type="text" placeholder="cliente / RFC" aria-label="Buscar cliente"
               title="Buscar cliente" aria-describedby="button-addon2" [formControl]="searchClientControl" (focus)="onFocusClientSearch()" />
           <div class="search-loader w-100" *ngIf="loader; else clientsReady">

@@ -65,19 +65,19 @@
               <h3 class="card-title col">Cliente: <b>{{ visita.cliente }}</b></h3>
             </div>
             <p class="card-text"><b>Fecha visita: </b>{{ visita.fecha_visita }}</p>
-            <p class="card-text"><b>Contacto:</b> {{ visita.contacto }}</p>
+            <p class="card-text"><b>Contacto: </b> {{ visita.contacto }}</p>
             <div class="row mt-2">
-              <p class="card-text col">Siguiente visita:<b> {{ formatearFecha(visita.fecha_siguiente_visita) }}</b></p>
+              <p class="card-text col">Siguiente visita: <b> {{ formatearFecha(visita.fecha_siguiente_visita) }}</b></p>
             </div>
           </div>
           <div class="row d-flex ml-2 mb-2">
             <div class="col-6 d-flex justify-content-center" >
               <button class="p-2 search-btn btn-sm ml-2" (click)="realizarPedidoVisita(visita.id_visita)">Nuevo
-                pedido</button>
+                Pedido</button>
             </div>
             <div class="col-6 d-flex justify-content-center">
               <button type="button" class="p-2 general-btn btn-sm" data-toggle="modal" data-target="#editarModal"
-                title="Editar Visita" (click)="abrirModalEditar(visita)">Editar visita</button>
+                title="Editar Visita" (click)="abrirModalEditar(visita)">Editar Visita</button>
             </div>
 
           </div>
@@ -101,15 +101,15 @@
         </button>
       </div>
       <div class="modal-body">
-        <p><strong>Cliente:</strong> {{ editarVisita.cliente }}</p>
-        <p><strong>Fecha visita:</strong> {{ editarVisita.fecha_visita }}</p>
-        <p><strong>Contacto:</strong> {{ editarVisita.contacto }}</p>
+        <p><strong>Cliente: </strong> {{ editarVisita.cliente }}</p>
+        <p><strong>Fecha visita: </strong> {{ editarVisita.fecha_visita }}</p>
+        <p><strong>Contacto: </strong> {{ editarVisita.contacto }}</p>
         <div *ngIf="editandoNotas">
-          <label for="notas">Notas:</label>
+          <label for="notas">Notas: </label>
           <textarea class="form-control" id="notas" name="notas" [(ngModel)]="editarVisita.notas"></textarea>
         </div>
         <div *ngIf="editandoFecha">
-          <label for="fechaSiguienteVisita">Fecha Siguiente Visita:</label>
+          <label for="fechaSiguienteVisita">Fecha siguiente visita:</label>
           <input type="date" class="form-control" name="fechaSiguienteVisita"
             [(ngModel)]="editarVisita.fecha_siguiente_visita">
         </div>
