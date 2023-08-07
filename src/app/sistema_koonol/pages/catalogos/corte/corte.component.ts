@@ -5,7 +5,8 @@ import { Vendedor } from 'src/app/models/vendedor.model';
 import { VendedoresService } from 'src/app/services/vendedores/vendedores.service';
 import { CobranzaService } from 'src/app/services/cobranza/cobranza.service';
 import { CobranzaDto } from 'src/app/models/cobranza.model';
-
+import { Client } from 'src/app/models/clients.model';
+import { ClientsService } from 'src/app/services/clients/clients.service';
 @Component({
   selector: 'app-corte',
   templateUrl: './corte.component.html',
@@ -13,40 +14,46 @@ import { CobranzaDto } from 'src/app/models/cobranza.model';
 })
 export class CorteComponent implements OnInit {
 
+// Variables
+cId = 0;
+fechaInicio:string = '';
+fechaFinal:string = '';
+
 constructor(
   private vendedorService: VendedoresService,
   private cobranzaService: CobranzaService,
+  private clienteService: ClientsService,
 
 ){}
 
-noClients: boolean = false
 
 ngOnInit() {
 
   this.searchSellerSubscription = this.searchSellerControl.valueChanges
       .pipe(debounceTime(500))
       .subscribe((value) => {
-         this.buscarVendedor(value);
+        this.buscarVendedor(value);
+
       });
 }
 
 
 
-cobranza : any = [];
+cobranzas : any = [];
 // CONSULTAR COBRANZAS
 consultarCobranza(){
   const json = {
     id_cobranza: 0,
     id_comprador: 1,
-    id_cliente: 0,
-    fecha_inicial: "2023/08/01",
-    fecha_final: "2023/08/30",
-    token: "012354SDSDS01"
+    id_cliente: this.cId,
+    fecha_inicial: this.fechaInicio,
+    fecha_final: this.fechaFinal,
+    token: "123"
 }
 
 this.cobranzaService.consultarCobranza(json).subscribe(resp => {
-  this.cobranza = resp.data;
-  console.log('resp.data :>> ', resp.data);
+  this.cobranzas = resp.data;
+  console.log('resp.data :>> ', json);
 })
 
 }
@@ -120,5 +127,80 @@ onFocusSellerSearch() {
          this.buscarVendedor(value);
       });
 }
+
+
+
+ //////---BUSCAR CLIENTES---///////
+
+ clients: Client[] = [];
+ searchClient: string = '';
+ autocompleteClients: any[] = [];
+ selectedClient: Client = new Client(0, 0, 1, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 0, 0, 0, 0, 0, 1, 0);
+ searchClientSubscription: Subscription = new Subscription();
+ isClientSelected: boolean = false;
+ searchList: boolean = false;
+ loader: boolean = false
+ noClients: boolean = false
+ searchClientControl: FormControl = new FormControl();
+
+
+ //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE O RFC
+ buscarCliente(value: string) {
+   let json = {
+     id_cliente: 0,
+     id_comprador: 1,
+     cliente: '',
+     token: '',
+   }
+   if (value.length <= 3) {
+     this.autocompleteClients = [];
+     this.searchList = false;
+   } else if (!this.searchClientSubscription.closed) {
+     this.loader = true;
+     this.searchList = true;
+     this.clienteService.obtenerClientes(json).subscribe(
+       (resp) => {
+         if (resp.ok) {
+           this.clients = resp.data;
+           this.autocompleteClients = this.clients.filter(
+             (client) =>
+               client.cliente.toLowerCase().includes(value.toLowerCase()) ||
+               client.rfc?.toLowerCase().includes(value.toLowerCase())
+           );
+           this.loader = false;
+         }
+       },
+       (err) => {
+         console.log(err);
+         this.loader = false;
+       }
+     );
+   }
+ }
+
+ //FUNCIÓN PARA ESCOGER UN CLIENTE Y GUARDAR SU ID EN addressSelected
+ seleccionarCliente(id_cliente: number) {
+   if (id_cliente) {
+     this.selectedClient = this.autocompleteClients.find(
+       (aclient) => aclient.id_cliente === id_cliente
+     );
+     this.cId = id_cliente;
+     this.isClientSelected = true;
+     this.searchList = false;
+     this.searchClientControl.setValue(this.selectedClient.cliente)
+     this.searchClientSubscription.unsubscribe();
+   } else {
+     return;
+   }
+ }
+
+ //Función para que al dar clic en el input nos suscribamos a los cambios del mismo
+ onFocusClientSearch() {
+   this.searchClientSubscription = this.searchClientControl.valueChanges
+     .pipe(debounceTime(500))
+     .subscribe((value) => {
+       this.buscarCliente(value);
+     });
+ }
 
 }

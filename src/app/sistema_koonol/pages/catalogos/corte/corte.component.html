@@ -3,9 +3,31 @@
     <h1 class="title text-center">Corte</h1>
   </div>
   <div class="mt-4 container">
-    <form #corteForm:ngForm (ngSubmit)="consultarCobranza()">
-  <div class="col-md-6 form-group">
-    <label for="vendedor">Vendedor</label>
+    <form class="row" #corteForm:ngForm (ngSubmit)="consultarCobranza()">
+      <div class="col-md-4 form-group">
+        <div class="d-flex flex-column">
+        <label for="vendedor"><b>Cliente</b></label>
+          <input class="search-input" type="text" placeholder="cliente / RFC" aria-label="Buscar cliente"
+              title="Buscar cliente" aria-describedby="button-addon2"
+              [formControl]="searchClientControl" (focus)="onFocusClientSearch()" />
+          <div class="search-loader w-100" *ngIf="loader; else clientsReady">
+              <i class="fa fa-spinner fa-pulse"></i>
+          </div>
+          <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
+              <h4>No se encontraron clientes</h4>
+          </div>
+          <ng-template #clientsReady>
+              <ul class="search-list" *ngIf="searchList">
+                  <li class="search-list__element" *ngFor="let client of autocompleteClients"
+                      (click)="seleccionarCliente(client.id_cliente)" name="cliente">
+                      {{ client.cliente }}
+                  </li>
+              </ul>
+          </ng-template>
+      </div>
+      </div>
+  <div class="col-md-4 form-group">
+    <label for="vendedor"><b>Vendedor</b></label>
     <div class="ng-autocomplete">
       <input  class="iv  form-control" type="text" placeholder="Busca un vendedor"
           title="Buscar vendedor" aria-describedby="button-addon2"
@@ -26,45 +48,47 @@
       </ng-template>
   </div>
   </div>
-<div class="col-md-6 form-group">
-  <label for="vendedor">Cobrador</label>
+<div class="col-md-4 form-group">
+  <label for="vendedor"><b>Cobrador</b></label>
   <input  class="iv  form-control" type="text" placeholder="Nombre del cobratario"
   title="Buscar cobrador" aria-describedby="button-addon2" />
 </div>
-<div class=" mb-2 row">
-  <div class="row ml-2 align-items-center justify-content-center w-100">
+<div class="col mb-2 ">
+  <div class="ml-2 align-items-center justify-content-center w-100">
+    <label class="mt-3 col-12 text-center "><b>Filtrar por fechas:</b></label>
     <div class="row">
-      <label id="filtrarFechaTexto" class="mt-3"><b>Filtrar por fechas:</b></label>
-      <div class="input-sm col-12 col-md-4 d-flex flex-column justify-content-center mt-2">
+      <div class="input-sm col-12 col-md-6 d-flex flex-column justify-content-center mt-2">
         <label for="fechaInicio">Fecha inicial</label>
-        <input type="date" class="form-control" name="fechaInicio" >
+        <input type="date" class="form-control" name="fechaInicio" [(ngModel)]="fechaInicio" >
       </div>
-      <div class="input-sm col-12 col-md-4 d-flex flex-column justify-content-center mt-2">
+      <div class="input-sm col-12 col-md-6 d-flex flex-column justify-content-center mt-2">
         <label for="fechaFinal">Fecha final</label>
-        <input type="date" class="form-control" name="fechaFinal" >
+        <input type="date" class="form-control" name="fechaFinal" [(ngModel)]="fechaFinal">
       </div>
+    </div>
       <div id="button-row" class="mt-2 col-12 col-md-4 d-flex align-items-end">
         <button type="submit" class=" pt-1 pt-1 search-btn">Buscar</button>
       </div>
-    </div>
   </div>
 </div>
 </form>
 <hr>
-<div class="col text-center">
-  <h2 class="subtitle"><b>Pedidos</b></h2>
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="card">
+<div class="container-fluid" >
+  <h2 id="pedidos" class="subtitle"><b>Resumen</b></h2>
+  <div class="row ">
+    <div class="col">
+      <div class="card m-2" *ngFor="let cobranza of cobranzas" >
         <div class="card-body">
-          <h5 class="card-title">{{cobranza.cliente}}</h5>
-          <p class="card-text">{{cobranza.fecha_pedido | date: 'dd/MM/yyyy'}}</p>
-          <h3 class="card-title">{{cobranza.importe_pagado}}</h3>
-          <h3 class="card-title"><b>{{cobranza.cobratario}}</b></h3>
-          <a href="#" class="general-btn">Editar</a>
+          <h5 class="subtitle mb-1"><b>{{cobranza.cliente}}</b></h5>
+          <h3 class=" mt-0 mb-1"><b>Fecha pago: {{cobranza.fecha_pago | date: 'dd/MM/yyyy'}}</b></h3>
+          <h3 class=" mt-2 mb-1">Cobratario: <b>{{cobranza.cobratario}}</b></h3>
+          <h3 class="subtitle mb-1">Importe pagado: <br><b>{{cobranza.importe_pagado | currency: '$'}}</b></h3>
+          <div class="d-flex justify-content-end mt-1">
+            <button type="button" class="general-btn">Detalles</button>
+          </div>
         </div>
       </div>
-    </div>
+        </div>
   </div>
 </div>
 </div>
