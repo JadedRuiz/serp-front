@@ -8,7 +8,7 @@
         <input class="search-input" type="text" placeholder="Buscar proveedores" aria-label="Buscar proveedores"
           aria-describedby="button-addon2" [formControl]="searchProveedorControl"/>
           <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noProveedor">
-            <h4>No se encontro el Almacen</h4>
+            <h4>No se encontro el Proveedor</h4>
           </div>
           <div class="search-loader" *ngIf="loader; else proveedoresReady">
             <i class="fa fa-spinner fa-pulse"></i>
@@ -42,7 +42,7 @@
             Dirección del proveedor
           </div>
           <div class="tab" [class.active]="section === 3" (click)="tab(3)">
-            Cuentas bancarias
+            Cuenta bancaria
           </div>
         </div>
         <div class="proveedor__data-form row" [class.active]="section === 1">

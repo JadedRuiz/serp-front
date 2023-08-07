@@ -11,7 +11,7 @@
         </button>
       </div>
       <div>
-        <button type="button" class=" add-btn" (click)="openModal()" data-toggle="tooltip" title="Agregar ruta">Agregar ruta</button>
+        <button type="button" class=" add-btn" (click)="openModal()" data-toggle="tooltip" title="Agregar ruta">Agregar Ruta</button>
       </div>
     </div>
 
@@ -56,14 +56,14 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Editar ruta</b></h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Editar Ruta</b></h1>
         <a type="button" class="btn-close" (click)="closeModal()" ></a>
       </div>
       <form #routeForm="ngForm" ngNativeValidate (ngSubmit)="guardarRuta(routeForm)">
         <div class="modal-body">
           <div class="input-group">
             <div class="input-group-prepend">
-              <span class="input-group-text mb-1" id="">Nuevo nombre</span>
+              <span class="input-group-text mb-1" id="">Nueva Ruta</span>
             </div>
             <div class="input-group">
               <input [(ngModel)]="route.ruta" name="ruta" type="text" class="form-control" required />
