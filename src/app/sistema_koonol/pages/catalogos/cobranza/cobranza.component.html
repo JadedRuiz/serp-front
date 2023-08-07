@@ -70,7 +70,7 @@
                 </div>
               </div>
               <div class="d-flex mt-5 justify-content-end mb-2 orders-placed__order__section2--subsection1">
-                <button class="general-btn" data-toggle="modal" data-target="#pagarModal"
+                <button class="general-btn" data-toggle="modal" data-target="#cobranzaForm"
                   (click)="abrirModalPago(pedido)" >Pagar</button>
               </div>
             </div>
@@ -92,226 +92,224 @@
           Finalizar
         </button>
       </div>
-      <!-- modal para Cobranza -->
-      <div class="modal fade" id="pagarModal" [class.is-active]="isModalOpen">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content">
-            <div class="modal-header text-center">
-              <h5 class="title mb-0 text-center" id="editarModalLabel">Calculadora de pagos</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="row m-3">
-              <div class="col">
-                <p>Cliente:</p>
-                <b>{{pedidoSeleccionado?.cliente}}</b>
-              </div>
-              <div class="col">
-                <p>Folio:</p>
-                <span><b>000{{pedidoSeleccionado?.folio}}</b></span>
-              </div>
-            </div>
-            <div class="modal-body">
-              <div id="accordion">
-                <div class="card">
-                  <div class="card-header" id="headingBilletes" data-toggle="collapse" data-target="#collapseBilletes"
+     </div>
+</div>
+
+
+<form class="modal fade" id="cobranzaForm" [class.is-active]="isModalOpen" #cobranzaForm="ngForm" (ngSubmit)="guardar(cobranzaForm)">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="title mb-0 text-center" id="editarModalLabel">Calculadora de pagos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="row m-3">
+        <div class="col">
+          <p>Cliente:</p>
+          <b>{{pedidoSeleccionado?.cliente}}</b>
+        </div>
+        <div class="col">
+          <p>Folio:</p>
+          <span><b>000{{pedidoSeleccionado?.folio}}</b></span>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div id="accordion">
+          <div class="card">
+            <div class="card-header" id="headingBilletes" data-toggle="collapse" data-target="#collapseBilletes"
+            aria-expanded="true" aria-controls="collapseBilletes">
+              <h6 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseBilletes"
                   aria-expanded="true" aria-controls="collapseBilletes">
-                    <h6 class="mb-0">
-                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseBilletes"
-                        aria-expanded="true" aria-controls="collapseBilletes">
-                       Ingresar billetes
-                      </button>
-                    </h6>
-                  </div>
+                 Ingresar billetes
+                </button>
+              </h6>
+            </div>
 
-                  <div id="collapseBilletes" class="collapse show" aria-labelledby="headingBilletes"
-                    data-parent="#accordion">
-                    <div class="card-body">
-                      <div class="row m-1">
-                        <div class="col-3">
-                          <span for="b1000"><b>$1000</b></span>
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Ingreso" name="b1000"
-                            [(ngModel)]="b1000" (input)="calcular()">
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Cambio" name="b1000Cambio"
-                            [(ngModel)]="b1000Cambio" (input)="calcular()">
-                        </div>
-                      </div>
-                      <div class="row m-1">
-                        <div class="col-3">
-                          <span for="b500"><b>$500</b></span>
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Ingreso" name="b500"
-                            [(ngModel)]="b500" (input)="calcular()">
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Cambio" name="b500Cambio"
-                            [(ngModel)]="b500Cambio" (input)="calcular()">
-                        </div>
-                      </div>
-                      <div class="row m-1">
-                        <div class="col-3">
-                          <span for="b200"><b>$200</b></span>
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Ingreso" name="b200"
-                            [(ngModel)]="b200" (input)="calcular()">
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Cambio" name="b200Cambio"
-                            [(ngModel)]="b200Cambio" (input)="calcular()">
-                        </div>
-                      </div>
-                      <div class="row m-1">
-                        <div class="col-3">
-                          <span for="b100"><b>$100</b></span>
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Ingreso" name="b100"
-                            [(ngModel)]="b100" (input)="calcular()">
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Cambio" name="b100Cambio"
-                            [(ngModel)]="b100Cambio" (input)="calcular()">
-                        </div>
-                      </div>
-                      <div class="row m-1">
-                        <div class="col-3">
-                          <span for="b50"><b>$50</b></span>
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Ingreso" name="b50"
-                            [(ngModel)]="b50" (input)="calcular()">
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Cambio" name="b50Cambio"
-                            [(ngModel)]="b50Cambio" (input)="calcular()">
-                        </div>
-                      </div>
-                      <div class="row m-1">
-                        <div class="col-3">
-                          <span for="b20"><b>$20</b></span>
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Ingreso" name="b20"
-                            [(ngModel)]="b20" (input)="calcular()">
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Cambio" name="b20Cambio"
-                            [(ngModel)]="b20Cambio" (input)="calcular()">
-                        </div>
-                      </div>
-                    </div>
+            <div id="collapseBilletes" class="collapse show" aria-labelledby="headingBilletes"
+              data-parent="#accordion">
+              <div class="card-body">
+                <div class="row m-1">
+                  <div class="col-3">
+                    <span for="b1000"><b>$1000</b></span>
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="b1000"
+                      [(ngModel)]="b1000" (input)="calcular()">
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Cambio" name="b1000Cambio"
+                      [(ngModel)]="b1000Cambio" (input)="calcular()">
                   </div>
                 </div>
+                <div class="row m-1">
+                  <div class="col-3">
+                    <span for="b500"><b>$500</b></span>
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="b500"
+                      [(ngModel)]="b500" (input)="calcular()">
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Cambio" name="b500Cambio"
+                      [(ngModel)]="b500Cambio" (input)="calcular()">
+                  </div>
+                </div>
+                <div class="row m-1">
+                  <div class="col-3">
+                    <span for="b200"><b>$200</b></span>
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="b200"
+                      [(ngModel)]="b200" (input)="calcular()">
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Cambio" name="b200Cambio"
+                      [(ngModel)]="b200Cambio" (input)="calcular()">
+                  </div>
+                </div>
+                <div class="row m-1">
+                  <div class="col-3">
+                    <span for="b100"><b>$100</b></span>
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="b100"
+                      [(ngModel)]="b100" (input)="calcular()">
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Cambio" name="b100Cambio"
+                      [(ngModel)]="b100Cambio" (input)="calcular()">
+                  </div>
+                </div>
+                <div class="row m-1">
+                  <div class="col-3">
+                    <span for="b50"><b>$50</b></span>
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="b50"
+                      [(ngModel)]="b50" (input)="calcular()">
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Cambio" name="b50Cambio"
+                      [(ngModel)]="b50Cambio" (input)="calcular()">
+                  </div>
+                </div>
+                <div class="row m-1">
+                  <div class="col-3">
+                    <span for="b20"><b>$20</b></span>
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="b20"
+                      [(ngModel)]="b20" (input)="calcular()">
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Cambio" name="b20Cambio"
+                      [(ngModel)]="b20Cambio" (input)="calcular()">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                <!-- Sección de Monedas -->
-                <div class="card">
-                  <div class="card-header" id="headingMonedas" data-toggle="collapse" data-target="#collapseMonedas"
+          <!-- Sección de Monedas -->
+          <div class="card">
+            <div class="card-header" id="headingMonedas" data-toggle="collapse" data-target="#collapseMonedas"
+            aria-expanded="false" aria-controls="collapseMonedas">
+              <h6 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseMonedas"
                   aria-expanded="false" aria-controls="collapseMonedas">
-                    <h6 class="mb-0">
-                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseMonedas"
-                        aria-expanded="false" aria-controls="collapseMonedas">
-                        Ingresar monedas
-                      </button>
-                    </h6>
+                  Ingresar monedas
+                </button>
+              </h6>
+            </div>
+            <div id="collapseMonedas" class="collapse" aria-labelledby="headingMonedas" data-parent="#accordion">
+              <div class="card-body">
+                <div class="row m-1">
+                  <div class="col-3">
+                    <span for="m10"><b>$10</b></span>
                   </div>
-                  <div id="collapseMonedas" class="collapse" aria-labelledby="headingMonedas" data-parent="#accordion">
-                    <div class="card-body">
-                      <div class="row m-1">
-                        <div class="col-3">
-                          <span for="m10"><b>$10</b></span>
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Ingreso" name="m10"
-                            [(ngModel)]="m10" (input)="calcular()">
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Cambio" name="m10Cambio"
-                            [(ngModel)]="m10Cambio" (input)="calcular()">
-                        </div>
-                      </div>
-                      <div class="row m-1">
-                        <div class="col-3">
-                          <span for="m5"><b>$5</b></span>
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Ingreso" name="m5"
-                            [(ngModel)]="m5" (input)="calcular()">
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Cambio" name="m5Cambio"
-                            [(ngModel)]="m5Cambio" (input)="calcular()">
-                        </div>
-                      </div>
-                      <div class="row m-1">
-                        <div class="col-3">
-                          <span for="m2"><b>$2</b></span>
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Ingreso" name="m2"
-                            [(ngModel)]="m2" (input)="calcular()">
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Cambio" name="m2Cambio"
-                            [(ngModel)]="m2Cambio" (input)="calcular()">
-                        </div>
-                      </div>
-                      <div class="row m-1">
-                        <div class="col-3">
-                          <span for="m1"><b>$1</b></span>
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Ingreso" name="m1"
-                            [(ngModel)]="m1" (input)="calcular()">
-                        </div>
-                        <div class="col-4">
-                          <input type="number" class="form-control small-input" placeholder="Cambio" name="m1Cambio"
-                            [(ngModel)]="m1Cambio" (input)="calcular()">
-                        </div>
-                      </div>
-                    </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="m10"
+                      [(ngModel)]="m10" (input)="calcular()">
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Cambio" name="m10Cambio"
+                      [(ngModel)]="m10Cambio" (input)="calcular()">
+                  </div>
+                </div>
+                <div class="row m-1">
+                  <div class="col-3">
+                    <span for="m5"><b>$5</b></span>
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="m5"
+                      [(ngModel)]="m5" (input)="calcular()">
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Cambio" name="m5Cambio"
+                      [(ngModel)]="m5Cambio" (input)="calcular()">
+                  </div>
+                </div>
+                <div class="row m-1">
+                  <div class="col-3">
+                    <span for="m2"><b>$2</b></span>
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="m2"
+                      [(ngModel)]="m2" (input)="calcular()">
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Cambio" name="m2Cambio"
+                      [(ngModel)]="m2Cambio" (input)="calcular()">
+                  </div>
+                </div>
+                <div class="row m-1">
+                  <div class="col-3">
+                    <span for="m1"><b>$1</b></span>
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="m1"
+                      [(ngModel)]="m1" (input)="calcular()">
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control small-input" placeholder="Cambio" name="m1Cambio"
+                      [(ngModel)]="m1Cambio" (input)="calcular()">
                   </div>
                 </div>
               </div>
-            </div>
-            <!--Totales-->
-            <div class="row m-1">
-              <div class="col-12 mb-1 text-center">
-                <hr>
-                <span for="totalIngresos">Total: </span>
-                <span style="font-size:1.5rem;"><b> {{pedidoSeleccionado?.precio_total | currency: 'MX'}} </b></span>
-              </div>
-              <div class="col-6 ">
-                <label for="totalIngresos"><b>Ingresos</b></label>
-                <input type="number" class="form-control form-control-sm" id="totalIngresos" name="totalIngresos"
-                  [(ngModel)]="totalIngresosReal" readonly>
-              </div>
-              <div class="col-6 ">
-                <label for="totalCambio"><b>Cambio</b></label>
-                <input type="number" class="form-control form-control-sm" id="totalCambio" name="totalCambio" [(ngModel)]="totalCambio"
-                  readonly>
-              </div>
-              <div class="mt-2 mb-2 col-7 mx-auto">
-                <label class="text-center d-block"><b>Cobratario</b></label>
-                <input type="text" class="form-control text-center" name="Cobratario" placeholder="Nombre completo">
-              </div>
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" (click)="cancelarOperacion()" class="danger-btn">Cerrar</button>
-              <button type="button" class="search-btn">Pagar</button>
             </div>
           </div>
         </div>
       </div>
+      <!--Totales-->
+      <div class="row m-1">
+        <div class="col-12 mb-1 text-center">
+          <hr>
+          <span for="totalIngresos">Total: </span>
+          <span style="font-size:1.5rem;"><b> {{pedidoSeleccionado?.precio_total | currency: 'MX'}} </b></span>
+        </div>
+        <div class="col-6 ">
+          <label for="totalIngresos"><b>Ingresos</b></label>
+          <input type="number" class="form-control form-control-sm" id="totalIngresos" name="totalIngresos"
+            [(ngModel)]="totalIngresosReal" readonly>
+        </div>
+        <div class="col-6 ">
+          <label for="totalCambio"><b>Cambio</b></label>
+          <input type="number" class="form-control form-control-sm" id="totalCambio" name="totalCambio" [(ngModel)]="totalCambio"
+            readonly>
+        </div>
+        <div class="mt-2 mb-2 col-7 mx-auto">
+          <label class="text-center d-block"><b>Cobratario</b></label>
+          <input type="text" class="form-control text-center" name="cobratario" placeholder="Nombre completo" [(ngModel)]="cobranza.cobratario" >
+        </div>
+      </div>
 
-
-
+      <div class="modal-footer">
+        <button type="button" (click)="cancelarOperacion()" class="danger-btn">Cerrar</button>
+        <button type="submit" class="search-btn">Pagar</button>
+      </div>
+    </div>
   </div>
-</div>
+</form>
