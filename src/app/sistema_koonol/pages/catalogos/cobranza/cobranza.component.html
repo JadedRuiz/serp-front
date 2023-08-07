@@ -3,7 +3,8 @@
   <div class="container-fluid">
     <form id="form_articulos" class="">
       <div class="row mt-4">
-        <div class="form-group col-md-3">
+        <div class="f
+orm-group col-md-3">
           <div class="col-md-12 form-group">
             <div class="d-flex flex-column">
             <label for="vendedor">Cliente</label>
@@ -26,16 +27,35 @@
           </div>
           </div>
         </div>
-        <!-- <div class="form-group col-md-3">
+        <div class="form-group col-12 col-md-3 mt-0 ">
           <label for="vendedor">Vendedor</label>
-          <input type="text" class="form-control" placeholder="vendedor">
-        </div> -->
-        <div class="form-group col-md-3">
+          <div class="ng-autocomplete">
+            <input  class="iv mt-1 form-control" type="text" placeholder="Busca un vendedor"
+                aria-label="Buscar vendedor" aria-describedby="button-addon2"
+                [formControl]="searchSellerControl" (focus)="onFocusSellerSearch()" />
+            <div class="search-loader w-100" *ngIf="loaderSeller; else sellersReady">
+                <i class="fa fa-spinner fa-pulse"></i>
+            </div>
+            <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
+                <h4>No se encontraron vendedores</h4>
+            </div>
+            <ng-template #sellersReady>
+                <ul class="search-list" *ngIf="searchListSeller">
+                    <li class="search-list__element" *ngFor="let seller of autocompleteSellers"
+                        (click)="seleccionarVendedor(seller.id_vendedor)" name="vendedor">
+                        {{ seller.vendedor }}
+                    </li>
+                </ul>
+            </ng-template>
+        </div>
+        </div>
+        <!-- <div class="form-group col-md-3">
           <label for="folio">Folio</label>
           <input type="number" class="form-control" placeholder="Folio">
-        </div>
-        <div class="col-md-3 mt-1">
-          <button type="button" class=" mt-5 btn search-btn">Buscar</button>
+        </div> -->
+        <div class="col-md-3">
+          <button type="button" class=" mt-5 btn search-btn" (click)="obtenerPedidos()"
+          >Buscar</button>
         </div>
       </div>
     </form>
@@ -47,26 +67,27 @@
             <div class="card-body  orders-placed__order">
               <h3 class="subtitle mb-3"> <b>{{pedido.cliente}}</b> </h3>
               <div class="orders-placed__order__section1--subsection2">
-                <p><b>Folio:</b></p><span><b>000{{pedido.folio}}</b></span>
+                <p><b>Folio:</b></p><span><b>{{pedido.folio}}</b></span>
               </div>
               <div class="hijo">
-                <span>Status: <b style="color: rgb(97, 187, 8);">{{pedido.status}}</b></span>
+                <span><b>Status: </b> <b style="color: rgb(97, 187, 8);">{{pedido.status}}</b></span>
               </div>
               <div class="hijo">
-                <span>Fecha de entrega: <b>{{pedido.fecha_entrega}}</b></span>
+                <span>Fecha de pedido: <b>{{pedido.fecha_pedido | date: 'dd/MM/yyyy' }}</b></span>
               </div>
               <div class="hijo">
-                <span>Fecha de pedido: <b>{{pedido.fecha_pedido}}</b></span>
+                <span>Fecha de entrega: <b> {{pedido.fecha_entrega | date: 'dd/MM/yyyy'}}</b></span>
               </div>
+
               <div>
-                <div class="orders-placed__order__section2--subsection2">
-                  <span><b>Productos: </b>{{pedido.num_productos}} </span>
+                <div class="mt-2 orders-placed__order__section2--subsection2">
+                  <span class="subtitle">Saldo: <b>{{pedido.saldo}} </b></span>
                 </div>
                 <div class="orders-placed__order__section2--subsection2">
-                  <span><b>Peso: {{pedido.peso_producto}} </b></span>
+                  <span class="subtitle">Pagos: <b>{{pedido.pagos}} </b></span>
                 </div>
                 <div class="orders-placed__order__section2--subsection2">
-                  <span><b>Total: {{pedido.precio_total  | currency: 'MX'}}</b></span>
+                  <span class="subtitle"><b>Total: {{pedido.importe_pedido  | currency: 'MX'}}</b></span>
                 </div>
               </div>
               <div class="d-flex mt-5 justify-content-end mb-2 orders-placed__order__section2--subsection1">
@@ -108,7 +129,7 @@
         </div>
         <div class="col">
           <p>Folio:</p>
-          <span><b>000{{pedidoSeleccionado?.folio}}</b></span>
+          <span><b>{{pedidoSeleccionado?.folio}}</b></span>
         </div>
       </div>
       <div class="modal-body">
@@ -117,7 +138,7 @@
             <div class="card-header" id="headingBilletes" data-toggle="collapse" data-target="#collapseBilletes"
             aria-expanded="true" aria-controls="collapseBilletes">
               <h6 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseBilletes"
+                <button type="button"  class="btn btn-link" data-toggle="collapse" data-target="#collapseBilletes"
                   aria-expanded="true" aria-controls="collapseBilletes">
                  Ingresar billetes
                 </button>
@@ -214,7 +235,7 @@
             <div class="card-header" id="headingMonedas" data-toggle="collapse" data-target="#collapseMonedas"
             aria-expanded="false" aria-controls="collapseMonedas">
               <h6 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseMonedas"
+                <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseMonedas"
                   aria-expanded="false" aria-controls="collapseMonedas">
                   Ingresar monedas
                 </button>

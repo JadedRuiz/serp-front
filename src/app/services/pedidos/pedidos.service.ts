@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { SERV_PEDIDOS } from 'src/config/config';
+import { SERV_PEDIDOS, SERV_PEDIDOS_PAGAR } from 'src/config/config';
 import { Pedido } from 'src/app/models/pedido.model';
 import Swal from 'sweetalert2';
 import { PedidoGuardar } from 'src/app/models/pedidoguardar.model';
@@ -25,6 +25,14 @@ export class PedidosService {
         return this.pedidoFinalSubject.value
     }
 
+    // PEDIDOS POR PAGAR
+    consultarPorPagar(json: any) {
+
+      return this.http.post<any>(SERV_PEDIDOS_PAGAR, json);
+    }
+
+
+    // PEDIDOS GENERALES
     obtenerPedidos(): Observable<any> {
         const parametros = {
             id_pedido: 0,
@@ -40,7 +48,7 @@ export class PedidosService {
             id_pedido: id_pedido,
             token: "012354SDSDS01"
         }
-        
+
         let url = `https://serp-inventarios.serteza.com/public/api/pedidos/buscarPedido`
         return this.http.post<any>(url, parametros);
     }
