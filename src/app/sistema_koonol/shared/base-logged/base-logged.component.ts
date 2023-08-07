@@ -50,7 +50,7 @@ export class BaseLoggedComponent implements OnInit {
   pantallaChica: boolean = false
   tamañoPantalla:number = window.screen.width;
   ngOnInit() {
-    
+
     if (this.tamañoPantalla < 768) {
       this.pantallaChica = true;
       $('.chiller-theme').removeClass('toggled');
@@ -119,10 +119,13 @@ export class BaseLoggedComponent implements OnInit {
       'Si',
       'No',
       () => {
+        console.log('obje1 :>> ');
         localStorage.removeItem('token');
         location.reload();
       },
-      () => {},
+      () => {
+
+      },
       {
         backOverlay: true,
         backOverlayColor: 'rgba(0,0,0,0.8)',

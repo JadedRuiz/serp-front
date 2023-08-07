@@ -1,9 +1,11 @@
 import { Client } from 'src/app/models/clients.model';
 import { ClientsService } from 'src/app/services/clients/clients.service';
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,ViewChild, ElementRef } from '@angular/core';
 import { Observable, Subject, Subscription, debounceTime } from 'rxjs';
 import { FormControl, NgForm } from '@angular/forms';
 import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router'; '';
 
 @Component({
   selector: 'app-cobranza',
@@ -11,6 +13,11 @@ import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
   styleUrls: ['./cobranza.component.scss'],
 })
 export class CobranzaComponent implements OnInit{
+
+
+
+
+
   //PEDIDOS
   pedidos: any = [];
   pedidoSeleccionado: any;
@@ -44,7 +51,11 @@ export class CobranzaComponent implements OnInit{
 itemsPerPage =2;
 p=1;
 
+isModalOpen: boolean = false;
+
+
   constructor(
+    private router: Router,
     private pedidosRealizados: PedidosService,
   private clienteService: ClientsService,
 
@@ -69,7 +80,9 @@ p=1;
  // Función para abrir el modal y establecer el pedido seleccionado
  abrirModalPago(pedido: any) {
   this.pedidoSeleccionado = pedido;
-  console.log('pedido :>> ', pedido);
+  //console.log('pedido :>> ', pedido);
+ this.openModal()
+
 }
 
   //Para la calculadora
@@ -100,6 +113,33 @@ p=1;
 
     this.totalIngresosReal = this.totalIngresos - this.totalCambio;
   }
+// =>MODAL
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+    console.log('closemodal :>>');
+  }
+
+cancelarOperacion(){
+  Swal.fire({
+    title: '¿Quieres cancelar la operación?',
+    text: "Se reiniciara la calculadora",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, cancelar'
+  }).then((result) => {
+    if (result.isConfirmed){
+      this.closeModal()
+
+    }
+  })
+}
+
 
 //=>>> BUSCAR CLIENTE
 clients:Client[]=[];

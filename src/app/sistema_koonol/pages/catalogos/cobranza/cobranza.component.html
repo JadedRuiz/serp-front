@@ -1,13 +1,13 @@
 <div id="cobranza" class="container-fluid">
   <h1 class="title text-center">Cobranza</h1>
   <div class="container-fluid">
-    <form id="form_articulos" class="m-4">
+    <form id="form_articulos" class="">
       <div class="row mt-4">
-        <div class="row form-group col-md-3">
-          <div class="col-md-6 form-group">
+        <div class="form-group col-md-3">
+          <div class="col-md-12 form-group">
             <div class="d-flex flex-column">
-            <label for="vendedor">Buscar cliente</label>
-              <input class="search-input" type="text" placeholder="cliente / RFC" aria-label="Buscar cliente"
+            <label for="vendedor">Cliente</label>
+              <input class="search-input w-100" type="text" placeholder="cliente / RFC" aria-label="Buscar cliente"
                   title="Buscar cliente" aria-describedby="button-addon2" [formControl]="searchClientControl" (focus)="onFocusClientSearch()" />
               <div class="search-loader w-100" *ngIf="loader; else clientsReady">
                   <i class="fa fa-spinner fa-pulse"></i>
@@ -26,11 +26,11 @@
           </div>
           </div>
         </div>
-        <div class="form-group col-md-4">
+        <!-- <div class="form-group col-md-3">
           <label for="vendedor">Vendedor</label>
           <input type="text" class="form-control" placeholder="vendedor">
-        </div>
-        <div class="form-group col-md-2">
+        </div> -->
+        <div class="form-group col-md-3">
           <label for="folio">Folio</label>
           <input type="number" class="form-control" placeholder="Folio">
         </div>
@@ -38,6 +38,8 @@
           <button type="button" class=" mt-5 btn search-btn">Buscar</button>
         </div>
       </div>
+    </form>
+
       <!-- Tarjeta (Card) para mostrar los datos de los pedidos -->
       <div class="w-100">
         <div class="row justify-content-center">
@@ -69,7 +71,7 @@
               </div>
               <div class="d-flex mt-5 justify-content-end mb-2 orders-placed__order__section2--subsection1">
                 <button class="general-btn" data-toggle="modal" data-target="#pagarModal"
-                  (click)="abrirModalPago(pedido)">Pagar</button>
+                  (click)="abrirModalPago(pedido)" >Pagar</button>
               </div>
             </div>
           </div>
@@ -91,7 +93,7 @@
         </button>
       </div>
       <!-- modal para Cobranza -->
-      <div class="modal fade" id="pagarModal">
+      <div class="modal fade" id="pagarModal" [class.is-active]="isModalOpen">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content">
             <div class="modal-header text-center">
@@ -280,23 +282,29 @@
             </div>
             <!--Totales-->
             <div class="row m-1">
-              <div class="col-sm-6 col-md-4 ">
-                <label for="totalIngresos">Total: </label>
-                <span style="font-size:1.5rem;"> {{pedidoSeleccionado?.precio_total | currency: 'MX'}}</span>
+              <div class="col-12 mb-1 text-center">
+                <hr>
+                <span for="totalIngresos">Total: </span>
+                <span style="font-size:1.5rem;"><b> {{pedidoSeleccionado?.precio_total | currency: 'MX'}} </b></span>
               </div>
-              <div class="col-sm-6 col-md-4">
+              <div class="col-6 ">
                 <label for="totalIngresos"><b>Ingresos</b></label>
-                <input type="number" class="form-control" id="totalIngresos" name="totalIngresos"
+                <input type="number" class="form-control form-control-sm" id="totalIngresos" name="totalIngresos"
                   [(ngModel)]="totalIngresosReal" readonly>
               </div>
-              <div class="col-sm-6 col-md-4 ">
+              <div class="col-6 ">
                 <label for="totalCambio"><b>Cambio</b></label>
-                <input type="number" class="form-control" id="totalCambio" name="totalCambio" [(ngModel)]="totalCambio"
+                <input type="number" class="form-control form-control-sm" id="totalCambio" name="totalCambio" [(ngModel)]="totalCambio"
                   readonly>
               </div>
+              <div class="mt-2 mb-2 col-7 mx-auto">
+                <label class="text-center d-block"><b>Cobratario</b></label>
+                <input type="text" class="form-control text-center" name="Cobratario" placeholder="Nombre completo">
+              </div>
             </div>
+
             <div class="modal-footer">
-              <button type="button" class="danger-btn" data-dismiss="modal">Cerrar</button>
+              <button type="button" (click)="cancelarOperacion()" class="danger-btn">Cerrar</button>
               <button type="button" class="search-btn">Pagar</button>
             </div>
           </div>
@@ -305,6 +313,5 @@
 
 
 
-    </form>
   </div>
 </div>
