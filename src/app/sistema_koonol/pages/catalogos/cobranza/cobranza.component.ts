@@ -111,30 +111,30 @@ export class CobranzaComponent implements OnInit {
 
   // GUARDAR COBRANZA
   guardar(cobranzaForm: NgForm) {
-    this.calcular();
-    this.cobranza.cambio_1000 = this.b1000Cambio;
-    this.cobranza.cambio_500 = this.b500Cambio;
-    this.cobranza.cambio_200 = this.b200Cambio;
-    this.cobranza.cambio_100 = this.b100Cambio;
-    this.cobranza.cambio_50 = this.b50Cambio;
-    this.cobranza.cambio_20 = this.b20Cambio;
-    this.cobranza.cambio_10 = this.m10Cambio;
-    this.cobranza.cambio_5 = this.m5Cambio;
-    this.cobranza.cambio_2 = this.m2Cambio;
-    this.cobranza.cambio_1 = this.m1Cambio;
-    this.cobranza.pago_1 = this.m1;
-    this.cobranza.pago_2 = this.m2;
-    this.cobranza.pago_5 = this.m5;
-    this.cobranza.pago_10 = this.m10;
-    this.cobranza.pago_20 = this.b20;
-    this.cobranza.pago_50 = this.b50;
-    this.cobranza.pago_100 = this.b100;
-    this.cobranza.pago_200 = this.b200;
-    this.cobranza.pago_500 = this.b500;
-    this.cobranza.pago_1000 = this.b1000;
+    this.cobranza.cambio_1000 = this.b1000Cambio || 0;
+    this.cobranza.cambio_500 = this.b500Cambio ||0;
+    this.cobranza.cambio_200 = this.b200Cambio||0;
+    this.cobranza.cambio_100 = this.b100Cambio||0;
+    this.cobranza.cambio_50 = this.b50Cambio||0;
+    this.cobranza.cambio_20 = this.b20Cambio||0;
+    this.cobranza.cambio_10 = this.m10Cambio||0;
+    this.cobranza.cambio_5 = this.m5Cambio||0;
+    this.cobranza.cambio_2 = this.m2Cambio||0;
+    this.cobranza.cambio_1 = this.m1Cambio||0;
+    this.cobranza.pago_1 = this.m1||0;
+    this.cobranza.pago_2 = this.m2||0;
+    this.cobranza.pago_5 = this.m5||0;
+    this.cobranza.pago_10 = this.m10||0;
+    this.cobranza.pago_20 = this.b20||0;
+    this.cobranza.pago_50 = this.b50||0;
+    this.cobranza.pago_100 = this.b100||0;
+    this.cobranza.pago_200 = this.b200||0;
+    this.cobranza.pago_500 = this.b500||0;
+    this.cobranza.pago_1000 = this.b1000||0;
     this.cobranza.id_pedido = this.pId;
     this.cobranza.importe_pagado = this.totalIngresosReal;
     this.cobranzaService.guardarCobranza(this.cobranza).subscribe((object) => {
+      this.calcular();
       console.log('this.cobranza :>> ', this.cobranza);
     });
   }
