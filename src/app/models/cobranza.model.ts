@@ -27,7 +27,12 @@ export class CobranzaDto {
      public cambio_5: number,
      public cambio_2: number,
      public cambio_1: number,
-     public id_usuario: number
+     public id_usuario: number,
+     public folio_cobranza?: number,
+     public folio?: number,
+     public importe_pedido?: number,
+     public id_cliente?: number,
+     public cliente?: number,
 
   ) {}
 }

@@ -119,7 +119,6 @@ fechaFinal: string = '';
       token: this.token,
     };
 
-    console.log('json :>> ', json);
 this.visitasService.consultarVisitas(json).subscribe((resp)=>{
   if(resp.ok){
     this.visitas = resp.data;
@@ -219,7 +218,7 @@ this.visitasService.consultarVisitas(json).subscribe((resp)=>{
     async updatePedidoFinal() {
       this.pedidoService.updatePedidoFinal(this.pedidoFinal)
     }
-    
+
     //PARA REALIZAR UN PEDIDO CON ID_VISTA
     async realizarPedidoVisita(id_visita: number) {
       this.pedidoFinal.id_visita = Number(id_visita)

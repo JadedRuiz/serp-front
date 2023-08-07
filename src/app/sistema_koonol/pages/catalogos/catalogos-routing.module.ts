@@ -14,6 +14,8 @@ import { OrdenesDeCompraComponent } from './ordenes-de-compra/ordenes-de-compra.
 import { VisitaClienteComponent } from './visita-cliente/visita-cliente.component';
 import { CobranzaComponent } from './cobranza/cobranza.component';
 import { VisitasComponent } from './visitas/visitas.component';
+import { CorteComponent } from './corte/corte.component';
+
 
 
 const routes: Routes = [
@@ -71,6 +73,10 @@ const routes: Routes = [
   {
     path: 'cobranza',
     component: CobranzaComponent
+  },
+  {
+    path: 'corte',
+    component: CorteComponent
   }
 ];
 

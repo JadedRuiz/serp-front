@@ -16,6 +16,14 @@ export class CobranzaService {
 
   ) { }
 
+
+// CONSULTAR COBRANZAS
+consultarCobranza(json:any){
+return this.http.post<any>(SERV_COBRANZA + 'cobranza/consultarCobranza',json);
+}
+
+
+
 //Guarcar Cobranza
   guardarCobranza(cobranza:CobranzaDto) {
     return this.http.post<any>(SERV_COBRANZA + 'cobranza/guardarCobranza',cobranza).pipe(
