@@ -29,7 +29,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { VisitasComponent } from './visitas/visitas.component';
 import { DatePipe } from '@angular/common';
 import { AddressesPhotosModalComponent } from './addresses-photos-modal/addresses-photos-modal.component';
-import { CorteComponent } from './corte/corte.component';
 
 
 
@@ -54,7 +53,6 @@ import { CorteComponent } from './corte/corte.component';
     CobranzaComponent,
     VisitasComponent,
     AddressesPhotosModalComponent,
-    CorteComponent
   ],
   imports: [
     CommonModule,
