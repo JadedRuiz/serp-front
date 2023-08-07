@@ -20,6 +20,10 @@ export class Pedido {
         public peso_producto: number,
         public precio_total: number,
         public num_productos: number,
-        public articulos: ArticuloPedido[]
+        public articulos: ArticuloPedido[],
+        public id_visita:number,
+        public importe_pedido: number,
+        public pagos : number,
+        public saldo : number,
     ) { }
 }

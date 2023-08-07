@@ -16,9 +16,8 @@ export class CobranzaService {
 
   ) { }
 
-
+//Guarcar Cobranza
   guardarCobranza(cobranza:CobranzaDto) {
-
     return this.http.post<any>(SERV_COBRANZA + 'cobranza/guardarCobranza',cobranza).pipe(
       map((resp:any)=>{
         if(resp.ok){
@@ -37,6 +36,7 @@ export class CobranzaService {
     )
 
   }
+
 
 
 }
