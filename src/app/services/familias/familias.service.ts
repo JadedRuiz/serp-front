@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   providedIn: 'root',
 })
 export class FamiliasService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   obtenerFamilias(): Observable<any> {
     const parametros = {
@@ -27,9 +27,9 @@ export class FamiliasService {
 
     return this.http.post(url, familia).pipe(
       map((resp: any) => {
-        if(resp.ok){
+        if (resp.ok) {
           Swal.fire('La familia fue editada con exito', '', 'success')
-        }else{
+        } else {
           Swal.fire('Ha ocurrido un error', resp.error.message, 'error');
         }
         return resp;
@@ -47,9 +47,9 @@ export class FamiliasService {
 
     return this.http.post(url, familia).pipe(
       map((resp: any) => {
-        if(resp.ok){
+        if (resp.ok) {
           Swal.fire('Familia creada exitosamente', '', 'success');
-        }else {
+        } else {
           Swal.fire('Ha ocurrido un error', '', 'error');
         }
         return resp.data;
@@ -66,20 +66,19 @@ export class FamiliasService {
 
       .pipe(
         map((resp: any) => {
-          console.log(resp);
           Swal.fire('Familia creada BORRADA', '', 'success');
           return resp.data;
         })
       );
   }
 
- desactivarFamilia(id_familia: number, activo:number) {
+  desactivarFamilia(id_familia: number, activo: number) {
     let url =
       'https://serp-inventarios.serteza.com/public/api/familias/activarFamilia?id_familia=' +
       id_familia;
     return this.http.post(url, '').pipe(
       map((resp: any) => {
-        let mensaje = activo == 0 ? 'activada' : 'desactivada' ;
+        let mensaje = activo == 0 ? 'activada' : 'desactivada';
         Swal.fire({
           position: 'center',
           icon: 'success',

@@ -14,7 +14,7 @@ export class ProveedoresService {
 
 
   //=>
-  obtenerProveedores(json:any): Observable<any> {
+  obtenerProveedores(json: any): Observable<any> {
     return this.http.post<any>(SERV_PROV, json);
   }
 
@@ -22,11 +22,11 @@ export class ProveedoresService {
     let url = 'https://serp-inventarios.serteza.com/public/api/proveedores/guardarProveedor';
     return this.http.post(url, proveedor)
       .pipe(map((resp: any) => {
-        if(resp.ok){
+        if (resp.ok) {
           Swal.fire('Proveedor editado con exito', '', 'success');
           return resp;
-          
-        }else{
+
+        } else {
           Swal.fire({
             position: 'center',
             icon: 'error',
@@ -46,10 +46,10 @@ export class ProveedoresService {
     return this.http.post(url, proveedor)
       .pipe(
         map((resp: any) => {
-          if(resp.ok){
+          if (resp.ok) {
             Swal.fire('Proveedor creado con exito', '', 'success');
             return resp.data;
-          }else {
+          } else {
             Swal.fire({
               position: 'center',
               icon: 'error',
@@ -73,7 +73,6 @@ export class ProveedoresService {
     return this.http.post(url, '').pipe(
       map((resp: any) => {
         if (resp.ok) {
-          console.log("resp =>", resp)
           let mensaje = activo == 0 ? 'Activado' : 'Desactivado';
           Swal.fire({
             position: 'center',

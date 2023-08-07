@@ -42,7 +42,6 @@ export class CatalogoService {
     return this.famService.obtenerFamilias().pipe(
       map((response) => {
         if (response.ok) {
-          //console.log('service=>',response.data);
           return response.data;
         } else {
           catchError(err => {
@@ -64,7 +63,6 @@ export class CatalogoService {
       token: '012354SDSDS01',
       id_almacen: 1,
     };
-    console.log
     return this.http.post<any>(SERVER_API, parametros);
   }
 
@@ -90,7 +88,6 @@ export class CatalogoService {
     return this.http.post(url, producto).pipe(
       map((resp: any) => {
         if (resp.ok) {
-          console.log('service', resp.data);
           Swal.fire('Exito al crear el Articulo', '', 'success');
           this.vaciarForm = true;
           return resp.data;
@@ -125,7 +122,6 @@ export class CatalogoService {
     let url = 'https://serp-inventarios.serteza.com/public/api/articulos/guardarFotografia';
     const observables = fotos.map((foto: string) => {
       let foto_base64 = foto.slice(22);
-      console.log(foto_base64);
       const parametros = {
         id_articulo_fotografia: 0,
         id_articulo: id_articulo,
@@ -137,7 +133,6 @@ export class CatalogoService {
       }
       return this.http.post(url, parametros).pipe(
         map((resp: any) => {
-          console.log('Foto Guardada', resp);
           return resp.data
         })
       );

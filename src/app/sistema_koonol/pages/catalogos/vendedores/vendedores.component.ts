@@ -10,28 +10,28 @@ import Swal from 'sweetalert2';
   styleUrls: ['./vendedores.component.scss'],
 })
 export class VendedoresComponent {
-  constructor(private vendedorService: VendedoresService) {}
+  constructor(private vendedorService: VendedoresService) { }
 
 
-datastorage: any = JSON.parse(localStorage.getItem('dataPage')!);
-miComprador = 1;
-miToken = this.datastorage.token;
-miPerfil = 'ADMINISTRADOR';
-miUsuario = 1;
+  datastorage: any = JSON.parse(localStorage.getItem('dataPage')!);
+  miComprador = 1;
+  miToken = this.datastorage.token;
+  miPerfil = 'ADMINISTRADOR';
+  miUsuario = 1;
 
 
-//Otras
-vendedores: any[] = [];
-searchVendedor: string = '';
-autocompleteVendedor: any[] = [];
-isVendedorSeleccionado: boolean = false;
-vendedorSeleccionado: Vendedor[] = [];
-searchList: boolean = false;
-vendedor: Vendedor = new Vendedor(0, 1, '', '', 1, 1);
-status: boolean = false;
+  //Otras
+  vendedores: any[] = [];
+  searchVendedor: string = '';
+  autocompleteVendedor: any[] = [];
+  isVendedorSeleccionado: boolean = false;
+  vendedorSeleccionado: Vendedor[] = [];
+  searchList: boolean = false;
+  vendedor: Vendedor = new Vendedor(0, 1, '', '', 1, 1);
+  status: boolean = false;
 
 
-@ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
+  @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
 
 
   ngOnInit() {
@@ -43,7 +43,7 @@ status: boolean = false;
 
   //=> Obtener Vendedor
   obtenerVendedor() {
-     let json = {
+    let json = {
       id_vendedor: 0,
       id_comprador: this.miComprador,
       vendedor: '',
@@ -63,7 +63,6 @@ status: boolean = false;
             title: 'Error',
             text: 'Ha ocurrido un error',
           });
-          //console.log(response.message);
         }
       },
       (error) => {
@@ -74,18 +73,16 @@ status: boolean = false;
 
   //Busca Vendedor =>
   buscarVendedor() {
-     if (this.searchVendedor.length <= 1) {
+    if (this.searchVendedor.length <= 1) {
       this.autocompleteVendedor = [];
     } else {
       this.searchList = true;
       this.obtenerVendedor;
-      console.log(this.vendedores);
       this.autocompleteVendedor = this.vendedores.filter((vendedor) =>
         vendedor.vendedor
           .toLowerCase()
           .includes(this.searchVendedor.toLowerCase())
       );
-      console.log(this.autocompleteVendedor);
     }
   }
 
@@ -110,28 +107,25 @@ status: boolean = false;
 
   //Guarda Vendedor =>
   guardarVendedor(vendedorForm: NgForm) {
-      if (vendedorForm.invalid) {
+    if (vendedorForm.invalid) {
       return;
     }
     if (this.vendedor.id_vendedor) {
       this.vendedorService
         .editarVendedor(this.vendedor.id_vendedor, this.vendedor)
-        .subscribe((objeto) => {});
-      //console.log('editamos');
+        .subscribe((objeto) => { });
     } else {
       this.vendedorService
         .agregarVendedor(this.vendedor)
         .subscribe((objeto) => {
           this.obtenerVendedor;
         });
-        vendedorForm.resetForm();
-     // console.log('guardamos');
+      vendedorForm.resetForm();
     }
   }
 
   // Activar/Desactivar Vendedor =>
-  activarVendedor(id_vendedor: number, activo:number) {
-      console.log(activo);
+  activarVendedor(id_vendedor: number, activo: number) {
     let textoAlert = activo == 1 ? '¿Quieres DESACTIVAR este vendedor?' : '¿Quieres ACTIVAR este vendedor?'
     Swal.fire({
       title: textoAlert,
@@ -141,26 +135,23 @@ status: boolean = false;
     }).then((result) => {
       if (result.isConfirmed) {
         this.vendedorService.activarVendedor(id_vendedor, activo).subscribe((objeto) => {
-         this.obtenerVendedor;
-
-          // this.vendedorService.obtenerVendedores(json);
-          console.log('vend=>', this.vendedor);
+          this.obtenerVendedor();
         });
       }
     })
   }
 
-//Activo
-vendedorIsActive: boolean = false;
-updateVendedorStatus() {
-  this.autocompleteVendedor.forEach(vendedor => {
-    if (vendedor.activo === 1) {
-      vendedor.vendedorIsActive = true;
-    } else {
-      vendedor.vendedorIsActive = false;
-    }
-  });
-}
+  //Activo
+  vendedorIsActive: boolean = false;
+  updateVendedorStatus() {
+    this.autocompleteVendedor.forEach(vendedor => {
+      if (vendedor.activo === 1) {
+        vendedor.vendedorIsActive = true;
+      } else {
+        vendedor.vendedorIsActive = false;
+      }
+    });
+  }
 
 
 

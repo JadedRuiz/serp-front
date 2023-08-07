@@ -38,7 +38,6 @@ export class ProveedoresComponent {
     this.provInputs.forEach(
       provInput => {
         provInput.nativeElement.disabled = false
-        // console.log(provInput.nativeElement)
       }
     )
   }
@@ -47,7 +46,6 @@ export class ProveedoresComponent {
     this.provInputs.forEach(
       provInput => {
         provInput.nativeElement.disabled = true
-        // console.log(provInput.nativeElement)
       }
     )
   }
@@ -83,7 +81,7 @@ export class ProveedoresComponent {
     else if (section === 2) {
       this.section = 2
     }
-    else if (section === 3){
+    else if (section === 3) {
       this.section = 3
     }
   }
@@ -107,8 +105,6 @@ export class ProveedoresComponent {
       if (result.isConfirmed) {
         this.provService.activarProveedor(id_proveedor, activo).subscribe((objeto) => {
           this.provService.obtenerProveedores(json);
-          console.log('prov=>', this.proveedor.activo);
-
         });
       } else if (result.isDenied) {
       }
@@ -191,7 +187,6 @@ export class ProveedoresComponent {
 
     this.provService.obtenerProveedores(json).subscribe(
       (response) => {
-        //=> console.log('=>',response.data);
         if (response.ok) {
           this.setearProveedor(response)
         } else {
@@ -221,15 +216,14 @@ export class ProveedoresComponent {
       this.searchList = true;
       this.provService.obtenerProveedores(json).subscribe(
         (resp) => {
-          console.log('Ws=>', this.proveedores);
           if (resp.ok) {
             this.setearProveedor(resp)
             this.autocompleteProveedor = this.proveedores.filter((proveedor) =>
               proveedor.proveedor?.toLowerCase().includes(value.toLowerCase())
               || proveedor.contacto?.toLowerCase().includes(value.toLowerCase())
-                || proveedor.nombre_comercial?.toLowerCase().includes(value.toLowerCase())
+              || proveedor.nombre_comercial?.toLowerCase().includes(value.toLowerCase())
             );
-            
+
             this.loader = false;
           }
         },
@@ -243,8 +237,6 @@ export class ProveedoresComponent {
 
   //=>
   selecionarProveedor(id_proveedor: number) {
-
-    // console.log(id_proveedor);
     if (id_proveedor) {
       this.proveedor = this.autocompleteProveedor.filter(
         (proveedor) => proveedor.id_proveedor === id_proveedor
@@ -282,8 +274,7 @@ export class ProveedoresComponent {
           proveedorForm.resetForm()
           this.isProveedorSelected = false
           this.modificarProveedor();
-          console.log("EDITAMOS ", this.proveedor);
-          if (result.isDenied){
+          if (result.isDenied) {
             return;
           }
         }
@@ -292,13 +283,11 @@ export class ProveedoresComponent {
       this.provService.agregarProveedor(this.proveedor).subscribe((objeto) => {
         this.provService.obtenerProveedores(json);
       })
-      console.log("GUARDAMOS ", this.proveedor);
       this.modificarProveedor();
       proveedorForm.resetForm();
       this.provService.obtenerProveedores(json);
 
     }
-    //console.log(this.proveedor);
   }
 
 }

@@ -47,7 +47,6 @@ export class AddProductComponent implements OnInit {
         .obtenerArticuloId(idArticulo)
         .subscribe((producto) => {
           //this.item = producto.data[0]
-          console.log(idArticulo);
 
           producto = producto.data[0];
           // Asignando los valores al form
@@ -75,11 +74,7 @@ export class AddProductComponent implements OnInit {
             producto.imagenes
           );
           this.uploadedImages = producto.imagenes;
-          console.log(this.uploadedImages);
           this.calcularPrecioMasIva();
-          // console.log(producto);
-          // console.log(this.item);
-          // console.log(this.fotos);
           this.imgResultAfterResize = this.uploadedImages[0].fotografia;
           this.transformarImages();
         });
@@ -92,14 +87,12 @@ export class AddProductComponent implements OnInit {
 //TRasformamos Imagenes => base64
 transformarImages() {
   const promises = this.uploadedImages.map((image) => {
-    console.log('gg',image.fotografia)
     return this.imageCompress.compressFile(image.fotografia, -1, 50, 50);
   });
 
   // Esperar a que se completen todas las operaciones de compresión antes de continuar
   Promise.all(promises).then((compressedImages) => {
     this.compressedImages = compressedImages.map((result) => result);
-    console.log(this.compressedImages); // Aquí puedes utilizar las imágenes comprimidas
   });
 }
 
@@ -151,7 +144,6 @@ transformarImages() {
   obtenermedidas() {
     this.medidaService.obtenerMedidas().subscribe((objeto) => {
       this.medidas = objeto.data;
-      console.log('medida :>> ', this.medidas);
     });
   }
 
@@ -174,7 +166,6 @@ transformarImages() {
   //Para  guardar Productos
   guardarArticulo(productForm: NgForm) {
     this.productService.agregarProducto(this.item).subscribe((objeto) => {
-      console.log('=>>', objeto.id_articulo);
       this.guardarFotos(objeto.id_articulo);
     });
     this.productService.obtenerArticulos();
@@ -197,7 +188,6 @@ transformarImages() {
 
     const resultado = (precioDescuento3 * (1 + tasaIVA / 100)).toFixed(2);
     this.precioMasIva = Number(resultado);
-    console.log();
   }
 
   //PARA LAS IMAGENES =>
@@ -210,23 +200,18 @@ transformarImages() {
     return this.imageCompress
       .uploadFile()
       .then(({ image, orientation }: UploadResponse) => {
-        //console.warn('Tamaño Inicial:', this.imageCompress.byteCount(image));
 
         if (this.imageCompress.byteCount(image) > 5 * 1024 * 1024) {
           alert('El tamaño de la imagen excede el límite de 5 MB');
           return;
         }
 
-        //    console.warn('comprimida y redimensionada a 400x');
         this.imageCompress
           .compressFile(image, orientation, 40, 40, 400, 400)
           .then((result: DataUrl) => {
             //let image = result.slice(22)
-            console.log('image', image);
             this.uploadedImages.push(image);
             this.imageCount++;
-            console.warn('FINAL:', this.imageCompress.byteCount(result));
-            console.log(this.uploadedImages);
             this.displayImage(this.uploadedImages.length - 1);
           });
       });
@@ -236,8 +221,6 @@ transformarImages() {
 
   displayImage(index: number) {
     this.imgResultAfterResize = this.uploadedImages[index];
-    console.log(this.imgResultAfterResize);
-    console.log(this.uploadedImages);
   }
 
 
@@ -257,7 +240,6 @@ transformarImages() {
     });
     this.productService.guardarFotos(id_articulo, imagenes).subscribe(
       (resp) => {
-        console.log('Guardadas', resp);
       },
       (error) => {
         console.log('Error', error);

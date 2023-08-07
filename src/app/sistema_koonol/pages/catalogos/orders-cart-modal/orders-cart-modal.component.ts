@@ -97,7 +97,6 @@ export class OrdersCartModalComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(localStorage.getItem('dataPage'))
-    console.log(this.miToken)
     this.formatter = new Intl.NumberFormat('en-NZ', {
       currency: 'NZD',
       minimumFractionDigits: 2,
@@ -111,7 +110,6 @@ export class OrdersCartModalComponent implements OnInit {
     }
     this.pedidos.pedidoFinal$.subscribe((pedidoFinal) => {
       this.pedidoFinal = pedidoFinal;
-      console.log(pedidoFinal);
     });
     const currentDate = new Date();
     this.currentDate = currentDate;
@@ -226,7 +224,6 @@ export class OrdersCartModalComponent implements OnInit {
                 client.cliente.toLowerCase().includes(value.toLowerCase()) ||
                 client.rfc?.toLowerCase().includes(value.toLowerCase())
             );
-            console.log(this.autocompleteClients);
             this.loaderCliente = false;
           }
         },
@@ -250,7 +247,6 @@ export class OrdersCartModalComponent implements OnInit {
       this.searchListCliente = false;
       this.addressSelected.id_cliente = id_cliente;
       this.searchClientSubscription.unsubscribe();
-      // console.log("Estás seleccionando un cliente: ", this.searchClientSubscription);
     } else {
       return;
     }
@@ -263,7 +259,6 @@ export class OrdersCartModalComponent implements OnInit {
       .subscribe((value) => {
         this.buscarCliente(value);
       });
-    // console.log("Estás sobre el input: ", this.searchClientSubscription);
   }
 
   //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE
@@ -309,7 +304,6 @@ export class OrdersCartModalComponent implements OnInit {
       this.isSellerSelected = true;
       this.searchListSeller = false;
       this.searchSellerSubscription.unsubscribe();
-      // console.log("Estás seleccionando un cliente: ", this.searchClientSubscription);
     } else {
       return;
     }
@@ -383,7 +377,6 @@ export class OrdersCartModalComponent implements OnInit {
       this.pedidoFinal.precio_total
     );
     this.pedidos.updatePedidoFinal(this.pedidoFinal);
-    console.log(this.pedidoFinal);
   }
 
   //MODAL PARA FINALIZAR EL PEDIDO
@@ -394,12 +387,7 @@ export class OrdersCartModalComponent implements OnInit {
     this.finPedidoModal = false;
   }
 
-  prueba() {
-    console.log("mírame", this.pedidoFinal);
-  }
-
   async saveOrder() {
-    console.log('this.pedidoFinal antes :>> ', this.pedidoFinal);
     return this.pedidos.guardarPedido(this.pedidoFinal).subscribe();
   }
 
@@ -407,7 +395,6 @@ export class OrdersCartModalComponent implements OnInit {
     await this.saveOrder().then(() => {
       this.pedido = [];
       this.catalogoService.updatePedido(this.pedido)
-      console.log('this.pedidoFinal después :>> ', this.pedidoFinal);
       this.router.navigate(['/sis_koonol/catalogos/pedidos-realizados']);
     })
   }
@@ -438,22 +425,16 @@ export class OrdersCartModalComponent implements OnInit {
     return this.imageCompress
       .uploadFile()
       .then(({ image, orientation }: UploadResponse) => {
-        // console.warn('Tamaño Inicial:', this.imageCompress.byteCount(image));
         if (this.imageCompress.byteCount(image) > 5 * 1024 * 1024) {
           alert('El tamaño de la imagen excede el límite de 5 MB');
           return;
         }
 
-        //    console.warn('comprimida y redimensionada a 400x');
         this.imageCompress
           .compressFile(image, orientation, 40, 40, 400, 400)
           .then((result: DataUrl) => {
-            //let image = result.slice(22)
-            console.log('image', image);
             this.uploadedImages.push(result);
             this.imageCount++;
-            console.warn('FINAL:', this.imageCompress.byteCount(result));
-            console.log(this.uploadedImages);
             this.displayImage(this.uploadedImages.length - 1);
           });
       });
@@ -485,13 +466,11 @@ export class OrdersCartModalComponent implements OnInit {
 
   //Función para mandar la fotografía al array de fotos subidas y mostrarla
   async pushPhoto(imagen: WebcamImage) {
-    console.warn("Tamaño antes", this.imageCompress.byteCount(imagen.imageAsDataUrl))
     await this.compressImage(imagen.imageAsDataUrl).then((result: DataUrl) => {
       this.uploadedImages.push(result);
       this.imageCount++;
       this.mainImage = result;
       this.takingPhoto = false;
-      console.warn("Tamaño después", this.imageCompress.byteCount(result))
     })
   }
 
@@ -509,7 +488,6 @@ export class OrdersCartModalComponent implements OnInit {
           longitud: position.coords.longitude
         };
         Swal.fire('Ubicacion guardada correctamete', '', 'success');
-        console.log('ubi :>> ', this.ubicacionVendedor);
       },
         (error) => {
           console.log(error);

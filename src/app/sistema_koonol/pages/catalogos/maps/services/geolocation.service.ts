@@ -20,7 +20,6 @@ export class GeolocationService {
         ({ coords }) => {
           this.userLocation = [coords.longitude, coords.latitude]
           resolve(this.userLocation)
-          console.log(coords);
         },
         (err) => {
           console.log(err);

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 
 
 import Swal from 'sweetalert2';
-import { FormControl,NgForm } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
 import { Observable, Subject, Subscription, debounceTime } from 'rxjs';
 import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
 import { PedidoGuardar } from 'src/app/models/pedidoguardar.model';
@@ -33,18 +33,18 @@ export class VisitasComponent implements OnInit {
     private clienteService: ClientsService,
     private pedidoService: PedidosService,
     private datePipe: DatePipe,
-		private router: Router,
+    private router: Router,
 
-    ) { }
+  ) { }
 
 
 
   ngOnInit() {
     this.searchClientControl.valueChanges
-    .pipe(debounceTime(500))
-    .subscribe((value) => {
-      this.buscarCliente(value);
-    });
+      .pipe(debounceTime(500))
+      .subscribe((value) => {
+        this.buscarCliente(value);
+      });
 
     this.obtenerVisitas();
     this.pedidoService.pedidoFinal$.subscribe((pedidoFinal) => {
@@ -53,59 +53,57 @@ export class VisitasComponent implements OnInit {
   }
 
 
-//Nueva Visita
-nuevaVisita(){
- this.router.navigate(['/sis_koonol/catalogos/nueva-visita']);
-}
+  //Nueva Visita
+  nuevaVisita() {
+    this.router.navigate(['/sis_koonol/catalogos/nueva-visita']);
+  }
 
 
-// MODAL
-editandoNotas = false;
-editandoFecha = false;
-editarVisita: VisitasDTO = {
-  id_visita: 0,
-  vendedor: '',
-  id_vendedor: 0,
-  id_cliente: 0,
-  cliente: '',
-  fecha_visita: '',
-  contacto: '',
-  notas: '',
-  cancelado:0,
-  fecha_siguiente_visita: '', // Asegúrate de inicializar esta propiedad
-  // ... otras propiedades
-};
+  // MODAL
+  editandoNotas = false;
+  editandoFecha = false;
+  editarVisita: VisitasDTO = {
+    id_visita: 0,
+    vendedor: '',
+    id_vendedor: 0,
+    id_cliente: 0,
+    cliente: '',
+    fecha_visita: '',
+    contacto: '',
+    notas: '',
+    cancelado: 0,
+    fecha_siguiente_visita: '', // Asegúrate de inicializar esta propiedad
+    // ... otras propiedades
+  };
 
 
-abrirModalEditar(visita: VisitasDTO) {
-  this.editarVisita = visita;
-  // Cambia el valor de editandoNotas y editandoFecha según tus necesidades
-  this.editandoNotas = true;
-  this.editandoFecha = true;
-}
+  abrirModalEditar(visita: VisitasDTO) {
+    this.editarVisita = visita;
+    // Cambia el valor de editandoNotas y editandoFecha según tus necesidades
+    this.editandoNotas = true;
+    this.editandoFecha = true;
+  }
 
-cerrarModal() {
-  // Lógica para cerrar el modal
-}
-guardarCambios(visitasForm : NgForm){
- // console.log("hola", coords);
-   this.visitasService.agregarVisitas(this.editarVisita).subscribe((object) => {
-      console.log('visitasForm:', this.editarVisita);
-   });
-}
+  cerrarModal() {
+    // Lógica para cerrar el modal
+  }
+  guardarCambios(visitasForm: NgForm) {
+    this.visitasService.agregarVisitas(this.editarVisita).subscribe((object) => {
+    });
+  }
 
 
 
-//Transformando fecha Visita
-formatearFecha(fecha: any){
-  return this.datePipe.transform(fecha, 'dd/MM/yyyy');
-}
+  //Transformando fecha Visita
+  formatearFecha(fecha: any) {
+    return this.datePipe.transform(fecha, 'dd/MM/yyyy');
+  }
 
-//=> BUSCAR VISITAS
-vendedorId= 21
-token= '123';
-fechaInicio: string = '';
-fechaFinal: string = '';
+  //=> BUSCAR VISITAS
+  vendedorId = 21
+  token = '123';
+  fechaInicio: string = '';
+  fechaFinal: string = '';
 
 
 
@@ -119,31 +117,28 @@ fechaFinal: string = '';
       token: this.token,
     };
 
-    console.log('json :>> ', json);
-this.visitasService.consultarVisitas(json).subscribe((resp)=>{
-  if(resp.ok){
-    this.visitas = resp.data;
-    if (this.visitas.length > 0) {
-      this.vendedorActual = this.visitas[0].vendedor; // Corregimos el nombre
-    }
-    console.log('visitas :>> ', this.visitas);
-  }else{
-    Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: 'Error',
-      text:   'Ha ocurrido un error',
-    });
-    //console.log(response.message);
-  }
-})
+    this.visitasService.consultarVisitas(json).subscribe((resp) => {
+      if (resp.ok) {
+        this.visitas = resp.data;
+        if (this.visitas.length > 0) {
+          this.vendedorActual = this.visitas[0].vendedor; // Corregimos el nombre
+        }
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Error',
+          text: 'Ha ocurrido un error',
+        });
+      }
+    })
 
   }
 
 
   //////PARA BUSCAR CLIENTES/////////////////////
 
-  clients:Client[]=[];
+  clients: Client[] = [];
   searchClient: string = '';
   autocompleteClients: any[] = [];
   selectedClient: Client = new Client(0, 0, 1, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 0, 0, 0, 0, 0, 1, 0);
@@ -159,7 +154,7 @@ this.visitasService.consultarVisitas(json).subscribe((resp)=>{
   buscarCliente(value: string) {
     let json = {
       id_cliente: 0,
-      id_comprador:1,
+      id_comprador: 1,
       cliente: '',
       token: '',
     }
@@ -178,7 +173,6 @@ this.visitasService.consultarVisitas(json).subscribe((resp)=>{
                 client.cliente.toLowerCase().includes(value.toLowerCase()) ||
                 client.rfc?.toLowerCase().includes(value.toLowerCase())
             );
-            console.log(this.autocompleteClients);
             this.loader = false;
           }
         },
@@ -206,27 +200,25 @@ this.visitasService.consultarVisitas(json).subscribe((resp)=>{
     }
   }
 
-    //Función para que al dar clic en el input nos suscribamos a los cambios del mismo
-    onFocusClientSearch() {
-      this.searchClientSubscription = this.searchClientControl.valueChanges
-        .pipe(debounceTime(500))
-        .subscribe((value) => {
-          this.buscarCliente(value);
-        });
-      // console.log("Estás sobre el input: ", this.searchClientSubscription);
-    }
+  //Función para que al dar clic en el input nos suscribamos a los cambios del mismo
+  onFocusClientSearch() {
+    this.searchClientSubscription = this.searchClientControl.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((value) => {
+        this.buscarCliente(value);
+      });
+  }
 
-    async updatePedidoFinal() {
-      this.pedidoService.updatePedidoFinal(this.pedidoFinal)
-    }
-    
-    //PARA REALIZAR UN PEDIDO CON ID_VISTA
-    async realizarPedidoVisita(id_visita: number) {
-      this.pedidoFinal.id_visita = Number(id_visita)
-      await this.updatePedidoFinal().then(() => {
-        this.router.navigate(['/sis_koonol/catalogos/']);
-        console.log(this.pedidoFinal);
-      })
-    }
+  async updatePedidoFinal() {
+    this.pedidoService.updatePedidoFinal(this.pedidoFinal)
+  }
+
+  //PARA REALIZAR UN PEDIDO CON ID_VISTA
+  async realizarPedidoVisita(id_visita: number) {
+    this.pedidoFinal.id_visita = Number(id_visita)
+    await this.updatePedidoFinal().then(() => {
+      this.router.navigate(['/sis_koonol/catalogos/']);
+    })
+  }
 
 }

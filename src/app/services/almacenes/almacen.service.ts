@@ -10,69 +10,68 @@ import Swal from 'sweetalert2';
   providedIn: 'root',
 })
 export class AlmacenService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  obtenerAlmacenes(json:any): Observable<any> {
+  obtenerAlmacenes(json: any): Observable<any> {
     return this.http.post<any>(SERV_ALMACEN, json);
   }
   editarAlmacen(id: number, almacen: any) {
     let url = 'https://serp-inventarios.serteza.com/public/api/almacenes/guardarAlmacen';
-    return this.http.post( url, almacen )
-    .pipe(map( (resp: any) => {
-      return resp;
-    }), catchError(err => {
-      Swal.fire("Ha ocurrido un error", err.error.message, 'error');
-      return throwError(err);
-    }));
+    return this.http.post(url, almacen)
+      .pipe(map((resp: any) => {
+        return resp;
+      }), catchError(err => {
+        Swal.fire("Ha ocurrido un error", err.error.message, 'error');
+        return throwError(err);
+      }));
   }
 
 
-    agregarAlmacen(almacen: Almacen) {
-      let url = 'https://serp-inventarios.serteza.com/public/api/almacenes/guardarAlmacen';
+  agregarAlmacen(almacen: Almacen) {
+    let url = 'https://serp-inventarios.serteza.com/public/api/almacenes/guardarAlmacen';
 
-      return this.http.post(url, almacen)
-        .pipe(
-          map((resp: any) => {
-            if(resp.ok){
-              console.log(resp);
-              Swal.fire('Almacen creado exitosamente', '', 'success');
-              return resp.data;
-            }else{
-              Swal.fire('Error al crear Almacen', resp.message, 'error');
-            }
-          }),
-          catchError(err => {
-            Swal.fire('Error al crear Almacen', err.error.message, 'error');
-            return throwError(err);
-          })
-        );
-    }
-    activarAlmacen(id_almacen: number, activo: number) {
-      let url = 'https://serp-inventarios.serteza.com/public/api/almacenes/activarAlmacen?id_almacen=' + id_almacen;
-      return this.http.post(url, '').pipe(
+    return this.http.post(url, almacen)
+      .pipe(
         map((resp: any) => {
-          if(resp.ok){
-            let mensaje = activo == 0 ? 'Activado' : 'Desactivado';
-            Swal.fire({
-              position: 'center',
-                        icon:'success',
-                        title: mensaje,
-                      });
-                      return resp.data;
-                    }
-                  }),
-        catchError((error: any) => {
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Error',
-            text: 'Ha ocurrido un error',
-          });
-          console.error(error);
-          return throwError(error);
+          if (resp.ok) {
+            Swal.fire('Almacen creado exitosamente', '', 'success');
+            return resp.data;
+          } else {
+            Swal.fire('Error al crear Almacen', resp.message, 'error');
+          }
+        }),
+        catchError(err => {
+          Swal.fire('Error al crear Almacen', err.error.message, 'error');
+          return throwError(err);
         })
       );
-    }
+  }
+  activarAlmacen(id_almacen: number, activo: number) {
+    let url = 'https://serp-inventarios.serteza.com/public/api/almacenes/activarAlmacen?id_almacen=' + id_almacen;
+    return this.http.post(url, '').pipe(
+      map((resp: any) => {
+        if (resp.ok) {
+          let mensaje = activo == 0 ? 'Activado' : 'Desactivado';
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: mensaje,
+          });
+          return resp.data;
+        }
+      }),
+      catchError((error: any) => {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Error',
+          text: 'Ha ocurrido un error',
+        });
+        console.error(error);
+        return throwError(error);
+      })
+    );
+  }
 
 
 }

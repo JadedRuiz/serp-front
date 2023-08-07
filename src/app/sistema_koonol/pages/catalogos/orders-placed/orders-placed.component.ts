@@ -39,14 +39,12 @@ export class OrdersPlacedComponent {
       this.pedidosRealizados.obtenerPedidos().subscribe(
          (response) => {
             this.pedidos = response.data
-            console.log(this.pedidos)
          }
       )
    }
 
    seleccionarPedido(id_pedido: number) {
       this.pedidoSeleccionado = this.pedidos.find(pedidos => pedidos.id_pedido == id_pedido)
-      console.log("pedidoSeleccionado", this.pedidoSeleccionado);
       this.buscarPedido(id_pedido)
       this.toggleModalVisibility()
    }
@@ -55,7 +53,6 @@ export class OrdersPlacedComponent {
       this.pedidosRealizados.buscarPedido(id_pedido).subscribe(
          (response) => {
             this.articulosPedido = response.data
-            console.log(this.articulosPedido);
          })
    }
 

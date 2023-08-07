@@ -127,7 +127,6 @@ export class ClientsComponent {
          (response) => {
             if (response.ok) {
                this.addresses = response.data;
-               console.log('this.addresses :>> ', this.addresses);
             } else {
                console.log('Ocurrió un error', response.message);
             }
@@ -195,9 +194,6 @@ export class ClientsComponent {
          this.searchListSeller = false;
          this.searchSellerSubscription.unsubscribe();
          this.client.id_vendedor = this.selectedSeller.id_vendedor
-         console.log("client ::>", this.client);
-
-         // console.log("Estás seleccionando un cliente: ", this.searchClientSubscription);
       } else {
          return;
       }
@@ -336,7 +332,6 @@ export class ClientsComponent {
          this.clientService.obtenerClientes(json).subscribe(
             (resp) => {
                if (resp.ok) {
-                  console.log("hey", resp);
                   this.clients = resp.data
                   this.autocompleteClients = this.clients.filter((client) =>
                      client.cliente.toLowerCase().includes(value.toLowerCase()) ||
@@ -373,14 +368,10 @@ export class ClientsComponent {
    //FUNCIÓN PARA SELECCIONAR LA DIRECCIÓN A EDITAR
    editarDireccion(id_cliente_direccion: number) {
       this.clientService.obtenerDirecciones(0, id_cliente_direccion).subscribe(resp => {
-         console.log('resp :>> ', resp);
          this.addressSelected = resp.data[0]
-         console.log("hey w", this.addressSelected);
          if (this.addressSelected.fotos.length > 0) {
-            console.log('this.addressSelected :>>', this.addressSelected);
             this.uploadedImages = []
             this.addressSelected.fotos.forEach((objetoFoto) => {
-               console.log(objetoFoto.fotografia);
                this.uploadedImages.push(objetoFoto.fotografia)
             })
          } else { this.uploadedImages = [] }
@@ -529,7 +520,6 @@ export class ClientsComponent {
       this.extraModal = !this.extraModal;
       this.takingPhoto = false;
       this.mainImage = this.uploadedImages[0];
-      console.log(this.uploadedImages);
    }
 
    //Función para subir fotografía desde el dispositivo
@@ -542,23 +532,15 @@ export class ClientsComponent {
       return this.imageCompress
          .uploadFile()
          .then(({ image, orientation }: UploadResponse) => {
-            // console.warn('Tamaño Inicial:', this.imageCompress.byteCount(image));
             if (this.imageCompress.byteCount(image) > 5 * 1024 * 1024) {
                alert('El tamaño de la imagen excede el límite de 5 MB');
                return;
             }
-
-            //    console.warn('comprimida y redimensionada a 400x');
             this.imageCompress
                .compressFile(image, orientation, 40, 40, 400, 400)
                .then((result: DataUrl) => {
-                  //let image = result.slice(22)
-                  console.log('image', image);
                   this.uploadedImages.push(result);
                   this.imageCount++;
-                  console.warn('FINAL:', this.imageCompress.byteCount(result));
-                  console.log(this.uploadedImages);
-                  console.log("cuenta", this.imageCount);
                   this.displayImage(this.uploadedImages.length - 1);
                });
          });
@@ -576,7 +558,6 @@ export class ClientsComponent {
    //Función para cerrar la cámara
    closeWebcam() {
       this.takingPhoto = false
-      console.log("hola");
    }
 
    //Función para tomar la fotografía
@@ -591,13 +572,11 @@ export class ClientsComponent {
 
    //Función para mandar la fotografía al array de fotos subidas y mostrarla
    async pushPhoto(imagen: WebcamImage) {
-      console.warn("Tamaño antes", this.imageCompress.byteCount(imagen.imageAsDataUrl))
       await this.compressImage(imagen.imageAsDataUrl).then((result: DataUrl) => {
          this.uploadedImages.push(result);
          this.imageCount++;
          this.mainImage = result;
          this.takingPhoto = false;
-         console.warn("Tamaño después", this.imageCompress.byteCount(result))
       })
    }
 
@@ -608,14 +587,12 @@ export class ClientsComponent {
 
    async savePhotos(id_cliente_direccion: number, fotos: any[]) {
       let imagenes = fotos.filter((image) => {
-         console.log(image);
          if (image.includes('data:image/jpeg;base64')) {
-            console.log(image);
             return image;
          } else {
             return;
          }
       });
-      this.clientService.guardarFotosDireccion(id_cliente_direccion, imagenes).subscribe(resp => console.log(resp))
+      this.clientService.guardarFotosDireccion(id_cliente_direccion, imagenes).subscribe()
    }
 }

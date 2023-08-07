@@ -139,11 +139,9 @@ export class CatalogoComponent implements OnInit {
 					let familias = resp.data
 					this.familiasActivas = familias.filter((familia: Familia) => familia.activo == 1)
 					this.itemsFiltrados()
-					console.log(this.filteredItems);
 				})
 			} else {
 				Swal.fire('Ocurrio un error', resp.message, 'error')
-				console.log('==>>');
 			}
 		})
 	}
@@ -170,7 +168,6 @@ export class CatalogoComponent implements OnInit {
 				articulo.articulo.toLowerCase().includes(this.searchTitle.toLowerCase())
 				&& articulo.familia.toLowerCase().includes(this.searchFam.toLowerCase())
 			);
-			console.log('=>', this.filteredItems);
 		} this.noResults()
 	}
 

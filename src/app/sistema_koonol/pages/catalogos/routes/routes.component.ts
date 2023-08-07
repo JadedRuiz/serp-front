@@ -19,7 +19,7 @@ export class RoutesComponent {
 
   constructor(private routeService: RoutesService) // private router: Router,
   // private http: HttpClient
-  {}
+  { }
 
   route: Route = new Route(0, 1, '', '', 1, 1);
 
@@ -38,7 +38,7 @@ export class RoutesComponent {
 
 
 
-//Obtener Rutas
+  //Obtener Rutas
   obtenerRutas() {
     this.routeService.obtenerRutas().subscribe(
       (response) => {
@@ -46,7 +46,6 @@ export class RoutesComponent {
           this.routes = response.data;
           this.filteredRoutes = this.routes;
           this.updateRouteStatus();
-          //console.log('=>',response.data);
         } else {
           console.log('Ocurrió un error', response.message);
         }
@@ -61,7 +60,7 @@ export class RoutesComponent {
 
 
 
-//FILTRO
+  //FILTRO
   filtrarRutas() {
     if (this.searchRoute === '') {
       this.filteredRoutes = this.routes;
@@ -84,7 +83,6 @@ export class RoutesComponent {
   //=> editar ruta
   editarRuta(route: any) {
     this.openModal();
-    //console.log(route)
     this.route = route;
   }
 
@@ -93,11 +91,10 @@ export class RoutesComponent {
       return;
     }
     if (this.route.id_ruta) {
-      console.log(this.route.id_ruta);
       this.routeService
         .editarRuta(this.route.id_ruta, this.route)
-        .subscribe((objeto) => {});
-        this.routeService.obtenerRutas();
+        .subscribe((objeto) => { });
+      this.routeService.obtenerRutas();
       this.closeModal();
     } else {
       this.routeService.agregarRuta(this.route).subscribe((objeto) => {
@@ -106,14 +103,12 @@ export class RoutesComponent {
         this.obtenerRutas(); //<=
       });
     }
-    console.log(this.route);
   }
 
 
 
-//Activar RUTA
+  //Activar RUTA
   deshabilitarRuta(id_ruta: number, activo: number) {
-    console.log(activo);
     let textoAlert = activo == 1 ? '¿Quieres DESACTIVAR la ruta?' : '¿Quieres ACTIVAR la ruta?'
     Swal.fire({
       title: textoAlert,
@@ -123,11 +118,10 @@ export class RoutesComponent {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        this.routeService.desactivarRuta(id_ruta,activo).subscribe((objeto) => {
+        this.routeService.desactivarRuta(id_ruta, activo).subscribe((objeto) => {
           this.obtenerRutas();
-          console.log(this.route);
         });
-       // Swal.fire('Saved!', '', 'success')
+        // Swal.fire('Saved!', '', 'success')
       } else if (result.isDenied) {
         Swal.fire('No se guardaron los cambios', '', 'info')
       }
@@ -136,17 +130,17 @@ export class RoutesComponent {
   }
 
 
- //Activo
- routeIsActive: boolean = false;
-updateRouteStatus() {
-  this.filteredRoutes.forEach(route => {
-    if (route.activo === 1) {
-      route.routeIsActive = true;
-    } else {
-      route.routeIsActive = false;
-    }
-  });
-}
+  //Activo
+  routeIsActive: boolean = false;
+  updateRouteStatus() {
+    this.filteredRoutes.forEach(route => {
+      if (route.activo === 1) {
+        route.routeIsActive = true;
+      } else {
+        route.routeIsActive = false;
+      }
+    });
+  }
 
   getRouteStatusClass(activo: number): string {
     return activo == 1 ? 'btn-success' : 'btn-danger';

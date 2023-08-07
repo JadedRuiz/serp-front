@@ -136,7 +136,6 @@ export class CobranzaComponent implements OnInit {
     this.cobranza.importe_pagado = this.totalIngresosReal;
     this.cobranzaService.guardarCobranza(this.cobranza).subscribe((object) => {
       this.calcular();
-      console.log('this.cobranza :>> ', this.cobranza);
     });
   }
 
@@ -152,7 +151,6 @@ export class CobranzaComponent implements OnInit {
     };
     this.pedidosPorPagar.consultarPorPagar(json).subscribe((resp) => {
       this.pedidos = resp.data;
-      console.log(resp);
       if (resp.ok) {
         return resp.data;
       } else {
@@ -370,7 +368,6 @@ export class CobranzaComponent implements OnInit {
                 client.cliente.toLowerCase().includes(value.toLowerCase()) ||
                 client.rfc?.toLowerCase().includes(value.toLowerCase())
             );
-            console.log(this.autocompleteClients);
             this.loader = false;
           }
         },
@@ -405,6 +402,5 @@ export class CobranzaComponent implements OnInit {
       .subscribe((value) => {
         this.buscarCliente(value);
       });
-    // console.log("Estás sobre el input: ", this.searchClientSubscription);
   }
 }
