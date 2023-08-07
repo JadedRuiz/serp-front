@@ -1,4 +1,4 @@
-<div id="cobranza" class="container-fluid">
+<div id="Mcobranza" class="container-fluid">
   <h1 class="title text-center">Cobranza</h1>
   <div class="container-fluid">
     <form id="form_articulos" class="">
@@ -66,11 +66,11 @@
                   <span><b>Peso: {{pedido.peso_producto}} </b></span>
                 </div>
                 <div class="orders-placed__order__section2--subsection2">
-                  <span><b>Total: {{pedido.precio_total | currency: 'MX'}}</b></span>
+                  <span><b>Total: {{pedido.precio_total  | currency: 'MX'}}</b></span>
                 </div>
               </div>
               <div class="d-flex mt-5 justify-content-end mb-2 orders-placed__order__section2--subsection1">
-                <button class="general-btn" data-toggle="modal" data-target="#cobranzaForm"
+                <button type="button" class="general-btn" data-toggle="modal" data-target="#cobranzaForm"
                   (click)="abrirModalPago(pedido)" >Pagar</button>
               </div>
             </div>
@@ -87,20 +87,16 @@
         >
       </pagination-controls>
       </div>
-      <div class="d-flex justify-content-end mt-4">
-        <button type="submit" class="btn danger-btn ml-auto">
-          Finalizar
-        </button>
-      </div>
      </div>
 </div>
 
+<div class="modal fade" id="cobranzaForm" [class.is-active]="isModalOpen" >
 
-<form class="modal fade" id="cobranzaForm" [class.is-active]="isModalOpen" #cobranzaForm="ngForm" (ngSubmit)="guardar(cobranzaForm)">
+<form #cobranzaForm="ngForm" (ngSubmit)="guardar(cobranzaForm)">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h5 class="title mb-0 text-center" id="editarModalLabel">Calculadora de pagos</h5>
+        <h5 class="title mb-0 text-center">Caja</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -287,8 +283,8 @@
       <div class="row m-1">
         <div class="col-12 mb-1 text-center">
           <hr>
-          <span for="totalIngresos">Total: </span>
-          <span style="font-size:1.5rem;"><b> {{pedidoSeleccionado?.precio_total | currency: 'MX'}} </b></span>
+          <span for="totalIngresos">{{ totalDinamico === pedidoSeleccionado?.precio_total ? 'Total:' : 'Restante:' }}</span>
+          <span  [ngClass]="{'red-text': totalDinamico < 0}" style="font-size:1.5rem;"><b> {{totalDinamico | currency: 'MX'}} </b></span>
         </div>
         <div class="col-6 ">
           <label for="totalIngresos"><b>Ingresos</b></label>
@@ -307,9 +303,10 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" (click)="cancelarOperacion()" class="danger-btn">Cerrar</button>
+        <button type="button" (click)="cancelarOperacion()"  class="danger-btn">Cerrar</button>
         <button type="submit" class="search-btn">Pagar</button>
       </div>
     </div>
   </div>
 </form>
+</div>

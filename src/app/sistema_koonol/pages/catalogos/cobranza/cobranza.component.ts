@@ -17,8 +17,10 @@ import { CobranzaService } from 'src/app/services/cobranza/cobranza.service';
 })
 export class CobranzaComponent implements OnInit{
 
+  @ViewChild('cobranzaForm') cobranzaForm!: NgForm;
   //PEDIDOS
   pedidos: any = [];
+  totalDinamico: number = 0;
 
 
  //var CALCULADORA
@@ -55,7 +57,7 @@ cobranza : CobranzaDto = new CobranzaDto(
 
 
   //para paginador
-itemsPerPage =2;
+itemsPerPage =4;
 p=1;
 
 isModalOpen: boolean = false;
@@ -125,11 +127,11 @@ guardar(cobranzaForm : NgForm) {
 pId = 0;
  // Función para abrir el modal y establecer el pedido seleccionado
  abrirModalPago(pedido: any) {
-  this.pedidoSeleccionado = pedido;
-  this.pId = pedido.id_pedido;
-  //console.log('pedido :>> ', pedido);
- this.openModal()
-
+   this.pedidoSeleccionado = pedido;
+   this.pId = pedido.id_pedido;
+   this.cobranzaForm.resetForm();
+   this.totalDinamico = this.pedidoSeleccionado?.precio_total;
+   this.isModalOpen = true;
 }
 
   //Para la calculadora
@@ -159,30 +161,40 @@ pId = 0;
       this.m1Cambio * 1;
 
     this.totalIngresosReal = this.totalIngresos - this.totalCambio;
+    this.PrecioDinamico();
   }
+
+// Precio
+
+PrecioDinamico(){
+  this.totalDinamico = this.pedidoSeleccionado?.precio_total - this.totalIngresosReal
+}
+
 // =>MODAL
-  openModal() {
-    this.isModalOpen = true;
-  }
 
   closeModal() {
     this.isModalOpen = false;
-    console.log('closemodal :>>');
+    console.log('closemodal :>>', this.isModalOpen);
   }
 
 cancelarOperacion(){
   Swal.fire({
-    title: '¿Quieres cancelar la operación?',
-    text: "Se reiniciara la calculadora",
+    title: '¿Desea cancelar la operación?',
+    text: "",
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Si, cancelar'
+    cancelButtonColor: '#16c7ff',
+    confirmButtonColor: '#D50901',
+    confirmButtonText: 'Si, cancelar',
+    cancelButtonText: 'Regresar'
   }).then((result) => {
-    if (result.isConfirmed){
-      this.closeModal()
-
+    if (result.isConfirmed) {
+      this.closeModal();
+      Swal.fire(
+        'Cancelando...',
+        'Reiniciando calculadora',
+        'success'
+      )
     }
   })
 }
