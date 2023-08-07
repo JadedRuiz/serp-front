@@ -4,26 +4,39 @@
 
     <!-- Barra de Busqueda -->
     <div class="vendedores__search-bar">
-      <div class="d-flex flex-column">
-        <input
-          class="search-input"
-          type="text"
-          placeholder="Buscar vendedores"
-          aria-label="Buscar Vendedores"
-          aria-describedby="button-addon2"
-          [(ngModel)]="searchVendedor"
-          (ngModelChange)="buscarVendedor()"
-          data-toggle="tooltip" title="Buscar vendedor"
-        />
+      <!-- <div class="d-flex flex-column">
+        <input class="search-input" type="text" placeholder="Buscar vendedores" aria-label="Buscar Vendedores"
+          aria-describedby="button-addon2" [(ngModel)]="searchVendedor" (ngModelChange)="buscarVendedor()"
+          data-toggle="tooltip" title="Buscar vendedor" />
         <ul class="search-list" *ngIf="searchList">
-          <li class="search-list__element" *ngFor="let vendedor of autocompleteVendedor" (click)="selecionarVendedor(vendedor.id_vendedor)">
+          <li class="search-list__element" *ngFor="let vendedor of autocompleteVendedor"
+            (click)="selecionarVendedor(vendedor.id_vendedor)">
             {{ vendedor.vendedor}}
           </li>
         </ul>
+      </div> -->
+
+      <div class="d-flex flex-column">
+        <input class="search-input" type="text" placeholder="Buscar vendedor" aria-label="Buscar vendedor"
+          title="Buscar vendedor" aria-describedby="button-addon2" [formControl]="searchSellerControl" (focus)="onFocusSellerSearch()" />
+        <div class="search-loader w-100" *ngIf="loaderSeller; else sellersReady">
+          <i class="fa fa-spinner fa-pulse"></i>
+        </div>
+        <ng-template #sellersReady>
+          <ul class="search-list" *ngIf="searchListSeller">
+            <li class="search-list__element" *ngFor="let seller of autocompleteSellers"
+              (click)="seleccionarVendedor(seller.id_vendedor)">
+              {{ seller.vendedor }}
+            </li>
+          </ul>
+        </ng-template>
       </div>
 
       <!-- Boton de Status -->
-      <button data-toggle="tooltip" title="Activar/Desactivar" *ngIf="vendedor && vendedor.id_vendedor" type="button" class="btn" [ngClass]="getVendedorStatusClass(vendedor.activo)" [attr.aria-pressed]="vendedor.activo === 1 ? 'true' : 'false'" (click)="activarVendedor(vendedor.id_vendedor, vendedor.activo)">
+      <button data-toggle="tooltip" title="Activar/Desactivar" *ngIf="vendedor && vendedor.id_vendedor" type="button"
+        class="btn" [ngClass]="getVendedorStatusClass(vendedor.activo)"
+        [attr.aria-pressed]="vendedor.activo === 1 ? 'true' : 'false'"
+        (click)="activarVendedor(vendedor.id_vendedor, vendedor.activo)">
         {{ getVendedorStatusText(vendedor.activo) }}
       </button>
       <button type="button" class="add-btn" data-toggle="tooltip" title="Agregar vendedor" (click)="cargarCampos()">
@@ -36,7 +49,7 @@
       <div class="vendedor__form-tabs">
 
         <div class="d-flex w-100 align-items-start">
-          <div class="tab" [class.active]="section === 1" (click)="tab(1)" >
+          <div class="tab" [class.active]="section === 1" (click)="tab(1)">
             Datos del Vendedor
           </div>
         </div>
@@ -46,8 +59,9 @@
 
           <div class="vendedor__data-form__section1 col-12 col-md-6">
             <div class="form-label">
-              <label for="cliente">Nombre</label>
-              <input class="form-control" type="text" name="nombre" required [(ngModel)]="vendedor.vendedor" #inputProvForm disabled />
+              <label for="nombre">Nombre</label>
+              <input class="form-control" type="text" name="nombre" required [(ngModel)]="vendedor.vendedor"
+                #inputProvForm disabled />
             </div>
             <div class="form-label">
               <label for="correo">Correo</label>
@@ -59,15 +73,17 @@
             </div>
           </div>
 
-          <div  class="vendedor__data-form__section2 col-12 col-md-12">
+          <div class="vendedor__data-form__section2 col-12 col-md-12">
             <!-- <div class="form-label">
               <label for="otro">Algun otro dato que pidan JAJAJA</label>
               <input class="form-control" type="text" name="otro" required #inputProvForm disabled />
             </div> -->
             <div class="mt-3 mr-2 d-flex justify-content-end">
-              <button *ngIf="vendedor && vendedor.id_vendedor" class="general-btn mr-2" (click)="activarCampos()" type="button" data-toggle="tooltip" title="Editar">Editar</button>
-              <button class="search-btn text-center" type="submit" data-toggle="tooltip" title="Guardar" >Guardar</button>
-            </div>  
+              <button *ngIf="vendedor && vendedor.id_vendedor" class="general-btn mr-2" (click)="activarCampos()"
+                type="button" data-toggle="tooltip" title="Editar">Editar</button>
+              <button class="search-btn text-center" type="submit" data-toggle="tooltip"
+                title="Guardar">Guardar</button>
+            </div>
           </div>
 
         </div>

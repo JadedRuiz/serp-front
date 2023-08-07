@@ -1,8 +1,9 @@
 import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { Vendedor } from 'src/app/models/vendedor.model';
 import { VendedoresService } from 'src/app/services/vendedores/vendedores.service';
-import { NgForm } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { Subscription, debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-vendedores',
@@ -22,11 +23,7 @@ export class VendedoresComponent {
 
   //Otras
   vendedores: any[] = [];
-  searchVendedor: string = '';
   autocompleteVendedor: any[] = [];
-  isVendedorSeleccionado: boolean = false;
-  vendedorSeleccionado: Vendedor[] = [];
-  searchList: boolean = false;
   vendedor: Vendedor = new Vendedor(0, 1, '', '', 1, 1);
   status: boolean = false;
 
@@ -37,9 +34,6 @@ export class VendedoresComponent {
   ngOnInit() {
     this.obtenerVendedor();
   }
-
-
-
 
   //=> Obtener Vendedor
   obtenerVendedor() {
@@ -54,8 +48,6 @@ export class VendedoresComponent {
       (response) => {
         if (response.ok) {
           this.vendedores = response.data;
-          this.autocompleteVendedor = this.vendedores;
-          this.updateVendedorStatus();
         } else {
           Swal.fire({
             position: 'center',
@@ -71,37 +63,79 @@ export class VendedoresComponent {
     );
   }
 
-  //Busca Vendedor =>
-  buscarVendedor() {
-    if (this.searchVendedor.length <= 1) {
-      this.autocompleteVendedor = [];
-    } else {
-      this.searchList = true;
-      this.obtenerVendedor;
-      this.autocompleteVendedor = this.vendedores.filter((vendedor) =>
-        vendedor.vendedor
-          .toLowerCase()
-          .includes(this.searchVendedor.toLowerCase())
+  //Autocomplete Vendedor
+  searchSellerControl: FormControl = new FormControl();
+  searchSellerSubscription: Subscription = new Subscription();
+  searchListSeller: boolean = false;
+  loaderSeller: boolean = false;
+  autocompleteSellers: Vendedor[] = [];
+  isSellerSelected: boolean = false;
+  sellers: Vendedor[] = [];
+
+  //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE
+  buscarVendedor(value: string) {
+    let json = {
+      id_vendedor: 0,
+      id_comprador: 1,
+      vendedor: '',
+      solo_activos: 1,
+      token: '012354SDSDS01',
+    };
+    if (value.length <= 3) {
+      this.autocompleteSellers = [];
+      this.searchListSeller = false;
+    } else if (!this.searchSellerSubscription.closed) {
+      this.loaderSeller = true;
+      this.searchListSeller = true;
+      this.vendedorService.obtenerVendedores(json).subscribe(
+        (resp) => {
+          if (resp.ok) {
+            console.log("hey", resp.data);
+            this.sellers = resp.data;
+            this.autocompleteSellers = this.sellers.filter((seller) =>
+              seller.vendedor.toLowerCase().includes(value.toLowerCase())
+            );
+            console.log("hey2", this.autocompleteSellers);
+            this.loaderSeller = false;
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.loaderSeller = false;
+        }
       );
     }
   }
 
-  //Selecciona Vendedor =>
-  selecionarVendedor(id_vendedor: number) {
+  //FUNCIÓN PARA ESCOGER UN VENDEDOR
+  seleccionarVendedor(id_vendedor: number) {
     if (id_vendedor) {
-      this.vendedor = this.autocompleteVendedor.filter(
-        (vendedor) => vendedor.id_vendedor === id_vendedor
-      )[0];
-      this.isVendedorSeleccionado = true;
-      this.searchList = false;
+      this.vendedor = this.autocompleteSellers.find(
+        (aSeller) => aSeller.id_vendedor === id_vendedor
+      )!;
+      this.searchSellerControl.setValue(this.vendedor.vendedor);
+      this.isSellerSelected = true;
+      this.searchListSeller = false;
+      this.searchSellerSubscription.unsubscribe();
     } else {
-      this.vendedorSeleccionado = [];
+      return;
     }
+  }
+
+  //Función para que al dar clic en el input nos suscribamos a los cambios del mismo
+  onFocusSellerSearch() {
+    this.searchSellerSubscription = this.searchSellerControl.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((value) => {
+        this.buscarVendedor(value);
+        console.log(value);
+      });
   }
 
   //Activa campos para agregar nuevo Vendedor
   cargarCampos() {
     this.vendedor = new Vendedor(0, 1, '', '', 1, 1);
+    this.searchSellerControl.setValue('');
     this.activarCampos();
   }
 
@@ -140,20 +174,6 @@ export class VendedoresComponent {
       }
     })
   }
-
-  //Activo
-  vendedorIsActive: boolean = false;
-  updateVendedorStatus() {
-    this.autocompleteVendedor.forEach(vendedor => {
-      if (vendedor.activo === 1) {
-        vendedor.vendedorIsActive = true;
-      } else {
-        vendedor.vendedorIsActive = false;
-      }
-    });
-  }
-
-
 
   getVendedorStatusClass(activo: number): string {
     return activo == 1 ? 'btn-success' : 'btn-danger';
