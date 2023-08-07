@@ -3,7 +3,7 @@ import { ClientsService } from 'src/app/services/clients/clients.service';
 import { Vendedor } from 'src/app/models/vendedor.model';
 import { VendedoresService } from 'src/app/services/vendedores/vendedores.service';
 import { Observable, Subject, Subscription, debounceTime } from 'rxjs';
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormControl, NgForm } from '@angular/forms';
@@ -20,7 +20,7 @@ export class VisitaClienteComponent implements OnInit {
 
 
   // var
-  ubicacionVendedor : any ;
+  ubicacionVendedor: any;
   visita: VisitasDTO = new VisitasDTO(
     0,
     0,
@@ -37,14 +37,14 @@ export class VisitaClienteComponent implements OnInit {
   );
 
 
-constructor(
-  private router: Router,
-  private visitasService: VisitasService,
-  private clienteService: ClientsService,
-  private geolocationService: GeolocationService,
-  private vendedorService: VendedoresService,
+  constructor(
+    private router: Router,
+    private visitasService: VisitasService,
+    private clienteService: ClientsService,
+    private geolocationService: GeolocationService,
+    private vendedorService: VendedoresService,
 
-){}
+  ) { }
 
   ngOnInit() {
     this.searchClientControl.valueChanges
@@ -56,96 +56,93 @@ constructor(
 
 
 
-//=> GUARDAR VISITA
-guardarVisita(visitasForm : NgForm){
-   let coords = this.geolocationService.userLocation
-  // console.log("hola", coords);
-   if (coords) {
-    this.visita.longitud = coords[0];
-    this.visita.latitud = coords[1];
-    this.visitasService.agregarVisitas(this.visita).subscribe((object) => {
-       console.log('visitasForm:', this.visita);
-    });
- }
-}
+  //=> GUARDAR VISITA
+  guardarVisita(visitasForm: NgForm) {
+    let coords = this.geolocationService.userLocation
+    if (coords) {
+      this.visita.longitud = coords[0];
+      this.visita.latitud = coords[1];
+      this.visitasService.agregarVisitas(this.visita).subscribe();
+    }
+  }
 
 
 
-//=> BUSCAR vendedor
+  //=> BUSCAR vendedor
 
-searchSellerControl: FormControl = new FormControl();
-searchSellerSubscription: Subscription = new Subscription();
-searchListSeller: boolean = false;
-loaderSeller: boolean = false;
-autocompleteSellers: Vendedor[] = [];
-isSellerSelected: boolean = false;
-sellers: Vendedor[] = [];
-selectedSeller: Vendedor = new Vendedor(0, 0, '', '', 0, 0);
+  searchSellerControl: FormControl = new FormControl();
+  searchSellerSubscription: Subscription = new Subscription();
+  searchListSeller: boolean = false;
+  loaderSeller: boolean = false;
+  autocompleteSellers: Vendedor[] = [];
+  isSellerSelected: boolean = false;
+  sellers: Vendedor[] = [];
+  selectedSeller: Vendedor = new Vendedor(0, 0, '', '', 0, 0);
 
 
 
-//FUNCION PARA HACER BÚSQUEDA DE VENDEDORES
-buscarVendedor(value: string) {
-   let json = {
+  //FUNCION PARA HACER BÚSQUEDA DE VENDEDORES
+  buscarVendedor(value: string) {
+    let json = {
       id_vendedor: 0,
       id_comprador: 1,
       vendedor: '',
       solo_activos: 1,
       token: '012354SDSDS01',
-   };
-   if (value.length <= 3) {
+    };
+    if (value.length <= 3) {
       this.autocompleteSellers = [];
       this.searchListSeller = false;
-   } else if (!this.searchSellerSubscription.closed) {
+    } else if (!this.searchSellerSubscription.closed) {
       this.loaderSeller = true;
       this.searchListSeller = true;
       this.vendedorService.obtenerVendedores(json).subscribe(
-         (resp) => {
-            if (resp.ok) {
-               this.sellers = resp.data;
-               this.autocompleteSellers = this.sellers.filter((seller) =>
-                  seller.vendedor.toLowerCase().includes(value.toLowerCase())
-               );
-               this.loaderSeller = false;
-            }
-         },
-         (err) => {
-            console.log(err);
+        (resp) => {
+          if (resp.ok) {
+            this.sellers = resp.data;
+            this.autocompleteSellers = this.sellers.filter((seller) =>
+              seller.vendedor.toLowerCase().includes(value.toLowerCase())
+            );
             this.loaderSeller = false;
-         }
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.loaderSeller = false;
+        }
       );
-   }
-}
+    }
+  }
 
-//FUNCIÓN PARA ESCOGER UN VENDEDOR
-seleccionarVendedor(id_vendedor: number) {
-   if (id_vendedor) {
+  //FUNCIÓN PARA ESCOGER UN VENDEDOR
+  seleccionarVendedor(id_vendedor: number) {
+    if (id_vendedor) {
       this.selectedSeller = this.autocompleteSellers.find(
-         (aSeller) => aSeller.id_vendedor === id_vendedor
+        (aSeller) => aSeller.id_vendedor === id_vendedor
       )!;
       this.visita.id_vendedor = id_vendedor;
       this.searchSellerControl.setValue(this.selectedSeller.vendedor);
       this.isSellerSelected = true;
       this.searchListSeller = false;
       this.searchSellerSubscription.unsubscribe();
-   } else {
+    } else {
       return;
-   }
-}
+    }
+  }
 
-//Función para que al dar clic en el input nos suscribamos a los cambios del mismo
-onFocusSellerSearch() {
-   this.searchSellerSubscription = this.searchSellerControl.valueChanges
+  //Función para que al dar clic en el input nos suscribamos a los cambios del mismo
+  onFocusSellerSearch() {
+    this.searchSellerSubscription = this.searchSellerControl.valueChanges
       .pipe(debounceTime(500))
       .subscribe((value) => {
-         this.buscarVendedor(value);
+        this.buscarVendedor(value);
       });
-}
+  }
 
 
 
-//=>>> BUSCAR CLIENTE
-  clients:Client[]=[];
+  //=>>> BUSCAR CLIENTE
+  clients: Client[] = [];
   searchClient: string = '';
   autocompleteClients: any[] = [];
   selectedClient: Client = new Client(0, 0, 1, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 0, 0, 0, 0, 0, 1, 0);
@@ -161,7 +158,7 @@ onFocusSellerSearch() {
   buscarCliente(value: string) {
     let json = {
       id_cliente: 0,
-      id_comprador:1,
+      id_comprador: 1,
       cliente: '',
       token: '',
     }
@@ -180,7 +177,6 @@ onFocusSellerSearch() {
                 client.cliente.toLowerCase().includes(value.toLowerCase()) ||
                 client.rfc?.toLowerCase().includes(value.toLowerCase())
             );
-            console.log(this.autocompleteClients);
             this.loader = false;
           }
         },
@@ -208,18 +204,17 @@ onFocusSellerSearch() {
     }
   }
 
-    //Función para que al dar clic en el input nos suscribamos a los cambios del mismo
-    onFocusClientSearch() {
-      this.searchClientSubscription = this.searchClientControl.valueChanges
-        .pipe(debounceTime(500))
-        .subscribe((value) => {
-          this.buscarCliente(value);
-        });
-      // console.log("Estás sobre el input: ", this.searchClientSubscription);
-    }
+  //Función para que al dar clic en el input nos suscribamos a los cambios del mismo
+  onFocusClientSearch() {
+    this.searchClientSubscription = this.searchClientControl.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((value) => {
+        this.buscarCliente(value);
+      });
+  }
 
 
-//FUNCION PARA GUARDAR UBICACIÓN
+  //FUNCION PARA GUARDAR UBICACIÓN
   // guardarUbi(){
   //   if(navigator.geolocation){
   //     navigator.geolocation.getCurrentPosition((position) => {
@@ -228,7 +223,6 @@ onFocusSellerSearch() {
   //         longitud: position.coords.longitude
   //       };
   //       Swal.fire('Ubicacion guardada correctamete', '', 'success');
-  //       console.log('ubi :>> ', this.ubicacionVendedor);
   //     },
   //     (error) => {
   //       console.log(error);

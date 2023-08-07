@@ -20,10 +20,7 @@ export class AddressesPhotosModalComponent implements OnInit {
 		this.selectedCard.fotos = [];
 		this.direccionSeleccionada.fotos.forEach((fotoObjeto: Foto) => {
 			this.selectedCard.fotos.push(fotoObjeto);
-			console.log("fotoObjeto ", fotoObjeto);
 		});
-		console.log("léeme", this.direccionSeleccionada);
-		console.log('this.selectedCard :>> ', this.selectedCard);
 	}
 
 	//referencia para el modal

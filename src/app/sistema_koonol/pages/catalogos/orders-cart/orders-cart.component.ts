@@ -26,7 +26,6 @@ export class OrdersCartComponent {
     this.pedidos.pedidoFinal$.subscribe((pedidoFinal) => {
       this.pedidoFinal = pedidoFinal;
     });
-    console.log(this.pedidoFinal);
     this.formatter = new Intl.NumberFormat('en-NZ', {
       currency: 'NZD',
       minimumFractionDigits: 2,

@@ -28,7 +28,7 @@ export class PedidosService {
     // PEDIDOS POR PAGAR
     consultarPorPagar(json: any) {
 
-      return this.http.post<any>(SERV_PEDIDOS_PAGAR, json);
+        return this.http.post<any>(SERV_PEDIDOS_PAGAR, json);
     }
 
 
@@ -55,10 +55,8 @@ export class PedidosService {
 
     guardarPedido(pedido: PedidoGuardar) {
         let url = 'https://serp-inventarios.serteza.com/public/api/pedidos/guardarPedido';
-        console.log(pedido);
         return this.http.post(url, pedido).pipe(
             map((resp: any) => {
-                console.log(resp);
                 if (resp.ok) {
                     Swal.fire('Pedido creado exitosamente', '', 'success')
                     return resp.data
@@ -72,7 +70,6 @@ export class PedidosService {
                     return throwError(resp);
                 }
             }), catchError(err => {
-                console.log("hola no");
                 Swal.fire("Ha ocurrido un error", err.error.message, 'error');
                 return throwError(err);
             }))

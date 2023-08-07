@@ -25,104 +25,96 @@ import Swal from 'sweetalert2';
 export class SearchFamComponent {
   //miComprador = window.sessionStorage["comprador_gl"];
 
-familias: { familia: string, id_familia: number}[] = [];
-miComprador = 1;
-isModalOpen = false;
-resultsNotFound: boolean = false;
-searchFam: string = '';
-filteredFam: any [] = [];
+  familias: { familia: string, id_familia: number }[] = [];
+  miComprador = 1;
+  isModalOpen = false;
+  resultsNotFound: boolean = false;
+  searchFam: string = '';
+  filteredFam: any[] = [];
 
 
 
   constructor(
-    private router:Router,
+    private router: Router,
     private famService: FamiliasService,
-    private http : HttpClient) {}
+    private http: HttpClient) { }
 
 
-familia: Familia = new Familia(0, 1, '', '', 0)
+  familia: Familia = new Familia(0, 1, '', '', 0)
 
-ngOnInit(){
-  this.buscarFamilias();
-}
-
-
-
-buscarFamilias() {
-  this.famService.obtenerFamilias().subscribe(
-    (response) => {
-      console.log(response);
-
-      if (response.ok === true) {
-        this.familias = response.data;
-        this.filteredFam = this.familias;
-
-
-      } else {
-        console.log('Ocurrió un error:', response.message);
-      }
-    },
-    (error) => {
-      console.log('Error de conexión:', error);
-    }
-  );
-}
-
-editarFamilia(familia: any){
-  console.log(familia);
-  this.familia = familia;
-}
-
-//Filtro
-filtrarFamilias(){
-if (this.searchFam === ''){
-  this.filteredFam = this.familias;
-}else {
-
-  console.log(this.searchFam)
-  this.filteredFam = this.familias.filter((familia) =>
-familia.familia.toLowerCase().includes(this.searchFam.toLowerCase())
-  );
-  this.noResults();
-}
-}
-
-
-noResults() {
-  if (this.filteredFam.length === 0) {
-    this.resultsNotFound = true;
-  } else {
-    this.resultsNotFound = false;
+  ngOnInit() {
+    this.buscarFamilias();
   }
-}
-
-guardarFamilia(f: NgForm){
-if (f.invalid){
-  return;
-}
-if(this.familia.id_familia){
-  console.log('numero de ID = ' + this.familia.id_familia);
-  this.famService.editarFam(this.familia.id_familia, this.familia)
-  .subscribe(objeto =>{
-  });
-  this.closeModal();
-
-}else{
-  this.famService.agregarFam(this.familia).subscribe(objeto  =>{
-    console.log('consol OBJETO' + objeto);
-    this.famService.obtenerFamilias();
-    this.closeModal();
-    });
-}
-console.log(this.familia);
-}
 
 
 
-//Activar Familia
-deshabilitarFamilia(id_familia: number, activo: number){
+  buscarFamilias() {
+    this.famService.obtenerFamilias().subscribe(
+      (response) => {
+        if (response.ok === true) {
+          this.familias = response.data;
+          this.filteredFam = this.familias;
 
-  console.log(activo);
+
+        } else {
+          console.log('Ocurrió un error:', response.message);
+        }
+      },
+      (error) => {
+        console.log('Error de conexión:', error);
+      }
+    );
+  }
+
+  editarFamilia(familia: any) {
+    this.familia = familia;
+  }
+
+  //Filtro
+  filtrarFamilias() {
+    if (this.searchFam === '') {
+      this.filteredFam = this.familias;
+    } else {
+
+      this.filteredFam = this.familias.filter((familia) =>
+        familia.familia.toLowerCase().includes(this.searchFam.toLowerCase())
+      );
+      this.noResults();
+    }
+  }
+
+
+  noResults() {
+    if (this.filteredFam.length === 0) {
+      this.resultsNotFound = true;
+    } else {
+      this.resultsNotFound = false;
+    }
+  }
+
+  guardarFamilia(f: NgForm) {
+    if (f.invalid) {
+      return;
+    }
+    if (this.familia.id_familia) {
+      this.famService.editarFam(this.familia.id_familia, this.familia)
+        .subscribe(objeto => {
+        });
+      this.closeModal();
+
+    } else {
+      this.famService.agregarFam(this.familia).subscribe(objeto => {
+        this.famService.obtenerFamilias();
+        this.closeModal();
+      });
+    }
+  }
+
+
+
+  //Activar Familia
+  deshabilitarFamilia(id_familia: number, activo: number) {
+
     let textoAlert = activo == 1 ? '¿Quieres DESACTIVAR la familia?' : '¿Quieres ACTIVAR la familia?'
     Swal.fire({
       title: textoAlert,
@@ -132,42 +124,42 @@ deshabilitarFamilia(id_familia: number, activo: number){
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        this.famService.desactivarFamilia(id_familia, activo).subscribe((objeto)=>{
+        this.famService.desactivarFamilia(id_familia, activo).subscribe((objeto) => {
           this.buscarFamilias();
-          });
+        });
       } else if (result.isDenied) {
         Swal.fire('No se guardaron los cambios', '', 'info')
       }
     })
 
 
-}
+  }
 
 
 
-getFamStatusClass(activo: number): string {
-  return activo == 1? 'btn-success' : 'btn-danger';
-}
+  getFamStatusClass(activo: number): string {
+    return activo == 1 ? 'btn-success' : 'btn-danger';
+  }
 
-getFamStatusText(activo: number): string {
-  return activo == 1? 'ACTIVO' : 'DESACTIVADO';
-}
+  getFamStatusText(activo: number): string {
+    return activo == 1 ? 'ACTIVO' : 'DESACTIVADO';
+  }
 
-openModal(){
-  this.isModalOpen =  true;
+  openModal() {
+    this.isModalOpen = true;
 
-}
+  }
 
-closeModal(){
-  this.isModalOpen = false;
-  this.familia = {
-    id_comprador : 0,
-    familia: '',
-    token: '',
-    id_familia: 0,
-    activo: 0
-  };
-}
+  closeModal() {
+    this.isModalOpen = false;
+    this.familia = {
+      id_comprador: 0,
+      familia: '',
+      token: '',
+      id_familia: 0,
+      activo: 0
+    };
+  }
 
 
 

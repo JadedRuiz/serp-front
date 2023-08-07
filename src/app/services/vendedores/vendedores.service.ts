@@ -77,7 +77,6 @@ activarVendedor(id_vendedor: number, activo: number) {
           icon:'success',
           title: `El vendedor fue ${mensaje}`,
         });
-        console.log('service',resp);
         return resp.data;
       }else{
         Swal.fire({

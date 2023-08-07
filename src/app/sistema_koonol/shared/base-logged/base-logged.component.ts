@@ -64,7 +64,6 @@ export class BaseLoggedComponent implements OnInit {
     const hamburguesa = document.querySelector(
       '.sidebar-wrapper'
     ) as HTMLElement;
-    console.log('cosito', cosito);
 
     // if (!hamburguesa.contains(cosito) && this.bandMenu == true) {
     $('.chiller-theme').removeClass('toggled');
@@ -119,7 +118,6 @@ export class BaseLoggedComponent implements OnInit {
       'Si',
       'No',
       () => {
-        console.log('obje1 :>> ');
         localStorage.removeItem('token');
         location.reload();
       },

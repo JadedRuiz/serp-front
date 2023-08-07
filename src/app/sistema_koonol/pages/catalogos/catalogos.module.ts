@@ -54,7 +54,7 @@ import { CorteComponent } from './corte/corte.component';
     CobranzaComponent,
     VisitasComponent,
     AddressesPhotosModalComponent,
-    CorteComponent
+    CorteComponent,
   ],
   imports: [
     CommonModule,

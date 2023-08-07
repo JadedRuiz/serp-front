@@ -78,7 +78,6 @@ export class ClientsService {
 
     return this.http.post(url, direccion)
       .pipe(map((resp: any) => {
-        console.log(resp);
         Swal.fire('Dirección creada exitosamente', '', 'success')
         return resp.data
       }), catchError(err => {
@@ -92,7 +91,6 @@ export class ClientsService {
 
     const observables = fotos.map((foto: string) => {
       let foto_base64 = foto.slice(22);
-      console.log(foto_base64);
       const parametros = {
         id_cliente_fotografia: 0,
         id_comprador: 1,
@@ -104,7 +102,6 @@ export class ClientsService {
       }
       return this.http.post(url, parametros).pipe(
         map((resp: any) => {
-          console.log('Foto Guardada', resp);
           return resp.data
         })
       );

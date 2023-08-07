@@ -25,7 +25,6 @@ agregarVisitas(visita: VisitasDTO){
   return this.http.post<any>(SERV_VISITAS +'visitas/guardarVisita',visita).pipe(
     map((resp: any) => {
       if (resp.ok) {
-        console.log('service', resp.data);
         Swal.fire('Exito', '', 'success');
         return resp.data;
       } else {

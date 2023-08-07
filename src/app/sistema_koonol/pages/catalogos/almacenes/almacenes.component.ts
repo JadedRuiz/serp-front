@@ -64,7 +64,6 @@ export class AlmacenesComponent {
     this.provInputs.forEach(
       provInput => {
         provInput.nativeElement.disabled = false
-        //console.log(provInput.nativeElement)
       }
     )
   }
@@ -72,7 +71,6 @@ export class AlmacenesComponent {
     this.provInputs.forEach(
       provInput => {
         provInput.nativeElement.disabled = true
-        // console.log(provInput.nativeElement)
       }
     )
   }
@@ -116,8 +114,6 @@ export class AlmacenesComponent {
       if (result.isConfirmed) {
         this.almaService.activarAlmacen(id_almacen, activo).subscribe((objeto) => {
           this.almaService.obtenerAlmacenes(json);
-          console.log('vend=>', this.almacen.activo);
-
         });
       } else if (result.isDenied) {
       }
@@ -204,7 +200,6 @@ this.autocompleteAlmacen.forEach(almacen => {
 
     this.almaService.obtenerAlmacenes(json).subscribe(
       (response) => {
-        //=> console.log('=>',response.data);
         if (response.ok) {
           this.setearAlmacen(response)
         } else {
@@ -233,7 +228,6 @@ this.autocompleteAlmacen.forEach(almacen => {
       this.searchList = true;
       this.almaService.obtenerAlmacenes(json).subscribe(
         (resp) => {
-          console.log('Ws=>',this.almacenes);
           if (resp.ok) {
             this.setearAlmacen(resp)
             this.autocompleteAlmacen = this.almacenes.filter((almacen) =>

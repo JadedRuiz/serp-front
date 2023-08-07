@@ -1,6 +1,6 @@
 import { Client } from 'src/app/models/clients.model';
 import { ClientsService } from 'src/app/services/clients/clients.service';
-import { Component,OnInit,ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Observable, Subject, Subscription, catchError, debounceTime, throwError } from 'rxjs';
 import { FormControl, NgForm } from '@angular/forms';
 import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
@@ -10,8 +10,8 @@ import { CobranzaDto } from 'src/app/models/cobranza.model';
 import { CobranzaService } from 'src/app/services/cobranza/cobranza.service';
 import { VendedoresService } from 'src/app/services/vendedores/vendedores.service';
 import { Vendedor } from 'src/app/models/vendedor.model';
-
-
+import * as $ from 'jquery';
+import 'bootstrap';
 
 @Component({
   selector: 'app-cobranza',
@@ -90,6 +90,7 @@ export class CobranzaComponent implements OnInit {
   p = 1;
 
   isModalOpen: boolean = false;
+  modalBackdrop: any;
 
   constructor(
     private router: Router,
@@ -98,7 +99,7 @@ export class CobranzaComponent implements OnInit {
     private pedidosPorPagar: PedidosService,
     private clienteService: ClientsService,
     private vendedorService: VendedoresService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.obtenerPedidos();
@@ -112,30 +113,29 @@ export class CobranzaComponent implements OnInit {
   // GUARDAR COBRANZA
   guardar(cobranzaForm: NgForm) {
     this.cobranza.cambio_1000 = this.b1000Cambio || 0;
-    this.cobranza.cambio_500 = this.b500Cambio ||0;
-    this.cobranza.cambio_200 = this.b200Cambio||0;
-    this.cobranza.cambio_100 = this.b100Cambio||0;
-    this.cobranza.cambio_50 = this.b50Cambio||0;
-    this.cobranza.cambio_20 = this.b20Cambio||0;
-    this.cobranza.cambio_10 = this.m10Cambio||0;
-    this.cobranza.cambio_5 = this.m5Cambio||0;
-    this.cobranza.cambio_2 = this.m2Cambio||0;
-    this.cobranza.cambio_1 = this.m1Cambio||0;
-    this.cobranza.pago_1 = this.m1||0;
-    this.cobranza.pago_2 = this.m2||0;
-    this.cobranza.pago_5 = this.m5||0;
-    this.cobranza.pago_10 = this.m10||0;
-    this.cobranza.pago_20 = this.b20||0;
-    this.cobranza.pago_50 = this.b50||0;
-    this.cobranza.pago_100 = this.b100||0;
-    this.cobranza.pago_200 = this.b200||0;
-    this.cobranza.pago_500 = this.b500||0;
-    this.cobranza.pago_1000 = this.b1000||0;
+    this.cobranza.cambio_500 = this.b500Cambio || 0;
+    this.cobranza.cambio_200 = this.b200Cambio || 0;
+    this.cobranza.cambio_100 = this.b100Cambio || 0;
+    this.cobranza.cambio_50 = this.b50Cambio || 0;
+    this.cobranza.cambio_20 = this.b20Cambio || 0;
+    this.cobranza.cambio_10 = this.m10Cambio || 0;
+    this.cobranza.cambio_5 = this.m5Cambio || 0;
+    this.cobranza.cambio_2 = this.m2Cambio || 0;
+    this.cobranza.cambio_1 = this.m1Cambio || 0;
+    this.cobranza.pago_1 = this.m1 || 0;
+    this.cobranza.pago_2 = this.m2 || 0;
+    this.cobranza.pago_5 = this.m5 || 0;
+    this.cobranza.pago_10 = this.m10 || 0;
+    this.cobranza.pago_20 = this.b20 || 0;
+    this.cobranza.pago_50 = this.b50 || 0;
+    this.cobranza.pago_100 = this.b100 || 0;
+    this.cobranza.pago_200 = this.b200 || 0;
+    this.cobranza.pago_500 = this.b500 || 0;
+    this.cobranza.pago_1000 = this.b1000 || 0;
     this.cobranza.id_pedido = this.pId;
     this.cobranza.importe_pagado = this.totalIngresosReal;
     this.cobranzaService.guardarCobranza(this.cobranza).subscribe((object) => {
       this.calcular();
-      console.log('this.cobranza :>> ', this.cobranza);
     });
   }
 
@@ -151,7 +151,6 @@ export class CobranzaComponent implements OnInit {
     };
     this.pedidosPorPagar.consultarPorPagar(json).subscribe((resp) => {
       this.pedidos = resp.data;
-      console.log(resp);
       if (resp.ok) {
         return resp.data;
       } else {
@@ -170,12 +169,13 @@ export class CobranzaComponent implements OnInit {
   // Función para abrir el modal y establecer el pedido seleccionado
   abrirModalPago(pedido: any) {
     this.pedidoSeleccionado = pedido;
-    console.log('=>>', pedido);
-
     this.pId = pedido.id_pedido;
     this.cobranzaForm.resetForm();
-    this.totalDinamico = this.pedidoSeleccionado?.importe_pedido;
+    this.totalDinamico = this.pedidoSeleccionado?.precio_total;
     this.isModalOpen = true;
+    if (this.modalBackdrop) {
+      this.modalBackdrop.style.display = 'flex';
+    }
   }
 
   //Para la calculadora
@@ -221,8 +221,10 @@ export class CobranzaComponent implements OnInit {
   // =>MODAL
 
   closeModal() {
+    this.modalBackdrop = document.querySelector('.modal-backdrop') as HTMLElement
     this.isModalOpen = false;
-    console.log('closemodal :>>', this.isModalOpen);
+    $('#cobranzaForm').modal('hide');
+    this.modalBackdrop.style.display = 'none';
   }
 
   cancelarOperacion() {
@@ -366,7 +368,6 @@ export class CobranzaComponent implements OnInit {
                 client.cliente.toLowerCase().includes(value.toLowerCase()) ||
                 client.rfc?.toLowerCase().includes(value.toLowerCase())
             );
-            console.log(this.autocompleteClients);
             this.loader = false;
           }
         },
@@ -401,6 +402,5 @@ export class CobranzaComponent implements OnInit {
       .subscribe((value) => {
         this.buscarCliente(value);
       });
-    // console.log("Estás sobre el input: ", this.searchClientSubscription);
   }
 }

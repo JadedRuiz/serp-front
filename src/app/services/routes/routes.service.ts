@@ -1,4 +1,4 @@
- import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Route } from 'src/app/models/routes.model';
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   providedIn: 'root',
 })
 export class RoutesService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   obtenerRutas(): Observable<any> {
     const parametros = {
@@ -28,9 +28,9 @@ export class RoutesService {
 
     return this.http.post(url, route).pipe(
       map((resp: any) => {
-        if(resp.ok){
+        if (resp.ok) {
           Swal.fire('Ruta editada exitosamente', '', 'success');
-        }else{
+        } else {
           Swal.fire('Ha ocurrido un error', resp.error.message, 'error');
         }
         return resp;
@@ -52,7 +52,6 @@ export class RoutesService {
 
     return this.http.post(url, route).pipe(
       map((resp: any) => {
-        // console.log(resp);
         Swal.fire('Ruta creada exitosamente', '', 'success');
         return resp.data;
       })
@@ -61,11 +60,11 @@ export class RoutesService {
 
 
 
-  desactivarRuta(id_ruta:number, activo:number) {
+  desactivarRuta(id_ruta: number, activo: number) {
     let url = 'https://serp-inventarios.serteza.com/public/api/rutas/activarRuta?id_ruta=' + id_ruta;
     return this.http.post(url, '').pipe(
       map((resp: any) => {
-        let mensaje = activo == 0 ? 'ACTIVADA' : 'DESACTIVADA' ;
+        let mensaje = activo == 0 ? 'ACTIVADA' : 'DESACTIVADA';
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -73,8 +72,6 @@ export class RoutesService {
           showConfirmButton: false,
           timer: 1500,
         });
-      console.log(resp);
-
         return resp.data;
       })
     );
