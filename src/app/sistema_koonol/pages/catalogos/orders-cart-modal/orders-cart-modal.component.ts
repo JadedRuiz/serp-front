@@ -4,7 +4,7 @@ import { ClientsService } from 'src/app/services/clients/clients.service';
 import { GeolocationService } from '../maps/services';
 import { Client } from 'src/app/models/clients.model';
 import { Address } from 'src/app/models/addresses.model';
-import { Subscription, debounceTime } from 'rxjs';
+import { Subscription, catchError, debounceTime } from 'rxjs';
 import { Vendedor } from 'src/app/models/vendedor.model';
 import { VendedoresService } from 'src/app/services/vendedores/vendedores.service';
 import { LOCALE_ID } from '@angular/core';
@@ -404,9 +404,10 @@ export class OrdersCartModalComponent implements OnInit {
     this.finPedidoModal = false;
   }
 
+
   //MODAL PARA AÑADIR FOTOS AL CLIENTE Y PARA AÑADIRLE UNA UBICACIÓN
   extraModal: boolean = false;
-  ubicacionVendedor: any;
+  ubicacionVendedor: number[] = [];
   imageCount: number = 0;
   uploadedImages: any[] = [];
   imageAfterResize: any;
@@ -415,9 +416,10 @@ export class OrdersCartModalComponent implements OnInit {
   private trigger: Subject<void> = new Subject<void>();
   public triggerObservable: Observable<void> = this.trigger.asObservable();
 
+  //FUNCIÓN PARA ABRIR MODAL PARA AÑADIR FOTOS AL CLIENTE
   //Función para subir fotografía desde el dispositivo
   uploadImage() {
-    if (this.imageCount >= 4) {
+    if (this.uploadedImages.length >= 4) {
       alert('Solo se pueden subir un máximo de 4 imágenes');
       return;
     }
@@ -429,7 +431,6 @@ export class OrdersCartModalComponent implements OnInit {
           alert('El tamaño de la imagen excede el límite de 5 MB');
           return;
         }
-
         this.imageCompress
           .compressFile(image, orientation, 40, 40, 400, 400)
           .then((result: DataUrl) => {
@@ -442,7 +443,7 @@ export class OrdersCartModalComponent implements OnInit {
 
   //Fucnión para abrir la cámara
   openWebcam() {
-    if (this.imageCount >= 4) {
+    if (this.uploadedImages.length >= 4) {
       alert('Solo se pueden subir un máximo de 4 imágenes');
       return;
     }
@@ -479,28 +480,56 @@ export class OrdersCartModalComponent implements OnInit {
     this.mainImage = this.uploadedImages[index];
   }
 
-  //Función para guardar la ubicación actual del vendedor
-  guardarUbi() {
+  async savePhotos(id_cliente_direccion: number, fotos: any[]) {
+    let imagenes = fotos.filter((image) => {
+      if (image.includes('data:image/jpeg;base64')) {
+        return image;
+      } else {
+        return;
+      }
+    });
+    this.clientService.guardarFotosDireccion(id_cliente_direccion, imagenes).subscribe(resp => {
+      if (resp) {
+        Swal.fire('Fotos guardadas exitosamente', '', 'success')
+        if(this.ubicacionVendedor.length > 0) {
+         this.guardarUbi()
+        }
+        this.backToFinishOrder()
+        this.uploadedImages = []
+      }
+    }
+    )
+  }
+
+  //FUNCIÓN PARA OBTENER UBICACIÓN
+  obtenerUbi() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.ubicacionVendedor = {
-          latitud: position.coords.latitude,
-          longitud: position.coords.longitude
-        };
+        this.ubicacionVendedor = [
+          position.coords.longitude,
+          position.coords.latitude
+        ];
         Swal.fire('Ubicacion guardada correctamete', '', 'success');
+        console.log("hola", this.ubicacionVendedor);
       },
         (error) => {
           console.log(error);
         });
-    }
+    };
   }
 
+  //FUNCIÓN PARA GUARDAR LA UBICACIÓN
+  async guardarUbi() {
+    this.clientService.guardarUbicacionDireccion(this.addressSelected.id_cliente_direccion, this.ubicacionVendedor[0], this.ubicacionVendedor[1]).subscribe(resp =>  console.log(resp));
+  }
 
   backToFinishOrder() {
     this.extraModal = false;
     this.finPedidoModal = true;
   }
 
-  saveExtraChanges() { }
+  async saveExtraChanges() {
+    await this.savePhotos(this.addressSelected.id_cliente_direccion, this.uploadedImages)
+  }
 
 }

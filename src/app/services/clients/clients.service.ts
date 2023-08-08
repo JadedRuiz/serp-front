@@ -102,10 +102,29 @@ export class ClientsService {
       }
       return this.http.post(url, parametros).pipe(
         map((resp: any) => {
-          return resp.data
+          return resp
         })
       );
     });
     return forkJoin(observables);
   }
+
+  guardarUbicacionDireccion(id_cliente_direccion: number, long: number, lat: number) {
+    let url = "https://serp-inventarios.serteza.com/public/api/clientes/guardarLocalizacion";
+
+    const params = {
+      id_cliente_direccion: id_cliente_direccion,
+      longitud: long,
+      latitud: lat,
+      token: ''
+    };
+    
+
+    return this.http.post(url, params).pipe(
+      map((resp: any) => {
+        return resp
+      })
+    );
+  };
+
 }

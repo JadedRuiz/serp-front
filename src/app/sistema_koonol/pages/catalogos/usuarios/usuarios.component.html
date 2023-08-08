@@ -64,11 +64,6 @@
                             <label for="celular">Celular</label>
                             <input class="form-control" type="text" name="celular" required #inputProvForm disabled />
                         </div>
-                        <div class="mt-3">
-                            <span class="upload-photo" (click)="togglePhotosModal()">
-                                Añadir fotos del usuario
-                            </span>
-                        </div>
                     </div>
 
                     <!-- INPUTS DEL LADO DERECHO -->
@@ -95,6 +90,11 @@
 
                     <!-- FOOTER  -->
                     <footer class="tab-footer">
+                        <div class="">
+                            <span class="upload-photo" (click)="togglePhotosModal()">
+                                Añadir fotos del usuario
+                            </span>
+                        </div>
                         <!-- BOTONES FOOTER -->
                         <div class="footer-buttons">
                             <button *ngIf="usuario && usuario.id_usuario" class="general-btn mr-2"

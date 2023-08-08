@@ -148,7 +148,7 @@
         <b>Total:</b> <span> ${{ precioTotalFormateado }} </span>
       </h3>
     </div>
-    <span class="span-extra" (click)="openExtraModal()">El cliente no tiene fotos, ¿desea añadir?</span>
+    <span class="span-extra" (click)="openExtraModal()" *ngIf="addressSelected.fotos.length == 0">La dirección no tiene fotos, ¿desea añadir?</span>
 
     <!-- SECCIÓN DE BOTONES -->
     <div class="orders-modal__buttons">
@@ -168,7 +168,7 @@
       <i i class="fa fa-times"></i>
     </button>
     <!-- TÍTULO -->
-    <h3 class="extras-title title">Añadir fotos al cliente {{selectedClient.cliente}}</h3>
+    <h3 class="extras-title title">Añadir fotos a dirección de {{selectedClient.cliente}}</h3>
 
     <!-- CUERPO DEL MODAL -->
     <div class="orders-modal__extra-container mt-3">
@@ -190,7 +190,7 @@
         <!-- BOTÓN PARA TOMAR FOTO -->
         <button class="add-btn mt-3" (click)="openWebcam()">Tomar foto</button>
 
-        <span class="span-location" (click)="guardarUbi()">Obtener ubicación actual <i class="fa fa-map-marker"></i></span>
+        <span class="span-location" (click)="obtenerUbi()">Obtener ubicación actual <i class="fa fa-map-marker"></i></span>
       </div>
       <!-- WEBCAM -->
       <div *ngIf="takingPhoto" class="webcam">
@@ -208,7 +208,7 @@
       <button class="danger-btn" (click)="backToFinishOrder()">
         Regresar
       </button>
-      <button class="general-btn" (click)="backToFinishOrder()">
+      <button class="general-btn" (click)="saveExtraChanges()">
         Continuar
       </button>
     </div>
