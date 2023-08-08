@@ -80,11 +80,11 @@
       <div class="card m-2" *ngFor="let cobranza of cobranzas" >
         <div class="card-body">
           <h5 class="subtitle mb-1"><b>{{cobranza.cliente}}</b></h5>
-          <h3 class=" mt-0 mb-1"><b>Fecha pago: {{cobranza.fecha_pago | date: 'dd/MM/yyyy'}}</b></h3>
-          <h3 class=" mt-2 mb-1">Cobratario: <b>{{cobranza.cobratario}}</b></h3>
+          <h3 class="subtitle mt-0 mb-1"><b>Fecha pago: {{cobranza.fecha_pago | date: 'dd/MM/yyyy'}}</b></h3>
+          <h3 class="subtitle mt-2 mb-1">Cobratario: <b>{{cobranza.cobratario}}</b></h3>
           <h3 class="subtitle mb-1">Importe pagado: <br><b>{{cobranza.importe_pagado | currency: '$'}}</b></h3>
-          <div class="d-flex justify-content-end mt-1">
-            <button type="button" class="general-btn">Detalles</button>
+          <div class="d-flex justify-content-end mb-0">
+            <button type="button" class="general-btn btn-sm py-1 px-2"(click)="abrirModalDetallesCobranza(cobranza)">Detalles</button>
           </div>
         </div>
       </div>
@@ -92,4 +92,40 @@
   </div>
 </div>
 </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="detalleCobranzaModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="title text-center mb-0">Detalles</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 class="subtitle mb-1"><b>Cliente:</b> {{ cobranzaSeleccionada.cliente }}</h5>
+        <p><b>Fecha pago:</b> {{ cobranzaSeleccionada.fecha_pago | date: 'dd/MM/yyyy' }}</p>
+        <p><b>Cobratario:</b> {{ cobranzaSeleccionada.cobratario }}</p>
+
+            <!-- PAGOS -->
+          <div *ngIf="cobranzaSeleccionada.pago_1000 > 0">Pago de 1000: {{ cobranzaSeleccionada.pago_1000 }}</div>
+          <div *ngIf="cobranzaSeleccionada.pago_500 > 0">Pago de 500: {{ cobranzaSeleccionada.pago_500 }}</div>
+          <div *ngIf="cobranzaSeleccionada.pago_200 > 0">Pago de 200: {{ cobranzaSeleccionada.pago_200 }}</div>
+
+
+        <!-- CAMBIO -->
+          <div *ngIf="cobranzaSeleccionada.cambio_1000 > 0">Cambio de 1000: {{ cobranzaSeleccionada.cambio_1000 }}</div>
+          <div *ngIf="cobranzaSeleccionada.cambio_500 > 0">Cambio de 500: {{ cobranzaSeleccionada.cambio_500 }}</div>
+          <div *ngIf="cobranzaSeleccionada.cambio_200 > 0">Cambio de 200: {{ cobranzaSeleccionada.cambio_200 }}</div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <p class="mb-0 subtitle"><b>Pagado:</b> {{ cobranzaSeleccionada.importe_pagado | currency: '$' }}</p>
+        <button type="button" class="danger-btn btn-sm" data-dismiss="modal">Cerrar</button>
+      </div>
+
+    </div>
+  </div>
 </div>

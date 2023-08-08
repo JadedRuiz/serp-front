@@ -33,6 +33,7 @@ export class CobranzaDto {
      public importe_pedido?: number,
      public id_cliente?: number,
      public cliente?: number,
+     public fecha_pago?: string,
 
   ) {}
 }

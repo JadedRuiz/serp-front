@@ -16,8 +16,8 @@ export class CorteComponent implements OnInit {
 
 // Variables
 cId = 0;
-fechaInicio:string = '';
-fechaFinal:string = '';
+fechaInicio:string = '2023/08/01';
+fechaFinal:string = '2023/08/30';
 
 constructor(
   private vendedorService: VendedoresService,
@@ -29,6 +29,8 @@ constructor(
 
 ngOnInit() {
 
+this.consultarCobranza();
+
   this.searchSellerSubscription = this.searchSellerControl.valueChanges
       .pipe(debounceTime(500))
       .subscribe((value) => {
@@ -39,7 +41,7 @@ ngOnInit() {
 
 
 
-cobranzas : any = [];
+cobranzas : CobranzaDto[] = [];
 // CONSULTAR COBRANZAS
 consultarCobranza(){
   const json = {
@@ -202,5 +204,17 @@ onFocusSellerSearch() {
        this.buscarCliente(value);
      });
  }
+
+
+ //MODAL=>
+ cobranzaSeleccionada: any;
+ abrirModalDetallesCobranza(cobranza: any) {
+  this.cobranzaSeleccionada = cobranza;
+  $('#detalleCobranzaModal').modal('show');
+}
+
+cerrarModal() {
+  $('#detalleCobranzaModal').modal('hide');
+}
 
 }
