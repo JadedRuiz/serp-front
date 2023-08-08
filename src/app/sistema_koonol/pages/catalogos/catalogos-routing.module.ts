@@ -15,6 +15,7 @@ import { VisitaClienteComponent } from './visita-cliente/visita-cliente.componen
 import { CobranzaComponent } from './cobranza/cobranza.component';
 import { VisitasComponent } from './visitas/visitas.component';
 import { CorteComponent } from './corte/corte.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 
 
@@ -61,6 +62,10 @@ const routes: Routes = [
   {
     path: 'vendedores',
     component: VendedoresComponent
+  },
+  {
+    path: 'usuarios',
+    component: UsuariosComponent
   },
   {
     path: 'visitas',

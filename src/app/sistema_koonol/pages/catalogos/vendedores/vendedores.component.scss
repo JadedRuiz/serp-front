@@ -126,14 +126,29 @@ div button:hover {
       }
     }
 
-    .vendedor__data-form,
-    .vendedor__address-form {
+    @keyframes buenas {
+      0% {
+          opacity: 0.1;
+          transform: translateY(-1%);
+      }
+
+      100% {
+          opacity: 1;
+      }
+  }
+
+    .vendedor__data-form {
       background-color: white;
       width: 100%;
       padding: 20px;
       border: 1px solid rgb(0, 0, 0, 0.2);
       border-radius: 0px 10px 10px 10px;
       display: none;
+      animation: buenas 500ms;
+      
+      @include xs {
+          padding: 10px;
+      }
 
       .subtitle {
         font-weight: bold;

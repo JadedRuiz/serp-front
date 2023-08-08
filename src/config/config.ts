@@ -19,6 +19,7 @@ const API_PEDIDOS = "https://serp-inventarios.serteza.com/public/api/pedidos/con
 const API_VISITAS= "https://serp-inventarios.serteza.com/public/api/"
 const API_COBRANZA = "https://serp-inventarios.serteza.com/public/api/";
 const API_PEDIDOS_POR_PAGAR = "https://serp-inventarios.serteza.com/public/api/pedidos/consultarPedidosPorPagar"
+const API_USUARIOS = "https://serp-inventarios.serteza.com/public/api/usuarios/consultarUsuarios"
 
 export const SERVER_CP = API_CP;
 export const COLOR = CLASS_COLOR;
@@ -37,6 +38,7 @@ export const SERV_PEDIDOS = API_PEDIDOS;
 export const SERV_PEDIDOS_PAGAR = API_PEDIDOS_POR_PAGAR;
 export const SERV_VISITAS = API_VISITAS;
 export const SERV_COBRANZA = API_COBRANZA;
+export const SERV_USUARIOS = API_USUARIOS;
 
 
 

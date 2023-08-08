@@ -30,6 +30,7 @@ import { VisitasComponent } from './visitas/visitas.component';
 import { DatePipe } from '@angular/common';
 import { AddressesPhotosModalComponent } from './addresses-photos-modal/addresses-photos-modal.component';
 import { CorteComponent } from './corte/corte.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 
 
@@ -55,6 +56,7 @@ import { CorteComponent } from './corte/corte.component';
     VisitasComponent,
     AddressesPhotosModalComponent,
     CorteComponent,
+    UsuariosComponent,
   ],
   imports: [
     CommonModule,

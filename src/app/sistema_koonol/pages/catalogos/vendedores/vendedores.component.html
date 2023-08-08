@@ -1,21 +1,9 @@
-<div class="vendedores container-fluid row">
+<div class="vendedores container-fluid">
   <div class="vendedores-container">
     <h1 class="text-center title m-0">Vendedores</h1>
 
     <!-- Barra de Busqueda -->
     <div class="vendedores__search-bar">
-      <!-- <div class="d-flex flex-column">
-        <input class="search-input" type="text" placeholder="Buscar vendedores" aria-label="Buscar Vendedores"
-          aria-describedby="button-addon2" [(ngModel)]="searchVendedor" (ngModelChange)="buscarVendedor()"
-          data-toggle="tooltip" title="Buscar vendedor" />
-        <ul class="search-list" *ngIf="searchList">
-          <li class="search-list__element" *ngFor="let vendedor of autocompleteVendedor"
-            (click)="selecionarVendedor(vendedor.id_vendedor)">
-            {{ vendedor.vendedor}}
-          </li>
-        </ul>
-      </div> -->
-
       <div class="d-flex flex-column">
         <input class="search-input" type="text" placeholder="Buscar vendedor" aria-label="Buscar vendedor"
           title="Buscar vendedor" aria-describedby="button-addon2" [formControl]="searchSellerControl" (focus)="onFocusSellerSearch()" />
