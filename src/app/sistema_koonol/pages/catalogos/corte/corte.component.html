@@ -80,8 +80,8 @@
       <div class="card m-2" *ngFor="let cobranza of cobranzas" >
         <div class="card-body">
           <h5 class="subtitle mb-1"><b>{{cobranza.cliente}}</b></h5>
-          <h3 class=" mt-0 mb-1"><b>Fecha pago: {{cobranza.fecha_pago | date: 'dd/MM/yyyy'}}</b></h3>
-          <h3 class=" mt-2 mb-1">Cobratario: <b>{{cobranza.cobratario}}</b></h3>
+          <h3 class="subtitle mt-0 mb-1"><b>Fecha pago: {{cobranza.fecha_pago | date: 'dd/MM/yyyy'}}</b></h3>
+          <h3 class="subtitle mt-2 mb-1">Cobratario: <b>{{cobranza.cobratario}}</b></h3>
           <h3 class="subtitle mb-1">Importe pagado: <br><b>{{cobranza.importe_pagado | currency: '$'}}</b></h3>
           <div class="d-flex justify-content-end mt-1">
             <button type="button" class="general-btn">Detalles</button>
