@@ -98,6 +98,17 @@
       }
     }
 
+    @keyframes buenas {
+      0% {
+          opacity: 0.1;
+          transform: translateY(-1%);
+      }
+
+      100% {
+          opacity: 1;
+      }
+  }
+
     .proveedor__data-form,
     .proveedor__address-form {
       background-color: white;
@@ -106,6 +117,7 @@
       border: 1px solid rgb(0, 0, 0, 0.2);
       border-radius: 0px 10px 10px 10px;
       display: none;
+      animation: buenas 500ms;
 
       .subtitle {
         font-weight: bold;

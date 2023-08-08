@@ -25,6 +25,7 @@ export class OrdersCartComponent {
   ngOnInit(): void {
     this.pedidos.pedidoFinal$.subscribe((pedidoFinal) => {
       this.pedidoFinal = pedidoFinal;
+      this.pedidoFinal.id_visita = JSON.parse(sessionStorage.getItem('id_visita')!)
     });
     this.formatter = new Intl.NumberFormat('en-NZ', {
       currency: 'NZD',

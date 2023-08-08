@@ -215,7 +215,8 @@ export class VisitasComponent implements OnInit {
 
     //PARA REALIZAR UN PEDIDO CON ID_VISTA
     async realizarPedidoVisita(id_visita: number) {
-      this.pedidoFinal.id_visita = Number(id_visita)
+      sessionStorage.setItem('id_visita', JSON.stringify(id_visita))
+      this.pedidoFinal.id_visita = JSON.parse(sessionStorage.getItem('id_visita')!)
       await this.updatePedidoFinal().then(() => {
         this.router.navigate(['/sis_koonol/catalogos/']);
         console.log(this.pedidoFinal);

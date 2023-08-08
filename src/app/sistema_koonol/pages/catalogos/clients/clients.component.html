@@ -45,50 +45,50 @@
                     <div class="client__data-form row" [class.active]="section === 1">
                         <h3 class="subtitle col-12">Datos</h3>
                         <div class="client__data-form__section1 col-12 col-md-6">
-                            <div>
+                            <div class="mt-2">
                                 <label for="cliente">Cliente <span class="obligatorio"
                                         title="Este es un campo obligatorio">*</span> </label>
                                 <input class="form-control form-label" type="text" name="cliente" id="cliente" required
                                     [(ngModel)]="client.cliente" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="contacto">Contacto</label>
                                 <input class="form-control form-label" type="text" name="contacto" id="contacto"
                                     [(ngModel)]="client.contacto" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="rfc">RFC</label>
                                 <input class="form-control form-label" type="text" name="rfc" id="rfc"
                                     [(ngModel)]="client.rfc" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="celular">Celular</label>
                                 <input class="form-control form-label" type="text" name="celular" id="celular"
                                     [(ngModel)]="client.celular" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="telefono">Teléfono</label>
                                 <input class="form-control form-label" type="tel" name="telefono" id="telefono"
                                     [(ngModel)]="client.telefono" />
                             </div>
                         </div>
                         <div class="client__data-form__section2 col-12 col-md-6">
-                            <div>
+                            <div class="mt-2">
                                 <label for="correo">Correo</label>
                                 <input class="form-control form-label" type="email" name="correo" id="correo"
                                     [(ngModel)]="client.correo" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="descuento1">Descuento 1</label>
                                 <input class="form-control form-label" type="text" name="descuento1" id="descuento1"
                                     [(ngModel)]="client.descuento1" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="descuento2">Descuento 2</label>
                                 <input class="form-control form-label" type="text" name="descuento2" id="descuento2"
                                     [(ngModel)]="client.descuento2" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="descuento3">Descuento 3</label>
                                 <input class="form-control form-label" type="text" name="descuento3" id="descuento3"
                                     [(ngModel)]="client.descuento3" />
@@ -105,28 +105,28 @@
                     <div class="client__address-form row" [class.active]="section === 2">
                         <h3 class="subtitle col-12">Direcciones</h3>
                         <div class="client__address-form__section1 col-12 col-md-6">
-                            <div>
+                            <div class="mt-2">
                                 <label for="descripcion">Descripción</label>
                                 <input class="form-control form-label" type="text" name="descripcion" id="descripcion"
                                     [(ngModel)]="address.descripcion" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="calle">Calle <span class="obligatorio"
                                         title="Este es un campo obligatorio">*</span></label>
                                 <input class="form-control form-label" type="text" name="calle" id="calle" required
                                     [(ngModel)]="address.calle" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="numero_interior">Número interior</label>
                                 <input class="form-control form-label" type="text" name="numero_interior"
                                     id="numero_interior" [(ngModel)]="address.numero_interior" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="numero_exterior">Número exterior</label>
                                 <input class="form-control form-label" type="text" name="numero_exterior"
                                     id="numero_exterior" [(ngModel)]="address.numero_exterior" />
                             </div>
-                            <div class="row">
+                            <div class="row mt-2">
                                 <div class="col-6">
                                     <label for="cruzamiento_uno">Cruzamiento 1</label>
                                     <input class="form-control form-label" type="text" name="cruzamiento_uno"
@@ -138,12 +138,12 @@
                                         id="cruzamiento_dos" [(ngModel)]="address.cruzamiento_dos" />
                                 </div>
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="codigo_postal">Código Postal</label>
                                 <input class="form-control form-label" type="text" name="codigo_postal"
                                     id="codigo_postal" [(ngModel)]="address.codigo_postal" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label class="label-label" for="ruta">Seleccionar Ruta <span class="obligatorio"
                                         title="Este es un campo obligatorio">*</span></label>
                                 <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..."
@@ -155,33 +155,33 @@
                             </div>
                         </div>
                         <div class="client__address-form__section2 col-12 col-md-6 justify-content-center">
-                            <div>
+                            <div class="mt-2">
                                 <label for="colonia">Colonia</label>
                                 <input class="form-control form-label" type="text" name="colonia" id="colonia"
                                     [(ngModel)]="address.colonia" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="localidad">Localidad</label>
                                 <input class="form-control form-label" type="text" name="localidad" id="localidad"
                                     [(ngModel)]="address.localidad" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="municipio">Municipio</label>
                                 <input class="form-control form-label" type="text" name="municipio" id="municipio"
                                     [(ngModel)]="address.municipio" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="estado">Estado</label>
                                 <input class="form-control form-label" type="text" name="estado" id="estado"
                                     [(ngModel)]="address.estado" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="longitud">Longitud <i *ngIf="address.longitud" class="fa fa-info-circle"
                                         title="El valor por defecto que incluye este campo proviene de tu ubicación actual."></i></label>
                                 <input class="form-control form-label" type="text" name="longitud" id="longitud"
                                     [(ngModel)]="address.longitud" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="latitud">Latitud <i *ngIf="address.latitud" class="fa fa-info-circle"
                                         title="El valor por defecto que incluye este campo proviene de tu ubicación actual."></i></label>
                                 <input class="form-control form-label" type="text" name="latitud" id="latitud"
@@ -235,50 +235,50 @@
                     <form class="w-100 form-address row" #editClientForm="ngForm"
                         (ngSubmit)="guardarCliente(editClientForm)">
                         <div class="client__data-form__section1 col-12 col-md-6">
-                            <div>
+                            <div class="mt-2">
                                 <label for="cliente">Cliente <span class="obligatorio"
                                         title="Este es un campo obligatorio">*</span></label>
                                 <input class="form-control form-label" type="text" name="cliente" id="cliente" required
                                     [(ngModel)]="selectedClient.cliente" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="contacto">Contacto</label>
                                 <input class="form-control form-label" type="text" name="contacto" id="contacto"
                                     [(ngModel)]="selectedClient.contacto" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="rfc">RFC</label>
                                 <input class="form-control form-label" type="text" name="rfc" id="rfc"
                                     [(ngModel)]="selectedClient.rfc" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="celular">Celular</label>
                                 <input class="form-control form-label" type="text" name="celular" id="celular"
                                     [(ngModel)]="selectedClient.celular" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="telefono">Teléfono</label>
                                 <input class="form-control form-label" type="text" name="telefono" id="telefono"
                                     [(ngModel)]="selectedClient.telefono" />
                             </div>
                         </div>
                         <div class="client__data-form__section2 col-12 col-md-6">
-                            <div>
+                            <div class="mt-2">
                                 <label for="correo">Correo</label>
                                 <input class="form-control form-label" type="text" name="correo" id="correo"
                                     [(ngModel)]="selectedClient.correo" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="descuento1">Descuento 1</label>
                                 <input class="form-control form-label" type="text" name="descuento1" id="descuento1"
                                     [(ngModel)]="selectedClient.descuento1" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="descuento2">Descuento 2</label>
                                 <input class="form-control form-label" type="text" name="descuento2" id="descuento2"
                                     [(ngModel)]="selectedClient.descuento2" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="descuento3">Descuento 3</label>
                                 <input class="form-control form-label" type="text" name="descuento3" id="descuento3"
                                     [(ngModel)]="selectedClient.descuento3" />
@@ -298,28 +298,28 @@
                     <form class="w-100 form-address row" #addressForm="ngForm"
                         (ngSubmit)="guardarDireccion(addressForm)">
                         <div class="client__address-form__section1 col-12 col-md-6">
-                            <div>
+                            <div class="mt-2">
                                 <label for="descripcion">Descripción</label>
                                 <input class="form-control form-label" type="text" name="descripcion" id="descripcion"
                                     [(ngModel)]="addressSelected.descripcion" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="calle">Calle <span class="obligatorio"
                                         title="Este es un campo obligatorio">*</span></label>
                                 <input class="form-control form-label" type="text" name="calle" id="calle" required
                                     [(ngModel)]="addressSelected.calle" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="numero_interior">Número interior</label>
                                 <input class="form-control form-label" type="text" name="numero_interior"
                                     id="numero_interior" [(ngModel)]="addressSelected.numero_interior" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="numero_exterior">Número exterior</label>
                                 <input class="form-control form-label" type="text" name="numero_exterior"
                                     id="numero_exterior" [(ngModel)]="addressSelected.numero_exterior" />
                             </div>
-                            <div class="row">
+                            <div class="row mt-2">
                                 <div class="col-6">
                                     <label for="cruzamiento_uno">Cruzamiento 1</label>
                                     <input class="form-control form-label" type="text" name="cruzamiento_uno"
@@ -331,12 +331,12 @@
                                         id="cruzamiento_dos" [(ngModel)]="addressSelected.cruzamiento_dos" />
                                 </div>
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="codigo_postal">Código Postal</label>
                                 <input class="form-control form-label" type="text" name="codigo_postal"
                                     id="codigo_postal" [(ngModel)]="addressSelected.codigo_postal" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label class="label-label" for="ruta">Seleccionar Ruta <span class="obligatorio"
                                         title="Este es un campo obligatorio">*</span></label>
                                 <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..."
@@ -348,32 +348,32 @@
                             </div>
                         </div>
                         <div class="client__address-form__section2 col-12 col-md-6">
-                            <div>
+                            <div class="mt-2">
                                 <label for="colonia">Colonia</label>
                                 <input class="form-control form-label" type="text" name="colonia" id="colonia"
                                     [(ngModel)]="addressSelected.colonia" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="localidad">Localidad</label>
                                 <input class="form-control form-label" type="text" name="localidad" id="localidad"
                                     [(ngModel)]="addressSelected.localidad" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="municipio">Municipio</label>
                                 <input class="form-control form-label" type="text" name="municipio" id="municipio"
                                     [(ngModel)]="addressSelected.municipio" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="estado">Estado</label>
                                 <input class="form-control form-label" type="text" name="estado" id="estado"
                                     [(ngModel)]="addressSelected.estado" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="estado">Longitud</label>
                                 <input class="form-control form-label" type="text" name="longitud" id="longitud"
                                     [defaultValue]="coords[0]" [(ngModel)]="addressSelected.longitud" />
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <label for="estado">Latitud</label>
                                 <input class="form-control form-label" type="text" name="latitud" id="latitud"
                                     [defaultValue]="coords[1]" [(ngModel)]="addressSelected.latitud" />
@@ -478,4 +478,5 @@
 </div>
 
 <app-addresses-photos-modal [direccionSeleccionada]="direccionSeleccionadaFotos"
-    (toggleModalPhotos)="toggleModalPhotos()" *ngIf="modalPhotos"></app-addresses-photos-modal>
+    (toggleModalPhotos)="toggleModalPhotos()" *ngIf="modalPhotos">
+</app-addresses-photos-modal>

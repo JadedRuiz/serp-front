@@ -90,12 +90,10 @@ export class VendedoresComponent {
       this.vendedorService.obtenerVendedores(json).subscribe(
         (resp) => {
           if (resp.ok) {
-            console.log("hey", resp.data);
             this.sellers = resp.data;
             this.autocompleteSellers = this.sellers.filter((seller) =>
               seller.vendedor.toLowerCase().includes(value.toLowerCase())
             );
-            console.log("hey2", this.autocompleteSellers);
             this.loaderSeller = false;
           }
         },
@@ -128,7 +126,6 @@ export class VendedoresComponent {
       .pipe(debounceTime(500))
       .subscribe((value) => {
         this.buscarVendedor(value);
-        console.log(value);
       });
   }
 

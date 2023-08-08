@@ -48,54 +48,54 @@
         <div class="proveedor__data-form row" [class.active]="section === 1">
 
           <div class="proveedor__data-form__section1 col-12 col-md-6">
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="cliente">Proveedor</label>
               <input class="form-control" type="text" name="cliente" id="cliente" required
                 [(ngModel)]="proveedor.proveedor" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="contacto">Contacto</label>
               <input class="form-control" type="text" name="contacto" id="contacto" required
                 [(ngModel)]="proveedor.contacto" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="rfc">RFC</label>
               <input class="form-control" type="text" name="rfc" id="rfc" required [(ngModel)]="proveedor.rfc"
                 #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="celular">Celular</label>
               <input class="form-control" type="text" name="celular" id="celular" required
                 [(ngModel)]="proveedor.celular" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="telefono">Teléfono</label>
               <input class="form-control" type="text" name="telefono" id="telefono" required
                 [(ngModel)]="proveedor.telefono" #inputProvForm disabled />
             </div>
           </div>
           <div class="proveedor__data-form__section2 col-12 col-md-6">
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="comercial">Nombre comercial</label>
               <input class="form-control" type="text" name="comercial" id="comercial" required
                 [(ngModel)]="proveedor.nombre_comercial" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="correo">Correo</label>
               <input class="form-control" type="text" name="correo" id="correo" required [(ngModel)]="proveedor.correo"
                 #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="descuento1">Descuento 1</label>
               <input class="form-control" type="text" name="descuento1" id="descuento1" required
                 [(ngModel)]="proveedor.descuento1" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="descuento2">Descuento 2</label>
               <input class="form-control" type="text" name="descuento2" id="descuento2" required
                 [(ngModel)]="proveedor.descuento2" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="descuento3">Descuento 3</label>
               <input class="form-control" type="text" name="descuento3" id="descuento3" required
                 [(ngModel)]="proveedor.descuento3" #inputProvForm disabled />
@@ -110,34 +110,34 @@
         <div class="proveedor__address-form row" [class.active]="section === 2">
 
           <div class="proveedor__address-form__section1 col-12 col-md-6">
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="descripcion">Descripción</label>
               <input class="form-control" type="text" name="descripcion" id="descripcion" required
                 [(ngModel)]="proveedor.domicilio.descripcion" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="calle">Calle</label>
               <input class="form-control" type="text" name="calle" id="calle" required
                 [(ngModel)]="proveedor.domicilio.calle" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="numero_interior">Número interior</label>
               <input class="form-control" type="text" name="numero_interior" id="numero_interior" required
                 [(ngModel)]="proveedor.domicilio.numero_interior" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="numero_exterior">Número exterior</label>
               <input class="form-control" type="text" name="numero_exterior" id="numero_exterior" required
                 [(ngModel)]="proveedor.domicilio.numero_exterior" #inputProvForm disabled />
             </div>
 
             <div class="row">
-              <div class="col form-label">
+              <div class="col form-label mt-2">
                 <label for="cruzamiento_uno">Cruzamiento 1</label>
                 <input class="form-control" type="text" name="cruzamiento_uno" id="cruzamiento_uno" required
                   [(ngModel)]="proveedor.domicilio.cruzamiento_uno" #inputProvForm disabled />
               </div>
-              <div class="col form-label">
+              <div class="col form-label mt-2">
                 <label for="cruzamiento_dos">Cruzamiento 2</label>
                 <input class="form-control" type="text" name="cruzamiento_dos" id="cruzamiento_dos" required
                   [(ngModel)]="proveedor.domicilio.cruzamiento_dos" #inputProvForm disabled />
@@ -146,27 +146,27 @@
 
           </div>
           <div class="proveedor__address-form__section2 col-12 col-md-6">
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="codigo_postal">Código postal</label>
               <input class="form-control" type="text" name="codigo_postal" id="codigo_postal" required
                 [(ngModel)]="proveedor.domicilio.codigo_postal" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="colonia">Colonia</label>
               <input class="form-control" type="text" name="colonia" id="colonia" required
                 [(ngModel)]="proveedor.domicilio.colonia" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="localidad">Localidad</label>
               <input class="form-control" type="text" name="localidad" id="localidad" required
                 [(ngModel)]="proveedor.domicilio.localidad" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="municipio">Municipio</label>
               <input class="form-control" type="text" name="municipio" id="municipio" required
                 [(ngModel)]="proveedor.domicilio.municipio" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="estado">Estado</label>
               <input class="form-control" type="text" name="estado" id="estado" required
                 [(ngModel)]="proveedor.domicilio.estado" #inputProvForm disabled />
@@ -180,34 +180,34 @@
         <div class="proveedor__data-form row" [class.active]="section === 3">
 
           <div class="proveedor__data-form__section1 col-12 col-md-6">
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="banco">Banco</label>
               <input class="form-control" type="text" name="banco" id="banco" required
                 [(ngModel)]="proveedor.proveedor" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="cuenta">Número de cuenta</label>
               <input class="form-control" type="text" name="cuenta" id="cuenta" required
                 [(ngModel)]="proveedor.contacto" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="tarjeta">Número de tarjeta</label>
               <input class="form-control" type="text" name="tarjeta" id="tarjeta" required
                 [(ngModel)]="proveedor.rfc" #inputProvForm disabled />
             </div>
           </div>
           <div class="proveedor__data-form__section2 col-12 col-md-6">
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="CLABE">CLABE Interbancaria</label>
               <input class="form-control" type="text" name="CLABE" id="CLABE" required
                 [(ngModel)]="proveedor.celular" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="adeudo">Adeudos</label>
               <input class="form-control" type="text" name="adeudo" id="adeudo" required
                 [(ngModel)]="proveedor.nombre_comercial" #inputProvForm disabled />
             </div>
-            <div class="form-label">
+            <div class="form-label mt-2">
               <label for="saldo">Saldo a favor</label>
               <input class="form-control" type="text" name="saldo" id="saldo" required [(ngModel)]="proveedor.correo"
                 #inputProvForm disabled />
