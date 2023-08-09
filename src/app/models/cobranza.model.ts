@@ -32,7 +32,7 @@ export class CobranzaDto {
      public folio?: number,
      public importe_pedido?: number,
      public id_cliente?: number,
-     public cliente?: number,
+     public cliente?: string,
      public fecha_pago?: string,
 
   ) {}

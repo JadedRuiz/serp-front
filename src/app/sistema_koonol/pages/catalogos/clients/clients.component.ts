@@ -307,7 +307,7 @@ export class ClientsComponent {
    //SECCIÓN PARA MANEJAR LA BÚSQUEDA DE CLIENTES Y LOS CLIENTES FILTRADOS
    searchClient: string = '';
    autocompleteClients: Client[] = [];
-   selectedClient: Client = new Client(0, 0, 1, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 0, 0, 0, 0, 0, 1, 0);
+   selectedClient: Client = new Client(0, 0, 1, 'toker ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 0, 0, 0, 0, 0, 1, 0);
    isClientSelected: boolean = false;
    addAddressVisibility: boolean = false;
    searchList: boolean = false;
@@ -360,6 +360,7 @@ export class ClientsComponent {
          this.addressSelected.id_cliente = id_cliente;
          this.addAddressVisibility = false;
          this.tab(1);
+         console.log(this.selectedClient);
       } else {
          return;
       }

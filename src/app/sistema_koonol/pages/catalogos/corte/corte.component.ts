@@ -1,6 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { FormControl,NgForm } from '@angular/forms';
-import { Subscription,debounceTime } from 'rxjs';
+import { Observable, Subject, Subscription, catchError, debounceTime, throwError } from 'rxjs';
 import { Vendedor } from 'src/app/models/vendedor.model';
 import { VendedoresService } from 'src/app/services/vendedores/vendedores.service';
 import { CobranzaService } from 'src/app/services/cobranza/cobranza.service';
@@ -16,9 +16,29 @@ export class CorteComponent implements OnInit {
 
 // Variables
 cId = 0;
-fechaInicio:string = '2023/08/01';
-fechaFinal:string = '2023/08/30';
+fecha = new Date();
 
+fechaInicio: string = '';
+fechaFinal: string = '';
+
+formatearFecha(fecha: Date): string {
+  const año = fecha.getFullYear();
+  const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+  const dia = fecha.getDate().toString().padStart(2, '0');
+  return `${año}/${mes}/${dia}`;
+}
+
+calcularFechas() {
+  if (this.fechaInicio === '') {
+    const primerDiaMes = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+    this.fechaInicio = this.formatearFecha(primerDiaMes);
+  }
+
+  if (this.fechaFinal === '') {
+    const ultimoDiaMes = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
+    this.fechaFinal = this.formatearFecha(ultimoDiaMes);
+  }
+}
 constructor(
   private vendedorService: VendedoresService,
   private cobranzaService: CobranzaService,
@@ -28,15 +48,14 @@ constructor(
 
 
 ngOnInit() {
-
 this.consultarCobranza();
-
-  this.searchSellerSubscription = this.searchSellerControl.valueChanges
-      .pipe(debounceTime(500))
-      .subscribe((value) => {
-        this.buscarVendedor(value);
-
-      });
+  console.log('this.fechaInicio :>> ', this.fechaInicio);
+  console.log('this.hola:>> ', this.fecha);
+  this.searchClientControl.valueChanges
+  .pipe(debounceTime(500))
+  .subscribe((value) => {
+    this.buscarCliente(value);
+  });
 }
 
 
@@ -55,12 +74,83 @@ consultarCobranza(){
 
 this.cobranzaService.consultarCobranza(json).subscribe(resp => {
   this.cobranzas = resp.data;
-  console.log('resp.data :>> ', json);
+  console.log('resp.data :>> ', this.cobranzas);
+  this.calcularFechas()
 })
 
 }
 
+//MODAL=>
+cobranzaSeleccionada: CobranzaDto = new CobranzaDto(
+  0,
+  1,
+  0,
+  '123',
+  '',
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  1,
+);
+abrirModalDetallesCobranza(cobranza: any) {
+ this.cobranzaSeleccionada = cobranza;
+ console.log('res- :>> ', cobranza);
 
+ $('#detalleCobranzaModal').modal('show');
+}
+
+cerrarModal() {
+ $('#detalleCobranzaModal').modal('hide');
+}
+
+
+//TOTALES
+
+pagosTotal(): number {
+ return this.cobranzaSeleccionada.pago_1000 * 1000 +
+        this.cobranzaSeleccionada.pago_500 * 500+
+        this.cobranzaSeleccionada.pago_200 * 200+
+        this.cobranzaSeleccionada.pago_100 * 100+
+        this.cobranzaSeleccionada.pago_50 * 50+
+        this.cobranzaSeleccionada.pago_20 * 20+
+        this.cobranzaSeleccionada.pago_10 * 10+
+        this.cobranzaSeleccionada.pago_5 * 5+
+        this.cobranzaSeleccionada.pago_2 * 2+
+        this.cobranzaSeleccionada.pago_1 * 1;
+}
+
+
+cambioTotal(): number {
+ return this.cobranzaSeleccionada.cambio_1000 * 1000 +
+        this.cobranzaSeleccionada.cambio_500 * 500+
+        this.cobranzaSeleccionada.cambio_200 * 200+
+        this.cobranzaSeleccionada.cambio_100 * 100+
+        this.cobranzaSeleccionada.cambio_50 * 50+
+        this.cobranzaSeleccionada.cambio_20 * 20+
+        this.cobranzaSeleccionada.cambio_10 * 10+
+        this.cobranzaSeleccionada.cambio_5 * 5+
+        this.cobranzaSeleccionada.cambio_2 * 2+
+        this.cobranzaSeleccionada.cambio_1 * 1;
+
+}
 
 
 //=> BUSCAR vendedor
@@ -151,7 +241,7 @@ onFocusSellerSearch() {
    let json = {
      id_cliente: 0,
      id_comprador: 1,
-     cliente: '',
+     cliente: this.cId,
      token: '',
    }
    if (value.length <= 3) {
@@ -206,45 +296,5 @@ onFocusSellerSearch() {
  }
 
 
- //MODAL=>
- cobranzaSeleccionada: any;
- abrirModalDetallesCobranza(cobranza: any) {
-  this.cobranzaSeleccionada = cobranza;
-  $('#detalleCobranzaModal').modal('show');
-}
 
-cerrarModal() {
-  $('#detalleCobranzaModal').modal('hide');
-}
-
-
-//TOTALES
-
-pagosTotal(): number {
-  return this.cobranzaSeleccionada.pago_1000 * 1000 +
-         this.cobranzaSeleccionada.pago_500 * 500+
-         this.cobranzaSeleccionada.pago_200 * 200+
-         this.cobranzaSeleccionada.pago_100 * 100+
-         this.cobranzaSeleccionada.pago_50 * 50+
-         this.cobranzaSeleccionada.pago_20 * 20+
-         this.cobranzaSeleccionada.pago_10 * 10+
-         this.cobranzaSeleccionada.pago_5 * 5+
-         this.cobranzaSeleccionada.pago_2 * 2+
-         this.cobranzaSeleccionada.pago_1 * 1;
-}
-
-
-cambioTotal(): number {
-  return this.cobranzaSeleccionada.cambio_1000 * 1000 +
-         this.cobranzaSeleccionada.cambio_500 * 500+
-         this.cobranzaSeleccionada.cambio_200 * 200+
-         this.cobranzaSeleccionada.cambio_100 * 100+
-         this.cobranzaSeleccionada.cambio_50 * 50+
-         this.cobranzaSeleccionada.cambio_20 * 20+
-         this.cobranzaSeleccionada.cambio_10 * 10+
-         this.cobranzaSeleccionada.cambio_5 * 5+
-         this.cobranzaSeleccionada.cambio_2 * 2+
-         this.cobranzaSeleccionada.cambio_1 * 1;
-
-}
 }

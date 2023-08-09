@@ -82,7 +82,7 @@ export class CobranzaComponent implements OnInit {
     0,
     0,
     0,
-    1
+    1,
   );
 
   //para paginador
