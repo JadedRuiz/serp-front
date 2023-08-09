@@ -6,7 +6,6 @@ import { Address } from 'src/app/models/addresses.model';
 import { adress_Almacen } from 'src/app/models/adress-almacen.model';
 import { Almacen } from 'src/app/models/almacen.model';
 import { AlmacenService } from 'src/app/services/almacenes/almacen.service';
-import { SERV_ALMACEN } from 'src/config/config';
 import Swal from 'sweetalert2';
 
 

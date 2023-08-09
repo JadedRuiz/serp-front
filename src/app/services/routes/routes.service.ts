@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Route } from 'src/app/models/routes.model';
-import { SERV_ROUTES } from 'src/config/config';
+import { SERVER_API } from 'src/config/config';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 export class RoutesService {
   constructor(private http: HttpClient) { }
 
+  // OBTENER RUTAS
   obtenerRutas(): Observable<any> {
     const parametros = {
       id_ruta: 0,
@@ -19,12 +20,12 @@ export class RoutesService {
       ruta: '',
     };
 
-    return this.http.post<any>(SERV_ROUTES, parametros);
+    return this.http.post<any>(SERVER_API + 'rutas/consultarRutas', parametros);
   }
 
+  //EDITAR UNA RUTA
   editarRuta(id: number, route: any) {
-    let url =
-      'https://serp-inventarios.serteza.com/public/api/rutas/guardarRuta';
+    let url = SERVER_API + 'rutas/guardarRuta';
 
     return this.http.post(url, route).pipe(
       map((resp: any) => {
@@ -42,13 +43,9 @@ export class RoutesService {
     );
   }
 
-
-
-
-  //Agregar Ruta
+  //AGREGAR RUTA
   agregarRuta(route: Route) {
-    let url =
-      'https://serp-inventarios.serteza.com/public/api/rutas/guardarRuta';
+    let url = SERVER_API + 'rutas/guardarRuta';
 
     return this.http.post(url, route).pipe(
       map((resp: any) => {
@@ -58,10 +55,10 @@ export class RoutesService {
     );
   }
 
-
-
+  //DESACTIVAR UNA RUTA
   desactivarRuta(id_ruta: number, activo: number) {
-    let url = 'https://serp-inventarios.serteza.com/public/api/rutas/activarRuta?id_ruta=' + id_ruta;
+    let url = SERVER_API + 'rutas/activarRuta?id_ruta=' + id_ruta;
+
     return this.http.post(url, '').pipe(
       map((resp: any) => {
         let mensaje = activo == 0 ? 'ACTIVADA' : 'DESACTIVADA';

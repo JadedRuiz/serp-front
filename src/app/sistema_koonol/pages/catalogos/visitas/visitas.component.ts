@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { SERV_VISITAS } from 'src/config/config';
 import { VisitasDTO } from 'src/app/models/visitas.model';
 import { VisitasService } from 'src/app/services/visitas/visitas.service';
 import { Client } from 'src/app/models/clients.model';

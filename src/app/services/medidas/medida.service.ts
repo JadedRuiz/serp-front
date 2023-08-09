@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { SERV_MEDIDAS } from 'src/config/config';
+import { SERVER_API } from 'src/config/config';
 import { Medida } from 'src/app/models/medidas.model';
 
 @Injectable({
@@ -19,7 +19,7 @@ obtenerMedidas(): Observable<any>{
     solo_activos: 1,
     token: '012354SDSDS01'
   };
-  return this.http.post<any>(SERV_MEDIDAS, parametros);
+  return this.http.post<any>(SERVER_API + 'medidas/consultarMedidas', parametros);
 }
 
 

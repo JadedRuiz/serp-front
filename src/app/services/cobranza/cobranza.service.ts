@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SERV_COBRANZA } from 'src/config/config';
+import { SERVER_API } from 'src/config/config';
 import { CobranzaDto } from 'src/app/models/cobranza.model';
 import {HttpClient} from '@angular/common/http'
 import Swal from 'sweetalert2';
@@ -19,14 +19,14 @@ export class CobranzaService {
 
 // CONSULTAR COBRANZAS
 consultarCobranza(json:any){
-return this.http.post<any>(SERV_COBRANZA + 'cobranza/consultarCobranza',json);
+return this.http.post<any>(SERVER_API + 'cobranza/consultarCobranza',json);
 }
 
 
 
 //Guarcar Cobranza
   guardarCobranza(cobranza:CobranzaDto) {
-    return this.http.post<any>(SERV_COBRANZA + 'cobranza/guardarCobranza',cobranza).pipe(
+    return this.http.post<any>(SERVER_API + 'cobranza/guardarCobranza',cobranza).pipe(
       map((resp:any)=>{
         if(resp.ok){
           Swal.fire('El cobro se guardo con exito', '', 'success');
