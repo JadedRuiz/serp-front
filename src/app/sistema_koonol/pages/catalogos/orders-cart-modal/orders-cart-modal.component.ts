@@ -53,6 +53,7 @@ export const DATE_FORMATS = {
     { provide: LOCALE_ID, useValue: 'de-DE' }, // for German translation. Ignore this if not needed.
   ],
 })
+
 export class OrdersCartModalComponent implements OnInit {
 
   //DESPUÉS VENDRÁ DESDE ALGO QUE HARÁ JADED
@@ -82,7 +83,7 @@ export class OrdersCartModalComponent implements OnInit {
   isDateSelected: boolean = false;
   //Variable para almacenar los productos del pedido para el carrito
   pedido: Articulo[] = [];
-  pedidoFinal: PedidoGuardar = new PedidoGuardar(0, 1, 0, 0, 'TOKEN', '', '', 1, [], 0, 0);
+  pedidoFinal: PedidoGuardar = new PedidoGuardar(0, 1, 0, 0, this.miToken, '', '', 1, [], 0, 0);
   formatter: any;
   precioTotalFormateado: any;
 
@@ -268,7 +269,7 @@ export class OrdersCartModalComponent implements OnInit {
       id_comprador: 1,
       vendedor: '',
       solo_activos: 1,
-      token: '012354SDSDS01',
+      token: this.miToken,
     };
     if (value.length <= 3) {
       this.autocompleteSellers = [];
@@ -351,6 +352,7 @@ export class OrdersCartModalComponent implements OnInit {
     this.pedidoFinal.id_vendedor = this.selectedSeller.id_vendedor;
     this.pedidoFinal.fecha_entrega = this.selectedDateFormatted;
     this.pedidoFinal.observaciones = this.observaciones;
+    this.pedidoFinal.token = this.miToken
     this.pedidos.updatePedidoFinal(this.pedidoFinal);
   }
 
