@@ -6,3 +6,29 @@
   width: 284px;
 }
 
+
+.resaltado {
+  background-color: rgba(186, 207, 221, 0.575);
+  padding: 1px  3px;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.contenedor-alineado {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.titulo-pago {
+  width: 80px;
+  margin-right: 7px;
+}
+
+.total {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+

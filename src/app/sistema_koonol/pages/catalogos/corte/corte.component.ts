@@ -217,4 +217,34 @@ cerrarModal() {
   $('#detalleCobranzaModal').modal('hide');
 }
 
+
+//TOTALES
+
+pagosTotal(): number {
+  return this.cobranzaSeleccionada.pago_1000 * 1000 +
+         this.cobranzaSeleccionada.pago_500 * 500+
+         this.cobranzaSeleccionada.pago_200 * 200+
+         this.cobranzaSeleccionada.pago_100 * 100+
+         this.cobranzaSeleccionada.pago_50 * 50+
+         this.cobranzaSeleccionada.pago_20 * 20+
+         this.cobranzaSeleccionada.pago_10 * 10+
+         this.cobranzaSeleccionada.pago_5 * 5+
+         this.cobranzaSeleccionada.pago_2 * 2+
+         this.cobranzaSeleccionada.pago_1 * 1;
+}
+
+
+cambioTotal(): number {
+  return this.cobranzaSeleccionada.cambio_1000 * 1000 +
+         this.cobranzaSeleccionada.cambio_500 * 500+
+         this.cobranzaSeleccionada.cambio_200 * 200+
+         this.cobranzaSeleccionada.cambio_100 * 100+
+         this.cobranzaSeleccionada.cambio_50 * 50+
+         this.cobranzaSeleccionada.cambio_20 * 20+
+         this.cobranzaSeleccionada.cambio_10 * 10+
+         this.cobranzaSeleccionada.cambio_5 * 5+
+         this.cobranzaSeleccionada.cambio_2 * 2+
+         this.cobranzaSeleccionada.cambio_1 * 1;
+
+}
 }
