@@ -95,8 +95,8 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="detalleCobranzaModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+<div class="modal fade" id="detalleCobranzaModal"  role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="title text-center mb-0">Detalles</h5>
@@ -108,17 +108,92 @@
         <h5 class="subtitle mb-1"><b>Cliente:</b> {{ cobranzaSeleccionada.cliente }}</h5>
         <p><b>Fecha pago:</b> {{ cobranzaSeleccionada.fecha_pago | date: 'dd/MM/yyyy' }}</p>
         <p><b>Cobratario:</b> {{ cobranzaSeleccionada.cobratario }}</p>
-
+        <hr class="mt-0 mb-1">
+        <div class="row justify-content-center">
             <!-- PAGOS -->
-          <div *ngIf="cobranzaSeleccionada.pago_1000 > 0">Pago de 1000: {{ cobranzaSeleccionada.pago_1000 }}</div>
-          <div *ngIf="cobranzaSeleccionada.pago_500 > 0">Pago de 500: {{ cobranzaSeleccionada.pago_500 }}</div>
-          <div *ngIf="cobranzaSeleccionada.pago_200 > 0">Pago de 200: {{ cobranzaSeleccionada.pago_200 }}</div>
+          <div class="col-md-4">
+            <div>
+              <b><h4 class="subtitle">Pagos :</h4></b>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.pago_1000 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 1000 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_1000 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.pago_500 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 500 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_500 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.pago_200 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 200 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_200 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.pago_100 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 100 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_100 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.pago_50 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 50 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_50 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.pago_20 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 20 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_20 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.pago_10 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 10 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_10 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.pago_5 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 5 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_5 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.pago_2 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 2 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_2 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.pago_1 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 1 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_1 }}</span>
+            </div>
+            <div class="contenedor-alineado total">
+              <b class="titulo-pago">Total:</b><span class="resaltado">${{ pagosTotal() }}</span>
+            </div>
+            <hr class="m-0">
+          </div>
+
+            <!-- CAMBIO -->
+          <div class="col-md-4">
+
+            <div>
+              <b><h4 class="subtitle">Cambio :</h4></b>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.cambio_1000 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 1000 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_1000 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.cambio_500 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 500 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_500 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.cambio_200 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 200 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_200 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.cambio_100 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 100 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_100 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.cambio_50 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 50 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_50 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.cambio_20 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 20 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_20 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.cambio_10 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 10 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_10 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.cambio_5 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 5 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_5 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.cambio_2 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 2 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_2 }}</span>
+            </div>
+            <div *ngIf="cobranzaSeleccionada.cambio_1 > 0" class="contenedor-alineado">
+              <b class="titulo-pago">De 1 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_1 }}</span>
+            </div>
+            <div class="contenedor-alineado total">
+              <b class="titulo-pago">Total:</b><span class="resaltado">{{ cambioTotal() }} </span>
+            </div>
+          </div>
+        </div>
 
 
-        <!-- CAMBIO -->
-          <div *ngIf="cobranzaSeleccionada.cambio_1000 > 0">Cambio de 1000: {{ cobranzaSeleccionada.cambio_1000 }}</div>
-          <div *ngIf="cobranzaSeleccionada.cambio_500 > 0">Cambio de 500: {{ cobranzaSeleccionada.cambio_500 }}</div>
-          <div *ngIf="cobranzaSeleccionada.cambio_200 > 0">Cambio de 200: {{ cobranzaSeleccionada.cambio_200 }}</div>
 
       </div>
       <div class="modal-footer d-flex justify-content-between">
