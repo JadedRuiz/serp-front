@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Familia } from 'src/app/models/familias.model';
-import { SERV_FAM } from 'src/config/config';
+import { SERVER_API } from 'src/config/config';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -18,12 +18,11 @@ export class FamiliasService {
       familia: '',
       token: '012354SDSDS01',
     };
-    return this.http.post<any>(SERV_FAM, parametros);
+    return this.http.post<any>(SERVER_API + 'familias/consultarFamilias', parametros);
   }
 
   editarFam(id: number, familia: any) {
-    let url =
-      'https://serp-inventarios.serteza.com/public/api/familias/guardarFamilia';
+    let url = SERVER_API + 'familias/guardarFamilia';
 
     return this.http.post(url, familia).pipe(
       map((resp: any) => {
@@ -42,8 +41,7 @@ export class FamiliasService {
   }
 
   agregarFam(familia: Familia) {
-    let url =
-      'https://serp-inventarios.serteza.com/public/api/familias/guardarFamilia';
+    let url = SERVER_API + 'familias/guardarFamilia';
 
     return this.http.post(url, familia).pipe(
       map((resp: any) => {
@@ -58,8 +56,7 @@ export class FamiliasService {
   }
 
   deleteFamily(id: number) {
-    let url =
-      'https://serp-inventarios.serteza.com/public/api/familias/guardarFamilia/' +
+    let url = SERVER_API + 'familias/guardarFamilia/' +
       id;
     return this.http
       .put(url, {})
@@ -73,8 +70,7 @@ export class FamiliasService {
   }
 
   desactivarFamilia(id_familia: number, activo: number) {
-    let url =
-      'https://serp-inventarios.serteza.com/public/api/familias/activarFamilia?id_familia=' +
+    let url = SERVER_API + 'familias/activarFamilia?id_familia=' +
       id_familia;
     return this.http.post(url, '').pipe(
       map((resp: any) => {

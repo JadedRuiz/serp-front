@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Vendedor } from 'src/app/models/vendedor.model';
-import { SERV_VENDEDORES } from 'src/config/config';
+import { SERVER_API } from 'src/config/config';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -14,13 +14,13 @@ export class VendedoresService {
 
   //Obtener Vendedores
   obtenerVendedores(json: any): Observable<any> {
-    return this.http.post<any>(SERV_VENDEDORES, json);
+    return this.http.post<any>(SERVER_API + 'vendedores/consultarVendedores', json);
   }
 
 
   // Editar Vendedores
   editarVendedor(id_vendedor: number, vendedor: any) {
-    let url = 'https://serp-inventarios.serteza.com/public/api/vendedores/guardarVendedor';
+    let url = SERVER_API + 'vendedores/guardarVendedor';
     return this.http.post(url, vendedor).pipe(map((resp: any) => {
       if (resp.ok) {
         Swal.fire('Vendedor editado con exito', '', 'success');
@@ -42,7 +42,7 @@ export class VendedoresService {
 
   // Agrega Vendedor
   agregarVendedor(vendedor: Vendedor) {
-    let url = 'https://serp-inventarios.serteza.com/public/api/vendedores/guardarVendedor';
+    let url = SERVER_API + 'vendedores/guardarVendedor';
     return this.http.post(url, vendedor).pipe(
       map((resp: any) => {
         if (resp.ok) {
@@ -67,7 +67,7 @@ export class VendedoresService {
 
   // Activa el Vendedor
   activarVendedor(id_vendedor: number, activo: number) {
-    let url = 'https://serp-inventarios.serteza.com/public/api/vendedores/activarVendedor?id_vendedor=' + id_vendedor;
+    let url = SERVER_API + 'vendedores/activarVendedor?id_vendedor=' + id_vendedor;
     return this.http.post(url, '').pipe(
       map((resp: any) => {
         if (resp.ok) {
@@ -99,7 +99,6 @@ export class VendedoresService {
       })
     );
   }
-
 
 }
 

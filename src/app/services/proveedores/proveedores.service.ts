@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { Proveedor } from 'src/app/models/proveedores.model';
-import { SERV_PROV } from 'src/config/config';
+import { SERVER_API } from 'src/config/config';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -13,13 +13,14 @@ export class ProveedoresService {
   constructor(private http: HttpClient) { }
 
 
-  //=>
+  //OBTENER LOS PROVEEDORES
   obtenerProveedores(json: any): Observable<any> {
-    return this.http.post<any>(SERV_PROV, json);
+    return this.http.post<any>(SERVER_API + 'proveedores/consultarProveedores', json);
   }
 
+  //EDITAR UN PROVEEDOR
   editarProveedor(id: number, proveedor: any) {
-    let url = 'https://serp-inventarios.serteza.com/public/api/proveedores/guardarProveedor';
+    let url = SERVER_API + 'proveedores/guardarProveedor';
     return this.http.post(url, proveedor)
       .pipe(map((resp: any) => {
         if (resp.ok) {
@@ -40,8 +41,10 @@ export class ProveedoresService {
       }));
   }
 
+  //AGREGAR UN PROVEEDOR
   agregarProveedor(proveedor: Proveedor) {
-    let url = 'https://serp-inventarios.serteza.com/public/api/proveedores/guardarProveedor';
+    let url = SERVER_API + 'proveedores/guardarProveedor';
+    console.log(proveedor);
 
     return this.http.post(url, proveedor)
       .pipe(
@@ -67,9 +70,9 @@ export class ProveedoresService {
       );
   }
 
-
+  //ACTIVAR UN PROVEEDOR
   activarProveedor(id_proveedor: number, activo: number) {
-    let url = 'https://serp-inventarios.serteza.com/public/api/proveedores/activarProveedor?id_proveedor=' + id_proveedor;
+    let url = SERVER_API + 'proveedores/activarProveedor?id_proveedor=' + id_proveedor;
     return this.http.post(url, '').pipe(
       map((resp: any) => {
         if (resp.ok) {
@@ -94,7 +97,5 @@ export class ProveedoresService {
       })
     );
   }
-
-
 
 }

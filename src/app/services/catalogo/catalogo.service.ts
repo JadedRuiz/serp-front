@@ -5,9 +5,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
-import { FamiliaService } from '@data/services/sfamilia/familia.service';
 import { forkJoin } from 'rxjs';
 import { Articulo } from 'src/app/models/articulo.model';
+import { FamiliasService } from '../familias/familias.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,7 @@ export class CatalogoService {
   private pedidoSubject = new BehaviorSubject<Articulo[]>([])
   pedido$ = this.pedidoSubject.asObservable()
 
-  constructor(public http: HttpClient, private famService: FamiliaService) {
+  constructor(public http: HttpClient, private famService: FamiliasService) {
     this.updatePedidoFromSessionStorage
   }
 
@@ -63,7 +63,7 @@ export class CatalogoService {
       token: '012354SDSDS01',
       id_almacen: 1,
     };
-    return this.http.post<any>(SERVER_API, parametros);
+    return this.http.post<any>(SERVER_API + 'articulos/consultarArticulos', parametros);
   }
 
   //Para Obtener Artiuculos por Id
@@ -74,7 +74,7 @@ export class CatalogoService {
       token: '012354SDSDS01',
       id_almacen: 1,
     };
-    return this.http.post<any>(SERVER_API, parametros)
+    return this.http.post<any>(SERVER_API + 'articulos/consultarArticulos', parametros)
 
   }
 
@@ -82,8 +82,7 @@ export class CatalogoService {
   //Para guardar productos
   vaciarForm = false;
   agregarProducto(producto: Product) {
-    let url =
-      'https://serp-inventarios.serteza.com/public/api/articulos/guardarArticulo';
+    let url = SERVER_API + 'articulos/guardarArticulo';
 
     return this.http.post(url, producto).pipe(
       map((resp: any) => {
@@ -119,7 +118,7 @@ export class CatalogoService {
 
   //Para Guardar Fotografias
   guardarFotos(id_articulo: any, fotos: any): Observable<any> {
-    let url = 'https://serp-inventarios.serteza.com/public/api/articulos/guardarFotografia';
+    let url = SERVER_API + 'articulos/guardarFotografia';
     const observables = fotos.map((foto: string) => {
       let foto_base64 = foto.slice(22);
       const parametros = {

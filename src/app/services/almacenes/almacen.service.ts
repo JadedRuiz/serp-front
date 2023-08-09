@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { SERV_ALMACEN } from 'src/config/config';
+import { SERVER_API } from 'src/config/config';
 import { Almacen } from 'src/app/models/almacen.model';
 import Swal from 'sweetalert2';
 
@@ -9,14 +9,15 @@ import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root',
 })
+
 export class AlmacenService {
   constructor(private http: HttpClient) { }
 
   obtenerAlmacenes(json: any): Observable<any> {
-    return this.http.post<any>(SERV_ALMACEN, json);
+    return this.http.post<any>(SERVER_API+"almacenes/consultarAlmacenes", json);
   }
   editarAlmacen(id: number, almacen: any) {
-    let url = 'https://serp-inventarios.serteza.com/public/api/almacenes/guardarAlmacen';
+    let url = SERVER_API+'almacenes/guardarAlmacen';
     return this.http.post(url, almacen)
       .pipe(map((resp: any) => {
         return resp;
@@ -28,7 +29,7 @@ export class AlmacenService {
 
 
   agregarAlmacen(almacen: Almacen) {
-    let url = 'https://serp-inventarios.serteza.com/public/api/almacenes/guardarAlmacen';
+    let url = SERVER_API+'almacenes/guardarAlmacen';
 
     return this.http.post(url, almacen)
       .pipe(
@@ -47,7 +48,7 @@ export class AlmacenService {
       );
   }
   activarAlmacen(id_almacen: number, activo: number) {
-    let url = 'https://serp-inventarios.serteza.com/public/api/almacenes/activarAlmacen?id_almacen=' + id_almacen;
+    let url = SERVER_API+'almacenes/activarAlmacen?id_almacen=' + id_almacen;
     return this.http.post(url, '').pipe(
       map((resp: any) => {
         if (resp.ok) {

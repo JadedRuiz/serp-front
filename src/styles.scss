@@ -301,6 +301,10 @@ p {
   color: white;
   font-size: 20px;
   cursor: pointer;
+
+  &:hover {
+    box-shadow: none !important;
+  }
 }
 
 .fa-times {

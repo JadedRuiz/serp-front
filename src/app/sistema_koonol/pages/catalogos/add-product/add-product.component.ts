@@ -8,13 +8,13 @@ import {
 import { Product } from 'src/app/models/products.model';
 import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
 import { NgForm } from '@angular/forms';
-import { FamiliaService } from '@data/services/sfamilia/familia.service';
 import { Familia } from 'src/app/models/familias.model';
 import { AlmacenService } from 'src/app/services/almacenes/almacen.service';
 import { Almacen } from 'src/app/models/almacen.model';
 import { MedidaService } from 'src/app/services/medidas/medida.service';
 import { Medida } from 'src/app/models/medidas.model';
 import { Foto } from 'src/app/models/fotografias.model';
+import { FamiliasService } from 'src/app/services/familias/familias.service';
 
 @Component({
   selector: 'app-add-product',
@@ -34,7 +34,7 @@ export class AddProductComponent implements OnInit {
     private route: ActivatedRoute,
     private imageCompress: NgxImageCompressService,
     private productService: CatalogoService,
-    private familiaService: FamiliaService,
+    private familiaService: FamiliasService,
     private almacenService: AlmacenService,
     private medidaService: MedidaService
   ) {}

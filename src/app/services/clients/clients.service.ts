@@ -4,7 +4,7 @@ import { Observable, catchError, forkJoin, map, throwError } from 'rxjs';
 import { Address } from 'src/app/models/addresses.model';
 import { Client } from 'src/app/models/clients.model';
 import { Foto } from 'src/app/models/fotografias.model';
-import { SERV_ADDRESSES, SERV_CLIENTS } from 'src/config/config';
+import { SERVER_API } from 'src/config/config';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class ClientsService {
   constructor(private http: HttpClient) { }
 
   obtenerClientes(json: any): Observable<any> {
-    return this.http.post<any>(SERV_CLIENTS, json);
+    return this.http.post<any>(SERVER_API+'clientes/buscarClientes', json);
   }
 
   obtenerDirecciones(id_cliente: number, id_cliente_direccion?: number): Observable<any> {
@@ -25,12 +25,12 @@ export class ClientsService {
       cliente: '',
       token: '012354SDSDS01'
     }
-    return this.http.post<any>(SERV_ADDRESSES, parametros)
+    return this.http.post<any>(SERVER_API+'clientes/buscarDireccionesCliente', parametros)
   }
 
   editarCliente(id: number, cliente: Client) {
 
-    let url = 'https://serp-inventarios.serteza.com/public/api/clientes/guardarCliente';
+    let url = SERVER_API+'clientes/guardarCliente';
 
     return this.http.post(url, cliente)
       .pipe(map((resp: any) => {
@@ -43,7 +43,7 @@ export class ClientsService {
   }
 
   agregarCliente(cliente: Client) {
-    let url = "https://serp-inventarios.serteza.com/public/api/clientes/guardarCliente"
+    let url = SERVER_API+"clientes/guardarCliente"
 
     return this.http.post(url, cliente)
       .pipe(map((resp: any) => {
@@ -60,7 +60,7 @@ export class ClientsService {
   }
 
   editarDireccion(id_direccion: number, direccion: Address) {
-    let url = 'https://serp-inventarios.serteza.com/public/api/clientes/guardarDireccionCliente';
+    let url = SERVER_API+'clientes/guardarDireccionCliente';
 
 
     return this.http.post(url, direccion)
@@ -74,7 +74,7 @@ export class ClientsService {
   }
 
   agregarDireccion(direccion: Address) {
-    let url = "https://serp-inventarios.serteza.com/public/api/clientes/guardarDireccionCliente"
+    let url = SERVER_API+"clientes/guardarDireccionCliente"
 
     return this.http.post(url, direccion)
       .pipe(map((resp: any) => {
@@ -87,7 +87,7 @@ export class ClientsService {
   }
 
   guardarFotosDireccion(id_cliente_direccion: number, fotos: any[]) {
-    let url = "https://serp-inventarios.serteza.com/public/api/clientes/guardarFotografia"
+    let url = SERVER_API+"clientes/guardarFotografia"
 
     const observables = fotos.map((foto: string) => {
       let foto_base64 = foto.slice(22);
@@ -102,10 +102,29 @@ export class ClientsService {
       }
       return this.http.post(url, parametros).pipe(
         map((resp: any) => {
-          return resp.data
+          return resp
         })
       );
     });
     return forkJoin(observables);
   }
+
+  guardarUbicacionDireccion(id_cliente_direccion: number, long: number, lat: number) {
+    let url = SERVER_API+"clientes/guardarLocalizacion";
+
+    const params = {
+      id_cliente_direccion: id_cliente_direccion,
+      longitud: long,
+      latitud: lat,
+      token: ''
+    };
+    
+
+    return this.http.post(url, params).pipe(
+      map((resp: any) => {
+        return resp
+      })
+    );
+  };
+
 }

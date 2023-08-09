@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { SERV_PEDIDOS, SERV_PEDIDOS_PAGAR } from 'src/config/config';
+import { SERVER_API } from 'src/config/config';
 import { Pedido } from 'src/app/models/pedido.model';
 import Swal from 'sweetalert2';
 import { PedidoGuardar } from 'src/app/models/pedidoguardar.model';
@@ -17,20 +17,20 @@ export class PedidosService {
 
     constructor(private http: HttpClient) { }
 
+    //ACTUALIZAR EL OBJETO DEL PEDIDO QUE SE ENVÍA EN EL PROCESO DE REALIZAR UN PEDIDO
     updatePedidoFinal(pedido: PedidoGuardar): void {
         this.pedidoFinalSubject.next(pedido)
     }
 
+    //OBTENER EL OBJETO DEL PEDIDO QUE SE ENVÍA EN EL PROCESO DE REALIZAR UN PEDIDO
     getPedidoFinal() {
         return this.pedidoFinalSubject.value
     }
 
-    // PEDIDOS POR PAGAR
+    //OBTENER PEDIDOS POR PAGAR
     consultarPorPagar(json: any) {
-
-        return this.http.post<any>(SERV_PEDIDOS_PAGAR, json);
+        return this.http.post<any>(SERVER_API + 'pedidos/consultarPedidosPorPagar', json);
     }
-
 
     // PEDIDOS GENERALES
     obtenerPedidos(): Observable<any> {
@@ -40,21 +40,23 @@ export class PedidosService {
             id_usuario: 1,
             token: "012354SDSDS01"
         };
-        return this.http.post<any>(SERV_PEDIDOS, parametros);
+        return this.http.post<any>(SERVER_API + 'pedidos/consultarPedidos', parametros);
     }
 
+    //BUSCAR UN PEDIDO EN ESPECÍFICO
     buscarPedido(id_pedido: number) {
         let parametros = {
             id_pedido: id_pedido,
             token: "012354SDSDS01"
         }
 
-        let url = `https://serp-inventarios.serteza.com/public/api/pedidos/buscarPedido`
+        let url = SERVER_API + `pedidos/buscarPedido`
         return this.http.post<any>(url, parametros);
     }
 
+    //GUARDAR UN PEDIDO
     guardarPedido(pedido: PedidoGuardar) {
-        let url = 'https://serp-inventarios.serteza.com/public/api/pedidos/guardarPedido';
+        let url = SERVER_API + 'pedidos/guardarPedido';
         return this.http.post(url, pedido).pipe(
             map((resp: any) => {
                 if (resp.ok) {

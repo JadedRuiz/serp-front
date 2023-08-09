@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, throwError, forkJoin } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario.model';
-import { SERV_USUARIOS } from 'src/config/config';
+import { SERVER_API } from 'src/config/config';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -11,15 +11,14 @@ import Swal from 'sweetalert2';
 
 export class UsuariosService {
     constructor(private http: HttpClient) { }
-    //Obtener Usuarios
+    //OBTENER LOS USUARIOS
     obtenerUsuarios(json: any): Observable<any> {
-        return this.http.post<any>(SERV_USUARIOS, json);
+        return this.http.post<any>(SERVER_API + 'usuarios/consultarUsuarios', json);
     }
 
-
-    // Editar Usuarios
+    // EDITAR UN USUARIO
     editarUsuario(id_usuario: number, usuario: any) {
-        let url = 'https://serp-inventarios.serteza.com/public/api/usuarios/guardarUsuario';
+        let url = SERVER_API + 'usuarios/guardarUsuario';
         return this.http.post(url, usuario).pipe(map((resp: any) => {
             if (resp.ok) {
                 Swal.fire('Usuario editado con exito', '', 'success');
@@ -39,9 +38,9 @@ export class UsuariosService {
         }));
     }
 
-    // Agrega Usuario
+    // AGREGAR USUARIO
     agregarUsuario(usuario: Usuario) {
-        let url = 'https://serp-inventarios.serteza.com/public/api/usuarios/guardarUsuario';
+        let url = SERVER_API + 'usuarios/guardarUsuario';
         return this.http.post(url, usuario).pipe(
             map((resp: any) => {
                 if (resp.ok) {
@@ -64,9 +63,9 @@ export class UsuariosService {
         )
     }
 
-    // Activa el Usuario
+    // ACTIVAR UN USUARIO
     activarUsuario(id_usuario: number, activo: number) {
-        let url = 'https://serp-inventarios.serteza.com/public/api/usuarios/activarUsuario?id_usuario=' + id_usuario;
+        let url = SERVER_API + 'usuarios/activarUsuario?id_usuario=' + id_usuario;
         return this.http.post(url, '').pipe(
             map((resp: any) => {
                 if (resp.ok) {
@@ -99,8 +98,9 @@ export class UsuariosService {
         );
     }
 
+    //GUARDAR FOTOS DE UN USUARIO
     guardarFotosUsuario(id_usuario: number, fotos: any[]) {
-        let url = "https://serp-inventarios.serteza.com/public/api/clientes/guardarFotografia"
+        let url = SERVER_API + "clientes/guardarFotografia"
 
         const observables = fotos.map((foto: string) => {
             let foto_base64 = foto.slice(22);
