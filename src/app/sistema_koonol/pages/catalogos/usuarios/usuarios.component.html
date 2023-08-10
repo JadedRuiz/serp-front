@@ -72,12 +72,14 @@
                     <div class="usuario__data-form__section1 col-12 col-md-6">
                         <div class="mt-2">
                             <label class="label-label" for="inputAlmacen">Seleccionar almacén:</label>
-                            <select type="text" class="form-control" title="almacen" name="almacen" placeholder="..."
-                                [(ngModel)]="usuario.id_almacen" #inputProvForm disabled>
-                                <option name="almacen" value={{almacen.id_almacen}} *ngFor="let almacen of almacenes">
-                                    {{almacen.almacen}}
-                                </option>
-                            </select>
+                            <section class="position-relative">
+                                <input type="button" class="form-control" #inputProvForm disabled
+                                    (click)="toggleAlmacenesModal()">
+                                <div class="almacenes-placeholder" *ngIf="almacenesSeleccionados.length > 0" (click)="toggleAlmacenesModal()">
+                                    <span>Almacenes seleccionados</span>
+                                    <span [ngStyle]="{'color':'green'}"><i class="fa fa-check"></i></span>
+                                </div>
+                            </section>
                         </div>
                         <div class="mt-2">
                             <label class="label-label" for="inputAlmacen">Seleccionar perfil:</label>
@@ -111,9 +113,9 @@
         </form>
 
         <!-- MODAL PARA SELECCIONAR ALMACENES DEL USUARIO -->
-        <div class="usuario-modal" *ngIf="extraModal">
-            <div class="usuario-modal__extra">
-                <button class="usuario-modal__close icon-btn" (click)="togglePhotosModal()">
+        <div class="usuario-modal" *ngIf="almacenesModal">
+            <div class="usuario-modal__extra usuario-modal__extra---almacenes">
+                <button class="usuario-modal__close icon-btn" (click)="toggleAlmacenesModal()">
                     <i i class="fa fa-times"></i>
                 </button>
                 <!-- TÍTULO -->
@@ -121,14 +123,22 @@
 
                 <!-- CUERPO DEL MODAL -->
                 <div class="usuario-modal__extra-container mt-3">
+                    <div class="usuario-modal__almacenes-list">
+                        <div class="usuario-modal__almacen" *ngFor="let almacen of almacenes">
+                            <label>
+                                <input type="checkbox" name="almacen" [value]="almacen.id_almacen" [(ngModel)]="almacen.selected"/>
+                                {{ almacen.almacen }}
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- SECCIÓN DE BOTONES -->
                 <div class="usuario-modal__buttons">
-                    <button class="danger-btn">
+                    <button class="danger-btn" (click)="toggleAlmacenesModal()">
                         Cancelar
                     </button>
-                    <button class="search-btn">
+                    <button class="search-btn" (click)="getSelectedOptions()">
                         Guardar
                     </button>
                 </div>

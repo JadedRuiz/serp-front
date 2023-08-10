@@ -16,17 +16,23 @@ import { Almacen } from 'src/app/models/almacen.model';
 })
 export class UsuariosComponent implements OnInit {
 
+   datastorage: any = JSON.parse(localStorage.getItem('dataPage')!);
+   miComprador = 1;
+   miToken = this.datastorage.token;
+   miPerfil = 'ADMINISTRADOR';
+   miUsuario = 1;
+
    constructor(
       private usuarioService: UsuariosService,
       private almacenService: AlmacenService,
-      private imageCompress: NgxImageCompressService
-   ) { }
+      private imageCompress: NgxImageCompressService,
+   ) {}
 
    ngOnInit() {
-      this.obtenerUsuario();
       this.obtenerAlmacenes()
    }
 
+   //COSAS DE ALMACENES
    almacenes: Almacen[] = [];
    almacenesSeleccionados: any[] = [];
 
@@ -39,17 +45,17 @@ export class UsuariosComponent implements OnInit {
          token: '012354SDSDS01',
       };
       this.almacenService.obtenerAlmacenes(json).subscribe((objeto) => {
-         this.almacenes = objeto.data;
-      });
+         this.almacenes = objeto.data.map((almacen:any) => ({ ...almacen, selected: false }));
+     });
    }
+   
 
-   datastorage: any = JSON.parse(localStorage.getItem('dataPage')!);
-   miComprador = 1;
-   miToken = this.datastorage.token;
-   miPerfil = 'ADMINISTRADOR';
-   miUsuario = 1;
+   getSelectedOptions() {
+      this.almacenesSeleccionados = this.almacenes.filter(almacen => almacen.selected);
+      console.log('Opciones seleccionadas:', this.almacenesSeleccionados); 
+    }
 
-   //Otras
+   //COSAS DE USUARIOS
    usuarios: Usuario[] = [];
    autocompleteUsuario: Usuario[] = [];
    usuario: Usuario = new Usuario(0, 0, 1, 0, '', '', '', []);
@@ -57,7 +63,7 @@ export class UsuariosComponent implements OnInit {
 
    @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
 
-   //=> Obtener Usuario
+   //=> Obtener Usuarios
    obtenerUsuario() {
       let json = {
          id_usuario: 0,
@@ -229,6 +235,10 @@ export class UsuariosComponent implements OnInit {
 
    //MODAL PARA ASIGNARLE ALMACENES AL USUARIO 
    almacenesModal: boolean = false;
+
+   toggleAlmacenesModal() {
+      this.almacenesModal = !this.almacenesModal;
+   }
 
    //MODAL PARA AÑADIR FOTOS AL USUARIO 
    extraModal: boolean = false;
