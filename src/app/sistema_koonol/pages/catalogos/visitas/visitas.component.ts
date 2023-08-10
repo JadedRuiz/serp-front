@@ -21,6 +21,15 @@ import { PedidoGuardar } from 'src/app/models/pedidoguardar.model';
   styleUrls: ['./visitas.component.scss']
 })
 export class VisitasComponent implements OnInit {
+//LOCAL
+  dataStorage: any = JSON.parse(localStorage.getItem('dataPage')!)
+  miToken = this.dataStorage.token;
+  miUsuario = this.dataStorage.id_usuario;
+  miAlmacen = this.dataStorage.id_almacen;
+
+  miPefil = 'ADMINISTRADOR';
+  miComprador = 1;
+
 
   visitas: VisitasDTO[] = [];
   vendedorActual: any;
@@ -100,7 +109,6 @@ export class VisitasComponent implements OnInit {
 
   //=> BUSCAR VISITAS
   vendedorId = 21
-  token = '123';
   fechaInicio: string = '';
   fechaFinal: string = '';
 
@@ -113,7 +121,8 @@ export class VisitasComponent implements OnInit {
       id_cliente: this.selectedClient.id_cliente,
       fecha_inicial: this.fechaInicio,
       fecha_final: this.fechaFinal,
-      token: this.token,
+      token : this.miToken,
+
     };
 
     this.visitasService.consultarVisitas(json).subscribe((resp) => {
@@ -155,7 +164,8 @@ export class VisitasComponent implements OnInit {
       id_cliente: 0,
       id_comprador: 1,
       cliente: '',
-      token: '',
+      token : this.miToken,
+
     }
     if (value.length <= 3) {
       this.autocompleteClients = [];
