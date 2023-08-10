@@ -41,7 +41,7 @@ export class LoginComponent {
     const data = { ... this.loginForm.value }
     if(this.loginForm.valid){
       this.router.navigate(["sis_koonol/catalogos"]);
-      localStorage.setItem("dataPage",'{"id_usuario": 1,"token":"a5a81a5sd16234a6s5d","id_almacen":0}');
+      localStorage.setItem("dataPage",'{"id_usuario": 1,"token":"a5a81a5sd16234a6s5d","id_almacen":1}');
     }else{
       Notiflix.Block.remove(".form_login");
       Notiflix.Notify.warning("Primero llena los campos obligatorios");

@@ -58,11 +58,13 @@
                         </div>
                         <div class="form-label mt-2">
                             <label for="correo">Correo</label>
-                            <input class="form-control" type="text" name="correo" required #inputProvForm disabled />
+                            <input class="form-control" type="email" name="correo" required #inputProvForm disabled
+                                [(ngModel)]="usuario.nombre" />
                         </div>
                         <div class="form-label mt-2">
-                            <label for="celular">Celular</label>
-                            <input class="form-control" type="text" name="celular" required #inputProvForm disabled />
+                            <label for="contraseña">Contraseña</label>
+                            <input class="form-control" type="password" name="contraseña" required #inputProvForm
+                                disabled [(ngModel)]="usuario.password" />
                         </div>
                     </div>
 
@@ -80,9 +82,9 @@
                         <div class="mt-2">
                             <label class="label-label" for="inputAlmacen">Seleccionar perfil:</label>
                             <select type="text" class="form-control" title="perfil" name="perfil" placeholder="..."
-                                [(ngModel)]="usuario.perfil" #inputProvForm disabled>
-                                <option name="perfil" value={{perfil.id_almacen}} *ngFor="let perfil of almacenes">
-                                    {{perfil.almacen}}
+                                [(ngModel)]="usuario.id_perfil" #inputProvForm disabled>
+                                <option name="perfil" value={{almacen.id_almacen}} *ngFor="let almacen of almacenes">
+                                    {{almacen.almacen}}
                                 </option>
                             </select>
                         </div>
@@ -107,6 +109,31 @@
                 </div>
             </div>
         </form>
+
+        <!-- MODAL PARA SELECCIONAR ALMACENES DEL USUARIO -->
+        <div class="usuario-modal" *ngIf="extraModal">
+            <div class="usuario-modal__extra">
+                <button class="usuario-modal__close icon-btn" (click)="togglePhotosModal()">
+                    <i i class="fa fa-times"></i>
+                </button>
+                <!-- TÍTULO -->
+                <h3 class="extras-title title"> Seleccionar almacenes </h3>
+
+                <!-- CUERPO DEL MODAL -->
+                <div class="usuario-modal__extra-container mt-3">
+                </div>
+
+                <!-- SECCIÓN DE BOTONES -->
+                <div class="usuario-modal__buttons">
+                    <button class="danger-btn">
+                        Cancelar
+                    </button>
+                    <button class="search-btn">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <!-- MODAL PARA SUBIR FOTOS DEL USUARIO -->
         <div class="usuario-modal" *ngIf="extraModal">

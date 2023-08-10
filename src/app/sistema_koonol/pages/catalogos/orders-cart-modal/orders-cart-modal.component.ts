@@ -56,13 +56,15 @@ export const DATE_FORMATS = {
 
 export class OrdersCartModalComponent implements OnInit {
 
-  //DESPUÉS VENDRÁ DESDE ALGO QUE HARÁ JADED
+  //DESPUÉS VENDRÁ DESDE ALGO QUE HARÁ JADED (mentira)
   dataStorage: any = JSON.parse(localStorage.getItem('dataPage')!)
+  miToken = this.dataStorage.token;
+  miUsuario = this.dataStorage.id_usuario;
+  miAlmacen = this.dataStorage.id_almacen
+
+  miPefil = 'ADMINISTRADOR';
   miComprador = 1;
   vendedor = 0;
-  miToken = this.dataStorage.token;
-  miPefil = 'ADMINISTRADOR';
-  miUsuario = 1;
 
   //VARIABLES FUNDAMENTALES EN LA APLICACIÓN
   //Autocomplete Cliente
@@ -266,7 +268,7 @@ export class OrdersCartModalComponent implements OnInit {
   buscarVendedor(value: string) {
     let json = {
       id_vendedor: 0,
-      id_comprador: 1,
+      id_comprador: this.miComprador,
       vendedor: '',
       solo_activos: 1,
       token: this.miToken,

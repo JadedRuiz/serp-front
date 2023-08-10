@@ -28,6 +28,7 @@ export class UsuariosComponent implements OnInit {
    }
 
    almacenes: Almacen[] = [];
+   almacenesSeleccionados: any[] = [];
 
    obtenerAlmacenes() {
       let json = {
@@ -51,9 +52,8 @@ export class UsuariosComponent implements OnInit {
    //Otras
    usuarios: Usuario[] = [];
    autocompleteUsuario: Usuario[] = [];
-   usuario: Usuario = new Usuario(0, 0, '', '');
+   usuario: Usuario = new Usuario(0, 0, 1, 0, '', '', '', []);
    status: boolean = false;
-
 
    @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
 
@@ -94,7 +94,7 @@ export class UsuariosComponent implements OnInit {
    isUserSelected: boolean = false;
    users: Usuario[] = [];
 
-   //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE
+   //FUNCION PARA HACER BÚSQUEDA DE USUARIOS POR NOMBRE
    buscarUsuario(value: string) {
       let json = {
          id_usuario: 0,
@@ -153,7 +153,7 @@ export class UsuariosComponent implements OnInit {
 
    //Activa campos para agregar nuevo Usuario
    cargarCampos() {
-      this.usuario = new Usuario(0, 0, '', '');
+      this.usuario = new Usuario(0, 0, 1, 0, '', '', '', []);
       this.searchUserControl.setValue('');
       this.activarCampos();
    }
@@ -202,7 +202,6 @@ export class UsuariosComponent implements OnInit {
       return activo == 1 ? 'ACTIVO' : 'DESACTIVADO';
    }
 
-
    //habilitar los comapos del input
    activarCampos() {
       this.provInputs.forEach((provInput) => {
@@ -228,7 +227,10 @@ export class UsuariosComponent implements OnInit {
       }
    }
 
-   //MODAL PARA AÑADIR FOTOS AL CLIENTE Y PARA AÑADIRLE UNA UBICACIÓN
+   //MODAL PARA ASIGNARLE ALMACENES AL USUARIO 
+   almacenesModal: boolean = false;
+
+   //MODAL PARA AÑADIR FOTOS AL USUARIO 
    extraModal: boolean = false;
    ubicacionVendedor: any;
    imageCount: number = 0;
