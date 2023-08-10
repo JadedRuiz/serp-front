@@ -48,9 +48,8 @@ constructor(
 
 
 ngOnInit() {
+  this.calcularFechas()
 this.consultarCobranza();
-  console.log('this.fechaInicio :>> ', this.fechaInicio);
-  console.log('this.hola:>> ', this.fecha);
   this.searchClientControl.valueChanges
   .pipe(debounceTime(500))
   .subscribe((value) => {
@@ -74,7 +73,6 @@ consultarCobranza(){
 
 this.cobranzaService.consultarCobranza(json).subscribe(resp => {
   this.cobranzas = resp.data;
-  console.log('resp.data :>> ', this.cobranzas);
   this.calcularFechas()
 })
 

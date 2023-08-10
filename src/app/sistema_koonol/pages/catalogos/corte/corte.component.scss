@@ -3,7 +3,7 @@
   width: 200px;
 }
 .iv{
-  width: 284px;
+  //width: 284px;
 }
 
 
@@ -32,3 +32,12 @@
 }
 
 
+.sh
+{
+  border: 1.5px solid rgba(22, 22, 22, 0.227);
+
+  &:hover {
+    box-shadow: 0 10px 14px rgba(0,0,0, 0.15);
+    transition: 300ms;
+}
+}

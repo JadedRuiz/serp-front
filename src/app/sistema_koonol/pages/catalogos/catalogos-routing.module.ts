@@ -18,7 +18,6 @@ import { CorteComponent } from './corte/corte.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 
 
-
 const routes: Routes = [
   {
     path: '',

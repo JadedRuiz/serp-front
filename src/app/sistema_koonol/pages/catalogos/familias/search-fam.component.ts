@@ -101,10 +101,11 @@ export class SearchFamComponent {
         .subscribe(objeto => {
         });
       this.closeModal();
+      this.buscarFamilias();
 
     } else {
       this.famService.agregarFam(this.familia).subscribe(objeto => {
-        this.famService.obtenerFamilias();
+        this.buscarFamilias();
         this.closeModal();
       });
     }
