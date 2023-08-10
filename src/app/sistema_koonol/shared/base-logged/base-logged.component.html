@@ -12,8 +12,9 @@
       </div>
       <div class="sidebar-header">
           <div class="user-pic">
-          <img class="img-responsive img-rounded" src="https://cdn-icons-png.flaticon.com/512/44/44948.png?w=740&t=st=1689284806~exp=1689285406~hmac=776e7ea9db4faa54f718243745616f02e521116c37c4c1ac98572d82c18d0b2b"
-              alt="User picture">
+          <img class="img-responsive img-rounded"
+          src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+          alt="User picture">
           </div>
           <div class="user-info">
           <span class="user-name">Usuario
@@ -108,15 +109,17 @@
       </div>
       <!-- sidebar-content  -->
       <div class="sidebar-footer">
-      <a style="cursor: pointer;">
+      <!-- <a style="cursor: pointer;">
           <i class="fa fa-bell"></i>
-      </a>
-      <a style="cursor: pointer;">
+      </a> -->
+      <!-- <a style="cursor: pointer;">
           <i class="fa fa-cog"></i>
           <span class="badge-sonar"></span>
-      </a>
+      </a> -->
       <a (click)="logOut()" style="cursor: pointer;">
-          <i class="fa fa-power-off"></i>
+        <span>Cerrar sesión </span>
+        <i  class="fa fa-power-off"></i>
+          <span class="badge-sonar"></span>
       </a>
       </div>
   </nav>

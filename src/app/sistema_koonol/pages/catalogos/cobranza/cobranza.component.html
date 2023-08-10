@@ -305,7 +305,7 @@ orm-group col-md-3">
         <div class="col-12 mb-1 text-center">
           <hr>
           <span for="totalIngresos">{{ totalDinamico === pedidoSeleccionado?.precio_total ? 'Total:' : 'Restante:' }}</span>
-          <span  [ngClass]="{'red-text': totalDinamico < 0}" style="font-size:1.5rem;"><b> {{totalDinamico | currency: 'MX'}} </b></span>
+          <span  [ngClass]="{'red-text': totalDinamico < 0}" style="font-size:1.5rem;"><b> {{totalDinamico | currency: ' MX $'}} </b></span>
         </div>
         <div class="col-6 ">
           <label for="totalIngresos"><b>Ingresos</b></label>
