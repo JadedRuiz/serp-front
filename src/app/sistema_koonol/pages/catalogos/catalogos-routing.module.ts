@@ -16,6 +16,7 @@ import { CobranzaComponent } from './cobranza/cobranza.component';
 import { VisitasComponent } from './visitas/visitas.component';
 import { CorteComponent } from './corte/corte.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { MapsComponent } from './maps/maps.component';
 
 
 const routes: Routes = [
@@ -81,6 +82,10 @@ const routes: Routes = [
   {
     path: 'corte',
     component: CorteComponent
+  },
+  {
+    path: 'maps',
+    component: MapsComponent
   }
 ];
 

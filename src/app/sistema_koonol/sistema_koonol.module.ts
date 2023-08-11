@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BaseLoggedComponent } from './shared/base-logged/base-logged.component';
+import { GoogleMapsModule } from '@angular/google-maps'
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { BaseLoggedComponent } from './shared/base-logged/base-logged.component'
     CommonModule,
     FormsModule,
     RouterModule,
+    GoogleMapsModule
   ]
 })
 export class SistemaKoonolModule { }

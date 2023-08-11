@@ -31,6 +31,8 @@ import { DatePipe } from '@angular/common';
 import { AddressesPhotosModalComponent } from './addresses-photos-modal/addresses-photos-modal.component';
 import { CorteComponent } from './corte/corte.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { MapsComponent } from './maps/maps.component';
 
 
 
@@ -57,6 +59,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
     AddressesPhotosModalComponent,
     CorteComponent,
     UsuariosComponent,
+    MapsComponent
   ],
   imports: [
     CommonModule,
@@ -67,7 +70,8 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
     MatFormFieldModule,
     MatInputModule,
     WebcamModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    GoogleMapsModule
   ],
   providers: [
     NgxImageCompressService,
