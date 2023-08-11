@@ -11,14 +11,9 @@ import Swal from 'sweetalert2';
 export class FamiliasService {
   constructor(private http: HttpClient) { }
 
-  obtenerFamilias(): Observable<any> {
-    const parametros = {
-      id_familia: 0,
-      id_comprador: 1,
-      familia: '',
-      token: '012354SDSDS01',
-    };
-    return this.http.post<any>(SERVER_API + 'familias/consultarFamilias', parametros);
+  obtenerFamilias(json:any): Observable<any> {
+
+    return this.http.post<any>(SERVER_API + 'familias/consultarFamilias', json);
   }
 
   editarFam(id: number, familia: any) {

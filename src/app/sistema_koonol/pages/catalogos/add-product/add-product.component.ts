@@ -134,7 +134,13 @@ transformarImages() {
   //para familias
   familias: Familia[] = [];
   obtenerFamilias() {
-    this.familiaService.obtenerFamilias().subscribe((objeto) => {
+    let json = {
+      id_familia: 0,
+      id_comprador: 1,
+      familia: '',
+      token: '012354SDSDS01',
+    };
+    this.familiaService.obtenerFamilias(json).subscribe((objeto) => {
       this.familias = objeto.data;
     });
   }
@@ -142,7 +148,14 @@ transformarImages() {
   //para Unidad de medida
   medidas: Medida[] = [];
   obtenermedidas() {
-    this.medidaService.obtenerMedidas().subscribe((objeto) => {
+    let json = {
+      id_medida: 0,
+      id_comprador: 1,
+      medida:'',
+      solo_activos: 1,
+      token: '012354SDSDS01'
+    };
+    this.medidaService.obtenerMedidas(json).subscribe((objeto) => {
       this.medidas = objeto.data;
     });
   }

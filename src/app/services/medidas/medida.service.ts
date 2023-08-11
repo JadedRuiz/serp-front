@@ -11,15 +11,9 @@ export class MedidaService {
 
   constructor(private http: HttpClient) { }
 
-obtenerMedidas(): Observable<any>{
-  const parametros = {
-    id_medida: 0,
-    id_comprador: 1,
-    medida:'',
-    solo_activos: 1,
-    token: '012354SDSDS01'
-  };
-  return this.http.post<any>(SERVER_API + 'medidas/consultarMedidas', parametros);
+obtenerMedidas(json:any): Observable<any>{
+
+  return this.http.post<any>(SERVER_API + 'medidas/consultarMedidas', json);
 }
 
 

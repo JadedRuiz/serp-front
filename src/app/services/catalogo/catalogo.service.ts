@@ -39,7 +39,13 @@ export class CatalogoService {
 
   //=> Obetener familia.acivo
   buscarFamilias(): Observable<any> {
-    return this.famService.obtenerFamilias().pipe(
+    let json = {
+      id_familia: 0,
+      id_comprador: 1,
+      familia: '',
+      token: '012354SDSDS01',
+    };
+    return this.famService.obtenerFamilias(json).pipe(
       map((response) => {
         if (response.ok) {
           return response.data;

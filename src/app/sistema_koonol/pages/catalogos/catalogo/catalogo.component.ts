@@ -132,10 +132,16 @@ export class CatalogoComponent implements OnInit {
 	}
 
 	cargarArticulos() {
+    let json = {
+      id_familia: 0,
+      id_comprador: 1,
+      familia: '',
+      token: '012354SDSDS01',
+    };
 		this.catalogo.obtenerArticulos().subscribe(resp => {
 			if (resp.ok) {
 				this.articulos = resp.data
-				this.familias.obtenerFamilias().subscribe(resp => {
+				this.familias.obtenerFamilias(json).subscribe(resp => {
 					let familias = resp.data
 					this.familiasActivas = familias.filter((familia: Familia) => familia.activo == 1)
 					this.itemsFiltrados()

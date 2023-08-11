@@ -12,15 +12,8 @@ export class RoutesService {
   constructor(private http: HttpClient) { }
 
   // OBTENER RUTAS
-  obtenerRutas(): Observable<any> {
-    const parametros = {
-      id_ruta: 0,
-      id_comprador: 1,
-      token: '012354SDSDS01',
-      ruta: '',
-    };
-
-    return this.http.post<any>(SERVER_API + 'rutas/consultarRutas', parametros);
+  obtenerRutas(json: any): Observable<any> {
+    return this.http.post<any>(SERVER_API + 'rutas/consultarRutas', json);
   }
 
   //EDITAR UNA RUTA
