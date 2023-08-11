@@ -139,7 +139,13 @@ export class ClientsComponent {
 
    //LLAMADA A LAS RUTAS PARA EL SELECT
    obtenerRutas() {
-      this.routesService.obtenerRutas().subscribe(objeto => this.routes = objeto.data)
+    let json = {
+      id_ruta: 0,
+      id_comprador: 1,
+      token: '012354SDSDS01',
+      ruta: '',
+    };
+      this.routesService.obtenerRutas(json).subscribe(objeto => this.routes = objeto.data)
    }
 
    //Autocomplete Vendedor

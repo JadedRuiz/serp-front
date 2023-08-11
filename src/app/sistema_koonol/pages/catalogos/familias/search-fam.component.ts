@@ -49,7 +49,13 @@ export class SearchFamComponent {
 
 
   buscarFamilias() {
-    this.famService.obtenerFamilias().subscribe(
+    let json  = {
+      id_familia: 0,
+      id_comprador: 1,
+      familia: '',
+      token: '012354SDSDS01',
+    };
+    this.famService.obtenerFamilias(json).subscribe(
       (response) => {
         if (response.ok === true) {
           this.familias = response.data;
