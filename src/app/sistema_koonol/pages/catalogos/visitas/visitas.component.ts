@@ -30,7 +30,7 @@ export class VisitasComponent implements OnInit {
   miPefil = 'ADMINISTRADOR';
   miComprador = 1;
 
- 
+
   visitas: VisitasDTO[] = [];
   vendedorActual: any;
   pedidoFinal: PedidoGuardar = new PedidoGuardar(0, 1, 0, 0, 'TOKEN', '', '', 1, [], 0, 0);
