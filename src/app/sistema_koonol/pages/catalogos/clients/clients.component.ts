@@ -38,14 +38,13 @@ export class ClientsComponent {
 
    ngOnInit() {
       this.obtenerRutas()
-      this.geolocationService.getUserLocation()
-         .then(resp => {
-            this.coords = resp
-            this.long = this.coords[0].toString()
-            this.lat = this.coords[1].toString()
-            this.address.longitud = this.long
-            this.address.latitud = this.lat
-         })
+      this.geolocationService.pinLocation$.subscribe((location) => {
+         this.coords = location
+         this.long = this.coords[0].toString()
+         this.lat = this.coords[1].toString()
+         this.address.longitud = this.long
+         this.address.latitud = this.lat
+      })
       this.searchClientControl.valueChanges
          .pipe(debounceTime(500))
          .subscribe((value) => {
@@ -139,12 +138,12 @@ export class ClientsComponent {
 
    //LLAMADA A LAS RUTAS PARA EL SELECT
    obtenerRutas() {
-    let json = {
-      id_ruta: 0,
-      id_comprador: 1,
-      token: '012354SDSDS01',
-      ruta: '',
-    };
+      let json = {
+         id_ruta: 0,
+         id_comprador: 1,
+         token: '012354SDSDS01',
+         ruta: '',
+      };
       this.routesService.obtenerRutas(json).subscribe(objeto => this.routes = objeto.data)
    }
 
@@ -391,7 +390,6 @@ export class ClientsComponent {
       this.addAddressVisibility = false
    }
 
-
    //FUNCIÓN QUE SE UTILIZA PARA AÑADIR UN CLIENTE CUANDO YA ESTAMOS DENTRO DE UN CLIENTE ESPECÍFICO
    addClient() {
       this.selectedClient = new Client(
@@ -602,4 +600,9 @@ export class ClientsComponent {
       });
       this.clientService.guardarFotosDireccion(id_cliente_direccion, imagenes).subscribe()
    }
+
+   //MAPS 
+   // updatePinLocation(lat: string, long: string) {
+   //    this.geolocationService.updatePinLocation([Number(long), Number(lat)])
+   // }
 }

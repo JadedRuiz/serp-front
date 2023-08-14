@@ -179,13 +179,13 @@
                                 <label for="longitud">Longitud <i *ngIf="address.longitud" class="fa fa-info-circle"
                                         title="El valor por defecto que incluye este campo proviene de tu ubicación actual."></i></label>
                                 <input class="form-control form-label" type="text" name="longitud" id="longitud"
-                                    [(ngModel)]="address.longitud" />
+                                    [(ngModel)]="address.longitud"/>
                             </div>
                             <div class="mt-2">
                                 <label for="latitud">Latitud <i *ngIf="address.latitud" class="fa fa-info-circle"
                                         title="El valor por defecto que incluye este campo proviene de tu ubicación actual."></i></label>
                                 <input class="form-control form-label" type="text" name="latitud" id="latitud"
-                                    [(ngModel)]="address.latitud" />
+                                    [(ngModel)]="address.latitud"/>
                             </div>
                             <div class="w100 d-flex justify-content-end mt-3">
                                 <span class="upload-photo" (click)="togglePhotosModal()">
@@ -195,10 +195,7 @@
                         </div>
                         <div class="w-100 d-flex flex-column align-items-center p-3 mt-3 border rounded">
                             <h5 class="subtitle">Escoger localización</h5>
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29820.20622142664!2d-89.78476881980899!3d20.891156151816034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f560d2a69351fd1%3A0xeb94cd869cee985c!2sKoonol%20Productos%20de%20Comercializaci%C3%B3n%20S.A.%20de%20C.V.!5e0!3m2!1ses-419!2smx!4v1688202394015!5m2!1ses-419!2smx"
-                                width="100%" height="400px" style="border: 0" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <app-maps [ngStyle]="{'height':'330px', 'width': '100%'}"></app-maps>
                         </div>
                         <div class="w-100 d-flex justify-content-between mt-3">
                             <button type="button" class="client__form-back danger-btn" [class.active]="section === 2"
@@ -371,12 +368,12 @@
                             <div class="mt-2">
                                 <label for="estado">Longitud</label>
                                 <input class="form-control form-label" type="text" name="longitud" id="longitud"
-                                    [defaultValue]="coords[0]" [(ngModel)]="addressSelected.longitud" />
+                                    [defaultValue]="coords[0]" [(ngModel)]="address.longitud"/>
                             </div>
                             <div class="mt-2">
                                 <label for="estado">Latitud</label>
                                 <input class="form-control form-label" type="text" name="latitud" id="latitud"
-                                    [defaultValue]="coords[1]" [(ngModel)]="addressSelected.latitud" />
+                                    [defaultValue]="coords[1]" [(ngModel)]="address.latitud"/>
                             </div>
                             <div class="w100 d-flex justify-content-end mt-3">
                                 <span class="upload-photo" (click)="togglePhotosModal()">
@@ -386,10 +383,7 @@
                         </div>
                         <div class="w-100 d-flex flex-column justify-content-center p-3 mt-3 border rounded">
                             <h5 class="subtitle">Escoger localización</h5>
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29820.20622142664!2d-89.78476881980899!3d20.891156151816034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f560d2a69351fd1%3A0xeb94cd869cee985c!2sKoonol%20Productos%20de%20Comercializaci%C3%B3n%20S.A.%20de%20C.V.!5e0!3m2!1ses-419!2smx!4v1688202394015!5m2!1ses-419!2smx"
-                                width="100%" height="400px" style="border: 0" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <app-maps [ngStyle]="{'height':'330px', 'width': '100%'}"></app-maps>
                         </div>
                         <div class="w-100 d-flex justify-content-between mt-3">
                             <button type="button" class="client__form-back danger-btn" [class.active]="section === 2"
