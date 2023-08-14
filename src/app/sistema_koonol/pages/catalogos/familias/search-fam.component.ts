@@ -49,7 +49,7 @@ export class SearchFamComponent {
 
 
   buscarFamilias() {
-    let json  = {
+    let json = {
       id_familia: 0,
       id_comprador: 1,
       familia: '',
@@ -105,9 +105,9 @@ export class SearchFamComponent {
     if (this.familia.id_familia) {
       this.famService.editarFam(this.familia.id_familia, this.familia)
         .subscribe(objeto => {
+          this.buscarFamilias();
+          this.closeModal();
         });
-      this.closeModal();
-      this.buscarFamilias();
 
     } else {
       this.famService.agregarFam(this.familia).subscribe(objeto => {

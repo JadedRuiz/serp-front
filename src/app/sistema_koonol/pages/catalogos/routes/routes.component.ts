@@ -40,7 +40,7 @@ export class RoutesComponent {
 
   //Obtener Rutas
   obtenerRutas() {
-   let json = {
+    let json = {
       id_ruta: 0,
       id_comprador: 1,
       token: '012354SDSDS01',
@@ -99,9 +99,10 @@ export class RoutesComponent {
     if (this.route.id_ruta) {
       this.routeService
         .editarRuta(this.route.id_ruta, this.route)
-        .subscribe((objeto) => { });
-      this.obtenerRutas();
-      this.closeModal();
+        .subscribe((objeto) => {
+          this.obtenerRutas();
+          this.closeModal();
+        });
     } else {
       this.routeService.agregarRuta(this.route).subscribe((objeto) => {
         this.obtenerRutas();

@@ -1,3 +1,1 @@
-<google-map [center]="center" [zoom]="zoom" (mapClick)="moveMap($event)" (mapMousemove)="move($event)">
-    <map-marker [draggable]="true" [position]="center"></map-marker>
-</google-map>
+<div id="map" [ngStyle]="{'height':'100%', 'width': '100%'}"></div>

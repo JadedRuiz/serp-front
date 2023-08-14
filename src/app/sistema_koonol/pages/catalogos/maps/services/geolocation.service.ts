@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,8 @@ import { Injectable } from '@angular/core';
 export class GeolocationService {
 
   public userLocation?: [number, number]
+  private pinLocationSubject = new BehaviorSubject<[number, number]>([0, 0]);
+  pinLocation$ = this.pinLocationSubject.asObservable()
 
   get isUserLocationReady(): boolean {
     return !!this.userLocation
@@ -29,4 +32,15 @@ export class GeolocationService {
 
   }
 
+  //ACTUALIZAR LA UBIACCIÓN DEL PUNTERO EN EL MAPA
+  updatePinLocation(pinLocation: [number, number]): void {
+    this.pinLocationSubject.next(pinLocation)
+    console.log(this.pinLocation$);
+  }
+
+  //OBTENER LA UBICACIÓN DEL PUNTERO EN EL MAPA
+  async getPinLocation() {
+    return this.pinLocationSubject.value
+  }
+  
 }
