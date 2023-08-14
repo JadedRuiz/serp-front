@@ -29,6 +29,7 @@ export class MapsComponent {
   display:any;
   center: google.maps.LatLngLiteral = { lat: this.lat, lng: this.long }
   zoom = 18.5;
+  
 
   moveMap(event: google.maps.MapMouseEvent) {
     if (event.latLng != null) 

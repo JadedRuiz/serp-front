@@ -1,6 +1,3 @@
-<google-map 
-[center]="center"
-[zoom]="zoom"
-(mapClick)="moveMap($event)"
-(mapMousemove)="move($event)"
-></google-map>
+<google-map [center]="center" [zoom]="zoom" (mapClick)="moveMap($event)" (mapMousemove)="move($event)">
+    <map-marker [draggable]="true" [position]="center"></map-marker>
+</google-map>
