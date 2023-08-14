@@ -72,6 +72,7 @@ export class CatalogoService {
     return this.http.post<any>(SERVER_API + 'articulos/consultarArticulos', parametros);
   }
 
+
   //Para Obtener Artiuculos por Id
   obtenerArticuloId(idProducto: number): Observable<any> {
     const parametros = {
@@ -81,7 +82,6 @@ export class CatalogoService {
       id_almacen: 1,
     };
     return this.http.post<any>(SERVER_API + 'articulos/consultarArticulos', parametros)
-
   }
 
 
