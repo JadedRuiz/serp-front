@@ -60,7 +60,7 @@ export class CatalogoService {
     );
   }
 
-  //Para obtener Artiuclos
+  //Para obtener Artiuclos 
   obtenerArticulos(): Observable<any> {
     const parametros = {
       id_existencia: 0,

@@ -33,6 +33,7 @@ import { CorteComponent } from './corte/corte.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MapsComponent } from './maps/maps.component';
+import { PuntoDeVentaComponent } from './punto-de-venta/punto-de-venta.component';
 
 
 
@@ -59,7 +60,8 @@ import { MapsComponent } from './maps/maps.component';
     AddressesPhotosModalComponent,
     CorteComponent,
     UsuariosComponent,
-    MapsComponent
+    MapsComponent,
+    PuntoDeVentaComponent
   ],
   imports: [
     CommonModule,

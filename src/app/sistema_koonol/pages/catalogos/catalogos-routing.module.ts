@@ -17,6 +17,7 @@ import { VisitasComponent } from './visitas/visitas.component';
 import { CorteComponent } from './corte/corte.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { MapsComponent } from './maps/maps.component';
+import { PuntoDeVentaComponent } from './punto-de-venta/punto-de-venta.component';
 
 
 const routes: Routes = [
@@ -86,6 +87,10 @@ const routes: Routes = [
   {
     path: 'maps',
     component: MapsComponent
+  },
+  {
+    path: 'ventas',
+    component: PuntoDeVentaComponent
   }
 ];
 
