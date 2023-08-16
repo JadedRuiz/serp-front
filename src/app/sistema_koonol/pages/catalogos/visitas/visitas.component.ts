@@ -74,13 +74,14 @@ export class VisitasComponent implements OnInit {
     id_visita: 0,
     vendedor: '',
     id_vendedor: 0,
-    id_cliente: 0,
+    id_cliente_direccion: 0,
     cliente: '',
     fecha_visita: '',
     contacto: '',
     notas: '',
     cancelado: 0,
     fecha_siguiente_visita: '', // Asegúrate de inicializar esta propiedad
+    tienda: 0 
     // ... otras propiedades
   };
 

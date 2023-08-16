@@ -10,6 +10,7 @@ import { FormControl, NgForm } from '@angular/forms';
 import { GeolocationService } from '../maps/services';
 import { VisitasDTO } from 'src/app/models/visitas.model';
 import { VisitasService } from 'src/app/services/visitas/visitas.service';
+import { Address } from 'src/app/models/addresses.model';
 
 @Component({
   selector: 'app-visita-cliente',
@@ -17,7 +18,6 @@ import { VisitasService } from 'src/app/services/visitas/visitas.service';
   styleUrls: ['./visita-cliente.component.scss']
 })
 export class VisitaClienteComponent implements OnInit {
-
 
   // var
   ubicacionVendedor: any;
@@ -43,7 +43,6 @@ export class VisitaClienteComponent implements OnInit {
     private clienteService: ClientsService,
     private geolocationService: GeolocationService,
     private vendedorService: VendedoresService,
-
   ) { }
 
   ngOnInit() {
@@ -54,8 +53,6 @@ export class VisitaClienteComponent implements OnInit {
       });
   }
 
-
-
   //=> GUARDAR VISITA
   guardarVisita(visitasForm: NgForm) {
     let coords = this.geolocationService.userLocation
@@ -63,10 +60,15 @@ export class VisitaClienteComponent implements OnInit {
       this.visita.longitud = coords[0];
       this.visita.latitud = coords[1];
       this.visitasService.agregarVisitas(this.visita).subscribe();
+    } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Error',
+        text: 'Brinda acceso a tu ubicación para crear la visita'
+      });
     }
   }
-
-
 
   //=> BUSCAR vendedor
 
@@ -78,8 +80,6 @@ export class VisitaClienteComponent implements OnInit {
   isSellerSelected: boolean = false;
   sellers: Vendedor[] = [];
   selectedSeller: Vendedor = new Vendedor(0, 0, '', '', 0, 0);
-
-
 
   //FUNCION PARA HACER BÚSQUEDA DE VENDEDORES
   buscarVendedor(value: string) {
@@ -139,8 +139,6 @@ export class VisitaClienteComponent implements OnInit {
       });
   }
 
-
-
   //=>>> BUSCAR CLIENTE
   clients: Client[] = [];
   searchClient: string = '';
@@ -152,8 +150,10 @@ export class VisitaClienteComponent implements OnInit {
   loader: boolean = false
   noClients: boolean = false
   searchClientControl: FormControl = new FormControl();
-
-
+  // DIRECCIONES DEL CLIENTE
+  selectAddressModal: boolean = false;
+  addresses: Address[] = [];
+  addressSelected: Address = new Address(0, 0, 0, 0, '', '', '', '', '', '', '', 0, '', '', '', '', '', '', 1, []);
   //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE O RFC
   buscarCliente(value: string) {
     let json = {
@@ -194,11 +194,19 @@ export class VisitaClienteComponent implements OnInit {
       this.selectedClient = this.autocompleteClients.find(
         (aclient) => aclient.id_cliente === id_cliente
       );
-      this.visita.id_cliente = id_cliente;
       this.isClientSelected = true;
       this.searchList = false;
       this.searchClientControl.setValue(this.selectedClient.cliente)
       this.searchClientSubscription.unsubscribe();
+      this.clienteService.obtenerDirecciones(this.selectedClient.id_cliente).subscribe(resp => {
+        this.addresses = resp.data;
+        console.log("addresses", this.addresses);
+        if (this.addresses.length == 1) {
+          this.addressSelected = this.addresses[0]
+        } else {
+          this.selectAddressModal = true
+        }
+      })
     } else {
       return;
     }
@@ -213,22 +221,58 @@ export class VisitaClienteComponent implements OnInit {
       });
   }
 
+  selectAddress(address: Address) {
+    this.addressSelected = address;
+  }
+
+  saveAddressSelected() {
+    let coords = this.geolocationService.userLocation
+    let actualLong = coords?.[0]
+    let actualLat = coords?.[1]
+    console.log('long y lat actuales', actualLong, actualLat);
+    this.selectAddressModal = false;
+    this.visita.id_cliente_direccion = this.addressSelected.id_cliente_direccion;
+    console.log('long y lat del cliente', this.addressSelected.longitud, this.addressSelected.latitud);
+    this.calcularDistancia(actualLat!, actualLong!, Number(this.addressSelected.latitud), Number(this.addressSelected.longitud));
+  }
+
+  changeAddressSelected() {
+    this.selectAddressModal = true;
+  }
+
+  //Comprobar si el usuario se encontraba en un radio de 200 metros del lugar a visitar
+  radio: number = 200
+  lugarLong: number = -89.587277
+  lugarLat: number = 20.9842583
+
+  calcularDistancia(actualLat: number, actualLong: number, clienteLat: number, clienteLong: number) {
+    const R = 6371000; // Radio de la Tierra en metros
+    const dLat = (clienteLat - actualLat) * (Math.PI / 180);
+    const dLon = (clienteLong - actualLong) * (Math.PI / 180);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(actualLat * (Math.PI / 180)) * Math.cos(clienteLat * (Math.PI / 180)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c;
+    console.log(distance);
+    return distance;
+  }
 
   //FUNCION PARA GUARDAR UBICACIÓN
-  // guardarUbi(){
-  //   if(navigator.geolocation){
+  // guardarUbi() {
+  //   if (navigator.geolocation) {
   //     navigator.geolocation.getCurrentPosition((position) => {
   //       this.ubicacionVendedor = {
   //         latitud: position.coords.latitude,
   //         longitud: position.coords.longitude
   //       };
   //       Swal.fire('Ubicacion guardada correctamete', '', 'success');
+  //       console.log(this.ubicacionVendedor);
   //     },
-  //     (error) => {
-  //       console.log(error);
-  //     });
+  //       (error) => {
+  //         console.log(error);
+  //       });
   //   }
   // }
-
 
 }

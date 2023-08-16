@@ -20,7 +20,6 @@ export class MapsComponent {
   marker: google.maps.Marker = new google.maps.Marker();
 
   ngOnInit(): void {
-    // console.log(this.haversineDistance(20.98580748584478, -89.59105653507723, this.lugarLat, this.lugarLong));
     this.geolocationService.getUserLocation()
       .then(resp => {
         //ASIGNANDO COORDENADAS
@@ -91,22 +90,5 @@ export class MapsComponent {
     this.marker.setPosition({ lat: this.lat, lng: this.long });
     this.map.setCenter({ lat: this.lat, lng: this.long });
     this.map.setZoom(16.5)
-  }
-
-  //Comprobar si el usuario se encontraba en un radio de 200 metros del lugar a visitar
-  radio:number = 200
-  lugarLong:number = -89.587277
-  lugarLat:number = 20.9842583
-
-  haversineDistance(lat1:number, lon1:number, lat2:number, lon2:number) {
-    const R = 6371000; // Radio de la Tierra en metros
-    const dLat = (lat2 - lat1) * (Math.PI / 180);
-    const dLon = (lon2 - lon1) * (Math.PI / 180);
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const distance = R * c;
-    return distance;
   }
 }

@@ -5,3 +5,93 @@
 .iv{
   width: 294px;
 }
+
+.visita-cliente-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  background-color: rgba(15, 15, 15, 0.500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .visita-cliente-modal__addresses {
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    padding: 25px;
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(90%, 600px);
+    height: 450px;
+    z-index: 1;
+}
+
+.visita-cliente-modal__addresses-container {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.200);
+  border-radius: 5px;
+}
+
+.visita-cliente-modal__addresses-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  height: 255px;
+}
+
+.visita-cliente-modal__addresses-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.visita-cliente-modal__addresses-list::-webkit-scrollbar-thumb {
+  background-color: rgb(196, 196, 196);
+  border-radius: 10px;
+}
+
+.visita-cliente-modal__address {
+  display: flex;
+  background-color: white;
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.200);
+  padding: 5.5px 10px;
+  gap: 10px;
+  cursor: pointer;
+
+  input {
+      cursor: pointer;
+  }
+
+  label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+  }
+}
+
+.visita-cliente-modal__address:hover {
+  background-color: rgb(214, 214, 214);
+}
+}
+
+.visita-cliente-modal__buttons {
+  margin-top: auto;
+  align-self: flex-end;
+  display: flex;
+  gap: 20px;
+}
+
+.span-change-address {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
