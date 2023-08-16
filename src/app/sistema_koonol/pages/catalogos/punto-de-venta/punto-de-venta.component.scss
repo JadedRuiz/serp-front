@@ -1,0 +1,65 @@
+.point-of-sale {
+  padding: 20px;
+
+  .product-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #e2e6ea;
+    }
+
+    .product-name {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .product-price {
+      margin: 5px 0;
+      font-size: 1rem;
+      color: #007bff;
+    }
+  }
+
+  .cart {
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+
+    .cart-item {
+      border-bottom: 1px solid #dee2e6;
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-between;
+
+      .item-name {
+        font-weight: bold;
+      }
+
+      .item-quantity {
+        color: #007bff;
+      }
+    }
+
+    .cart-total {
+      text-align: right;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    button {
+      margin-top: 20px;
+    }
+  }
+}
+.full-height {
+  height: calc(85vh - 40px); /* 40px para el padding vertical */
+  overflow-y: auto; /* Agrega scroll si es necesario */
+}
+

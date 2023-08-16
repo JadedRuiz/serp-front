@@ -1,0 +1,63 @@
+<div class="container-fluid shadow">
+    <h1 class="title text-center">Punto de Venta</h1>
+
+    <!-- Contenido del Punto de Venta -->
+    <div class="point-of-sale">
+      <div class="row">
+        <div class="col-md-6">
+          <!-- Lista de productos disponibles -->
+          <div class="product-list full-height">
+            <h2 class="product-list-title">Lista de Productos Registrados</h2>
+            <table class="table product-table">
+              <thead>
+                <tr>
+                  <th>Cancelar</th>
+                  <th>Código</th>
+                  <th>Nombre</th>
+                  <th>Precio</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of products">
+                  <td><button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></td>
+                  <td>{{ product.price }}</td>
+                  <td>{{ product.name }}</td>
+                  <td>{{ product.price | currency: 'MX' }}</td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <!-- Resumen de la Compra -->
+          <div class="cart full-height">
+            <h2 class="cart-title">Carrito de Compras</h2>
+            <table class="table cart-table">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of cartItems">
+                  <td>{{ item.productName }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>{{ item.quantity * item.price | currency: 'MX' }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="total-amount">
+              Total: {{ calculateTotal() | currency: 'MX' }}
+            </div>
+            <div class="cart-buttons">
+              <button class="btn btn-success checkout-btn">Cobrar</button>
+              <button class="btn btn-secondary clear-btn">Limpiar Carrito</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
