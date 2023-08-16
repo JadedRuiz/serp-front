@@ -176,16 +176,16 @@
                                     [(ngModel)]="address.estado" />
                             </div>
                             <div class="mt-2">
-                                <label for="longitud">Longitud <i *ngIf="address.longitud" class="fa fa-info-circle"
+                                <label for="longitud">Longitud <i *ngIf="address.longitud != '0'" class="fa fa-info-circle"
                                         title="El valor por defecto que incluye este campo proviene de tu ubicación actual."></i></label>
                                 <input class="form-control form-label" type="text" name="longitud" id="longitud"
-                                    [(ngModel)]="address.longitud"/>
+                                    [(ngModel)]="address.longitud" (change)="updatePinLocation(address.latitud, address.longitud)"/>
                             </div>
                             <div class="mt-2">
-                                <label for="latitud">Latitud <i *ngIf="address.latitud" class="fa fa-info-circle"
+                                <label for="latitud">Latitud <i *ngIf="address.longitud != '0'" class="fa fa-info-circle"
                                         title="El valor por defecto que incluye este campo proviene de tu ubicación actual."></i></label>
                                 <input class="form-control form-label" type="text" name="latitud" id="latitud"
-                                    [(ngModel)]="address.latitud"/>
+                                    [(ngModel)]="address.latitud" (change)="updatePinLocation(address.latitud, address.longitud)"/>
                             </div>
                             <div class="w100 d-flex justify-content-end mt-3">
                                 <span class="upload-photo" (click)="togglePhotosModal()">
@@ -368,12 +368,12 @@
                             <div class="mt-2">
                                 <label for="estado">Longitud</label>
                                 <input class="form-control form-label" type="text" name="longitud" id="longitud"
-                                    [defaultValue]="coords[0]" [(ngModel)]="address.longitud"/>
+                                    [defaultValue]="coords[0]" [(ngModel)]="addressSelected.longitud" (change)="updatePinLocation(addressSelected.latitud, addressSelected.longitud)"/>
                             </div>
                             <div class="mt-2">
                                 <label for="estado">Latitud</label>
                                 <input class="form-control form-label" type="text" name="latitud" id="latitud"
-                                    [defaultValue]="coords[1]" [(ngModel)]="address.latitud"/>
+                                    [defaultValue]="coords[1]" [(ngModel)]="addressSelected.latitud" (change)="updatePinLocation(addressSelected.latitud, addressSelected.longitud)"/>
                             </div>
                             <div class="w100 d-flex justify-content-end mt-3">
                                 <span class="upload-photo" (click)="togglePhotosModal()">

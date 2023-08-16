@@ -1,56 +1,56 @@
 <div class="container-fluid">
   <div id="dah" class="row">
-        <h1 class="col mb-4 title text-center">Visita Cliente</h1>
+    <h1 class="col mb-4 title text-center">Visita Cliente</h1>
   </div>
-  <form class="container" #visitasForm="ngForm" (ngSubmit)="guardarVisita(visitasForm)" >
+  <form class="container" #visitasForm="ngForm" (ngSubmit)="guardarVisita(visitasForm)">
     <div class="row">
-      <div class="col-md-6 form-group">
+      <div class="col-sm-6 form-group">
         <div class="d-flex flex-column">
-        <label for="vendedor">Buscar Cliente</label>
-          <input class="search-input" type="text" placeholder="cliente / RFC" aria-label="Buscar cliente"
-              title="Buscar cliente" aria-describedby="button-addon2" [formControl]="searchClientControl" (focus)="onFocusClientSearch()" />
+          <label for="vendedor">Buscar Cliente</label>
+          <input class="search-input" type="text" placeholder="Cliente / RFC" aria-label="Buscar cliente"
+            title="Buscar cliente" aria-describedby="button-addon2" [formControl]="searchClientControl"
+            (focus)="onFocusClientSearch()" />
           <div class="search-loader w-100" *ngIf="loader; else clientsReady">
-              <i class="fa fa-spinner fa-pulse"></i>
+            <i class="fa fa-spinner fa-pulse"></i>
           </div>
           <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
-              <h4>No se encontraron clientes</h4>
+            <h4>No se encontraron clientes</h4>
           </div>
           <ng-template #clientsReady>
-              <ul class="search-list" *ngIf="searchList">
-                  <li class="search-list__element" *ngFor="let client of autocompleteClients"
-                      (click)="seleccionarCliente(client.id_cliente)" name="cliente">
-                      {{ client.cliente }}
-                  </li>
-              </ul>
+            <ul class="search-list" *ngIf="searchList">
+              <li class="search-list__element" *ngFor="let client of autocompleteClients"
+                (click)="seleccionarCliente(client.id_cliente)" name="cliente">
+                {{ client.cliente }}
+              </li>
+            </ul>
           </ng-template>
+        </div>
       </div>
-      </div>
-      <div class="col-md-6 form-group">
+      <div class="col-sm-6 form-group">
         <label for="vendedor">Vendedor</label>
         <div class="ng-autocomplete">
-          <input  class="iv mt-1 form-control" type="text" placeholder="Busca un vendedor"
-              aria-label="Buscar vendedor" aria-describedby="button-addon2"
-              [formControl]="searchSellerControl" (focus)="onFocusSellerSearch()" />
+          <input class="iv mt-1 form-control" type="text" placeholder="Busca un vendedor" aria-label="Buscar vendedor"
+            aria-describedby="button-addon2" [formControl]="searchSellerControl" (focus)="onFocusSellerSearch()" />
           <div class="search-loader w-100" *ngIf="loaderSeller; else sellersReady">
-              <i class="fa fa-spinner fa-pulse"></i>
+            <i class="fa fa-spinner fa-pulse"></i>
           </div>
           <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
-              <h4>No se encontraron vendedores</h4>
+            <h4>No se encontraron vendedores</h4>
           </div>
           <ng-template #sellersReady>
-              <ul class="search-list" *ngIf="searchListSeller">
-                  <li class="search-list__element" *ngFor="let seller of autocompleteSellers"
-                      (click)="seleccionarVendedor(seller.id_vendedor)" name="vendedor">
-                      {{ seller.vendedor }}
-                  </li>
-              </ul>
+            <ul class="search-list" *ngIf="searchListSeller">
+              <li class="search-list__element" *ngFor="let seller of autocompleteSellers"
+                (click)="seleccionarVendedor(seller.id_vendedor)" name="vendedor">
+                {{ seller.vendedor }}
+              </li>
+            </ul>
           </ng-template>
-      </div>
+        </div>
       </div>
       <div class="col-md-6 form-group">
         <label for="contacto">Contacto</label>
         <input type="text" class="form-control" name="contacto" placeholder="Nombre del contacto"
-        [(ngModel)]="visita.contacto">
+          [(ngModel)]="visita.contacto">
       </div>
       <div class="col-md-6 form-group">
         <label for="fechaSiguienteVisita">Siguiente visita</label>
@@ -58,25 +58,55 @@
       </div>
       <div class="col-md-12 form-group">
         <label for="observaciones">Observaciones</label>
-        <textarea title="Agrega tus observaciones" class="form-control" id="observaciones" rows="3" placeholder="Escribe tus observaciones aquí"  name="vendedor" [(ngModel)]="visita.notas"></textarea>
+        <textarea title="Agrega tus observaciones" class="form-control" id="observaciones" rows="3"
+          placeholder="Escribe tus observaciones aquí" name="vendedor" [(ngModel)]="visita.notas"></textarea>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="m-1 col col-md-3">
+    <div class="d-flex flex-column p-3 border rounded position-relative" *ngIf="addressSelected.calle != ''">
+      <span class="span-change-address" [ngStyle]="{'color': 'steelblue'}" *ngIf="addresses.length > 1"
+        (click)="changeAddressSelected()">Cambiar dirección</span>
+      <h3 class="subtitle mb-1"><b>Dirección</b></h3>
+      <p>{{addressSelected.direccion}}</p>
+    </div>
+    <div class="w-100 d-flex justify-content-center mt-3">
         <button type="submit" class=" general-btn" title="Guardar visita">Guardar</button>
-      </div>
-      <!-- <div class="m-1  col col-md-3">
-        <button class=" search-btn" [routerLink]="['/sis_koonol/catalogos/']" >Pedidos</button>
-      </div> -->
-      </div>
+    </div>
   </form>
 </div>
 <!-- Botón para agregar nuevas visitas -->
 <div class="row justify-content-end fixed-bottom mb-4 mr-4">
   <div class="col-auto">
-    <button class="btn btn-danger btn-lg rounded-circle"
-    title="Agregar nueva visita" [routerLink]="['/sis_koonol/catalogos/visitas']" title="Regresar">
+    <button class="btn btn-danger btn-lg rounded-circle" title="Agregar nueva visita"
+      [routerLink]="['/sis_koonol/catalogos/visitas']" title="Regresar">
       <i class="fa fa-arrow-left"></i>
     </button>
+  </div>
+</div>
+
+<!-- MODAL PARA SELECCIONAR DIRECCIÓN DEL CLIENTE -->
+<div class="visita-cliente-modal" *ngIf="selectAddressModal">
+  <div class="visita-cliente-modal__addresses">
+    <!-- TÍTULO -->
+    <h3 class="title text-center">Selecciona una dirección</h3>
+
+    <!-- CUERPO DEL MODAL -->
+    <div class="visita-cliente-modal__addresses-container">
+      <div class="visita-cliente-modal__addresses-list">
+        <div class="visita-cliente-modal__address" *ngFor="let address of addresses">
+          <label>
+            <input type="radio" name="address" [(ngModel)]="addressSelected" [value]="address"
+              (click)="selectAddress(address)" />
+            {{ address.direccion }}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN DE BOTONES -->
+    <div class="visita-cliente-modal__buttons">
+      <button class="general-btn" (click)="saveAddressSelected()">
+        Continuar
+      </button>
+    </div>
   </div>
 </div>

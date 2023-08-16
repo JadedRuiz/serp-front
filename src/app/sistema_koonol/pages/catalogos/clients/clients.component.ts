@@ -44,6 +44,8 @@ export class ClientsComponent {
          this.lat = this.coords[1].toString()
          this.address.longitud = this.long
          this.address.latitud = this.lat
+         this.addressSelected.longitud = this.long
+         this.addressSelected.latitud = this.lat
       })
       this.searchClientControl.valueChanges
          .pipe(debounceTime(500))
@@ -365,7 +367,6 @@ export class ClientsComponent {
          this.addressSelected.id_cliente = id_cliente;
          this.addAddressVisibility = false;
          this.tab(1);
-         console.log(this.selectedClient);
       } else {
          return;
       }
@@ -375,6 +376,9 @@ export class ClientsComponent {
    editarDireccion(id_cliente_direccion: number) {
       this.clientService.obtenerDirecciones(0, id_cliente_direccion).subscribe(resp => {
          this.addressSelected = resp.data[0]
+         if (this.addressSelected.latitud != "" && this.addressSelected.longitud != "") {
+            this.updatePinLocation(this.addressSelected.latitud, this.addressSelected.longitud)
+         }
          if (this.addressSelected.fotos.length > 0) {
             this.uploadedImages = []
             this.addressSelected.fotos.forEach((objetoFoto) => {
@@ -601,8 +605,8 @@ export class ClientsComponent {
       this.clientService.guardarFotosDireccion(id_cliente_direccion, imagenes).subscribe()
    }
 
-   //MAPS 
-   // updatePinLocation(lat: string, long: string) {
-   //    this.geolocationService.updatePinLocation([Number(long), Number(lat)])
-   // }
+   // MAPS 
+   updatePinLocation(lat: string, long: string) {
+      this.geolocationService.updatePinLocation([Number(long), Number(lat)])
+   }
 }
