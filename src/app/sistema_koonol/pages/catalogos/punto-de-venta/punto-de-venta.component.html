@@ -1,12 +1,10 @@
 <div class="container-fluid shadow">
-    <h1 class="title text-center">Punto de Venta</h1>
-
     <!-- Contenido del Punto de Venta -->
     <div class="point-of-sale">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
           <!-- Lista de productos disponibles -->
-          <div class="product-list full-height">
+          <div class="product-list">
             <h2 class="product-list-title">Lista de Productos Registrados</h2>
             <table class="table product-table">
               <thead>
@@ -28,8 +26,14 @@
               </tbody>
             </table>
           </div>
+          <div class="input-group d-flex align-items-end">
+            <input type="text" class="form-control" placeholder="Producto" >
+            <div class="input-group-append">
+              <button class="btn btn-outline-primary" type="button">Agregar</button>
+            </div>
+          </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <!-- Resumen de la Compra -->
           <div class="cart full-height">
             <h2 class="cart-title">Carrito de Compras</h2>
@@ -52,7 +56,7 @@
             <div class="total-amount">
               Total: {{ calculateTotal() | currency: 'MX' }}
             </div>
-            <div class="cart-buttons">
+            <div class="cart-buttons d-flex justify-content-between">
               <button class="btn btn-success checkout-btn">Cobrar</button>
               <button class="btn btn-secondary clear-btn">Limpiar Carrito</button>
             </div>
