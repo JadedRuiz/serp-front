@@ -14,10 +14,14 @@ export class VisitasService {
 
   constructor(private http: HttpClient) { }
 
-
   //=> Constultar visitas
   consultarVisitas(json: any): Observable<any> {
     return this.http.post<any>(SERVER_API + 'visitas/consultarVisitas', json)
+  }
+
+  //=> Constultar bitácora de visitas
+  consultarBitacoraVisitas(json: any): Observable<any> {
+    return this.http.post<any>(SERVER_API + 'visitas/bitacoraVisitas', json)
   }
 
   //=> Guardar Visitas

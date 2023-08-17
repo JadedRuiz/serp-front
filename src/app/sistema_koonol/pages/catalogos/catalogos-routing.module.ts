@@ -18,6 +18,7 @@ import { CorteComponent } from './corte/corte.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { MapsComponent } from './maps/maps.component';
 import { PuntoDeVentaComponent } from './punto-de-venta/punto-de-venta.component';
+import { BitacoraVisitasComponent } from './bitacora-visitas/bitacora-visitas.component';
 
 
 const routes: Routes = [
@@ -91,6 +92,10 @@ const routes: Routes = [
   {
     path: 'ventas',
     component: PuntoDeVentaComponent
+  },
+  {
+    path: 'bitacora-visitas',
+    component: BitacoraVisitasComponent
   }
 ];
 
