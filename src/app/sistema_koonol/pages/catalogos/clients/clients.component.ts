@@ -38,7 +38,7 @@ export class ClientsComponent {
 
    ngOnInit() {
       this.obtenerRutas()
-      this.geolocationService.pinLocation$.subscribe((location) => {
+      this.geolocationService.markerLocation$.subscribe((location) => {
          this.coords = location
          this.long = this.coords[0].toString()
          this.lat = this.coords[1].toString()
@@ -377,7 +377,7 @@ export class ClientsComponent {
       this.clientService.obtenerDirecciones(0, id_cliente_direccion).subscribe(resp => {
          this.addressSelected = resp.data[0]
          if (this.addressSelected.latitud != "" && this.addressSelected.longitud != "") {
-            this.updatePinLocation(this.addressSelected.latitud, this.addressSelected.longitud)
+            this.updateMarkerLocation(this.addressSelected.latitud, this.addressSelected.longitud)
          }
          if (this.addressSelected.fotos.length > 0) {
             this.uploadedImages = []
@@ -606,7 +606,7 @@ export class ClientsComponent {
    }
 
    // MAPS 
-   updatePinLocation(lat: string, long: string) {
-      this.geolocationService.updatePinLocation([Number(long), Number(lat)])
+   updateMarkerLocation(lat: string, long: string) {
+      this.geolocationService.updateMarkerLocation([Number(long), Number(lat)])
    }
 }
