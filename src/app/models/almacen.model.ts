@@ -13,6 +13,7 @@ export class Almacen {
     public id_usuario: number,
     public activo: number,
     public domicilio: adress_Almacen,
-    public selected?: boolean
+    public selected?: boolean,
+    public id_usuario_almacen?: number,
   ) {}
 }

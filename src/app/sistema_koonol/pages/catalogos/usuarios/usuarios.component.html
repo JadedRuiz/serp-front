@@ -66,31 +66,30 @@
                             <input class="form-control" type="password" name="contraseña" required #inputProvForm
                                 disabled [(ngModel)]="usuario.password" />
                         </div>
+                          <div class="mt-2">
+                              <label class="label-label" for="inputAlmacen">Seleccionar almacén:</label>
+                              <section class="position-relative">
+                                  <input type="button" class="form-control" #inputProvForm disabled
+                                      (click)="toggleAlmacenesModal()">
+                                  <div class="almacenes-placeholder" *ngIf="almacenesSeleccionados.length > 0" (click)="toggleAlmacenesModal()">
+                                      <span>Almacenes seleccionados</span>
+                                      <span [ngStyle]="{'color':'green'}"><i class="fa fa-check"></i></span>
+                                  </div>
+                              </section>
+                          </div>
+                          <div class="mt-2">
+                              <label class="label-label" for="inputAlmacen">Seleccionar perfil:</label>
+                              <select type="text" class="form-control" title="perfil" name="perfil" placeholder="..."
+                                  [(ngModel)]="usuario.id_perfil" #inputProvForm disabled>
+                                  <option name="perfil" value={{almacen.id_almacen}} *ngFor="let almacen of almacenes">
+                                      {{almacen.almacen}}
+                                  </option>
+                              </select>
+                          </div>
                     </div>
 
                     <!-- INPUTS DEL LADO DERECHO -->
-                    <div class="usuario__data-form__section1 col-12 col-md-6">
-                        <div class="mt-2">
-                            <label class="label-label" for="inputAlmacen">Seleccionar almacén:</label>
-                            <section class="position-relative">
-                                <input type="button" class="form-control" #inputProvForm disabled
-                                    (click)="toggleAlmacenesModal()">
-                                <div class="almacenes-placeholder" *ngIf="almacenesSeleccionados.length > 0" (click)="toggleAlmacenesModal()">
-                                    <span>Almacenes seleccionados</span>
-                                    <span [ngStyle]="{'color':'green'}"><i class="fa fa-check"></i></span>
-                                </div>
-                            </section>
-                        </div>
-                        <div class="mt-2">
-                            <label class="label-label" for="inputAlmacen">Seleccionar perfil:</label>
-                            <select type="text" class="form-control" title="perfil" name="perfil" placeholder="..."
-                                [(ngModel)]="usuario.id_perfil" #inputProvForm disabled>
-                                <option name="perfil" value={{almacen.id_almacen}} *ngFor="let almacen of almacenes">
-                                    {{almacen.almacen}}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
+
 
                     <!-- FOOTER  -->
                     <footer class="tab-footer">

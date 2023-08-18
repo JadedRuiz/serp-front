@@ -48,17 +48,17 @@ export class UsuariosComponent implements OnInit {
          this.almacenes = objeto.data.map((almacen:any) => ({ ...almacen, selected: false }));
      });
    }
-   
+
 
    getSelectedOptions() {
       this.almacenesSeleccionados = this.almacenes.filter(almacen => almacen.selected);
-      console.log('Opciones seleccionadas:', this.almacenesSeleccionados); 
+      console.log('Opciones seleccionadas:', this.almacenesSeleccionados);
     }
 
    //COSAS DE USUARIOS
    usuarios: Usuario[] = [];
    autocompleteUsuario: Usuario[] = [];
-   usuario: Usuario = new Usuario(0, 0, 1, 0, '', '', '', []);
+   usuario: Usuario = new Usuario(0, 1, 123, '', '', '',1,1,1,0,'','',[]);
    status: boolean = false;
 
    @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
@@ -120,7 +120,7 @@ export class UsuariosComponent implements OnInit {
                if (resp.ok) {
                   this.users = resp.data;
                   this.autocompleteUsers = this.users.filter((user) =>
-                     user.usuario.toLowerCase().includes(value.toLowerCase())
+                     user.nombre.toLowerCase().includes(value.toLowerCase())
                   );
                   this.loaderUser = false;
                }
@@ -159,7 +159,7 @@ export class UsuariosComponent implements OnInit {
 
    //Activa campos para agregar nuevo Usuario
    cargarCampos() {
-      this.usuario = new Usuario(0, 0, 1, 0, '', '', '', []);
+      this.usuario = new Usuario(0, 1, 123, '', '', '',1,1,1,0,'','',[]);
       this.searchUserControl.setValue('');
       this.activarCampos();
    }
@@ -233,14 +233,14 @@ export class UsuariosComponent implements OnInit {
       }
    }
 
-   //MODAL PARA ASIGNARLE ALMACENES AL USUARIO 
+   //MODAL PARA ASIGNARLE ALMACENES AL USUARIO
    almacenesModal: boolean = false;
 
    toggleAlmacenesModal() {
       this.almacenesModal = !this.almacenesModal;
    }
 
-   //MODAL PARA AÑADIR FOTOS AL USUARIO 
+   //MODAL PARA AÑADIR FOTOS AL USUARIO
    extraModal: boolean = false;
    ubicacionVendedor: any;
    imageCount: number = 0;

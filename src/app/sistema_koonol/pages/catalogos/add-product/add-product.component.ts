@@ -119,7 +119,6 @@ transformarImages() {
     0,
     '',
     1,
-    1,
     0,
     0,
     0,
@@ -128,7 +127,9 @@ transformarImages() {
     0,
     0,
     0,
-    []
+    0,
+    [],
+    1
   );
 
   //para familias
@@ -179,6 +180,7 @@ transformarImages() {
   //Para  guardar Productos
   guardarArticulo(productForm: NgForm) {
     this.productService.agregarProducto(this.item).subscribe((objeto) => {
+      console.log('=>',this.item);
       this.guardarFotos(objeto.id_articulo);
     });
     this.productService.obtenerArticulos();
