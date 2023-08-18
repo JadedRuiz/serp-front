@@ -21,7 +21,7 @@ import { PedidoGuardar } from 'src/app/models/pedidoguardar.model';
   styleUrls: ['./visitas.component.scss']
 })
 export class VisitasComponent implements OnInit {
-//LOCAL
+  //LOCAL
   dataStorage: any = JSON.parse(localStorage.getItem('dataPage')!)
   miToken = this.dataStorage.token;
   miUsuario = this.dataStorage.id_usuario;
@@ -81,7 +81,7 @@ export class VisitasComponent implements OnInit {
     notas: '',
     cancelado: 0,
     fecha_siguiente_visita: '', // Asegúrate de inicializar esta propiedad
-    tienda: 0 
+    tienda: 0
     // ... otras propiedades
   };
 
@@ -96,6 +96,7 @@ export class VisitasComponent implements OnInit {
   cerrarModal() {
     // Lógica para cerrar el modal
   }
+
   guardarCambios(visitasForm: NgForm) {
     this.visitasService.agregarVisitas(this.editarVisita).subscribe((object) => {
     });
@@ -109,11 +110,9 @@ export class VisitasComponent implements OnInit {
   }
 
   //=> BUSCAR VISITAS
-  vendedorId = 21
+  vendedorId = 1
   fechaInicio: string = '';
   fechaFinal: string = '';
-
-
 
   obtenerVisitas() {
     let json = {
@@ -122,8 +121,7 @@ export class VisitasComponent implements OnInit {
       id_cliente: this.selectedClient.id_cliente,
       fecha_inicial: this.fechaInicio,
       fecha_final: this.fechaFinal,
-      token : this.miToken,
-
+      token: this.miToken,
     };
 
     this.visitasService.consultarVisitas(json).subscribe((resp) => {
@@ -165,7 +163,7 @@ export class VisitasComponent implements OnInit {
       id_cliente: 0,
       id_comprador: 1,
       cliente: '',
-      token : this.miToken,
+      token: this.miToken,
 
     }
     if (value.length <= 3) {
@@ -219,18 +217,18 @@ export class VisitasComponent implements OnInit {
       });
   }
 
-    async updatePedidoFinal() {
-      this.pedidoService.updatePedidoFinal(this.pedidoFinal)
-    }
+  async updatePedidoFinal() {
+    this.pedidoService.updatePedidoFinal(this.pedidoFinal)
+  }
 
-    //PARA REALIZAR UN PEDIDO CON ID_VISTA
-    async realizarPedidoVisita(id_visita: number) {
-      sessionStorage.setItem('id_visita', JSON.stringify(id_visita))
-      this.pedidoFinal.id_visita = JSON.parse(sessionStorage.getItem('id_visita')!)
-      await this.updatePedidoFinal().then(() => {
-        this.router.navigate(['/sis_koonol/catalogos/']);
-        console.log(this.pedidoFinal);
-      })
-    }
+  //PARA REALIZAR UN PEDIDO CON ID_VISTA
+  async realizarPedidoVisita(id_visita: number) {
+    sessionStorage.setItem('id_visita', JSON.stringify(id_visita))
+    this.pedidoFinal.id_visita = JSON.parse(sessionStorage.getItem('id_visita')!)
+    await this.updatePedidoFinal().then(() => {
+      this.router.navigate(['/sis_koonol/catalogos/']);
+      console.log(this.pedidoFinal);
+    })
+  }
 
 }

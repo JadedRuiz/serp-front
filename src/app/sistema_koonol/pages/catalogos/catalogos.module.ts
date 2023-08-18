@@ -34,6 +34,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MapsComponent } from './maps/maps.component';
 import { PuntoDeVentaComponent } from './punto-de-venta/punto-de-venta.component';
+import { BitacoraVisitasComponent } from './bitacora-visitas/bitacora-visitas.component';
 
 
 
@@ -61,7 +62,8 @@ import { PuntoDeVentaComponent } from './punto-de-venta/punto-de-venta.component
     CorteComponent,
     UsuariosComponent,
     MapsComponent,
-    PuntoDeVentaComponent
+    PuntoDeVentaComponent,
+    BitacoraVisitasComponent
   ],
   imports: [
     CommonModule,

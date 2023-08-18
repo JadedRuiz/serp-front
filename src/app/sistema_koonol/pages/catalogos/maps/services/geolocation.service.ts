@@ -8,8 +8,8 @@ import { BehaviorSubject } from 'rxjs';
 export class GeolocationService {
 
   public userLocation?: [number, number]
-  private pinLocationSubject = new BehaviorSubject<[number, number]>([0, 0]);
-  pinLocation$ = this.pinLocationSubject.asObservable()
+  private markerLocationSubject = new BehaviorSubject<[number, number]>([0, 0]);
+  markerLocation$ = this.markerLocationSubject.asObservable()
 
   get isUserLocationReady(): boolean {
     return !!this.userLocation
@@ -33,14 +33,13 @@ export class GeolocationService {
   }
 
   //ACTUALIZAR LA UBIACCIÓN DEL PUNTERO EN EL MAPA
-  updatePinLocation(pinLocation: [number, number]): void {
-    this.pinLocationSubject.next(pinLocation)
-    console.log(this.pinLocation$);
+  updateMarkerLocation(markerLocation: [number, number]): void {
+    this.markerLocationSubject.next(markerLocation)
   }
 
   //OBTENER LA UBICACIÓN DEL PUNTERO EN EL MAPA
-  async getPinLocation() {
-    return this.pinLocationSubject.value
+  async getMarkerLocation() {
+    return this.markerLocationSubject.value
   }
   
 }
