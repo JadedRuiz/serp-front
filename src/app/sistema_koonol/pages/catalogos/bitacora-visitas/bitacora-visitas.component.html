@@ -3,32 +3,11 @@
     <header class="w-100 d-flex justify-content-center mb-5">
         <h3 class="title">Bitácora de visitas</h3>
     </header>
-    <!-- FILTROS DE LA PÁGINA -->
-    <!-- <div class="clients__search-bar">
-        <div class="d-flex flex-column">
-            <input class="search-input" type="text" placeholder="Buscar cliente" aria-label="Buscar cliente"
-                title="Buscar cliente" aria-describedby="button-addon2" [formControl]="searchClientControl" />
-            <div class="search-loader w-100" *ngIf="loader; else clientsReady">
-                <i class="fa fa-spinner fa-pulse"></i>
-            </div>
-            <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
-                <h4>No se encontraron clientes</h4>
-            </div>
-            <ng-template #clientsReady>
-                <ul class="search-list" *ngIf="searchList">
-                    <li class="search-list__element" *ngFor="let client of autocompleteClients"
-                        (click)="seleccionarCliente(client.id_cliente)">
-                        {{ client.cliente }}
-                    </li>
-                </ul>
-            </ng-template>
-        </div>
-    </div> -->
     <!-- CUERPO DE LA PÁGINA -->
     <section class="w-100 row">
         <!-- CARDS -->
-        <div class="w-50">
-            <div class="border" [ngStyle]="{'height': '250px', 'width':'350px'}"
+        <div [ngStyle]="{'width': '350px'}">
+            <div class="border" [ngStyle]="{'height': '250px', 'width':'330px'}"
                 *ngFor="let registro of visitasDeVendedores">
                 <div class="card-body">
                     <section class="d-flex justify-content-between">
@@ -49,8 +28,14 @@
             </div>
         </div>
         <!-- GOOGLE MAPS -->
-        <div class="w-50">
-            <app-maps></app-maps>
+        <div class="sidebar-map p-2 border">
+            <!-- TÍTULO -->
+            <h3 class="title mb-1 text-center">Rutas</h3>
+            <!-- CUERPO -->
+            <app-maps class="d-flex" [ngStyle]="{'height':'90%'}"></app-maps>
+            <!-- ABRIR Y CERRAR -->
+            <span><i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
+            <span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
         </div>
     </section>
 </div>

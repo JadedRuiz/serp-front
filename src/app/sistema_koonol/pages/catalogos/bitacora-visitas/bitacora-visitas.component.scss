@@ -1,7 +1,28 @@
+@import '../breakpoints.scss';
+
 ::-webkit-scrollbar {
     width: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
     background-color: grey;
+}
+
+.sidebar-map {
+    position: relative;
+    right: 0;
+    background-color: white;
+    border-radius: 10px;
+    width: 350px;
+    height: 78vh;  
+
+    @include sm {
+        position: fixed
+    }
+}
+
+.fa-angle-double-left, .fa-angle-double-right {
+    position: fixed;
+    left: 0;
+    top: 50%;
 }
