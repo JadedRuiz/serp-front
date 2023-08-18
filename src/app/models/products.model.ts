@@ -23,6 +23,7 @@ export class Product {
     public reorden:number,
     public peso_producto:number,
     public imagenes:Foto[],
+    public activo?:number
   ){}
 
 }
