@@ -46,11 +46,11 @@ export class VisitaClienteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.searchClientControl.valueChanges
-      .pipe(debounceTime(500))
-      .subscribe((value) => {
-        this.buscarCliente(value);
-      });
+    // this.searchClientControl.valueChanges
+    //   .pipe(debounceTime(500))
+    //   .subscribe((value) => {
+    //     this.buscarCliente(value);
+    //   });
   }
 
   //=> GUARDAR VISITA
@@ -59,7 +59,13 @@ export class VisitaClienteComponent implements OnInit {
     if (coords) {
       this.visita.longitud = coords[0];
       this.visita.latitud = coords[1];
-      this.visitasService.agregarVisitas(this.visita).subscribe();
+      this.visitasService.agregarVisitas(this.visita)
+      .subscribe( resp => {
+        if (resp.ok) {
+          this.router.navigate(['/sis_koonol/catalogos/visitas']);
+        }
+      }
+      );
     } else {
       Swal.fire({
         position: 'center',

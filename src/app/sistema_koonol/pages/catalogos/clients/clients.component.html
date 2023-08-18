@@ -176,16 +176,20 @@
                                     [(ngModel)]="address.estado" />
                             </div>
                             <div class="mt-2">
-                                <label for="longitud">Longitud <i *ngIf="address.longitud != '0'" class="fa fa-info-circle"
+                                <label for="longitud">Longitud <i *ngIf="address.longitud != '0'"
+                                        class="fa fa-info-circle"
                                         title="El valor por defecto que incluye este campo proviene de tu ubicación actual."></i></label>
                                 <input class="form-control form-label" type="text" name="longitud" id="longitud"
-                                    [(ngModel)]="address.longitud" (change)="updateMarkerLocation(address.latitud, address.longitud)"/>
+                                    [(ngModel)]="address.longitud"
+                                    (change)="updateMarkerLocation(address.latitud, address.longitud)" />
                             </div>
                             <div class="mt-2">
-                                <label for="latitud">Latitud <i *ngIf="address.longitud != '0'" class="fa fa-info-circle"
+                                <label for="latitud">Latitud <i *ngIf="address.longitud != '0'"
+                                        class="fa fa-info-circle"
                                         title="El valor por defecto que incluye este campo proviene de tu ubicación actual."></i></label>
                                 <input class="form-control form-label" type="text" name="latitud" id="latitud"
-                                    [(ngModel)]="address.latitud" (change)="updateMarkerLocation(address.latitud, address.longitud)"/>
+                                    [(ngModel)]="address.latitud"
+                                    (change)="updateMarkerLocation(address.latitud, address.longitud)" />
                             </div>
                             <div class="w100 d-flex justify-content-end mt-3">
                                 <span class="upload-photo" (click)="togglePhotosModal()">
@@ -195,10 +199,8 @@
                         </div>
                         <div class="w-100 d-flex flex-column align-items-center p-3 mt-3 border rounded">
                             <h5 class="subtitle">Escoger localización</h5>
-                            <app-maps 
-                            [ngStyle]="{'height':'330px', 'width': '100%'}"
-                            [draggabbleMarker]="true"
-                            ></app-maps>
+                            <app-maps [ngStyle]="{'height':'330px', 'width': '100%'}"
+                                [draggabbleMarker]="true"></app-maps>
                         </div>
                         <div class="w-100 d-flex justify-content-between mt-3">
                             <button type="button" class="client__form-back danger-btn" [class.active]="section === 2"
@@ -371,12 +373,14 @@
                             <div class="mt-2">
                                 <label for="estado">Longitud</label>
                                 <input class="form-control form-label" type="text" name="longitud" id="longitud"
-                                    [defaultValue]="coords[0]" [(ngModel)]="addressSelected.longitud" (change)="updateMarkerLocation(addressSelected.latitud, addressSelected.longitud)"/>
+                                    [defaultValue]="coords[0]" [(ngModel)]="addressSelected.longitud"
+                                    (change)="updateMarkerLocation(addressSelected.latitud, addressSelected.longitud)" />
                             </div>
                             <div class="mt-2">
                                 <label for="estado">Latitud</label>
                                 <input class="form-control form-label" type="text" name="latitud" id="latitud"
-                                    [defaultValue]="coords[1]" [(ngModel)]="addressSelected.latitud" (change)="updateMarkerLocation(addressSelected.latitud, addressSelected.longitud)"/>
+                                    [defaultValue]="coords[1]" [(ngModel)]="addressSelected.latitud"
+                                    (change)="updateMarkerLocation(addressSelected.latitud, addressSelected.longitud)" />
                             </div>
                             <div class="w100 d-flex justify-content-end mt-3">
                                 <span class="upload-photo" (click)="togglePhotosModal()">
@@ -386,7 +390,8 @@
                         </div>
                         <div class="w-100 d-flex flex-column justify-content-center p-3 mt-3 border rounded">
                             <h5 class="subtitle">Escoger localización</h5>
-                            <app-maps [ngStyle]="{'height':'330px', 'width': '100%'}"></app-maps>
+                            <app-maps [ngStyle]="{'height':'330px', 'width': '100%'}"
+                                [draggabbleMarker]="true"></app-maps>
                         </div>
                         <div class="w-100 d-flex justify-content-between mt-3">
                             <button type="button" class="client__form-back danger-btn" [class.active]="section === 2"
