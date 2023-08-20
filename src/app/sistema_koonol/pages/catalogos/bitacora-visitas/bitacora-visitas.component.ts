@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Subscription, debounceTime } from 'rxjs';
 import { Client } from 'src/app/models/clients.model';
 import { VendedorVisitas } from 'src/app/models/vendedorVisitas.model';
-import { ClientsService } from 'src/app/services/clients/clients.service';
+import { VendedoresService } from 'src/app/services/vendedores/vendedores.service';
 import { VisitasService } from 'src/app/services/visitas/visitas.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class BitacoraVisitasComponent implements OnInit {
 
   constructor(
     private visitasService: VisitasService,
-    private clienteService: ClientsService
+    private vendedoresService: VendedoresService
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +49,11 @@ export class BitacoraVisitasComponent implements OnInit {
         console.log(resp);
       }
       )
+  }
+
+  isMapVisible: boolean = false;
+  toggleMapVisibility() {
+    this.isMapVisible = !this.isMapVisible
   }
 
 }
