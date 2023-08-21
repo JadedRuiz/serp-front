@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { GeolocationService } from './services';
+import { GeolocationService, MapRoutesService } from './services';
 import { Subject, takeUntil } from 'rxjs';
-import {} from '@angular/google-maps'
+import { } from '@angular/google-maps'
 
 @Component({
   selector: 'app-maps',
@@ -17,7 +17,10 @@ export class MapsComponent implements OnInit, OnDestroy {
 
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private geolocationService: GeolocationService) { }
+  constructor(
+    private geolocationService: GeolocationService,
+    private mapRoutesService: MapRoutesService
+  ) { }
 
   //COORDENADAS (SE INICIALIZAN CON LA UBICACIÓN ACTUAL DE CLIENTE)
   coords: number[] = [];
@@ -29,8 +32,8 @@ export class MapsComponent implements OnInit, OnDestroy {
   @Input() center: google.maps.LatLng = new google.maps.LatLng(20.89115615181602, -89.74665999412537); //Centro del mapa
   @Input() zoom: number = 16 //Zoom del mapa --- Puede venir del componente que lo llame
 
-  directionsService:any;
-  directionsRenderer:any;
+  directionsService: any;
+  directionsRenderer: any;
 
   ngOnInit(): void {
     this.getUserLocation().then(() => {
@@ -91,7 +94,9 @@ export class MapsComponent implements OnInit, OnDestroy {
 
     /*-DIBUJOS DE RUTAS-*/
     if (this.routesDrawings) {
-      this.calculateAndDisplayRoute()
+      this.mapRoutesService.routes$.subscribe(() => {
+        this.calculateAndDisplayRoutes(this.routes)
+      })
     }
   }
 
@@ -155,23 +160,25 @@ export class MapsComponent implements OnInit, OnDestroy {
   routes: google.maps.Polyline[] = []; // Array para almacenar las rutas
 
   // FUNCIÓN PARA DIBUJAR LAS RUTAS EN EL MAPA
-  calculateAndDisplayRoute() {
-    const start = new google.maps.LatLng(20.891171187091228, -89.74667072296143); // Coordenadas de inicio
-    const end = new google.maps.LatLng(20.966533273309683, -89.62413180240539); // Coordenadas de destino
+  calculateAndDisplayRoutes(routes: any[]) {
+    routes.forEach(route => {
+      const start = new google.maps.LatLng(route.start.lat, route.start.lng);
+      const end = new google.maps.LatLng(route.end.lat, route.end.lng);
 
-    const request: google.maps.DirectionsRequest = {
-      origin: start,
-      destination: end,
-      travelMode: google.maps.TravelMode.DRIVING // Modo de viaje (DRIVING, WALKING, TRANSIT, BICYCLING)
-      
-    };
+      const request: google.maps.DirectionsRequest = {
+        origin: start,
+        destination: end,
+        travelMode: google.maps.TravelMode.DRIVING
+      };
 
-    this.directionsService.route(request, (result:any, status:any) => {
-      if (status === google.maps.DirectionsStatus.OK) {
-        this.directionsRenderer.setDirections(result);
-      }
+      this.directionsService.route(request, (result: any, status: any) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          const newDirectionsRenderer = new google.maps.DirectionsRenderer();
+          newDirectionsRenderer.setMap(this.map);
+          newDirectionsRenderer.setDirections(result);
+        }
+      });
     });
   }
-
 
 }
