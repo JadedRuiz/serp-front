@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription, debounceTime } from 'rxjs';
 import { Client } from 'src/app/models/clients.model';
+import { Vendedor } from 'src/app/models/vendedor.model';
 import { VendedorVisitas } from 'src/app/models/vendedorVisitas.model';
-import { ClientsService } from 'src/app/services/clients/clients.service';
+import { VendedoresService } from 'src/app/services/vendedores/vendedores.service';
 import { VisitasService } from 'src/app/services/visitas/visitas.service';
 
 @Component({
@@ -13,18 +14,18 @@ import { VisitasService } from 'src/app/services/visitas/visitas.service';
 })
 export class BitacoraVisitasComponent implements OnInit {
 
-    //LOCAL
-    dataStorage: any = JSON.parse(localStorage.getItem('dataPage')!)
-    miToken = this.dataStorage.token;
-    miUsuario = this.dataStorage.id_usuario;
-    miAlmacen = this.dataStorage.id_almacen;
-  
-    miPefil = 'ADMINISTRADOR';
-    miComprador = 1;
+  //LOCALSTORAGE
+  dataStorage: any = JSON.parse(localStorage.getItem('dataPage')!)
+  miToken = this.dataStorage.token;
+  miUsuario = this.dataStorage.id_usuario;
+  miAlmacen = this.dataStorage.id_almacen;
+
+  miPefil = 'ADMINISTRADOR';
+  miComprador = 1;
 
   constructor(
     private visitasService: VisitasService,
-    private clienteService: ClientsService
+    private vendedoresService: VendedoresService
   ) { }
 
   ngOnInit(): void {
@@ -37,91 +38,112 @@ export class BitacoraVisitasComponent implements OnInit {
   obtenerBitacoraVisitas(): void {
     let json = {
       id_visita: 0,
-      id_vendedor: 1,
+      id_vendedor: 0,
       id_cliente: 0,
-      fecha_inicial: '2023/8/17',
-      fecha_final: '2023/8/17',
+      fecha_inicial: '2023/8/1',
+      fecha_final: '2023/8/30',
       token: this.miToken,
-    }
+    };
     this.visitasService.consultarBitacoraVisitas(json)
       .subscribe(resp => {
         this.visitasDeVendedores = resp.data
-        console.log(resp);
       }
       )
   }
 
-  //////PARA BUSCAR CLIENTES/////////////////////
+  isMapVisible: boolean = false;
+  toggleMapVisibility() {
+    this.isMapVisible = !this.isMapVisible
+  }
 
-  clients: Client[] = [];
-  searchClient: string = '';
-  autocompleteClients: any[] = [];
-  selectedClient: Client = new Client(0, 0, 1, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 0, 0, 0, 0, 0, 1, 0);
-  searchClientSubscription: Subscription = new Subscription();
-  isClientSelected: boolean = false;
-  searchList: boolean = false;
-  loader: boolean = false
-  noClients: boolean = false
-  searchClientControl: FormControl = new FormControl();
+  //Autocomplete Vendedor
+  searchSellerControl: FormControl = new FormControl();
+  searchSellerSubscription: Subscription = new Subscription();
+  sellers: Vendedor[] = [];
+  selectSellerVisibility: boolean = false;
+  searchListSeller: boolean = false;
+  loaderSeller: boolean = false;
+  autocompleteSellers: Vendedor[] = [];
+  selectedSeller: Vendedor = new Vendedor(0, 0, '', '', 0, 0);
+  isSellerSelected: boolean = false;
 
-
-  //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE O RFC
-  buscarCliente(value: string) {
+  //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE
+  buscarVendedor(value: string) {
     let json = {
-      id_cliente: 0,
-      id_comprador: 1,
-      cliente: '',
+      id_vendedor: 0,
+      id_comprador: this.miComprador,
+      vendedor: '',
+      solo_activos: 1,
       token: this.miToken,
-    }
+    };
     if (value.length <= 3) {
-      this.autocompleteClients = [];
-      this.searchList = false;
-    } else if (!this.searchClientSubscription.closed) {
-      this.loader = true;
-      this.searchList = true;
-      this.clienteService.obtenerClientes(json).subscribe(
+      this.autocompleteSellers = [];
+      this.searchListSeller = false;
+    } else if (!this.searchSellerSubscription.closed) {
+      this.loaderSeller = true;
+      this.searchListSeller = true;
+      this.vendedoresService.obtenerVendedores(json).subscribe(
         (resp) => {
           if (resp.ok) {
-            this.clients = resp.data;
-            this.autocompleteClients = this.clients.filter(
-              (client) =>
-                client.cliente.toLowerCase().includes(value.toLowerCase()) ||
-                client.rfc?.toLowerCase().includes(value.toLowerCase())
+            this.sellers = resp.data;
+            this.autocompleteSellers = this.sellers.filter((seller) =>
+              seller.vendedor.toLowerCase().includes(value.toLowerCase())
             );
-            this.loader = false;
+            this.loaderSeller = false;
           }
         },
         (err) => {
           console.log(err);
-          this.loader = false;
+          this.loaderSeller = false;
         }
       );
     }
   }
 
-  //FUNCIÓN PARA ESCOGER UN CLIENTE Y GUARDAR SU ID EN addressSelected
-  seleccionarCliente(id_cliente: number) {
-    if (id_cliente) {
-      this.selectedClient = this.autocompleteClients.find(
-        (aclient) => aclient.id_cliente === id_cliente
-      );
-      //this.visita.id_cliente = id_cliente;
-      this.isClientSelected = true;
-      this.searchList = false;
-      this.searchClientControl.setValue(this.selectedClient.cliente)
-      this.searchClientSubscription.unsubscribe();
+  //FUNCIÓN PARA ESCOGER UN VENDEDOR
+  seleccionarVendedor(id_vendedor: number) {
+    if (id_vendedor) {
+      this.selectedSeller = this.autocompleteSellers.find(
+        (aSeller) => aSeller.id_vendedor === id_vendedor
+      )!;
+      this.searchSellerControl.setValue(this.selectedSeller.vendedor);
+      this.isSellerSelected = true;
+      this.searchListSeller = false;
+      this.searchSellerSubscription.unsubscribe();
     } else {
       return;
     }
   }
 
   //Función para que al dar clic en el input nos suscribamos a los cambios del mismo
-  onFocusClientSearch() {
-    this.searchClientSubscription = this.searchClientControl.valueChanges
+  onFocusSellerSearch() {
+    this.searchSellerSubscription = this.searchSellerControl.valueChanges
       .pipe(debounceTime(500))
       .subscribe((value) => {
-        this.buscarCliente(value);
+        this.buscarVendedor(value);
       });
+  }
+
+  fechaInicio: string = '';
+  fechaFinal: string = '';
+
+  formatearFecha(fecha: Date): string {
+    const año = fecha.getFullYear();
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+    const dia = fecha.getDate().toString().padStart(2, '0');
+    return `${año}/${mes}/${dia}`;
+  }
+
+  calcularFechas() {
+    if (this.fechaInicio === '') {
+      const primerDiaMes = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+      this.fechaInicio = this.formatearFecha(primerDiaMes);
+    }
+
+    if (this.fechaFinal === '') {
+      const ultimoDiaMes = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
+      this.fechaFinal = this.formatearFecha(ultimoDiaMes);
+    }
   }
 
 }

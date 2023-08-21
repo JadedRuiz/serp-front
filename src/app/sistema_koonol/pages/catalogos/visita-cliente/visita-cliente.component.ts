@@ -46,11 +46,11 @@ export class VisitaClienteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.searchClientControl.valueChanges
-      .pipe(debounceTime(500))
-      .subscribe((value) => {
-        this.buscarCliente(value);
-      });
+    // this.searchClientControl.valueChanges
+    //   .pipe(debounceTime(500))
+    //   .subscribe((value) => {
+    //     this.buscarCliente(value);
+    //   });
   }
 
   //=> GUARDAR VISITA
@@ -59,7 +59,13 @@ export class VisitaClienteComponent implements OnInit {
     if (coords) {
       this.visita.longitud = coords[0];
       this.visita.latitud = coords[1];
-      this.visitasService.agregarVisitas(this.visita).subscribe();
+      this.visitasService.agregarVisitas(this.visita)
+      .subscribe( resp => {
+        if (resp.ok) {
+          this.router.navigate(['/sis_koonol/catalogos/visitas']);
+        }
+      }
+      );
     } else {
       Swal.fire({
         position: 'center',
@@ -200,9 +206,13 @@ export class VisitaClienteComponent implements OnInit {
       this.searchClientSubscription.unsubscribe();
       this.clienteService.obtenerDirecciones(this.selectedClient.id_cliente).subscribe(resp => {
         this.addresses = resp.data;
-        console.log("addresses", this.addresses);
         if (this.addresses.length == 1) {
+          let coords = this.geolocationService.userLocation
+          let actualLong = coords?.[0]
+          let actualLat = coords?.[1]
           this.addressSelected = this.addresses[0]
+          this.visita.id_cliente_direccion = this.addressSelected.id_cliente_direccion
+          this.calcularDistancia(actualLat!, actualLong!, Number(this.addressSelected.latitud), Number(this.addressSelected.longitud));
         } else {
           this.selectAddressModal = true
         }
@@ -229,10 +239,8 @@ export class VisitaClienteComponent implements OnInit {
     let coords = this.geolocationService.userLocation
     let actualLong = coords?.[0]
     let actualLat = coords?.[1]
-    console.log('long y lat actuales', actualLong, actualLat);
     this.selectAddressModal = false;
     this.visita.id_cliente_direccion = this.addressSelected.id_cliente_direccion;
-    console.log('long y lat del cliente', this.addressSelected.longitud, this.addressSelected.latitud);
     this.calcularDistancia(actualLat!, actualLong!, Number(this.addressSelected.latitud), Number(this.addressSelected.longitud));
   }
 
@@ -254,7 +262,9 @@ export class VisitaClienteComponent implements OnInit {
       Math.cos(actualLat * (Math.PI / 180)) * Math.cos(clienteLat * (Math.PI / 180)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = R * c;
-    console.log(distance);
+
+    this.visita.tienda = distance < 200 ? 1 : 0;
+    
     return distance;
   }
 

@@ -192,14 +192,6 @@ export class OrdersCartModalComponent implements OnInit {
     []
   );
 
-  //Autocomplete Vendedor
-  selectSellerVisibility: boolean = false;
-  searchListSeller: boolean = false;
-  loaderSeller: boolean = false;
-  autocompleteSellers: Vendedor[] = [];
-  selectedSeller: Vendedor = new Vendedor(0, 0, '', '', 0, 0);
-  isSellerSelected: boolean = false;
-
   //MODAL PARA SELECCIONAR UN CLIENTE
   clienteVendedorModal: boolean = true;
   observaciones: string = ''
@@ -263,6 +255,14 @@ export class OrdersCartModalComponent implements OnInit {
         this.buscarCliente(value);
       });
   }
+
+  //Autocomplete Vendedor
+  selectSellerVisibility: boolean = false;
+  searchListSeller: boolean = false;
+  loaderSeller: boolean = false;
+  autocompleteSellers: Vendedor[] = [];
+  selectedSeller: Vendedor = new Vendedor(0, 0, '', '', 0, 0);
+  isSellerSelected: boolean = false;
 
   //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE
   buscarVendedor(value: string) {
@@ -495,8 +495,8 @@ export class OrdersCartModalComponent implements OnInit {
     this.clientService.guardarFotosDireccion(id_cliente_direccion, imagenes).subscribe(resp => {
       if (resp) {
         Swal.fire('Fotos guardadas exitosamente', '', 'success')
-        if(this.ubicacionVendedor.length > 0) {
-         this.guardarUbi()
+        if (this.ubicacionVendedor.length > 0) {
+          this.guardarUbi()
         }
         this.backToFinishOrder()
         this.uploadedImages = []
@@ -524,7 +524,7 @@ export class OrdersCartModalComponent implements OnInit {
 
   //FUNCIÓN PARA GUARDAR LA UBICACIÓN
   async guardarUbi() {
-    this.clientService.guardarUbicacionDireccion(this.addressSelected.id_cliente_direccion, this.ubicacionVendedor[0], this.ubicacionVendedor[1]).subscribe(resp =>  console.log(resp));
+    this.clientService.guardarUbicacionDireccion(this.addressSelected.id_cliente_direccion, this.ubicacionVendedor[0], this.ubicacionVendedor[1]).subscribe(resp => console.log(resp));
   }
 
   backToFinishOrder() {

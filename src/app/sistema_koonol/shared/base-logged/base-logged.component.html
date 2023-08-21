@@ -45,7 +45,7 @@
               <!-- <span class="badge badge-pill badge-danger">3</span> -->
               </a>
               <div class="sidebar-submenu">
-                  <ul (click)="pantallaChica ? accionMenu() : null">
+                  <ul (click)="pantallaChica ? accionMenu() : null" (click)="habilitarClickFuera()">
                       <li style="list-style-type: none;"><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/']"><i class="fa fa-suitcase" aria-hidden="true"></i>
                         Productos</a></li>
                       <li style="list-style-type: none;"><a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/usuarios']"><i class="fa fa-users" aria-hidden="true"></i>
@@ -72,7 +72,7 @@
               </a>
               <div class="sidebar-submenu">
                   <ul>
-                      <li (click)="pantallaChica ? accionMenu() : null">
+                      <li (click)="pantallaChica ? accionMenu() : null" (click)="habilitarClickFuera()">
                       <a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/pedidos-realizados']"><i class="fa fa-shopping-basket" aria-hidden="true"  ></i>
                         Pedidos</a>
                       <a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/ordenes']"><i class="fa fa-shopping-bag" aria-hidden="true"></i>

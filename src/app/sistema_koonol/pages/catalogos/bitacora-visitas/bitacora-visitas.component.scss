@@ -1,7 +1,97 @@
+@import "../breakpoints.scss";
+
 ::-webkit-scrollbar {
-    width: 4px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: grey;
+  background-color: grey;
+}
+
+@keyframes slider {
+  0% {
+    transform: translateX(200%);
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slider-reverse {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(200%);
+    opacity: 0.4;
+  }
+}
+
+.sidebar-map {
+  position: fixed;
+  top: 90px;
+  right: 0px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px 0 0 10px;
+  box-shadow: 2px 9px 44px -10px rgba(0, 0, 0, 0.432);
+  width: 50%;
+  height: 80vh;
+
+  @include xs {
+    width: 100% !important;
+  }
+
+  @include sm {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 90%;
+    z-index: 1;
+  }
+}
+
+.open {
+  @include sm {
+    animation: slider 0.4s;
+    transform: translateX(0%);
+  }
+}
+
+.hidden {
+  @include sm {
+    animation: slider-reverse 0.4s;
+    transform: translateX(200%);
+  }
+}
+
+//ÍCONOS
+.bi-shop,
+.bi-buildings {
+    position: absolute;
+    top: 40%;
+    right: 10px;
+    color: steelblue;
+    cursor: pointer;
+}
+
+.fa-angle-double-left,
+.fa-times {
+  display: none;
+
+  @include sm {
+    display: block;
+  }
+}
+
+.fa-angle-double-left {
+  position: fixed;
+  z-index: 0;
+  right: 10px;
+  top: 50%;
+  cursor: pointer;
+  font-size: 40px;
+  font-weight: bolder;
 }

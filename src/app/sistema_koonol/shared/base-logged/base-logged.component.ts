@@ -6,6 +6,7 @@ import {
   transition,
   state,
 } from '@angular/animations';
+import { Location } from '@angular/common';
 import * as Notiflix from 'notiflix';
 import * as $ from 'jquery';
 
@@ -46,17 +47,19 @@ export class BaseLoggedComponent implements OnInit {
   public perfil = '';
   //#endregion
 
-  clickFueraHabilitado: boolean = false
-  pantallaChica: boolean = false
-  tamañoPantalla:number = window.screen.width;
-  ngOnInit() {
+  constructor(private location: Location) { }
 
+  clickFueraHabilitado: boolean = false;
+  pantallaChica: boolean = false;
+  tamañoPantalla: number = window.screen.width;
+  ngOnInit() {
     if (this.tamañoPantalla < 768) {
       this.pantallaChica = true;
       $('.chiller-theme').removeClass('toggled');
       this.bandMenu = false;
-      this.clickFueraHabilitado = true
+      this.clickFueraHabilitado = true;
     }
+    this.habilitarClickFuera()
   }
 
   clickFuera(event: MouseEvent) {
@@ -71,6 +74,15 @@ export class BaseLoggedComponent implements OnInit {
     // } else {
     //   event.stopPropagation();
     // }
+  }
+
+  habilitarClickFuera() {
+    if (this.location.path() == '/sis_koonol/catalogos/bitacora-visitas') {
+      this.clickFueraHabilitado = true
+      this.accionMenu()
+    } else {
+      this.clickFueraHabilitado = false
+    }
   }
 
   ocultarMenu() {
@@ -121,9 +133,7 @@ export class BaseLoggedComponent implements OnInit {
         localStorage.removeItem('token');
         location.reload();
       },
-      () => {
-
-      },
+      () => { },
       {
         backOverlay: true,
         backOverlayColor: 'rgba(0,0,0,0.8)',

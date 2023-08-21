@@ -30,7 +30,7 @@ export class VisitasService {
       map((resp: any) => {
         if (resp.ok) {
           Swal.fire('Exito', '', 'success');
-          return resp.data;
+          return resp;
         } else {
           Swal.fire({
             position: 'center',
