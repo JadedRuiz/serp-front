@@ -62,7 +62,7 @@ obtenerPerfiles(){
  let  json = {
     id_perfil: 0,
     perfil: '',
-    token: 'S01',
+    token: this.miToken,
   };
 this.perfilService.obtenerPerfil(json).subscribe(
   (resp) => {
@@ -90,7 +90,7 @@ this.perfilService.obtenerPerfil(json).subscribe(
    //COSAS DE USUARIOS
    usuarios: Usuario[] = [];
    autocompleteUsuario: Usuario[] = [];
-   usuario: Usuario = new Usuario(0, 1, 123, '', '', '',1,1,1,0,'','',0,[]);
+   usuario: Usuario = new Usuario(0, 1, this.miToken, '', '', '',1,1,1,0,'','',0,[]);
    status: boolean = false;
 
    @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
@@ -192,13 +192,14 @@ this.perfilService.obtenerPerfil(json).subscribe(
 
    //Activa campos para agregar nuevo Usuario
    cargarCampos() {
-      this.usuario = new Usuario(0, 1, 123, '', '', '',1,1,1,0,'','',0,[]);
+      this.usuario = new Usuario(0, 1, this.miToken, '', '', '',1,1,1,0,'','',0,[]);
       this.searchUserControl.setValue('');
       this.activarCampos();
    }
 
    //Guarda Usuario =>
    guardarUsuario(usuarioForm: NgForm) {
+    console.log('=>',this.usuario);
       if (usuarioForm.invalid) {
          return;
       }

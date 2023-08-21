@@ -4,7 +4,7 @@ export class Usuario {
     constructor(
         public id_usuario: number,
         public id_comprador: number,
-        public token: number,
+        public token: string,
         public nombre: string,
         public usuario: string,
         public password: string,
