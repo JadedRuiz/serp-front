@@ -200,7 +200,9 @@
                         <div class="w-100 d-flex flex-column align-items-center p-3 mt-3 border rounded">
                             <h5 class="subtitle">Escoger localización</h5>
                             <app-maps [ngStyle]="{'height':'330px', 'width': '100%'}"
-                                [draggabbleMarker]="true"></app-maps>
+                                [draggabbleMarker]="true"
+                                [zoom]="18.5"
+                                ></app-maps>
                         </div>
                         <div class="w-100 d-flex justify-content-between mt-3">
                             <button type="button" class="client__form-back danger-btn" [class.active]="section === 2"
@@ -391,7 +393,9 @@
                         <div class="w-100 d-flex flex-column justify-content-center p-3 mt-3 border rounded">
                             <h5 class="subtitle">Escoger localización</h5>
                             <app-maps [ngStyle]="{'height':'330px', 'width': '100%'}"
-                                [draggabbleMarker]="true"></app-maps>
+                                [draggabbleMarker]="true"
+                                [zoom]="18.5"
+                                ></app-maps>
                         </div>
                         <div class="w-100 d-flex justify-content-between mt-3">
                             <button type="button" class="client__form-back danger-btn" [class.active]="section === 2"

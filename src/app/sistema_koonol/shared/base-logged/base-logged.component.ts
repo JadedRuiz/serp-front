@@ -47,7 +47,7 @@ export class BaseLoggedComponent implements OnInit {
   public perfil = '';
   //#endregion
 
-  constructor(private location: Location) {}
+  constructor(private location: Location) { }
 
   clickFueraHabilitado: boolean = false;
   pantallaChica: boolean = false;
@@ -59,6 +59,7 @@ export class BaseLoggedComponent implements OnInit {
       this.bandMenu = false;
       this.clickFueraHabilitado = true;
     }
+    this.habilitarClickFuera()
   }
 
   clickFuera(event: MouseEvent) {
@@ -76,11 +77,14 @@ export class BaseLoggedComponent implements OnInit {
   }
 
   habilitarClickFuera() {
-      this.location.path() == '/sis_koonol/catalogos/bitacora-visitas'
-        ? (this.clickFueraHabilitado = true)
-        : (this.clickFueraHabilitado = false);
+    if (this.location.path() == '/sis_koonol/catalogos/bitacora-visitas') {
+      this.clickFueraHabilitado = true
+      this.accionMenu()
+    } else {
+      this.clickFueraHabilitado = false
+    }
   }
-  
+
   ocultarMenu() {
     if (this.show_menu) {
       this.column_size = 'is-10';
@@ -98,7 +102,7 @@ export class BaseLoggedComponent implements OnInit {
     } else {
       $('.chiller-theme').removeClass('toggled');
       this.bandMenu = false;
-    }    
+    }
   }
 
   abrirOpcion(clase: string) {
@@ -129,7 +133,7 @@ export class BaseLoggedComponent implements OnInit {
         localStorage.removeItem('token');
         location.reload();
       },
-      () => {},
+      () => { },
       {
         backOverlay: true,
         backOverlayColor: 'rgba(0,0,0,0.8)',
