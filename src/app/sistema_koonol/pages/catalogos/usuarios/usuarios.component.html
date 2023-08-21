@@ -49,8 +49,19 @@
 
                 <!-- CUERPO TAB 1 -->
                 <div class="usuario__data-form row" [class.active]="section === 1">
-                    <!-- INPUTS DEL LADO IZQUIERDO -->
-                    <div class="usuario__data-form__section1 col-12 col-md-6">
+                  <!-- FOTO -->
+                  <div class=" col col-md-6 ms-4 mt-4 d-flex flex-column" style="width: 150px;">
+                    <img src="https://th.bing.com/th/id/R.20836a4a6bf6d8ee3031d28e133a9eb7?rik=gG%2bcRJRZ4jd0Cw&riu=http%3a%2f%2fconstantcontinuity.com%2fconstantcontinuity%2fimages%2fbig1.png&ehk=TtGb2WLFcbckjNT98147tFsMNaunQxrZpJ2JeMw0i84%3d&risl=&pid=ImgRaw&r=0"
+                      alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+                      style="width: 450px;">
+                    <button type="button" class="btn btn-outline-primary" (click)="togglePhotosModal()" data-mdb-ripple-color="dark"
+                      style="z-index: 1;">
+                      Añadir foto
+                    </button>
+                  </div>
+
+                    <!-- INPUTS -->
+                    <div class="usuario__data-form__section1 mt-1 col-12 col-md-6">
                         <div class="form-label mt-2">
                             <label for="nombre">Nombre</label>
                             <input class="form-control" type="text" name="nombre" required [(ngModel)]="usuario.usuario"
@@ -81,23 +92,22 @@
                               <label class="label-label" for="inputAlmacen">Seleccionar perfil:</label>
                               <select type="text" class="form-control" title="perfil" name="perfil" placeholder="..."
                                   [(ngModel)]="usuario.id_perfil" #inputProvForm disabled>
-                                  <option name="perfil" value={{almacen.id_almacen}} *ngFor="let almacen of almacenes">
-                                      {{almacen.almacen}}
+                                  <option name="perfil" value={{perfil.perfil}} *ngFor="let perfil of perfiles">
+                                      {{perfil.perfil}}
                                   </option>
                               </select>
                           </div>
                     </div>
 
-                    <!-- INPUTS DEL LADO DERECHO -->
 
 
                     <!-- FOOTER  -->
                     <footer class="tab-footer">
-                        <div class="">
+                        <!-- <div class="">
                             <span class="upload-photo" (click)="togglePhotosModal()">
                                 Añadir fotos del usuario
                             </span>
-                        </div>
+                        </div> -->
                         <!-- BOTONES FOOTER -->
                         <div class="footer-buttons">
                             <button *ngIf="usuario && usuario.id_usuario" class="general-btn mr-2"

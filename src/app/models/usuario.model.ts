@@ -14,6 +14,7 @@ export class Usuario {
         public id_fotografia: number,
         public extencion: string,
         public foto_base64: string,
+        public id_usuario_consulta: number,
         public almacenes: Almacen[]
     ) { }
 }
