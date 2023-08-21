@@ -1,13 +1,15 @@
 import { Component, ElementRef, QueryList, ViewChildren, OnInit } from '@angular/core';
-import { UsuariosService } from 'src/app/services/usuarios/usuarios.service';
 import { FormControl, NgForm } from '@angular/forms';
 import { Observable, Subject, Subscription, debounceTime } from 'rxjs';
-import { Usuario } from 'src/app/models/usuario.model';
 import Swal from 'sweetalert2';
 import { DataUrl, NgxImageCompressService, UploadResponse } from 'ngx-image-compress';
 import { WebcamImage } from 'ngx-webcam';
+import { UsuariosService } from 'src/app/services/usuarios/usuarios.service';
+import { Usuario } from 'src/app/models/usuario.model';
 import { AlmacenService } from 'src/app/services/almacenes/almacen.service';
 import { Almacen } from 'src/app/models/almacen.model';
+import { PerfilService } from 'src/app/services/perfiles/perfil.service';
+import { Perfil } from 'src/app/models/perfil.model';
 
 @Component({
    selector: 'app-usuarios',
@@ -18,11 +20,12 @@ export class UsuariosComponent implements OnInit {
 
    datastorage: any = JSON.parse(localStorage.getItem('dataPage')!);
    miComprador = 1;
-   miToken = this.datastorage.token;
+   miToken = "VzNobUpiVm03SityMXRyN3ZROGEyaU0wWXVnYXowRjlkQzMxN0s2NjRDcz0=";
    miPerfil = 'ADMINISTRADOR';
    miUsuario = 1;
 
    constructor(
+      private perfilService: PerfilService,
       private usuarioService: UsuariosService,
       private almacenService: AlmacenService,
       private imageCompress: NgxImageCompressService,
@@ -30,7 +33,8 @@ export class UsuariosComponent implements OnInit {
 
    ngOnInit() {
       this.obtenerAlmacenes()
-   }
+      this.obtenerPerfiles()
+  }
 
    //COSAS DE ALMACENES
    almacenes: Almacen[] = [];
@@ -42,12 +46,40 @@ export class UsuariosComponent implements OnInit {
          id_comprador: 1,
          almacen: '',
          solo_activos: 1,
-         token: '012354SDSDS01',
+         token: this.miToken,
       };
       this.almacenService.obtenerAlmacenes(json).subscribe((objeto) => {
          this.almacenes = objeto.data.map((almacen:any) => ({ ...almacen, selected: false }));
      });
    }
+
+
+
+//COSAS PARA PERFILES
+perfiles : Perfil [] =[];
+
+obtenerPerfiles(){
+ let  json = {
+    id_perfil: 0,
+    perfil: '',
+    token: 'S01',
+  };
+this.perfilService.obtenerPerfil(json).subscribe(
+  (resp) => {
+      if (resp.ok) {
+         this.perfiles = resp.data;
+      } else {
+         Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Error',
+            text: 'Ha ocurrido un error',
+         });
+      }
+    }
+  );
+}
+
 
 
    getSelectedOptions() {
@@ -58,7 +90,7 @@ export class UsuariosComponent implements OnInit {
    //COSAS DE USUARIOS
    usuarios: Usuario[] = [];
    autocompleteUsuario: Usuario[] = [];
-   usuario: Usuario = new Usuario(0, 1, 123, '', '', '',1,1,1,0,'','',[]);
+   usuario: Usuario = new Usuario(0, 1, 123, '', '', '',1,1,1,0,'','',0,[]);
    status: boolean = false;
 
    @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
@@ -107,7 +139,8 @@ export class UsuariosComponent implements OnInit {
          id_comprador: 1,
          usuario: '',
          solo_activos: 1,
-         token: '012354SDSDS01',
+         id_usuario_consulta: 0,
+         token: this.miToken,
       };
       if (value.length <= 3) {
          this.autocompleteUsers = [];
@@ -159,7 +192,7 @@ export class UsuariosComponent implements OnInit {
 
    //Activa campos para agregar nuevo Usuario
    cargarCampos() {
-      this.usuario = new Usuario(0, 1, 123, '', '', '',1,1,1,0,'','',[]);
+      this.usuario = new Usuario(0, 1, 123, '', '', '',1,1,1,0,'','',0,[]);
       this.searchUserControl.setValue('');
       this.activarCampos();
    }
