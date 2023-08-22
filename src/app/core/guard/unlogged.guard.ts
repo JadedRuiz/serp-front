@@ -13,7 +13,7 @@ export const UnloggedGuard: CanActivateFn = (
     state: RouterStateSnapshot
   ) => {
     const router = inject(Router);
-    const dataPage = localStorage.getItem('dataPage');
+    const dataPage = localStorage.getItem('dataLogin');
 
     if(!dataPage){
         return true;

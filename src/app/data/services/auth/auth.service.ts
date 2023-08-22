@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SERVER_API } from 'src/config/config';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators'; 
+import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 
@@ -13,7 +13,7 @@ export class AuthService {
   constructor(public http: HttpClient) { }
 
   login(json : any){
-    let url = SERVER_API+"usuario/login";
+    let url = SERVER_API+"usuarios/login";
     return this.http.post( url, json )
       .pipe(map( (resp: any) => {
         return resp;
@@ -24,5 +24,5 @@ export class AuthService {
   }
 
 
-  
+
 }

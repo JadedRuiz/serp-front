@@ -1,3 +1,4 @@
+import { Perfil } from 'src/app/models/perfil.model';
 import { Component, OnInit } from '@angular/core';
 import {
   trigger,
@@ -9,6 +10,7 @@ import {
 import { Location } from '@angular/common';
 import * as Notiflix from 'notiflix';
 import * as $ from 'jquery';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-base-logged',
@@ -36,23 +38,23 @@ import * as $ from 'jquery';
 })
 export class BaseLoggedComponent implements OnInit {
   //#region [Variables globales]
+  dataLogin = JSON.parse(localStorage.getItem("dataLogin")+"");
   column_size = 'is-10';
   show_menu = true;
   bandMenu = true;
-  id_usuario = parseInt(localStorage.getItem('id_usuario') + '');
-  public usuario = {
-    nombre: '',
-    ape_paterno: '',
-  };
-  public perfil = '';
+  id_usuario = this.dataLogin.id_usuario;
+  img_user = this.dataLogin.foto != "" ? this.dataLogin.foto : "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+
   //#endregion
 
-  constructor(private location: Location) { }
+  constructor(private location: Location,
+    private router : Router) { }
 
   clickFueraHabilitado: boolean = false;
   pantallaChica: boolean = false;
   tamañoPantalla: number = window.screen.width;
   ngOnInit() {
+    console.log(this.dataLogin);
     if (this.tamañoPantalla < 768) {
       this.pantallaChica = true;
       $('.chiller-theme').removeClass('toggled');
@@ -130,8 +132,8 @@ export class BaseLoggedComponent implements OnInit {
       'Si',
       'No',
       () => {
-        localStorage.removeItem('token');
-        location.reload();
+        localStorage.removeItem('dataLogin');
+        this.router.navigate(["/"]);
       },
       () => { },
       {

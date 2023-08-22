@@ -4,6 +4,7 @@ import { Observable, catchError, map, throwError, forkJoin } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario.model';
 import { SERVER_API } from 'src/config/config';
 import Swal from 'sweetalert2';
+import * as Notiflix from 'notiflix';
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +12,7 @@ import Swal from 'sweetalert2';
 
 export class UsuariosService {
     constructor(private http: HttpClient) { }
+
     //OBTENER LOS USUARIOS
     obtenerUsuarios(json: any): Observable<any> {
         return this.http.post<any>(SERVER_API + 'usuarios/consultarUsuarios', json);

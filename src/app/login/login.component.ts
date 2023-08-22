@@ -17,7 +17,8 @@ export class LoginComponent {
   constructor(
     private _fb : FormBuilder,
     private router : Router,
-    private auth : AuthService
+    private auth : AuthService,
+
   ) {
     this.loginForm = this._initForm();
     Notiflix.Notify.init({
@@ -37,15 +38,17 @@ export class LoginComponent {
   }
 
   onSubmitForm(){
-    Swal.fire('Bien hecho','Te has logueado correctamente, redireccionando ...');
-    const data = { ... this.loginForm.value }
-    if(this.loginForm.valid){
-      this.router.navigate(["sis_koonol/catalogos"]);
-      localStorage.setItem("dataPage",'{"id_usuario": 1,"token":"a5a81a5sd16234a6s5d","id_almacen":1}');
-    }else{
-      Notiflix.Block.remove(".form_login");
-      Notiflix.Notify.warning("Primero llena los campos obligatorios");
-    }
+    this.auth.login(this.loginForm.value)
+    .subscribe((resp : any) => {
+      if(resp.ok){
+        Swal.fire('Bien hecho','Te has logueado correctamente, redireccionando ...');
+        localStorage.setItem("dataLogin", JSON.stringify(resp.data[0]));
+        this.router.navigate(["sis_koonol/catalogos"]);
+      }else{
+        Notiflix.Block.remove(".form_login");
+        Notiflix.Notify.warning(resp.message);
+      }
+    });
   }
 }
 
