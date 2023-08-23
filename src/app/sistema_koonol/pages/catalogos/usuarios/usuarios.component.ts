@@ -34,23 +34,24 @@ export class UsuariosComponent implements OnInit {
    ngOnInit() {
       this.obtenerAlmacenes()
       this.obtenerPerfiles()
-  }
+    }
 
-   //COSAS DE ALMACENES
-   almacenes: Almacen[] = [];
-   almacenesSeleccionados: any[] = [];
+    //COSAS DE ALMACENES
+    almacenes: Almacen[] = [];
+    almacenesSeleccionados: any[] = [];
 
-   obtenerAlmacenes() {
+    obtenerAlmacenes() {
       let json = {
-         id_almacen: 0,
-         id_comprador: 1,
-         almacen: '',
-         solo_activos: 1,
-         token: this.miToken,
+        id_almacen: 0,
+        id_comprador: 1,
+        almacen: '',
+        solo_activos: 1,
+        token: this.miToken,
       };
       this.almacenService.obtenerAlmacenes(json).subscribe((objeto) => {
-         this.almacenes = objeto.data.map((almacen:any) => ({ ...almacen, selected: false }));
-     });
+        this.almacenes = objeto.data.map((almacen:any) => ({ ...almacen, selected: false }));
+       // console.log('this.almacenes :>> ', this.almacenes);
+        });
    }
 
 

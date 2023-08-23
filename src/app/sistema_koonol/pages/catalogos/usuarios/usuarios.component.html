@@ -51,11 +51,14 @@
                 <div class="usuario__data-form row" [class.active]="section === 1">
                   <!-- FOTO -->
                   <div class=" col col-md-6 ms-4 mt-4 d-flex flex-column" style="width: 150px;">
-                    <img src="https://th.bing.com/th/id/R.20836a4a6bf6d8ee3031d28e133a9eb7?rik=gG%2bcRJRZ4jd0Cw&riu=http%3a%2f%2fconstantcontinuity.com%2fconstantcontinuity%2fimages%2fbig1.png&ehk=TtGb2WLFcbckjNT98147tFsMNaunQxrZpJ2JeMw0i84%3d&risl=&pid=ImgRaw&r=0"
+                    <!-- <img src="https://th.bing.com/th/id/R.20836a4a6bf6d8ee3031d28e133a9eb7?rik=gG%2bcRJRZ4jd0Cw&riu=http%3a%2f%2fconstantcontinuity.com%2fconstantcontinuity%2fimages%2fbig1.png&ehk=TtGb2WLFcbckjNT98147tFsMNaunQxrZpJ2JeMw0i84%3d&risl=&pid=ImgRaw&r=0"
                       alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
-                      style="width: 450px;">
+                      style="width: 450px;"> -->
+                      <img src="https://th.bing.com/th/id/R.20836a4a6bf6d8ee3031d28e133a9eb7?rik=gG%2bcRJRZ4jd0Cw&riu=http%3a%2f%2fconstantcontinuity.com%2fconstantcontinuity%2fimages%2fbig1.png&ehk=TtGb2WLFcbckjNT98147tFsMNaunQxrZpJ2JeMw0i84%3d&risl=&pid=ImgRaw&r=0" alt="placeholder"
+                      *ngIf="uploadedImages.length == 0" class="img-thumbnail mt-4 mb-2">
+                  <img [src]="mainImage"  class="img-thumbnail mt-4 mb-2" alt="imagen principal" *ngIf="uploadedImages.length !== 0">
                     <button type="button" class="btn btn-outline-primary" (click)="togglePhotosModal()" data-mdb-ripple-color="dark"
-                      style="z-index: 1;">
+                      >
                       Añadir foto
                     </button>
                   </div>
@@ -88,6 +91,7 @@
                                   </div>
                               </section>
                           </div>
+                          
                           <div class="mt-2">
                               <label class="label-label" for="inputAlmacen">Seleccionar perfil:</label>
                               <select type="text" class="form-control" title="perfil" name="perfil" placeholder="..."
@@ -147,7 +151,7 @@
                     <button class="danger-btn" (click)="toggleAlmacenesModal()">
                         Cancelar
                     </button>
-                    <button class="search-btn" (click)="getSelectedOptions()">
+                    <button class="search-btn" (click)="getSelectedOptions()" (click)="toggleAlmacenesModal()">
                         Guardar
                     </button>
                 </div>
@@ -161,7 +165,7 @@
                     <i i class="fa fa-times"></i>
                 </button>
                 <!-- TÍTULO -->
-                <h3 class="extras-title title"> Añadir fotos de la dirección </h3>
+                <h3 class="extras-title title"> Añadir foto de usuario</h3>
 
                 <!-- CUERPO DEL MODAL -->
                 <div class="usuario-modal__extra-container mt-3">
