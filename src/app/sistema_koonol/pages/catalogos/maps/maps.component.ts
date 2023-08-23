@@ -94,8 +94,9 @@ export class MapsComponent implements OnInit, OnDestroy {
 
     /*-DIBUJOS DE RUTAS-*/
     if (this.routesDrawings) {
-      this.mapRoutesService.routes$.subscribe(() => {
-        this.calculateAndDisplayRoutes(this.routes)
+      this.mapRoutesService.routes$.subscribe(routes => {
+        this.routes = routes;
+        this.calculateAndDisplayRoutes(this.routes);
       })
     }
   }
