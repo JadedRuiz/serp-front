@@ -79,10 +79,11 @@ export class BaseLoggedComponent implements OnInit {
   }
 
   habilitarClickFuera() {
-    if (this.location.path() == '/sis_koonol/catalogos/bitacora-visitas') {
+    if (this.location.path() == '/sis_koonol/catalogos/bitacora-visitas' && !this.pantallaChica) {
       this.clickFueraHabilitado = true
-      this.accionMenu()
-    } else {
+      $('.chiller-theme').removeClass('toggled');
+      this.bandMenu = false;
+    } else if(!this.pantallaChica){
       this.clickFueraHabilitado = false
     }
   }
