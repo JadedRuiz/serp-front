@@ -19,6 +19,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { MapsComponent } from './maps/maps.component';
 import { PuntoDeVentaComponent } from './punto-de-venta/punto-de-venta.component';
 import { BitacoraVisitasComponent } from './bitacora-visitas/bitacora-visitas.component';
+import { MedidasComponent } from './medidas/medidas.component';
 
 
 const routes: Routes = [
@@ -52,6 +53,10 @@ const routes: Routes = [
   {
     path: 'rutas',
     component: RoutesComponent
+  },
+  {
+    path: 'medidas',
+    component: MedidasComponent
   },
   {
     path: 'prov',
