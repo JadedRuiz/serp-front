@@ -1,0 +1,87 @@
+<div class="medidas container-fluid">
+  <div class="medidas-container">
+    <h1 class="text-center title m-0">Medidas</h1>
+
+    <div class="medidas__search-bar align-self-start">
+      <div class="medidas__search-bar-input d-flex">
+        <input class="search-input" type="text" placeholder="Buscar medida" aria-label="Buscar ruta"
+          aria-describedby="button-addon2" [(ngModel)]="searchRoute" />
+        <button class="search-btn"  type="button" data-toggle="tooltip" title="Buscar" (click)="filtrarRutas()">
+          <i class="bi bi-search"> </i> Buscar
+        </button>
+      </div>
+      <div>
+        <button type="button" class=" add-btn" (click)="openModal()" data-toggle="tooltip" title="Agregar ruta">Agregar medida</button>
+      </div>
+    </div>
+
+
+    <div class="w-100">
+      <div class="row justify-content-center">
+        <div class="col-sm-10 col-md-6 col-xl-4 mb-3 mb-sm-0" *ngFor="let medida of filteredMedidas">
+          <div id="route-card" class="card" [class.active]="medida.routeIsActive">
+            <div class="card-body">
+              <a class="me-2 d-flex justify-content-end" data-toggle="tooltip" title="Editar"(click)="editarRuta(route)"><i id="pin"
+                  class="bi bi-pencil-square"></i></a>
+              <h2 class="card-title">
+                Medida: <b>{{ medida.medida_compuesto | uppercase }}</b>
+              </h2>
+              <h2 class="card-ID">
+                ID: <b>{{ medida.id_medida }}</b>
+              </h2>
+              <div class="d-flex justify-content-end">
+                <button type="button" class="btn" data-toggle="tooltip" title="Activar/Desactivar" [ngClass]="getRouteStatusClass(route.activo)"
+                  [attr.aria-pressed]="route.activo === 1 ? 'true' : 'false'"
+                  (click)="deshabilitarRuta(route.id_ruta, route.activo)" style="
+                    --bs-btn-padding-y: 0.25rem;
+                    --bs-btn-padding-x: 0.5rem;
+                    --bs-btn-font-size: 0.9rem;
+                  ">
+                  {{ getRouteStatusText(route.activo) }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3 class="title text-center mt-3" *ngIf="resultsNotFound">
+        No se encontraron resultados
+      </h3>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal shadow-card" [class.is-active]="isModalOpen">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Editar medida</b></h1>
+        <a type="button" class="btn-close" (click)="closeModal()" ></a>
+      </div>
+      <form #routeForm="ngForm" ngNativeValidate (ngSubmit)="guardarRuta(routeForm)">
+        <div class="modal-body">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text mb-1" id="">Nueva medida</span>
+            </div>
+            <div class="input-group">
+              <input [(ngModel)]="route.ruta" name="ruta" type="text" class="form-control" required />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn danger-btn" data-bs-dismiss="modal" (click)="closeModal()">
+            Cancelar
+          </button>
+          <button type="submit" class="btn general-btn">
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
