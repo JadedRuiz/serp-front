@@ -35,6 +35,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { MapsComponent } from './maps/maps.component';
 import { PuntoDeVentaComponent } from './punto-de-venta/punto-de-venta.component';
 import { BitacoraVisitasComponent } from './bitacora-visitas/bitacora-visitas.component';
+import { MedidasComponent } from './medidas/medidas.component';
 
 
 
@@ -63,7 +64,8 @@ import { BitacoraVisitasComponent } from './bitacora-visitas/bitacora-visitas.co
     UsuariosComponent,
     MapsComponent,
     PuntoDeVentaComponent,
-    BitacoraVisitasComponent
+    BitacoraVisitasComponent,
+    MedidasComponent
   ],
   imports: [
     CommonModule,
