@@ -8,6 +8,7 @@ import { VendedoresService } from 'src/app/services/vendedores/vendedores.servic
 import { VisitasService } from 'src/app/services/visitas/visitas.service';
 import { MapRoutesService } from '../maps/services';
 import { VisitasDTO } from 'src/app/models/visitas.model';
+import { MapRoute } from 'src/app/models/map-route.model';
 
 @Component({
    selector: 'app-bitacora-visitas',
@@ -45,8 +46,8 @@ export class BitacoraVisitasComponent implements OnInit {
          id_visita: 0,
          id_vendedor: 0,
          id_cliente: 0,
-         fecha_inicial: '2023/8/1',
-         fecha_final: '2023/8/30',
+         fecha_inicial: '2023/8/22',
+         fecha_final: '2023/8/22',
          token: this.miToken,
       };
       this.visitasService.consultarBitacoraVisitas(json)
@@ -62,7 +63,7 @@ export class BitacoraVisitasComponent implements OnInit {
       this.isMapVisible = !this.isMapVisible
    }
 
-   /*---| FILTROS DE LAS VISITAS |---*/ 
+   /*---| FILTROS DE LAS VISITAS |---*/
 
    /* AUTOCOMPLETE DE VENDEDOR --- SIRVE PARA FILTRAR LAS VISITAS POR VENDEDOR */
    //Variables del autocomplete
@@ -159,23 +160,35 @@ export class BitacoraVisitasComponent implements OnInit {
       }
    }
 
-
    /*---| DIBUJO DE RUTAS |---*/
-   routes:any[] = []
+   puntoAnterior: { lat: number, long: number } = {
+      lat: 20.891145454094097,
+      long: -89.74664544141704
+   }
+   routes: MapRoute[] = []
 
    //FUNCIÓN PARA ACTUALIZAR LAS RUTAS QUE SE DEBEN DIBUJAR EN EL MAPA
-   dibujarRuta(visitas:VisitasDTO[]) {
-      this.routes = [];
-      visitas.forEach(visita => {
-         let route = {
-            lat: visita.latitud,
-            long: visita.longitud
-         }
-         this.routes.push(route);
-      })
-      this.mapRoutesService.updateRoutes(this.routes);
-      console.log(this.routes);
+   dibujarRuta(visitas: VisitasDTO[], event: any) {
+      let checked = event.target.checked;
+      if (checked) {
+         visitas.forEach(visita => {
+            let route: MapRoute = {
+               start: {
+                  lat: this.puntoAnterior.lat,
+                  long: this.puntoAnterior.long
+               },
+               end: {
+                  lat: visita.latitud,
+                  long: visita.longitud
+               }
+            };
+            this.puntoAnterior.lat = visita.latitud;
+            this.puntoAnterior.long = visita.longitud;
+            this.routes.push(route);
+            this.mapRoutesService.updateRoutes(this.routes);
+         })
+      } else {
+         this.mapRoutesService.updateRoutes([])
+      }
    }
-
 }
- 

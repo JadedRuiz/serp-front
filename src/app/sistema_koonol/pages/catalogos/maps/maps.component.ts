@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { GeolocationService, MapRoutesService } from './services';
 import { Subject, takeUntil } from 'rxjs';
 import { } from '@angular/google-maps'
+import { MapRoute } from 'src/app/models/map-route.model';
 
 @Component({
   selector: 'app-maps',
@@ -32,8 +33,8 @@ export class MapsComponent implements OnInit, OnDestroy {
   @Input() center: google.maps.LatLng = new google.maps.LatLng(20.89115615181602, -89.74665999412537); //Centro del mapa
   @Input() zoom: number = 16 //Zoom del mapa --- Puede venir del componente que lo llame
 
-  directionsService: any;
-  directionsRenderer: any;
+  directionsService = new google.maps.DirectionsService();
+  directionsRenderer = new google.maps.DirectionsRenderer();
 
   ngOnInit(): void {
     this.getUserLocation().then(() => {
@@ -43,8 +44,6 @@ export class MapsComponent implements OnInit, OnDestroy {
         center: this.center,
         mapTypeControl: false,
       });
-      this.directionsService = new google.maps.DirectionsService();
-      this.directionsRenderer = new google.maps.DirectionsRenderer();
       this.directionsRenderer.setMap(this.map);
 
       //CARGAR LAS FUNCIONES DEL MAPA
@@ -158,13 +157,14 @@ export class MapsComponent implements OnInit, OnDestroy {
   /*---| FUNCIONES PARA EL DIBUJO DE RUTAS |---*/
 
   // VARIABLES
-  routes: google.maps.Polyline[] = []; // Array para almacenar las rutas
+  routes: MapRoute[] = []; // Array para almacenar las rutas
+  renderedRoutes: google.maps.DirectionsRenderer[] = []; // Array para rutas ya renderizadas
 
   // FUNCIÓN PARA DIBUJAR LAS RUTAS EN EL MAPA
-  calculateAndDisplayRoutes(routes: any[]) {
+  calculateAndDisplayRoutes(routes: MapRoute[]) {
     routes.forEach(route => {
-      const start = new google.maps.LatLng(route.start.lat, route.start.lng);
-      const end = new google.maps.LatLng(route.end.lat, route.end.lng);
+      const start = new google.maps.LatLng(route.start.lat, route.start.long);
+      const end = new google.maps.LatLng(route.end.lat, route.end.long);
 
       const request: google.maps.DirectionsRequest = {
         origin: start,
@@ -177,9 +177,22 @@ export class MapsComponent implements OnInit, OnDestroy {
           const newDirectionsRenderer = new google.maps.DirectionsRenderer();
           newDirectionsRenderer.setMap(this.map);
           newDirectionsRenderer.setDirections(result);
+          this.renderedRoutes.push(newDirectionsRenderer);
         }
       });
     });
+
+    if (routes.length == 0) {
+      console.log("rutas desde el delete", routes);
+      this.clearRenderedRoutes()
+    }
+  }
+
+  clearRenderedRoutes() {
+    this.renderedRoutes.forEach(directionsRenderer => {
+      directionsRenderer.setMap(null); // Eliminar del mapa
+    });
+    this.renderedRoutes = []; // Limpiar el array
   }
 
 }

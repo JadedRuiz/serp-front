@@ -56,18 +56,20 @@
             <h3 class="subtitle mb-3">
               <b>{{ registro.vendedor }}</b>
             </h3>
-            <label [ngStyle]="{ color: 'steelblue', cursor: 'pointer' }" (click)="dibujarRuta(registro.visitas)">
+            <label [ngStyle]="{ color: 'steelblue', cursor: 'pointer' }">
               Ruta
               <input type="checkbox" [ngStyle]="{
                   'margin-left': '3px',
                   transform: 'translateY(2px)'
-                }" />
+                }" 
+                (change)="dibujarRuta(registro.visitas, $event)"
+                />
             </label>
           </section>
           <h5 class="pb-2 border-bottom">Visitas:</h5>
           <!-- SECCIÓN 2 -- REGISTRO DE VISITAS -->
           <section class="position-relative" [ngStyle]="{ height: '100px', 'overflow-y': 'auto' }">
-            <ul class="d-flex flex-column p-1 border-bottom" *ngFor="let visita of registro.visitas">
+            <ul class="d-flex flex-column p-1 border-bottom position-relative" *ngFor="let visita of registro.visitas">
               <!-- INFORMACIÓN -->
               <li class="p-1"><b>Cliente:</b> {{ visita.cliente }}</li>
               <li class="p-1">Recepción: {{ visita.contacto }}</li>
