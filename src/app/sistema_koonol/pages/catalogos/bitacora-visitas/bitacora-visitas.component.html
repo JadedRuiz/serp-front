@@ -56,7 +56,7 @@
             <h3 class="subtitle mb-3">
               <b>{{ registro.vendedor }}</b>
             </h3>
-            <label [ngStyle]="{ color: 'steelblue', cursor: 'pointer' }">
+            <label [ngStyle]="{ color: 'steelblue', cursor: 'pointer' }" (click)="dibujarRuta(registro.visitas)">
               Ruta
               <input type="checkbox" [ngStyle]="{
                   'margin-left': '3px',
