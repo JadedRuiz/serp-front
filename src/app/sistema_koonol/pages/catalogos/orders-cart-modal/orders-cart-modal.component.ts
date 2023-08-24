@@ -536,4 +536,10 @@ export class OrdersCartModalComponent implements OnInit {
     await this.savePhotos(this.addressSelected.id_cliente_direccion, this.uploadedImages)
   }
 
+
+  /*---| MODAL PARA MOSTRAR UNA COTIZACIÓN DEL PEDIDO |---*/
+  cotizacionModal: boolean = false;
+
+  
+
 }
