@@ -1,46 +1,80 @@
 <div class="container-fluid">
   <div class="container">
-    <h1 class="title text-center">Visitas
-      <hr> {{vendedorActual}}
+    <h1 class="title text-center">
+      Visitas
+      <hr />
+      {{ vendedorActual }}
     </h1>
 
     <!-- Barra de búsqueda -->
     <div class="clients__search-bar">
       <div class="d-flex flex-column">
-        <input class="search-input" type="text" placeholder="Buscar cliente" aria-label="Buscar cliente"
-          title="Buscar cliente" aria-describedby="button-addon2" [formControl]="searchClientControl" />
+        <input
+          class="search-input"
+          type="text"
+          placeholder="Buscar cliente"
+          aria-label="Buscar cliente"
+          title="Buscar cliente"
+          aria-describedby="button-addon2"
+          [formControl]="searchClientControl"
+        />
         <div class="search-loader w-100" *ngIf="loader; else clientsReady">
           <i class="fa fa-spinner fa-pulse"></i>
         </div>
-        <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
+        <div
+          class="d-flex w-100 justify-content-center p-2 border"
+          *ngIf="noClients"
+        >
           <h4>No se encontraron clientes</h4>
         </div>
         <ng-template #clientsReady>
           <ul class="search-list" *ngIf="searchList">
-            <li class="search-list__element" *ngFor="let client of autocompleteClients"
-              (click)="seleccionarCliente(client.id_cliente)">
+            <li
+              class="search-list__element"
+              *ngFor="let client of autocompleteClients"
+              (click)="seleccionarCliente(client.id_cliente)"
+            >
               {{ client.cliente }}
             </li>
           </ul>
         </ng-template>
+        <span class="position-absolute" [ngStyle]="{ top: '10px', right: '10px' }">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </span>
       </div>
     </div>
     <!-- Filtrar fechas -->
-    <form class="form-inline  " (ngSubmit)="obtenerVisitas()">
-      <div class=" mb-2 row">
+    <form class="form-inline" (ngSubmit)="obtenerVisitas()">
+      <div class="mb-2 row">
         <div class="row ml-2 align-items-center justify-content-center w-100">
           <div class="row">
-            <label id="filtrarFechaTexto" class="mt-3"><b>Filtrar por fechas:</b></label>
-            <div class="input-sm col-12 col-md-4 d-flex flex-column justify-content-center mt-2">
+            <label id="filtrarFechaTexto" class="mt-3"
+              ><b>Filtrar por fechas:</b></label
+            >
+            <div
+              class="input-sm col-12 col-md-4 d-flex flex-column justify-content-center mt-2"
+            >
               <label for="fechaInicio">Fecha inicial</label>
-              <input type="date" class="form-control" name="fechaInicio" [(ngModel)]="fechaInicio">
+              <input
+                type="date"
+                class="form-control"
+                name="fechaInicio"
+                [(ngModel)]="fechaInicio"
+              />
             </div>
-            <div class="input-sm col-12 col-md-4 d-flex flex-column justify-content-center mt-2">
+            <div
+              class="input-sm col-12 col-md-4 d-flex flex-column justify-content-center mt-2"
+            >
               <label for="fechaFinal">Fecha final</label>
-              <input type="date" class="form-control" name="fechaFinal" [(ngModel)]="fechaFinal">
+              <input
+                type="date"
+                class="form-control"
+                name="fechaFinal"
+                [(ngModel)]="fechaFinal"
+              />
             </div>
             <div id="button-row" class="col-12 col-md-4 d-flex align-items-end">
-              <button type="submit" class=" pt-1 pb-1 search-btn">Buscar</button>
+              <button type="submit" class="pt-1 pb-1 search-btn">Buscar</button>
             </div>
           </div>
         </div>
@@ -50,7 +84,11 @@
     <!-- Botón para agregar nuevas visitas -->
     <div class="row justify-content-end fixed-bottom mb-4 mr-4">
       <div class="col-auto">
-        <button class="btn btn-success btn-lg rounded-circle" (click)="nuevaVisita()" title="Agregar nueva visita">
+        <button
+          class="btn btn-success btn-lg rounded-circle"
+          (click)="nuevaVisita()"
+          title="Agregar nueva visita"
+        >
           <i class="fa fa-plus"></i>
         </button>
       </div>
@@ -62,24 +100,42 @@
         <div class="card mb-4">
           <div class="card-body">
             <div class="row mb-2">
-              <h3 class="card-title col">Cliente: <b>{{ visita.cliente }}</b></h3>
+              <h3 class="card-title col">
+                Cliente: <b>{{ visita.cliente }}</b>
+              </h3>
             </div>
-            <p class="card-text"><b>Fecha visita: </b>{{ visita.fecha_visita }}</p>
+            <p class="card-text">
+              <b>Fecha visita: </b>{{ visita.fecha_visita }}
+            </p>
             <p class="card-text"><b>Contacto: </b> {{ visita.contacto }}</p>
             <div class="row mt-2">
-              <p class="card-text col">Siguiente visita: <b> {{ formatearFecha(visita.fecha_siguiente_visita) }}</b></p>
+              <p class="card-text col">
+                Siguiente visita:
+                <b> {{ formatearFecha(visita.fecha_siguiente_visita) }}</b>
+              </p>
             </div>
           </div>
           <div class="row d-flex ml-2 mb-2">
-            <div class="col-6 d-flex justify-content-center" >
-              <button class="p-2 search-btn btn-sm ml-2" (click)="realizarPedidoVisita(visita.id_visita)">Nuevo
-                Pedido</button>
+            <div class="col-6 d-flex justify-content-center">
+              <button
+                class="p-2 search-btn btn-sm ml-2"
+                (click)="realizarPedidoVisita(visita.id_visita)"
+              >
+                Nuevo Pedido
+              </button>
             </div>
             <div class="col-6 d-flex justify-content-center">
-              <button type="button" class="p-2 general-btn btn-sm" data-toggle="modal" data-target="#editarModal"
-                title="Editar Visita" (click)="abrirModalEditar(visita)">Editar Visita</button>
+              <button
+                type="button"
+                class="p-2 general-btn btn-sm"
+                data-toggle="modal"
+                data-target="#editarModal"
+                title="Editar Visita"
+                (click)="abrirModalEditar(visita)"
+              >
+                Editar Visita
+              </button>
             </div>
-
           </div>
         </div>
       </div>
@@ -87,16 +143,30 @@
   </div>
 </div>
 
-
-
 <!-- MODAL VISITAS -->
-<form class="modal fade" id="editarModal" #editarForm="ngForm" (ngSubmit)="guardarCambios(editarForm)" tabindex="-1"
-  role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+<form
+  class="modal fade"
+  id="editarModal"
+  #editarForm="ngForm"
+  (ngSubmit)="guardarCambios(editarForm)"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+>
+  <div
+    class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+    role="document"
+  >
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="mb-0 title">Editar Visita</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cerrarModal()">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="cerrarModal()"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -106,17 +176,33 @@
         <p><strong>Contacto: </strong> {{ editarVisita.contacto }}</p>
         <div *ngIf="editandoNotas">
           <label for="notas">Notas: </label>
-          <textarea class="form-control" id="notas" name="notas" [(ngModel)]="editarVisita.notas"></textarea>
+          <textarea
+            class="form-control"
+            id="notas"
+            name="notas"
+            [(ngModel)]="editarVisita.notas"
+          ></textarea>
         </div>
         <div *ngIf="editandoFecha">
           <label for="fechaSiguienteVisita">Fecha siguiente visita:</label>
-          <input type="date" class="form-control" name="fechaSiguienteVisita"
-            [(ngModel)]="editarVisita.fecha_siguiente_visita">
+          <input
+            type="date"
+            class="form-control"
+            name="fechaSiguienteVisita"
+            [(ngModel)]="editarVisita.fecha_siguiente_visita"
+          />
         </div>
       </div>
       <div class="modal-footer">
         <!-- Botones para guardar o cancelar los cambios -->
-        <button type="button" class="danger-btn" data-dismiss="modal" (click)="cerrarModal()">Cancelar</button>
+        <button
+          type="button"
+          class="danger-btn"
+          data-dismiss="modal"
+          (click)="cerrarModal()"
+        >
+          Cancelar
+        </button>
         <button type="submit" class="search-btn">Guardar Cambios</button>
       </div>
     </div>

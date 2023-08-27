@@ -3,331 +3,597 @@
   <div class="container-fluid">
     <form id="form_articulos" class="">
       <div class="row mt-4">
-        <div class="f
-orm-group col-md-3">
+        <div class="form-group col-md-3">
           <div class="col-md-12 form-group">
-            <div class="d-flex flex-column">
             <label for="vendedor">Cliente</label>
-              <input class="search-input w-100" type="text" placeholder="cliente / RFC" aria-label="Buscar cliente"
-                  title="Buscar cliente" aria-describedby="button-addon2" [formControl]="searchClientControl" (focus)="onFocusClientSearch()" />
-              <div class="search-loader w-100" *ngIf="loader; else clientsReady">
-                  <i class="fa fa-spinner fa-pulse"></i>
-              </div>
-              <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
-                  <h4>No se encontraron clientes</h4>
+            <div class="d-flex flex-column position-relative">
+              <input
+                class="search-input w-100"
+                type="text"
+                placeholder="cliente / RFC"
+                aria-label="Buscar cliente"
+                title="Buscar cliente"
+                aria-describedby="button-addon2"
+                [formControl]="searchClientControl"
+                (focus)="onFocusClientSearch()"
+              />
+              <div
+                class="search-loader w-100"
+                *ngIf="loader; else clientsReady"
+              >
+                <i class="fa fa-spinner fa-pulse"></i>
               </div>
               <ng-template #clientsReady>
-                  <ul class="search-list" *ngIf="searchList">
-                      <li class="search-list__element" *ngFor="let client of autocompleteClients"
-                          (click)="seleccionarCliente(client.id_cliente)" name="cliente">
-                          {{ client.cliente }}
-                      </li>
-                  </ul>
+                <ul class="search-list" *ngIf="searchList">
+                  <li
+                    class="search-list__element"
+                    *ngFor="let client of autocompleteClients"
+                    (click)="seleccionarCliente(client.id_cliente)"
+                    name="cliente"
+                  >
+                    {{ client.cliente }}
+                  </li>
+                </ul>
               </ng-template>
-          </div>
+              <span
+                class="position-absolute"
+                [ngStyle]="{ top: '10px', right: '10px' }"
+              >
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+            </div>
           </div>
         </div>
-        <div class="form-group col-12 col-md-3 mt-0 ">
+        <div class="form-group col-12 col-md-3 mt-0">
           <label for="vendedor">Vendedor</label>
-          <div class="ng-autocomplete">
-            <input  class="iv mt-1 form-control" type="text" placeholder="Busca un vendedor"
-                aria-label="Buscar vendedor" aria-describedby="button-addon2"
-                [formControl]="searchSellerControl" (focus)="onFocusSellerSearch()" />
-            <div class="search-loader w-100" *ngIf="loaderSeller; else sellersReady">
-                <i class="fa fa-spinner fa-pulse"></i>
-            </div>
-            <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
-                <h4>No se encontraron vendedores</h4>
+          <div class="ng-autocomplete position-relative">
+            <input
+              class="iv mt-1 form-control"
+              type="text"
+              placeholder="Busca un vendedor"
+              aria-label="Buscar vendedor"
+              aria-describedby="button-addon2"
+              [formControl]="searchSellerControl"
+              (focus)="onFocusSellerSearch()"
+            />
+            <div
+              class="search-loader w-100"
+              *ngIf="loaderSeller; else sellersReady"
+            >
+              <i class="fa fa-spinner fa-pulse"></i>
             </div>
             <ng-template #sellersReady>
-                <ul class="search-list" *ngIf="searchListSeller">
-                    <li class="search-list__element" *ngFor="let seller of autocompleteSellers"
-                        (click)="seleccionarVendedor(seller.id_vendedor)" name="vendedor">
-                        {{ seller.vendedor }}
-                    </li>
-                </ul>
+              <ul class="search-list" *ngIf="searchListSeller">
+                <li
+                  class="search-list__element"
+                  *ngFor="let seller of autocompleteSellers"
+                  (click)="seleccionarVendedor(seller.id_vendedor)"
+                  name="vendedor"
+                >
+                  {{ seller.vendedor }}
+                </li>
+              </ul>
             </ng-template>
-        </div>
+            <span
+              class="position-absolute"
+              [ngStyle]="{ top: '6px', right: '10px' }"
+            >
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </span>
+          </div>
         </div>
         <!-- <div class="form-group col-md-3">
           <label for="folio">Folio</label>
           <input type="number" class="form-control" placeholder="Folio">
         </div> -->
         <div class="col-md-3">
-          <button type="button" class=" mt-5 btn search-btn" (click)="obtenerPedidos()"
-          >Buscar</button>
+          <button
+            type="button"
+            class="mt-5 btn search-btn"
+            (click)="obtenerPedidos()"
+          >
+            Buscar
+          </button>
         </div>
       </div>
     </form>
 
-      <!-- Tarjeta (Card) para mostrar los datos de los pedidos -->
-      <div class="w-100">
-        <div class="row justify-content-center">
-          <div class="col-sm-12 col-md-12 col-xl-6 mb-3 mb-sm-0" *ngFor="let pedido of pedidos | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
-            <div class="card-body  orders-placed__order">
-              <h3 class="subtitle mb-3"> <b>{{pedido.cliente}}</b> </h3>
-              <div class="orders-placed__order__section1--subsection2">
-                <p><b>Folio:</b></p><span><b>{{pedido.folio}}</b></span>
-              </div>
-              <div class="hijo">
-                <span><b>Status: </b> <b style="color: rgb(97, 187, 8);">{{pedido.status}}</b></span>
-              </div>
-              <div class="hijo">
-                <span>Fecha de pedido: <b>{{pedido.fecha_pedido | date: 'dd/MM/yyyy' }}</b></span>
-              </div>
-              <div class="hijo">
-                <span>Fecha de entrega: <b> {{pedido.fecha_entrega | date: 'dd/MM/yyyy'}}</b></span>
-              </div>
-
-              <div>
-                <div class="mt-2 orders-placed__order__section2--subsection2">
-                  <span class="subtitle">Saldo: <b>{{pedido.saldo}} </b></span>
-                </div>
-                <div class="orders-placed__order__section2--subsection2">
-                  <span class="subtitle">Pagos: <b>{{pedido.pagos}} </b></span>
-                </div>
-                <div class="orders-placed__order__section2--subsection2">
-                  <span class="subtitle"><b>Total: {{pedido.importe_pedido  | currency: 'MX'}}</b></span>
-                </div>
-              </div>
-              <div class="d-flex mt-5 justify-content-end mb-2 orders-placed__order__section2--subsection1">
-                <button type="button" class="general-btn" data-toggle="modal" data-target="#cobranzaForm"
-                  (click)="abrirModalPago(pedido)" >Pagar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr>
-      <div class="d-flex justify-content-center mt-4 col">
-        <pagination-controls
-         (pageChange)="p = $event"
-          previousLabel=""
-          nextLabel=""
-          hideNavigation="false"
+    <!-- Tarjeta (Card) para mostrar los datos de los pedidos -->
+    <div class="w-100">
+      <div class="row justify-content-center">
+        <div
+          class="col-sm-12 col-md-12 col-xl-6 mb-3 mb-sm-0"
+          *ngFor="
+            let pedido of pedidos
+              | paginate : { itemsPerPage: itemsPerPage, currentPage: p }
+          "
         >
-      </pagination-controls>
-      </div>
-     </div>
-</div>
-
-<div class="modal fade" id="cobranzaForm" [class.is-active]="isModalOpen" >
-
-<form #cobranzaForm="ngForm" (ngSubmit)="guardar(cobranzaForm)">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h5 class="title mb-0 text-center">Caja</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="row m-3">
-        <div class="col">
-          <p>Cliente:</p>
-          <b>{{pedidoSeleccionado?.cliente}}</b>
-        </div>
-        <div class="col">
-          <p>Folio:</p>
-          <span><b>{{pedidoSeleccionado?.folio}}</b></span>
-        </div>
-      </div>
-      <div class="modal-body">
-        <div id="accordion">
-          <div class="card">
-            <div class="card-header" id="headingBilletes" data-toggle="collapse" data-target="#collapseBilletes"
-            aria-expanded="true" aria-controls="collapseBilletes">
-              <h6 class="mb-0">
-                <button type="button"  class="btn btn-link" data-toggle="collapse" data-target="#collapseBilletes"
-                  aria-expanded="true" aria-controls="collapseBilletes">
-                 Ingresar billetes
-                </button>
-              </h6>
+          <div class="card-body orders-placed__order">
+            <h3 class="subtitle mb-3">
+              <b>{{ pedido.cliente }}</b>
+            </h3>
+            <div class="orders-placed__order__section1--subsection2">
+              <p><b>Folio:</b></p>
+              <span
+                ><b>{{ pedido.folio }}</b></span
+              >
+            </div>
+            <div class="hijo">
+              <span
+                ><b>Status: </b>
+                <b style="color: rgb(97, 187, 8)">{{ pedido.status }}</b></span
+              >
+            </div>
+            <div class="hijo">
+              <span
+                >Fecha de pedido:
+                <b>{{ pedido.fecha_pedido | date : "dd/MM/yyyy" }}</b></span
+              >
+            </div>
+            <div class="hijo">
+              <span
+                >Fecha de entrega:
+                <b> {{ pedido.fecha_entrega | date : "dd/MM/yyyy" }}</b></span
+              >
             </div>
 
-            <div id="collapseBilletes" class="collapse show" aria-labelledby="headingBilletes"
-              data-parent="#accordion">
-              <div class="card-body">
-                <div class="row m-1">
-                  <div class="col-3">
-                    <span for="b1000"><b>$1000</b></span>
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="b1000"
-                      [(ngModel)]="b1000" (input)="calcular()">
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Cambio" name="b1000Cambio"
-                      [(ngModel)]="b1000Cambio" (input)="calcular()">
-                  </div>
-                </div>
-                <div class="row m-1">
-                  <div class="col-3">
-                    <span for="b500"><b>$500</b></span>
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="b500"
-                      [(ngModel)]="b500" (input)="calcular()">
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Cambio" name="b500Cambio"
-                      [(ngModel)]="b500Cambio" (input)="calcular()">
-                  </div>
-                </div>
-                <div class="row m-1">
-                  <div class="col-3">
-                    <span for="b200"><b>$200</b></span>
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="b200"
-                      [(ngModel)]="b200" (input)="calcular()">
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Cambio" name="b200Cambio"
-                      [(ngModel)]="b200Cambio" (input)="calcular()">
-                  </div>
-                </div>
-                <div class="row m-1">
-                  <div class="col-3">
-                    <span for="b100"><b>$100</b></span>
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="b100"
-                      [(ngModel)]="b100" (input)="calcular()">
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Cambio" name="b100Cambio"
-                      [(ngModel)]="b100Cambio" (input)="calcular()">
-                  </div>
-                </div>
-                <div class="row m-1">
-                  <div class="col-3">
-                    <span for="b50"><b>$50</b></span>
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="b50"
-                      [(ngModel)]="b50" (input)="calcular()">
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Cambio" name="b50Cambio"
-                      [(ngModel)]="b50Cambio" (input)="calcular()">
-                  </div>
-                </div>
-                <div class="row m-1">
-                  <div class="col-3">
-                    <span for="b20"><b>$20</b></span>
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="b20"
-                      [(ngModel)]="b20" (input)="calcular()">
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Cambio" name="b20Cambio"
-                      [(ngModel)]="b20Cambio" (input)="calcular()">
-                  </div>
-                </div>
+            <div>
+              <div class="mt-2 orders-placed__order__section2--subsection2">
+                <span class="subtitle"
+                  >Saldo: <b>{{ pedido.saldo }} </b></span
+                >
+              </div>
+              <div class="orders-placed__order__section2--subsection2">
+                <span class="subtitle"
+                  >Pagos: <b>{{ pedido.pagos }} </b></span
+                >
+              </div>
+              <div class="orders-placed__order__section2--subsection2">
+                <span class="subtitle"
+                  ><b
+                    >Total: {{ pedido.importe_pedido | currency : "MX" }}</b
+                  ></span
+                >
               </div>
             </div>
-          </div>
-
-          <!-- Sección de Monedas -->
-          <div class="card">
-            <div class="card-header" id="headingMonedas" data-toggle="collapse" data-target="#collapseMonedas"
-            aria-expanded="false" aria-controls="collapseMonedas">
-              <h6 class="mb-0">
-                <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseMonedas"
-                  aria-expanded="false" aria-controls="collapseMonedas">
-                  Ingresar monedas
-                </button>
-              </h6>
-            </div>
-            <div id="collapseMonedas" class="collapse" aria-labelledby="headingMonedas" data-parent="#accordion">
-              <div class="card-body">
-                <div class="row m-1">
-                  <div class="col-3">
-                    <span for="m10"><b>$10</b></span>
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="m10"
-                      [(ngModel)]="m10" (input)="calcular()">
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Cambio" name="m10Cambio"
-                      [(ngModel)]="m10Cambio" (input)="calcular()">
-                  </div>
-                </div>
-                <div class="row m-1">
-                  <div class="col-3">
-                    <span for="m5"><b>$5</b></span>
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="m5"
-                      [(ngModel)]="m5" (input)="calcular()">
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Cambio" name="m5Cambio"
-                      [(ngModel)]="m5Cambio" (input)="calcular()">
-                  </div>
-                </div>
-                <div class="row m-1">
-                  <div class="col-3">
-                    <span for="m2"><b>$2</b></span>
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="m2"
-                      [(ngModel)]="m2" (input)="calcular()">
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Cambio" name="m2Cambio"
-                      [(ngModel)]="m2Cambio" (input)="calcular()">
-                  </div>
-                </div>
-                <div class="row m-1">
-                  <div class="col-3">
-                    <span for="m1"><b>$1</b></span>
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Ingreso" name="m1"
-                      [(ngModel)]="m1" (input)="calcular()">
-                  </div>
-                  <div class="col-4">
-                    <input type="number" class="form-control small-input" placeholder="Cambio" name="m1Cambio"
-                      [(ngModel)]="m1Cambio" (input)="calcular()">
-                  </div>
-                </div>
-              </div>
+            <div
+              class="d-flex mt-5 justify-content-end mb-2 orders-placed__order__section2--subsection1"
+            >
+              <button
+                type="button"
+                class="general-btn"
+                data-toggle="modal"
+                data-target="#cobranzaForm"
+                (click)="abrirModalPago(pedido)"
+              >
+                Pagar
+              </button>
             </div>
           </div>
         </div>
-      </div>
-      <!--Totales-->
-      <div class="row m-1">
-        <div class="col-12 mb-1 text-center">
-          <hr>
-          <span for="totalIngresos">{{ totalDinamico === pedidoSeleccionado?.precio_total ? 'Total:' : 'Restante:' }}</span>
-          <span  [ngClass]="{'red-text': totalDinamico < 0}" style="font-size:1.5rem;"><b> {{totalDinamico | currency: ' MX $'}} </b></span>
-        </div>
-        <div class="col-6 ">
-          <label for="totalIngresos"><b>Ingresos</b></label>
-          <input type="number" class="form-control form-control-sm" id="totalIngresos" name="totalIngresos"
-            [(ngModel)]="totalIngresosReal" readonly>
-        </div>
-        <div class="col-6 ">
-          <label for="totalCambio"><b>Cambio</b></label>
-          <input type="number" class="form-control form-control-sm" id="totalCambio" name="totalCambio" [(ngModel)]="totalCambio"
-            readonly>
-        </div>
-        <div class="mt-2 mb-2 col-7 mx-auto">
-          <label class="text-center d-block"><b>Cobratario</b></label>
-          <input type="text" class="form-control text-center" name="cobratario" placeholder="Nombre completo" [(ngModel)]="cobranza.cobratario" >
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" (click)="cancelarOperacion()"  class="danger-btn">Cerrar</button>
-        <button type="submit" class="search-btn">Pagar</button>
       </div>
     </div>
+    <hr />
+    <div class="d-flex justify-content-center mt-4 col">
+      <pagination-controls
+        (pageChange)="p = $event"
+        previousLabel=""
+        nextLabel=""
+        hideNavigation="false"
+      >
+      </pagination-controls>
+    </div>
   </div>
-</form>
+</div>
+
+<div class="modal fade" id="cobranzaForm" [class.is-active]="isModalOpen">
+  <form #cobranzaForm="ngForm" (ngSubmit)="guardar(cobranzaForm)">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h5 class="title mb-0 text-center">Caja</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="row m-3">
+          <div class="col">
+            <p>Cliente:</p>
+            <b>{{ pedidoSeleccionado?.cliente }}</b>
+          </div>
+          <div class="col">
+            <p>Folio:</p>
+            <span
+              ><b>{{ pedidoSeleccionado?.folio }}</b></span
+            >
+          </div>
+        </div>
+        <div class="modal-body">
+          <div id="accordion">
+            <div class="card">
+              <div
+                class="card-header"
+                id="headingBilletes"
+                data-toggle="collapse"
+                data-target="#collapseBilletes"
+                aria-expanded="true"
+                aria-controls="collapseBilletes"
+              >
+                <h6 class="mb-0">
+                  <button
+                    type="button"
+                    class="btn btn-link"
+                    data-toggle="collapse"
+                    data-target="#collapseBilletes"
+                    aria-expanded="true"
+                    aria-controls="collapseBilletes"
+                  >
+                    Ingresar billetes
+                  </button>
+                </h6>
+              </div>
+
+              <div
+                id="collapseBilletes"
+                class="collapse show"
+                aria-labelledby="headingBilletes"
+                data-parent="#accordion"
+              >
+                <div class="card-body">
+                  <div class="row m-1">
+                    <div class="col-3">
+                      <span for="b1000"><b>$1000</b></span>
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Ingreso"
+                        name="b1000"
+                        [(ngModel)]="b1000"
+                        (input)="calcular()"
+                      />
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Cambio"
+                        name="b1000Cambio"
+                        [(ngModel)]="b1000Cambio"
+                        (input)="calcular()"
+                      />
+                    </div>
+                  </div>
+                  <div class="row m-1">
+                    <div class="col-3">
+                      <span for="b500"><b>$500</b></span>
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Ingreso"
+                        name="b500"
+                        [(ngModel)]="b500"
+                        (input)="calcular()"
+                      />
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Cambio"
+                        name="b500Cambio"
+                        [(ngModel)]="b500Cambio"
+                        (input)="calcular()"
+                      />
+                    </div>
+                  </div>
+                  <div class="row m-1">
+                    <div class="col-3">
+                      <span for="b200"><b>$200</b></span>
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Ingreso"
+                        name="b200"
+                        [(ngModel)]="b200"
+                        (input)="calcular()"
+                      />
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Cambio"
+                        name="b200Cambio"
+                        [(ngModel)]="b200Cambio"
+                        (input)="calcular()"
+                      />
+                    </div>
+                  </div>
+                  <div class="row m-1">
+                    <div class="col-3">
+                      <span for="b100"><b>$100</b></span>
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Ingreso"
+                        name="b100"
+                        [(ngModel)]="b100"
+                        (input)="calcular()"
+                      />
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Cambio"
+                        name="b100Cambio"
+                        [(ngModel)]="b100Cambio"
+                        (input)="calcular()"
+                      />
+                    </div>
+                  </div>
+                  <div class="row m-1">
+                    <div class="col-3">
+                      <span for="b50"><b>$50</b></span>
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Ingreso"
+                        name="b50"
+                        [(ngModel)]="b50"
+                        (input)="calcular()"
+                      />
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Cambio"
+                        name="b50Cambio"
+                        [(ngModel)]="b50Cambio"
+                        (input)="calcular()"
+                      />
+                    </div>
+                  </div>
+                  <div class="row m-1">
+                    <div class="col-3">
+                      <span for="b20"><b>$20</b></span>
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Ingreso"
+                        name="b20"
+                        [(ngModel)]="b20"
+                        (input)="calcular()"
+                      />
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Cambio"
+                        name="b20Cambio"
+                        [(ngModel)]="b20Cambio"
+                        (input)="calcular()"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sección de Monedas -->
+            <div class="card">
+              <div
+                class="card-header"
+                id="headingMonedas"
+                data-toggle="collapse"
+                data-target="#collapseMonedas"
+                aria-expanded="false"
+                aria-controls="collapseMonedas"
+              >
+                <h6 class="mb-0">
+                  <button
+                    type="button"
+                    class="btn btn-link collapsed"
+                    data-toggle="collapse"
+                    data-target="#collapseMonedas"
+                    aria-expanded="false"
+                    aria-controls="collapseMonedas"
+                  >
+                    Ingresar monedas
+                  </button>
+                </h6>
+              </div>
+              <div
+                id="collapseMonedas"
+                class="collapse"
+                aria-labelledby="headingMonedas"
+                data-parent="#accordion"
+              >
+                <div class="card-body">
+                  <div class="row m-1">
+                    <div class="col-3">
+                      <span for="m10"><b>$10</b></span>
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Ingreso"
+                        name="m10"
+                        [(ngModel)]="m10"
+                        (input)="calcular()"
+                      />
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Cambio"
+                        name="m10Cambio"
+                        [(ngModel)]="m10Cambio"
+                        (input)="calcular()"
+                      />
+                    </div>
+                  </div>
+                  <div class="row m-1">
+                    <div class="col-3">
+                      <span for="m5"><b>$5</b></span>
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Ingreso"
+                        name="m5"
+                        [(ngModel)]="m5"
+                        (input)="calcular()"
+                      />
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Cambio"
+                        name="m5Cambio"
+                        [(ngModel)]="m5Cambio"
+                        (input)="calcular()"
+                      />
+                    </div>
+                  </div>
+                  <div class="row m-1">
+                    <div class="col-3">
+                      <span for="m2"><b>$2</b></span>
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Ingreso"
+                        name="m2"
+                        [(ngModel)]="m2"
+                        (input)="calcular()"
+                      />
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Cambio"
+                        name="m2Cambio"
+                        [(ngModel)]="m2Cambio"
+                        (input)="calcular()"
+                      />
+                    </div>
+                  </div>
+                  <div class="row m-1">
+                    <div class="col-3">
+                      <span for="m1"><b>$1</b></span>
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Ingreso"
+                        name="m1"
+                        [(ngModel)]="m1"
+                        (input)="calcular()"
+                      />
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="number"
+                        class="form-control small-input"
+                        placeholder="Cambio"
+                        name="m1Cambio"
+                        [(ngModel)]="m1Cambio"
+                        (input)="calcular()"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Totales-->
+        <div class="row m-1">
+          <div class="col-12 mb-1 text-center">
+            <hr />
+            <span for="totalIngresos">{{
+              totalDinamico === pedidoSeleccionado?.precio_total
+                ? "Total:"
+                : "Restante:"
+            }}</span>
+            <span
+              [ngClass]="{ 'red-text': totalDinamico < 0 }"
+              style="font-size: 1.5rem"
+              ><b> {{ totalDinamico | currency : " MX $" }} </b></span
+            >
+          </div>
+          <div class="col-6">
+            <label for="totalIngresos"><b>Ingresos</b></label>
+            <input
+              type="number"
+              class="form-control form-control-sm"
+              id="totalIngresos"
+              name="totalIngresos"
+              [(ngModel)]="totalIngresosReal"
+              readonly
+            />
+          </div>
+          <div class="col-6">
+            <label for="totalCambio"><b>Cambio</b></label>
+            <input
+              type="number"
+              class="form-control form-control-sm"
+              id="totalCambio"
+              name="totalCambio"
+              [(ngModel)]="totalCambio"
+              readonly
+            />
+          </div>
+          <div class="mt-2 mb-2 col-7 mx-auto">
+            <label class="text-center d-block"><b>Cobratario</b></label>
+            <input
+              type="text"
+              class="form-control text-center"
+              name="cobratario"
+              placeholder="Nombre completo"
+              [(ngModel)]="cobranza.cobratario"
+            />
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            (click)="cancelarOperacion()"
+            class="danger-btn"
+          >
+            Cerrar
+          </button>
+          <button type="submit" class="search-btn">Pagar</button>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
