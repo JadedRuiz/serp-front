@@ -1,214 +1,348 @@
 <div class="usuarios container-fluid">
-    <div class="usuarios-container">
-        <!-- TÍTULO -->
-        <h1 class="text-center title m-0">Usuarios</h1>
+  <div class="usuarios-container">
+    <!-- TÍTULO -->
+    <h1 class="text-center title m-0">Usuarios</h1>
 
-        <!-- SEARCHBAR -->
-        <div class="usuarios__search-bar">
-            <div class="d-flex flex-column">
-                <input class="search-input" type="text" placeholder="Buscar usuario" aria-label="Buscar usuario"
-                    title="Buscar usuario" aria-describedby="button-addon2" [formControl]="searchUserControl"
-                    (focus)="onFocusUserSearch()" />
-                <div class="search-loader w-100" *ngIf="loaderUser; else usersReady">
-                    <i class="fa fa-spinner fa-pulse"></i>
-                </div>
-                <ng-template #usersReady>
-                    <ul class="search-list" *ngIf="searchListUser">
-                        <li class="search-list__element" *ngFor="let user of autocompleteUsers"
-                            (click)="seleccionarUsuario(user.id_usuario)">
-                            {{ user.usuario }}
-                        </li>
-                    </ul>
-                </ng-template>
-            </div>
+    <!-- SEARCHBAR -->
+    <div class="usuarios__search-bar">
+      <div class="d-flex flex-column">
+        <input
+          class="search-input"
+          type="text"
+          placeholder="Buscar usuario"
+          aria-label="Buscar usuario"
+          title="Buscar usuario"
+          aria-describedby="button-addon2"
+          [formControl]="searchUserControl"
+          (focus)="onFocusUserSearch()"
+        />
+        <div class="search-loader w-100" *ngIf="loaderUser; else usersReady">
+          <i class="fa fa-spinner fa-pulse"></i>
+        </div>
+        <ng-template #usersReady>
+          <ul class="search-list" *ngIf="searchListUser">
+            <li
+              class="search-list__element"
+              *ngFor="let user of autocompleteUsers"
+              (click)="seleccionarUsuario(user.id_usuario)"
+            >
+              {{ user.usuario }}
+            </li>
+          </ul>
+        </ng-template>
+        <span
+          class="position-absolute"
+          [ngStyle]="{ top: '10px', right: '10px' }"
+        >
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </span>
+      </div>
 
-            <!-- Boton de Status -->
-            <!-- <button data-toggle="tooltip" title="Activar/Desactivar" *ngIf="usuario && usuario.id_usuario" type="button"
+      <!-- Boton de Status -->
+      <!-- <button data-toggle="tooltip" title="Activar/Desactivar" *ngIf="usuario && usuario.id_usuario" type="button"
           class="btn" [ngClass]="getUsuarioStatusClass(usuario.activo)"
           [attr.aria-pressed]="usuario.activo === 1 ? 'true' : 'false'"
           (click)="activarUsuario(usuario.id_usuario, usuario.activo)">
           {{ getUsuarioStatusText(usuario.activo) }}
         </button> -->
-            <button type="button" class="add-btn" data-toggle="tooltip" title="Agregar usuario"
-                (click)="cargarCampos()">
-                Agregar usuario
-            </button>
+      <button
+        type="button"
+        class="add-btn"
+        data-toggle="tooltip"
+        title="Agregar usuario"
+        (click)="cargarCampos()"
+      >
+        Agregar usuario
+      </button>
+    </div>
+
+    <!-- FORMULARIO -->
+    <form
+      class="usuario__form"
+      #usuarioForm="ngForm"
+      (ngSubmit)="guardarUsuario(usuarioForm)"
+    >
+      <!-- TABS -->
+      <div class="usuario__form-tabs">
+        <!-- BOTONES DE TABS -->
+        <div class="d-flex w-100 align-items-start">
+          <!-- BOTÓN TAB 1 -->
+          <div class="tab" [class.active]="section === 1" (click)="tab(1)">
+            Datos del usuario
+          </div>
         </div>
 
-        <!-- FORMULARIO -->
-        <form class="usuario__form" #usuarioForm="ngForm" (ngSubmit)="guardarUsuario(usuarioForm)">
-            <!-- TABS -->
-            <div class="usuario__form-tabs">
-                <!-- BOTONES DE TABS -->
-                <div class="d-flex w-100 align-items-start">
-                    <!-- BOTÓN TAB 1 -->
-                    <div class="tab" [class.active]="section === 1" (click)="tab(1)">
-                        Datos del usuario
-                    </div>
-                </div>
-
-                <!-- CUERPO TAB 1 -->
-                <div class="usuario__data-form row" [class.active]="section === 1">
-                  <!-- FOTO -->
-                  <div class=" col col-md-6 ms-4 mt-4 d-flex flex-column" style="width: 150px;">
-                    <!-- <img src="https://th.bing.com/th/id/R.20836a4a6bf6d8ee3031d28e133a9eb7?rik=gG%2bcRJRZ4jd0Cw&riu=http%3a%2f%2fconstantcontinuity.com%2fconstantcontinuity%2fimages%2fbig1.png&ehk=TtGb2WLFcbckjNT98147tFsMNaunQxrZpJ2JeMw0i84%3d&risl=&pid=ImgRaw&r=0"
+        <!-- CUERPO TAB 1 -->
+        <div class="usuario__data-form row" [class.active]="section === 1">
+          <!-- FOTO -->
+          <div
+            class="col col-md-6 ms-4 mt-4 d-flex flex-column"
+            style="width: 150px"
+          >
+            <!-- <img src="https://th.bing.com/th/id/R.20836a4a6bf6d8ee3031d28e133a9eb7?rik=gG%2bcRJRZ4jd0Cw&riu=http%3a%2f%2fconstantcontinuity.com%2fconstantcontinuity%2fimages%2fbig1.png&ehk=TtGb2WLFcbckjNT98147tFsMNaunQxrZpJ2JeMw0i84%3d&risl=&pid=ImgRaw&r=0"
                       alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
                       style="width: 450px;"> -->
-                      <img src="https://th.bing.com/th/id/R.20836a4a6bf6d8ee3031d28e133a9eb7?rik=gG%2bcRJRZ4jd0Cw&riu=http%3a%2f%2fconstantcontinuity.com%2fconstantcontinuity%2fimages%2fbig1.png&ehk=TtGb2WLFcbckjNT98147tFsMNaunQxrZpJ2JeMw0i84%3d&risl=&pid=ImgRaw&r=0" alt="placeholder"
-                      *ngIf="uploadedImages.length == 0" class="img-thumbnail mt-4 mb-2">
-                  <img [src]="mainImage"  class="img-thumbnail mt-4 mb-2" alt="imagen principal" *ngIf="uploadedImages.length !== 0">
-                    <button type="button" class="btn btn-outline-primary" (click)="togglePhotosModal()" data-mdb-ripple-color="dark"
-                      >
-                      Añadir foto
-                    </button>
-                  </div>
+            <img
+              src="https://th.bing.com/th/id/R.20836a4a6bf6d8ee3031d28e133a9eb7?rik=gG%2bcRJRZ4jd0Cw&riu=http%3a%2f%2fconstantcontinuity.com%2fconstantcontinuity%2fimages%2fbig1.png&ehk=TtGb2WLFcbckjNT98147tFsMNaunQxrZpJ2JeMw0i84%3d&risl=&pid=ImgRaw&r=0"
+              alt="placeholder"
+              *ngIf="uploadedImages.length == 0"
+              class="img-thumbnail mt-4 mb-2"
+            />
+            <img
+              [src]="mainImage"
+              class="img-thumbnail mt-4 mb-2"
+              alt="imagen principal"
+              *ngIf="uploadedImages.length !== 0"
+            />
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              (click)="togglePhotosModal()"
+              data-mdb-ripple-color="dark"
+            >
+              Añadir foto
+            </button>
+          </div>
 
-                    <!-- INPUTS -->
-                    <div class="usuario__data-form__section1 mt-1 col-12 col-md-6">
-                        <div class="form-label mt-2">
-                            <label for="nombre">Nombre</label>
-                            <input class="form-control" type="text" name="nombre" required [(ngModel)]="usuario.nombre"
-                                #inputProvForm disabled />
-                        </div>
-                        <div class="form-label mt-2">
-                            <label for="correo">Correo</label>
-                            <input class="form-control" type="email" name="usuario" required #inputProvForm disabled
-                                [(ngModel)]="usuario.usuario" />
-                        </div>
-                        <div class="form-label mt-2">
-                            <label for="contraseña">Contraseña</label>
-                            <input class="form-control" type="password" name="password" required #inputProvForm
-                                disabled [(ngModel)]="usuario.password" />
-                        </div>
-                          <div class="mt-2">
-                              <label class="label-label" for="inputAlmacen">Seleccionar almacén:</label>
-                              <section class="position-relative">
-                                  <input type="button" class="form-control" #inputProvForm disabled
-                                      (click)="toggleAlmacenesModal()">
-                                  <div class="almacenes-placeholder" *ngIf="almacenesSeleccionados.length > 0" (click)="toggleAlmacenesModal()">
-                                      <span>Almacenes seleccionados</span>
-                                      <span [ngStyle]="{'color':'green'}"><i class="fa fa-check"></i></span>
-                                  </div>
-                              </section>
-                          </div>
-                          
-                          <div class="mt-2">
-                              <label class="label-label" for="inputAlmacen">Seleccionar perfil:</label>
-                              <select type="text" class="form-control" title="perfil" name="perfil" placeholder="..."
-                                  [(ngModel)]="usuario.id_perfil" #inputProvForm disabled>
-                                  <option name="perfil" value={{perfil.id_perfil}} *ngFor="let perfil of perfiles">
-                                      {{perfil.perfil}}
-                                  </option>
-                              </select>
-                          </div>
-                    </div>
+          <!-- INPUTS -->
+          <div class="usuario__data-form__section1 mt-1 col-12 col-md-6">
+            <div class="form-label mt-2">
+              <label for="nombre">Nombre</label>
+              <input
+                class="form-control"
+                type="text"
+                name="nombre"
+                required
+                [(ngModel)]="usuario.nombre"
+                #inputProvForm
+                disabled
+              />
+            </div>
+            <div class="form-label mt-2">
+              <label for="correo">Correo</label>
+              <input
+                class="form-control"
+                type="email"
+                name="usuario"
+                required
+                #inputProvForm
+                disabled
+                [(ngModel)]="usuario.usuario"
+              />
+            </div>
+            <div class="form-label mt-2">
+              <label for="contraseña">Contraseña</label>
+              <input
+                class="form-control"
+                type="password"
+                name="password"
+                required
+                #inputProvForm
+                disabled
+                [(ngModel)]="usuario.password"
+              />
+            </div>
+            <div class="mt-2">
+              <label class="label-label" for="inputAlmacen"
+                >Seleccionar almacén:</label
+              >
+              <section class="position-relative">
+                <input
+                  type="button"
+                  class="form-control"
+                  #inputProvForm
+                  disabled
+                  (click)="toggleAlmacenesModal()"
+                />
+                <div
+                  class="almacenes-placeholder"
+                  *ngIf="almacenesSeleccionados.length > 0"
+                  (click)="toggleAlmacenesModal()"
+                >
+                  <span>Almacenes seleccionados</span>
+                  <span [ngStyle]="{ color: 'green' }"
+                    ><i class="fa fa-check"></i
+                  ></span>
+                </div>
+              </section>
+            </div>
 
+            <div class="mt-2">
+              <label class="label-label" for="inputAlmacen"
+                >Seleccionar perfil:</label
+              >
+              <select
+                type="text"
+                class="form-control"
+                title="perfil"
+                name="perfil"
+                placeholder="..."
+                [(ngModel)]="usuario.id_perfil"
+                #inputProvForm
+                disabled
+              >
+                <option
+                  name="perfil"
+                  value="{{ perfil.id_perfil }}"
+                  *ngFor="let perfil of perfiles"
+                >
+                  {{ perfil.perfil }}
+                </option>
+              </select>
+            </div>
+          </div>
 
-
-                    <!-- FOOTER  -->
-                    <footer class="tab-footer">
-                        <!-- <div class="">
+          <!-- FOOTER  -->
+          <footer class="tab-footer">
+            <!-- <div class="">
                             <span class="upload-photo" (click)="togglePhotosModal()">
                                 Añadir fotos del usuario
                             </span>
                         </div> -->
-                        <!-- BOTONES FOOTER -->
-                        <div class="footer-buttons">
-                            <button *ngIf="usuario && usuario.id_usuario" class="general-btn mr-2"
-                                (click)="activarCampos()" type="button" data-toggle="tooltip"
-                                title="Editar">Editar</button>
-                            <button class="search-btn text-center" type="submit" data-toggle="tooltip"
-                                title="Guardar">Guardar</button>
-                        </div>
-                    </footer>
-                </div>
+            <!-- BOTONES FOOTER -->
+            <div class="footer-buttons">
+              <button
+                *ngIf="usuario && usuario.id_usuario"
+                class="general-btn mr-2"
+                (click)="activarCampos()"
+                type="button"
+                data-toggle="tooltip"
+                title="Editar"
+              >
+                Editar
+              </button>
+              <button
+                class="search-btn text-center"
+                type="submit"
+                data-toggle="tooltip"
+                title="Guardar"
+              >
+                Guardar
+              </button>
             </div>
-        </form>
+          </footer>
+        </div>
+      </div>
+    </form>
 
-        <!-- MODAL PARA SELECCIONAR ALMACENES DEL USUARIO -->
-        <div class="usuario-modal" *ngIf="almacenesModal">
-            <div class="usuario-modal__extra usuario-modal__extra---almacenes">
-                <button class="usuario-modal__close icon-btn" (click)="toggleAlmacenesModal()">
-                    <i i class="fa fa-times"></i>
-                </button>
-                <!-- TÍTULO -->
-                <h3 class="extras-title title"> Seleccionar almacenes </h3>
+    <!-- MODAL PARA SELECCIONAR ALMACENES DEL USUARIO -->
+    <div class="usuario-modal" *ngIf="almacenesModal">
+      <div class="usuario-modal__extra usuario-modal__extra---almacenes">
+        <button
+          class="usuario-modal__close icon-btn"
+          (click)="toggleAlmacenesModal()"
+        >
+          <i i class="fa fa-times"></i>
+        </button>
+        <!-- TÍTULO -->
+        <h3 class="extras-title title">Seleccionar almacenes</h3>
 
-                <!-- CUERPO DEL MODAL -->
-                <div class="usuario-modal__extra-container mt-3">
-                    <div class="usuario-modal__almacenes-list">
-                        <div class="usuario-modal__almacen" *ngFor="let almacen of almacenes">
-                            <label>
-                                <input type="checkbox" name="almacen" [value]="almacen.id_almacen" [(ngModel)]="almacen.selected"/>
-                                {{ almacen.almacen }}
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SECCIÓN DE BOTONES -->
-                <div class="usuario-modal__buttons">
-                    <button class="danger-btn" (click)="toggleAlmacenesModal()">
-                        Cancelar
-                    </button>
-                    <button class="search-btn" (click)="getSelectedOptions()" (click)="toggleAlmacenesModal()">
-                        Guardar
-                    </button>
-                </div>
+        <!-- CUERPO DEL MODAL -->
+        <div class="usuario-modal__extra-container mt-3">
+          <div class="usuario-modal__almacenes-list">
+            <div
+              class="usuario-modal__almacen"
+              *ngFor="let almacen of almacenes"
+            >
+              <label>
+                <input
+                  type="checkbox"
+                  name="almacen"
+                  [value]="almacen.id_almacen"
+                  [(ngModel)]="almacen.selected"
+                />
+                {{ almacen.almacen }}
+              </label>
             </div>
+          </div>
         </div>
 
-        <!-- MODAL PARA SUBIR FOTOS DEL USUARIO -->
-        <div class="usuario-modal" *ngIf="extraModal">
-            <div class="usuario-modal__extra">
-                <button class="usuario-modal__close icon-btn" (click)="togglePhotosModal()">
-                    <i i class="fa fa-times"></i>
-                </button>
-                <!-- TÍTULO -->
-                <h3 class="extras-title title"> Añadir foto de usuario</h3>
-
-                <!-- CUERPO DEL MODAL -->
-                <div class="usuario-modal__extra-container mt-3">
-                    <!-- IMAGEN PRINCIPAL -->
-                    <div class="usuario-modal__extra-image">
-                        <img src="../../../../../assets/img/Placeholder1.png" alt="placeholder"
-                            *ngIf="uploadedImages.length == 0">
-                        <img [src]="mainImage" alt="imagen principal" *ngIf="uploadedImages.length !== 0">
-                    </div>
-                    <!-- SELECTOR DE IMÁGENES -->
-                    <div class="usuario-modal__extra-images-selector">
-                        <div class="usuario-modal__extra-images" *ngFor="let image of uploadedImages; let i = index"
-                            (click)="displayImage(i)">
-                            <img [src]="image" alt="imagen miniatura">
-                        </div>
-                    </div>
-                    <div class="upload-buttons">
-                        <!-- BOTÓN PARA AÑADIR FOTO -->
-                        <button class="search-btn" (click)="uploadImage()">Subir imagen</button>
-                        <!-- BOTÓN PARA TOMAR FOTO -->
-                        <button class="add-btn" (click)="openWebcam()">Tomar foto</button>
-                    </div>
-                    <!-- WEBCAM -->
-                    <div *ngIf="takingPhoto" class="webcam">
-                        <button class="webcam-close icon-btn" (click)="closeWebcam()">
-                            <i i class="fa fa-times"></i>
-                        </button>
-                        <webcam [trigger]="triggerObservable" (imageCapture)="pushPhoto($event)"></webcam>
-                        <button class="icon-btn webcam-btn" (click)="capturePhoto()"><i
-                                class="fa fa-camera"></i></button>
-                    </div>
-                </div>
-
-                <!-- SECCIÓN DE BOTONES -->
-                <div class="usuario-modal__buttons">
-                    <button class="danger-btn" (click)="togglePhotosModal()">
-                        Cancelar
-                    </button>
-                    <button class="search-btn" (click)="togglePhotosModal()">
-                        Guardar
-                    </button>
-                </div>
-            </div>
+        <!-- SECCIÓN DE BOTONES -->
+        <div class="usuario-modal__buttons">
+          <button class="danger-btn" (click)="toggleAlmacenesModal()">
+            Cancelar
+          </button>
+          <button
+            class="search-btn"
+            (click)="getSelectedOptions()"
+            (click)="toggleAlmacenesModal()"
+          >
+            Guardar
+          </button>
         </div>
+      </div>
     </div>
+
+    <!-- MODAL PARA SUBIR FOTOS DEL USUARIO -->
+    <div class="usuario-modal" *ngIf="extraModal">
+      <div class="usuario-modal__extra">
+        <button
+          class="usuario-modal__close icon-btn"
+          (click)="togglePhotosModal()"
+        >
+          <i i class="fa fa-times"></i>
+        </button>
+        <!-- TÍTULO -->
+        <h3 class="extras-title title">Añadir foto de usuario</h3>
+
+        <!-- CUERPO DEL MODAL -->
+        <div class="usuario-modal__extra-container mt-3">
+          <!-- IMAGEN PRINCIPAL -->
+          <div class="usuario-modal__extra-image">
+            <img
+              src="../../../../../assets/img/Placeholder1.png"
+              alt="placeholder"
+              *ngIf="uploadedImages.length == 0"
+            />
+            <img
+              [src]="mainImage"
+              alt="imagen principal"
+              *ngIf="uploadedImages.length !== 0"
+            />
+          </div>
+          <!-- SELECTOR DE IMÁGENES -->
+          <div class="usuario-modal__extra-images-selector">
+            <div
+              class="usuario-modal__extra-images"
+              *ngFor="let image of uploadedImages; let i = index"
+              (click)="displayImage(i)"
+            >
+              <img [src]="image" alt="imagen miniatura" />
+            </div>
+          </div>
+          <div class="upload-buttons">
+            <!-- BOTÓN PARA AÑADIR FOTO -->
+            <button class="search-btn" (click)="uploadImage()">
+              Subir imagen
+            </button>
+            <!-- BOTÓN PARA TOMAR FOTO -->
+            <button class="add-btn" (click)="openWebcam()">Tomar foto</button>
+          </div>
+          <!-- WEBCAM -->
+          <div *ngIf="takingPhoto" class="webcam">
+            <button class="webcam-close icon-btn" (click)="closeWebcam()">
+              <i i class="fa fa-times"></i>
+            </button>
+            <webcam
+              [trigger]="triggerObservable"
+              (imageCapture)="pushPhoto($event)"
+            ></webcam>
+            <button class="icon-btn webcam-btn" (click)="capturePhoto()">
+              <i class="fa fa-camera"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- SECCIÓN DE BOTONES -->
+        <div class="usuario-modal__buttons">
+          <button class="danger-btn" (click)="togglePhotosModal()">
+            Cancelar
+          </button>
+          <button class="search-btn" (click)="togglePhotosModal()">
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

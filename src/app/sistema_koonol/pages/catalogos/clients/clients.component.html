@@ -1,488 +1,883 @@
 <div class="clients container-fluid">
-    <div class="clients-container">
-        <h1 class="text-center title">Clientes</h1>
-        <!-- SEARCH-BAR -->
-        <div class="clients__search-bar">
-            <div class="d-flex flex-column">
-                <input class="search-input" type="text" placeholder="Buscar cliente" aria-label="Buscar cliente"
-                    title="Buscar cliente" aria-describedby="button-addon2" [formControl]="searchClientControl" />
-                <div class="search-loader w-100" *ngIf="loader; else clientsReady">
-                    <i class="fa fa-spinner fa-pulse"></i>
-                </div>
-                <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
-                    <h4>No se encontraron clientes</h4>
-                </div>
-                <ng-template #clientsReady>
-                    <ul class="search-list" *ngIf="searchList">
-                        <li class="search-list__element" *ngFor="let client of autocompleteClients"
-                            (click)="seleccionarCliente(client.id_cliente)">
-                            {{ client.cliente }}
-                        </li>
-                    </ul>
-                </ng-template>
-            </div>
-            <button data-toggle="tooltip" title="Agregar cliente" type="button" class="add-btn" (click)="addClient()"
-                *ngIf="isClientSelected">
-                AGREGAR CLIENTE
-            </button>
+  <div class="clients-container">
+    <h1 class="text-center title">Clientes</h1>
+    <!-- SEARCH-BAR -->
+    <div class="clients__search-bar">
+      <div class="d-flex flex-column">
+        <input
+          class="search-input"
+          type="text"
+          placeholder="Buscar cliente"
+          aria-label="Buscar cliente"
+          title="Buscar cliente"
+          aria-describedby="button-addon2"
+          [formControl]="searchClientControl"
+        />
+        <div class="search-loader w-100" *ngIf="loader; else clientsReady">
+          <i class="fa fa-spinner fa-pulse"></i>
         </div>
-
-        <!-- VISTA PARA CUANDO NO SE HAN BUSCADO CLIENTES -->
-        <div class="client__form-container añadir" *ngIf="!isClientSelected">
-            <div class="client__form-tabs">
-                <!-- SELECTORES DE TABS -->
-                <div class="d-flex w-100 align-items-start">
-                    <div class="tab" [class.active]="section === 1" (click)="tab(1)">
-                        Ingresar datos del cliente
-                    </div>
-                    <div class="tab" [class.active]="section === 2" (click)="tab(2)">
-                        Ingresar dirección del cliente
-                    </div>
-                </div>
-                <!-- FORMULARIO PARA CLIENTE -->
-                <form class="w-100 form-data" #clientForm="ngForm" (ngSubmit)="guardarCliente(clientForm)">
-                    <!-- SECCION DATOS -->
-                    <div class="client__data-form row" [class.active]="section === 1">
-                        <h3 class="subtitle col-12">Datos</h3>
-                        <div class="client__data-form__section1 col-12 col-md-6">
-                            <div class="mt-2">
-                                <label for="cliente">Cliente <span class="obligatorio"
-                                        title="Este es un campo obligatorio">*</span> </label>
-                                <input class="form-control form-label" type="text" name="cliente" id="cliente" required
-                                    [(ngModel)]="client.cliente" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="contacto">Contacto</label>
-                                <input class="form-control form-label" type="text" name="contacto" id="contacto"
-                                    [(ngModel)]="client.contacto" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="rfc">RFC</label>
-                                <input class="form-control form-label" type="text" name="rfc" id="rfc"
-                                    [(ngModel)]="client.rfc" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="celular">Celular</label>
-                                <input class="form-control form-label" type="text" name="celular" id="celular"
-                                    [(ngModel)]="client.celular" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="telefono">Teléfono</label>
-                                <input class="form-control form-label" type="tel" name="telefono" id="telefono"
-                                    [(ngModel)]="client.telefono" />
-                            </div>
-                        </div>
-                        <div class="client__data-form__section2 col-12 col-md-6">
-                            <div class="mt-2">
-                                <label for="correo">Correo</label>
-                                <input class="form-control form-label" type="email" name="correo" id="correo"
-                                    [(ngModel)]="client.correo" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="descuento1">Descuento 1</label>
-                                <input class="form-control form-label" type="text" name="descuento1" id="descuento1"
-                                    [(ngModel)]="client.descuento1" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="descuento2">Descuento 2</label>
-                                <input class="form-control form-label" type="text" name="descuento2" id="descuento2"
-                                    [(ngModel)]="client.descuento2" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="descuento3">Descuento 3</label>
-                                <input class="form-control form-label" type="text" name="descuento3" id="descuento3"
-                                    [(ngModel)]="client.descuento3" />
-                            </div>
-                        </div>
-                        <div class="w-100 d-flex justify-content-end mt-3">
-                            <button type="button" class="client__form-next search-btn align-self-end"
-                                data-toggle="tooltip" title="Siguiente" [class.active]="section === 1" (click)="tab(2)">
-                                Siguiente
-                            </button>
-                        </div>
-                    </div>
-                    <!-- SECCION DIRECCION -->
-                    <div class="client__address-form row" [class.active]="section === 2">
-                        <h3 class="subtitle col-12">Direcciones</h3>
-                        <div class="client__address-form__section1 col-12 col-md-6">
-                            <div class="mt-2">
-                                <label for="descripcion">Descripción</label>
-                                <input class="form-control form-label" type="text" name="descripcion" id="descripcion"
-                                    [(ngModel)]="address.descripcion" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="calle">Calle <span class="obligatorio"
-                                        title="Este es un campo obligatorio">*</span></label>
-                                <input class="form-control form-label" type="text" name="calle" id="calle" required
-                                    [(ngModel)]="address.calle" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="numero_interior">Número interior</label>
-                                <input class="form-control form-label" type="text" name="numero_interior"
-                                    id="numero_interior" [(ngModel)]="address.numero_interior" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="numero_exterior">Número exterior</label>
-                                <input class="form-control form-label" type="text" name="numero_exterior"
-                                    id="numero_exterior" [(ngModel)]="address.numero_exterior" />
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-6">
-                                    <label for="cruzamiento_uno">Cruzamiento 1</label>
-                                    <input class="form-control form-label" type="text" name="cruzamiento_uno"
-                                        id="cruzamiento_uno" [(ngModel)]="address.cruzamiento_uno" />
-                                </div>
-                                <div class="col-6">
-                                    <label for="cruzamiento_dos">Cruzamiento 2</label>
-                                    <input class="form-control form-label" type="text" name="cruzamiento_dos"
-                                        id="cruzamiento_dos" [(ngModel)]="address.cruzamiento_dos" />
-                                </div>
-                            </div>
-                            <div class="mt-2">
-                                <label for="codigo_postal">Código Postal</label>
-                                <input class="form-control form-label" type="text" name="codigo_postal"
-                                    id="codigo_postal" [(ngModel)]="address.codigo_postal" />
-                            </div>
-                            <div class="mt-2">
-                                <label class="label-label" for="ruta">Seleccionar Ruta <span class="obligatorio"
-                                        title="Este es un campo obligatorio">*</span></label>
-                                <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..."
-                                    required [(ngModel)]="address.id_ruta">
-                                    <option name="familia" value={{route.id_ruta}} *ngFor="let route of routes">
-                                        {{route.ruta}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="client__address-form__section2 col-12 col-md-6 justify-content-center">
-                            <div class="mt-2">
-                                <label for="colonia">Colonia</label>
-                                <input class="form-control form-label" type="text" name="colonia" id="colonia"
-                                    [(ngModel)]="address.colonia" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="localidad">Localidad</label>
-                                <input class="form-control form-label" type="text" name="localidad" id="localidad"
-                                    [(ngModel)]="address.localidad" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="municipio">Municipio</label>
-                                <input class="form-control form-label" type="text" name="municipio" id="municipio"
-                                    [(ngModel)]="address.municipio" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="estado">Estado</label>
-                                <input class="form-control form-label" type="text" name="estado" id="estado"
-                                    [(ngModel)]="address.estado" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="longitud">Longitud <i *ngIf="address.longitud != '0'"
-                                        class="fa fa-info-circle"
-                                        title="El valor por defecto que incluye este campo proviene de tu ubicación actual."></i></label>
-                                <input class="form-control form-label" type="text" name="longitud" id="longitud"
-                                    [(ngModel)]="address.longitud"
-                                    (change)="updateMarkerLocation(address.latitud, address.longitud)" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="latitud">Latitud <i *ngIf="address.longitud != '0'"
-                                        class="fa fa-info-circle"
-                                        title="El valor por defecto que incluye este campo proviene de tu ubicación actual."></i></label>
-                                <input class="form-control form-label" type="text" name="latitud" id="latitud"
-                                    [(ngModel)]="address.latitud"
-                                    (change)="updateMarkerLocation(address.latitud, address.longitud)" />
-                            </div>
-                            <div class="w100 d-flex justify-content-end mt-3">
-                                <span class="upload-photo" (click)="togglePhotosModal()">
-                                    Añadir fotos de la dirección
-                                </span>
-                            </div>
-                        </div>
-                        <div class="w-100 d-flex flex-column align-items-center p-3 mt-3 border rounded">
-                            <h5 class="subtitle">Escoger localización</h5>
-                            <app-maps [ngStyle]="{'height':'330px', 'width': '100%'}"
-                                [draggabbleMarker]="true"
-                                [zoom]="18.5"
-                                ></app-maps>
-                        </div>
-                        <div class="w-100 d-flex justify-content-between mt-3">
-                            <button type="button" class="client__form-back danger-btn" [class.active]="section === 2"
-                                (click)="tab(1)">
-                                Regresar
-                            </button>
-                            <button type="submit" class="client__form-save search-btn" data-toggle="tooltip"
-                                title="Guardar cliente" [class.active]="section === 2">
-                                Guardar cliente
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- VISTA DE LOS CLIENTES FILTRADOS -->
-        <div class="client__form-container mostrar" *ngIf="isClientSelected">
-            <div class="client__form-tabs">
-                <!-- SELECTORES DE TABS -->
-                <div class="d-flex w-100 align-items-start">
-                    <div class="tab" [class.active]="section === 1" (click)="tab(1)">
-                        Datos del cliente
-                    </div>
-                    <div class="tab" [class.active]="section === 2" (click)="tab(2)">
-                        Direcciones del cliente
-                    </div>
-                </div>
-                <!-- FORMULARIO PARA DATOS DE CLIENTE -->
-                <div class="client__data-form form justify-content-center row" [class.active]="section === 1">
-                    <div class="w-100">
-                        <h3 class="subtitle">Datos</h3>
-                    </div>
-                    <form class="w-100 form-address row" #editClientForm="ngForm"
-                        (ngSubmit)="guardarCliente(editClientForm)">
-                        <div class="client__data-form__section1 col-12 col-md-6">
-                            <div class="mt-2">
-                                <label for="cliente">Cliente <span class="obligatorio"
-                                        title="Este es un campo obligatorio">*</span></label>
-                                <input class="form-control form-label" type="text" name="cliente" id="cliente" required
-                                    [(ngModel)]="selectedClient.cliente" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="contacto">Contacto</label>
-                                <input class="form-control form-label" type="text" name="contacto" id="contacto"
-                                    [(ngModel)]="selectedClient.contacto" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="rfc">RFC</label>
-                                <input class="form-control form-label" type="text" name="rfc" id="rfc"
-                                    [(ngModel)]="selectedClient.rfc" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="celular">Celular</label>
-                                <input class="form-control form-label" type="text" name="celular" id="celular"
-                                    [(ngModel)]="selectedClient.celular" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="telefono">Teléfono</label>
-                                <input class="form-control form-label" type="text" name="telefono" id="telefono"
-                                    [(ngModel)]="selectedClient.telefono" />
-                            </div>
-                        </div>
-                        <div class="client__data-form__section2 col-12 col-md-6">
-                            <div class="mt-2">
-                                <label for="correo">Correo</label>
-                                <input class="form-control form-label" type="text" name="correo" id="correo"
-                                    [(ngModel)]="selectedClient.correo" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="descuento1">Descuento 1</label>
-                                <input class="form-control form-label" type="text" name="descuento1" id="descuento1"
-                                    [(ngModel)]="selectedClient.descuento1" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="descuento2">Descuento 2</label>
-                                <input class="form-control form-label" type="text" name="descuento2" id="descuento2"
-                                    [(ngModel)]="selectedClient.descuento2" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="descuento3">Descuento 3</label>
-                                <input class="form-control form-label" type="text" name="descuento3" id="descuento3"
-                                    [(ngModel)]="selectedClient.descuento3" />
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end mt-3 w-100">
-                            <button type="submit" class="search-btn">Guardar cliente</button>
-                        </div>
-                    </form>
-                </div>
-                <!-- FORMULARIO PARA EDITAR O CREAR DIRECCION -->
-                <div class="client__address-form justify-content-center row" [class.active]="section === 2"
-                    *ngIf="addAddressVisibility">
-                    <div class="w-100">
-                        <h3 class="subtitle">Crear dirección</h3>
-                    </div>
-                    <form class="w-100 form-address row" #addressForm="ngForm"
-                        (ngSubmit)="guardarDireccion(addressForm)">
-                        <div class="client__address-form__section1 col-12 col-md-6">
-                            <div class="mt-2">
-                                <label for="descripcion">Descripción</label>
-                                <input class="form-control form-label" type="text" name="descripcion" id="descripcion"
-                                    [(ngModel)]="addressSelected.descripcion" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="calle">Calle <span class="obligatorio"
-                                        title="Este es un campo obligatorio">*</span></label>
-                                <input class="form-control form-label" type="text" name="calle" id="calle" required
-                                    [(ngModel)]="addressSelected.calle" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="numero_interior">Número interior</label>
-                                <input class="form-control form-label" type="text" name="numero_interior"
-                                    id="numero_interior" [(ngModel)]="addressSelected.numero_interior" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="numero_exterior">Número exterior</label>
-                                <input class="form-control form-label" type="text" name="numero_exterior"
-                                    id="numero_exterior" [(ngModel)]="addressSelected.numero_exterior" />
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-6">
-                                    <label for="cruzamiento_uno">Cruzamiento 1</label>
-                                    <input class="form-control form-label" type="text" name="cruzamiento_uno"
-                                        id="cruzamiento_uno" [(ngModel)]="addressSelected.cruzamiento_uno" />
-                                </div>
-                                <div class="col-6">
-                                    <label for="cruzamiento_dos">Cruzamiento 2</label>
-                                    <input class="form-control form-label" type="text" name="cruzamiento_dos"
-                                        id="cruzamiento_dos" [(ngModel)]="addressSelected.cruzamiento_dos" />
-                                </div>
-                            </div>
-                            <div class="mt-2">
-                                <label for="codigo_postal">Código Postal</label>
-                                <input class="form-control form-label" type="text" name="codigo_postal"
-                                    id="codigo_postal" [(ngModel)]="addressSelected.codigo_postal" />
-                            </div>
-                            <div class="mt-2">
-                                <label class="label-label" for="ruta">Seleccionar Ruta <span class="obligatorio"
-                                        title="Este es un campo obligatorio">*</span></label>
-                                <select type="text" class="form-control" title="ruta" name="ruta" placeholder="..."
-                                    required [(ngModel)]="addressSelected.id_ruta">
-                                    <option name="familia" value={{route.id_ruta}} *ngFor="let route of routes">
-                                        {{route.ruta}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="client__address-form__section2 col-12 col-md-6">
-                            <div class="mt-2">
-                                <label for="colonia">Colonia</label>
-                                <input class="form-control form-label" type="text" name="colonia" id="colonia"
-                                    [(ngModel)]="addressSelected.colonia" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="localidad">Localidad</label>
-                                <input class="form-control form-label" type="text" name="localidad" id="localidad"
-                                    [(ngModel)]="addressSelected.localidad" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="municipio">Municipio</label>
-                                <input class="form-control form-label" type="text" name="municipio" id="municipio"
-                                    [(ngModel)]="addressSelected.municipio" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="estado">Estado</label>
-                                <input class="form-control form-label" type="text" name="estado" id="estado"
-                                    [(ngModel)]="addressSelected.estado" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="estado">Longitud</label>
-                                <input class="form-control form-label" type="text" name="longitud" id="longitud"
-                                    [defaultValue]="coords[0]" [(ngModel)]="addressSelected.longitud"
-                                    (change)="updateMarkerLocation(addressSelected.latitud, addressSelected.longitud)" />
-                            </div>
-                            <div class="mt-2">
-                                <label for="estado">Latitud</label>
-                                <input class="form-control form-label" type="text" name="latitud" id="latitud"
-                                    [defaultValue]="coords[1]" [(ngModel)]="addressSelected.latitud"
-                                    (change)="updateMarkerLocation(addressSelected.latitud, addressSelected.longitud)" />
-                            </div>
-                            <div class="w100 d-flex justify-content-end mt-3">
-                                <span class="upload-photo" (click)="togglePhotosModal()">
-                                    Añadir fotos de la dirección
-                                </span>
-                            </div>
-                        </div>
-                        <div class="w-100 d-flex flex-column justify-content-center p-3 mt-3 border rounded">
-                            <h5 class="subtitle">Escoger localización</h5>
-                            <app-maps [ngStyle]="{'height':'330px', 'width': '100%'}"
-                                [draggabbleMarker]="true"
-                                [zoom]="18.5"
-                                ></app-maps>
-                        </div>
-                        <div class="w-100 d-flex justify-content-between mt-3">
-                            <button type="button" class="client__form-back danger-btn" [class.active]="section === 2"
-                                (click)="offAddAddressVisibility()">
-                                Regresar
-                            </button>
-                            <button type="submit" class="client__form-save search-btn" [class.active]="section === 2">
-                                Guardar dirección
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <!-- SECCION DIRECCIONES -->
-                <div class="client__addresses" [class.active]="section === 2" *ngIf="!addAddressVisibility">
-                    <h3 class="subtitle">Direcciones</h3>
-                    <ul class="client__addresses-list">
-                        <li *ngFor="let address of addresses">
-                            <span>{{ address.direccion }}</span>
-                            <div class="addresses-list__buttons">
-                                <i class="fa fa-picture-o" title="Ver fotos de dirección"
-                                    (click)="verFotosDireccion(address.id_cliente_direccion)"></i>
-                                <i class="bi bi-pencil-square" title="Editar dirección"
-                                    (click)="editarDireccion(address.id_cliente_direccion)"></i>
-                            </div>
-                        </li>
-                    </ul>
-                    <button class="search-btn align-self-end mt-auto" (click)="createAddress()">
-                        Agregar dirección
-                    </button>
-                </div>
-            </div>
-        </div>
+        <ng-template #clientsReady>
+          <ul class="search-list" *ngIf="searchList">
+            <li
+              class="search-list__element"
+              *ngFor="let client of autocompleteClients"
+              (click)="seleccionarCliente(client.id_cliente)"
+            >
+              {{ client.cliente }}
+            </li>
+          </ul>
+        </ng-template>
+        <span class="position-absolute" [ngStyle]="{ top: '10px', right: '10px' }">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </span>
+      </div>
+      <button
+        data-toggle="tooltip"
+        title="Agregar cliente"
+        type="button"
+        class="add-btn"
+        (click)="addClient()"
+        *ngIf="isClientSelected"
+      >
+        AGREGAR CLIENTE
+      </button>
     </div>
 
-    <!-- MODAL PARA SUBIR FOTOS DE UNA DIRECCIÓN DEL CLIENTE -->
-    <div class="client-modal" *ngIf="extraModal">
-        <div class="client-modal__extra">
-            <button class="client-modal__close icon-btn" (click)="togglePhotosModal()">
-                <i i class="fa fa-times"></i>
-            </button>
-            <!-- TÍTULO -->
-            <h3 class="extras-title title"> Añadir fotos de la dirección </h3>
-
-            <!-- CUERPO DEL MODAL -->
-            <div class="client-modal__extra-container mt-3">
-                <!-- IMAGEN PRINCIPAL -->
-                <div class="client-modal__extra-image">
-                    <img src="../../../../../assets/img/Placeholder1.png" alt="placeholder"
-                        *ngIf="uploadedImages.length == 0">
-                    <img [src]="mainImage" alt="imagen principal" *ngIf="uploadedImages.length !== 0">
-                </div>
-                <!-- SELECTOR DE IMÁGENES -->
-                <div class="client-modal__extra-images-selector">
-                    <div class="client-modal__extra-images" *ngFor="let image of uploadedImages; let i = index"
-                        (click)="displayImage(i)">
-                        <img [src]="image" alt="imagen miniatura">
-                    </div>
-                </div>
-                <div class="upload-buttons">
-                    <!-- BOTÓN PARA AÑADIR FOTO -->
-                    <button class="search-btn" (click)="uploadImage()">Subir imagen</button>
-                    <!-- BOTÓN PARA TOMAR FOTO -->
-                    <button class="add-btn" (click)="openWebcam()">Tomar foto</button>
-                </div>
-                <!-- WEBCAM -->
-                <div *ngIf="takingPhoto" class="webcam">
-                    <button class="webcam-close icon-btn" (click)="closeWebcam()">
-                        <i i class="fa fa-times"></i>
-                    </button>
-                    <webcam [trigger]="triggerObservable" (imageCapture)="pushPhoto($event)"></webcam>
-                    <button class="icon-btn webcam-btn" (click)="capturePhoto()"><i class="fa fa-camera"></i></button>
-                </div>
-            </div>
-
-            <!-- SECCIÓN DE BOTONES -->
-            <div class="client-modal__buttons">
-                <button class="danger-btn" (click)="togglePhotosModal()">
-                    Cancelar
-                </button>
-                <button class="search-btn" (click)="togglePhotosModal()">
-                    Guardar
-                </button>
-            </div>
+    <!-- VISTA PARA CUANDO NO SE HAN BUSCADO CLIENTES -->
+    <div class="client__form-container añadir" *ngIf="!isClientSelected">
+      <div class="client__form-tabs">
+        <!-- SELECTORES DE TABS -->
+        <div class="d-flex w-100 align-items-start">
+          <div class="tab" [class.active]="section === 1" (click)="tab(1)">
+            Ingresar datos del cliente
+          </div>
+          <div class="tab" [class.active]="section === 2" (click)="tab(2)">
+            Ingresar dirección del cliente
+          </div>
         </div>
+        <!-- FORMULARIO PARA CLIENTE -->
+        <form
+          class="w-100 form-data"
+          #clientForm="ngForm"
+          (ngSubmit)="guardarCliente(clientForm)"
+        >
+          <!-- SECCION DATOS -->
+          <div class="client__data-form row" [class.active]="section === 1">
+            <h3 class="subtitle col-12">Datos</h3>
+            <div class="client__data-form__section1 col-12 col-md-6">
+              <div class="mt-2">
+                <label for="cliente"
+                  >Cliente
+                  <span class="obligatorio" title="Este es un campo obligatorio"
+                    >*</span
+                  >
+                </label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="cliente"
+                  id="cliente"
+                  required
+                  [(ngModel)]="client.cliente"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="contacto">Contacto</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="contacto"
+                  id="contacto"
+                  [(ngModel)]="client.contacto"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="rfc">RFC</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="rfc"
+                  id="rfc"
+                  [(ngModel)]="client.rfc"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="celular">Celular</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="celular"
+                  id="celular"
+                  [(ngModel)]="client.celular"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="telefono">Teléfono</label>
+                <input
+                  class="form-control form-label"
+                  type="tel"
+                  name="telefono"
+                  id="telefono"
+                  [(ngModel)]="client.telefono"
+                />
+              </div>
+            </div>
+            <div class="client__data-form__section2 col-12 col-md-6">
+              <div class="mt-2">
+                <label for="correo">Correo</label>
+                <input
+                  class="form-control form-label"
+                  type="email"
+                  name="correo"
+                  id="correo"
+                  [(ngModel)]="client.correo"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="descuento1">Descuento 1</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="descuento1"
+                  id="descuento1"
+                  [(ngModel)]="client.descuento1"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="descuento2">Descuento 2</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="descuento2"
+                  id="descuento2"
+                  [(ngModel)]="client.descuento2"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="descuento3">Descuento 3</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="descuento3"
+                  id="descuento3"
+                  [(ngModel)]="client.descuento3"
+                />
+              </div>
+            </div>
+            <div class="w-100 d-flex justify-content-end mt-3">
+              <button
+                type="button"
+                class="client__form-next search-btn align-self-end"
+                data-toggle="tooltip"
+                title="Siguiente"
+                [class.active]="section === 1"
+                (click)="tab(2)"
+              >
+                Siguiente
+              </button>
+            </div>
+          </div>
+          <!-- SECCION DIRECCION -->
+          <div class="client__address-form row" [class.active]="section === 2">
+            <h3 class="subtitle col-12">Direcciones</h3>
+            <div class="client__address-form__section1 col-12 col-md-6">
+              <div class="mt-2">
+                <label for="descripcion">Descripción</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="descripcion"
+                  id="descripcion"
+                  [(ngModel)]="address.descripcion"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="calle"
+                  >Calle
+                  <span class="obligatorio" title="Este es un campo obligatorio"
+                    >*</span
+                  ></label
+                >
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="calle"
+                  id="calle"
+                  required
+                  [(ngModel)]="address.calle"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="numero_interior">Número interior</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="numero_interior"
+                  id="numero_interior"
+                  [(ngModel)]="address.numero_interior"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="numero_exterior">Número exterior</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="numero_exterior"
+                  id="numero_exterior"
+                  [(ngModel)]="address.numero_exterior"
+                />
+              </div>
+              <div class="row mt-2">
+                <div class="col-6">
+                  <label for="cruzamiento_uno">Cruzamiento 1</label>
+                  <input
+                    class="form-control form-label"
+                    type="text"
+                    name="cruzamiento_uno"
+                    id="cruzamiento_uno"
+                    [(ngModel)]="address.cruzamiento_uno"
+                  />
+                </div>
+                <div class="col-6">
+                  <label for="cruzamiento_dos">Cruzamiento 2</label>
+                  <input
+                    class="form-control form-label"
+                    type="text"
+                    name="cruzamiento_dos"
+                    id="cruzamiento_dos"
+                    [(ngModel)]="address.cruzamiento_dos"
+                  />
+                </div>
+              </div>
+              <div class="mt-2">
+                <label for="codigo_postal">Código Postal</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="codigo_postal"
+                  id="codigo_postal"
+                  [(ngModel)]="address.codigo_postal"
+                />
+              </div>
+              <div class="mt-2">
+                <label class="label-label" for="ruta"
+                  >Seleccionar Ruta
+                  <span class="obligatorio" title="Este es un campo obligatorio"
+                    >*</span
+                  ></label
+                >
+                <select
+                  type="text"
+                  class="form-control"
+                  title="ruta"
+                  name="ruta"
+                  placeholder="..."
+                  required
+                  [(ngModel)]="address.id_ruta"
+                >
+                  <option
+                    name="familia"
+                    value="{{ route.id_ruta }}"
+                    *ngFor="let route of routes"
+                  >
+                    {{ route.ruta }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              class="client__address-form__section2 col-12 col-md-6 justify-content-center"
+            >
+              <div class="mt-2">
+                <label for="colonia">Colonia</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="colonia"
+                  id="colonia"
+                  [(ngModel)]="address.colonia"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="localidad">Localidad</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="localidad"
+                  id="localidad"
+                  [(ngModel)]="address.localidad"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="municipio">Municipio</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="municipio"
+                  id="municipio"
+                  [(ngModel)]="address.municipio"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="estado">Estado</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="estado"
+                  id="estado"
+                  [(ngModel)]="address.estado"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="longitud"
+                  >Longitud
+                  <i
+                    *ngIf="address.longitud != '0'"
+                    class="fa fa-info-circle"
+                    title="El valor por defecto que incluye este campo proviene de tu ubicación actual."
+                  ></i
+                ></label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="longitud"
+                  id="longitud"
+                  [(ngModel)]="address.longitud"
+                  (change)="
+                    updateMarkerLocation(address.latitud, address.longitud)
+                  "
+                />
+              </div>
+              <div class="mt-2">
+                <label for="latitud"
+                  >Latitud
+                  <i
+                    *ngIf="address.longitud != '0'"
+                    class="fa fa-info-circle"
+                    title="El valor por defecto que incluye este campo proviene de tu ubicación actual."
+                  ></i
+                ></label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="latitud"
+                  id="latitud"
+                  [(ngModel)]="address.latitud"
+                  (change)="
+                    updateMarkerLocation(address.latitud, address.longitud)
+                  "
+                />
+              </div>
+              <div class="w100 d-flex justify-content-end mt-3">
+                <span class="upload-photo" (click)="togglePhotosModal()">
+                  Añadir fotos de la dirección
+                </span>
+              </div>
+            </div>
+            <div
+              class="w-100 d-flex flex-column align-items-center p-3 mt-3 border rounded"
+            >
+              <h5 class="subtitle">Escoger localización</h5>
+              <app-maps
+                [ngStyle]="{ height: '330px', width: '100%' }"
+                [draggabbleMarker]="true"
+                [zoom]="18.5"
+              ></app-maps>
+            </div>
+            <div class="w-100 d-flex justify-content-between mt-3">
+              <button
+                type="button"
+                class="client__form-back danger-btn"
+                [class.active]="section === 2"
+                (click)="tab(1)"
+              >
+                Regresar
+              </button>
+              <button
+                type="submit"
+                class="client__form-save search-btn"
+                data-toggle="tooltip"
+                title="Guardar cliente"
+                [class.active]="section === 2"
+              >
+                Guardar cliente
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+
+    <!-- VISTA DE LOS CLIENTES FILTRADOS -->
+    <div class="client__form-container mostrar" *ngIf="isClientSelected">
+      <div class="client__form-tabs">
+        <!-- SELECTORES DE TABS -->
+        <div class="d-flex w-100 align-items-start">
+          <div class="tab" [class.active]="section === 1" (click)="tab(1)">
+            Datos del cliente
+          </div>
+          <div class="tab" [class.active]="section === 2" (click)="tab(2)">
+            Direcciones del cliente
+          </div>
+        </div>
+        <!-- FORMULARIO PARA DATOS DE CLIENTE -->
+        <div
+          class="client__data-form form justify-content-center row"
+          [class.active]="section === 1"
+        >
+          <div class="w-100">
+            <h3 class="subtitle">Datos</h3>
+          </div>
+          <form
+            class="w-100 form-address row"
+            #editClientForm="ngForm"
+            (ngSubmit)="guardarCliente(editClientForm)"
+          >
+            <div class="client__data-form__section1 col-12 col-md-6">
+              <div class="mt-2">
+                <label for="cliente"
+                  >Cliente
+                  <span class="obligatorio" title="Este es un campo obligatorio"
+                    >*</span
+                  ></label
+                >
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="cliente"
+                  id="cliente"
+                  required
+                  [(ngModel)]="selectedClient.cliente"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="contacto">Contacto</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="contacto"
+                  id="contacto"
+                  [(ngModel)]="selectedClient.contacto"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="rfc">RFC</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="rfc"
+                  id="rfc"
+                  [(ngModel)]="selectedClient.rfc"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="celular">Celular</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="celular"
+                  id="celular"
+                  [(ngModel)]="selectedClient.celular"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="telefono">Teléfono</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="telefono"
+                  id="telefono"
+                  [(ngModel)]="selectedClient.telefono"
+                />
+              </div>
+            </div>
+            <div class="client__data-form__section2 col-12 col-md-6">
+              <div class="mt-2">
+                <label for="correo">Correo</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="correo"
+                  id="correo"
+                  [(ngModel)]="selectedClient.correo"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="descuento1">Descuento 1</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="descuento1"
+                  id="descuento1"
+                  [(ngModel)]="selectedClient.descuento1"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="descuento2">Descuento 2</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="descuento2"
+                  id="descuento2"
+                  [(ngModel)]="selectedClient.descuento2"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="descuento3">Descuento 3</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="descuento3"
+                  id="descuento3"
+                  [(ngModel)]="selectedClient.descuento3"
+                />
+              </div>
+            </div>
+            <div class="d-flex justify-content-end mt-3 w-100">
+              <button type="submit" class="search-btn">Guardar cliente</button>
+            </div>
+          </form>
+        </div>
+        <!-- FORMULARIO PARA EDITAR O CREAR DIRECCION -->
+        <div
+          class="client__address-form justify-content-center row"
+          [class.active]="section === 2"
+          *ngIf="addAddressVisibility"
+        >
+          <div class="w-100">
+            <h3 class="subtitle">Crear dirección</h3>
+          </div>
+          <form
+            class="w-100 form-address row"
+            #addressForm="ngForm"
+            (ngSubmit)="guardarDireccion(addressForm)"
+          >
+            <div class="client__address-form__section1 col-12 col-md-6">
+              <div class="mt-2">
+                <label for="descripcion">Descripción</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="descripcion"
+                  id="descripcion"
+                  [(ngModel)]="addressSelected.descripcion"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="calle"
+                  >Calle
+                  <span class="obligatorio" title="Este es un campo obligatorio"
+                    >*</span
+                  ></label
+                >
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="calle"
+                  id="calle"
+                  required
+                  [(ngModel)]="addressSelected.calle"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="numero_interior">Número interior</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="numero_interior"
+                  id="numero_interior"
+                  [(ngModel)]="addressSelected.numero_interior"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="numero_exterior">Número exterior</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="numero_exterior"
+                  id="numero_exterior"
+                  [(ngModel)]="addressSelected.numero_exterior"
+                />
+              </div>
+              <div class="row mt-2">
+                <div class="col-6">
+                  <label for="cruzamiento_uno">Cruzamiento 1</label>
+                  <input
+                    class="form-control form-label"
+                    type="text"
+                    name="cruzamiento_uno"
+                    id="cruzamiento_uno"
+                    [(ngModel)]="addressSelected.cruzamiento_uno"
+                  />
+                </div>
+                <div class="col-6">
+                  <label for="cruzamiento_dos">Cruzamiento 2</label>
+                  <input
+                    class="form-control form-label"
+                    type="text"
+                    name="cruzamiento_dos"
+                    id="cruzamiento_dos"
+                    [(ngModel)]="addressSelected.cruzamiento_dos"
+                  />
+                </div>
+              </div>
+              <div class="mt-2">
+                <label for="codigo_postal">Código Postal</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="codigo_postal"
+                  id="codigo_postal"
+                  [(ngModel)]="addressSelected.codigo_postal"
+                />
+              </div>
+              <div class="mt-2">
+                <label class="label-label" for="ruta"
+                  >Seleccionar Ruta
+                  <span class="obligatorio" title="Este es un campo obligatorio"
+                    >*</span
+                  ></label
+                >
+                <select
+                  type="text"
+                  class="form-control"
+                  title="ruta"
+                  name="ruta"
+                  placeholder="..."
+                  required
+                  [(ngModel)]="addressSelected.id_ruta"
+                >
+                  <option
+                    name="familia"
+                    value="{{ route.id_ruta }}"
+                    *ngFor="let route of routes"
+                  >
+                    {{ route.ruta }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="client__address-form__section2 col-12 col-md-6">
+              <div class="mt-2">
+                <label for="colonia">Colonia</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="colonia"
+                  id="colonia"
+                  [(ngModel)]="addressSelected.colonia"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="localidad">Localidad</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="localidad"
+                  id="localidad"
+                  [(ngModel)]="addressSelected.localidad"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="municipio">Municipio</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="municipio"
+                  id="municipio"
+                  [(ngModel)]="addressSelected.municipio"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="estado">Estado</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="estado"
+                  id="estado"
+                  [(ngModel)]="addressSelected.estado"
+                />
+              </div>
+              <div class="mt-2">
+                <label for="estado">Longitud</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="longitud"
+                  id="longitud"
+                  [defaultValue]="coords[0]"
+                  [(ngModel)]="addressSelected.longitud"
+                  (change)="
+                    updateMarkerLocation(
+                      addressSelected.latitud,
+                      addressSelected.longitud
+                    )
+                  "
+                />
+              </div>
+              <div class="mt-2">
+                <label for="estado">Latitud</label>
+                <input
+                  class="form-control form-label"
+                  type="text"
+                  name="latitud"
+                  id="latitud"
+                  [defaultValue]="coords[1]"
+                  [(ngModel)]="addressSelected.latitud"
+                  (change)="
+                    updateMarkerLocation(
+                      addressSelected.latitud,
+                      addressSelected.longitud
+                    )
+                  "
+                />
+              </div>
+              <div class="w100 d-flex justify-content-end mt-3">
+                <span class="upload-photo" (click)="togglePhotosModal()">
+                  Añadir fotos de la dirección
+                </span>
+              </div>
+            </div>
+            <div
+              class="w-100 d-flex flex-column justify-content-center p-3 mt-3 border rounded"
+            >
+              <h5 class="subtitle">Escoger localización</h5>
+              <app-maps
+                [ngStyle]="{ height: '330px', width: '100%' }"
+                [draggabbleMarker]="true"
+                [zoom]="18.5"
+              ></app-maps>
+            </div>
+            <div class="w-100 d-flex justify-content-between mt-3">
+              <button
+                type="button"
+                class="client__form-back danger-btn"
+                [class.active]="section === 2"
+                (click)="offAddAddressVisibility()"
+              >
+                Regresar
+              </button>
+              <button
+                type="submit"
+                class="client__form-save search-btn"
+                [class.active]="section === 2"
+              >
+                Guardar dirección
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- SECCION DIRECCIONES -->
+        <div
+          class="client__addresses"
+          [class.active]="section === 2"
+          *ngIf="!addAddressVisibility"
+        >
+          <h3 class="subtitle">Direcciones</h3>
+          <ul class="client__addresses-list">
+            <li *ngFor="let address of addresses">
+              <span>{{ address.direccion }}</span>
+              <div class="addresses-list__buttons">
+                <i
+                  class="fa fa-picture-o"
+                  title="Ver fotos de dirección"
+                  (click)="verFotosDireccion(address.id_cliente_direccion)"
+                ></i>
+                <i
+                  class="bi bi-pencil-square"
+                  title="Editar dirección"
+                  (click)="editarDireccion(address.id_cliente_direccion)"
+                ></i>
+              </div>
+            </li>
+          </ul>
+          <button
+            class="search-btn align-self-end mt-auto"
+            (click)="createAddress()"
+          >
+            Agregar dirección
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PARA SUBIR FOTOS DE UNA DIRECCIÓN DEL CLIENTE -->
+  <div class="client-modal" *ngIf="extraModal">
+    <div class="client-modal__extra">
+      <button
+        class="client-modal__close icon-btn"
+        (click)="togglePhotosModal()"
+      >
+        <i i class="fa fa-times"></i>
+      </button>
+      <!-- TÍTULO -->
+      <h3 class="extras-title title">Añadir fotos de la dirección</h3>
+
+      <!-- CUERPO DEL MODAL -->
+      <div class="client-modal__extra-container mt-3">
+        <!-- IMAGEN PRINCIPAL -->
+        <div class="client-modal__extra-image">
+          <img
+            src="../../../../../assets/img/Placeholder1.png"
+            alt="placeholder"
+            *ngIf="uploadedImages.length == 0"
+          />
+          <img
+            [src]="mainImage"
+            alt="imagen principal"
+            *ngIf="uploadedImages.length !== 0"
+          />
+        </div>
+        <!-- SELECTOR DE IMÁGENES -->
+        <div class="client-modal__extra-images-selector">
+          <div
+            class="client-modal__extra-images"
+            *ngFor="let image of uploadedImages; let i = index"
+            (click)="displayImage(i)"
+          >
+            <img [src]="image" alt="imagen miniatura" />
+          </div>
+        </div>
+        <div class="upload-buttons">
+          <!-- BOTÓN PARA AÑADIR FOTO -->
+          <button class="search-btn" (click)="uploadImage()">
+            Subir imagen
+          </button>
+          <!-- BOTÓN PARA TOMAR FOTO -->
+          <button class="add-btn" (click)="openWebcam()">Tomar foto</button>
+        </div>
+        <!-- WEBCAM -->
+        <div *ngIf="takingPhoto" class="webcam">
+          <button class="webcam-close icon-btn" (click)="closeWebcam()">
+            <i i class="fa fa-times"></i>
+          </button>
+          <webcam
+            [trigger]="triggerObservable"
+            (imageCapture)="pushPhoto($event)"
+          ></webcam>
+          <button class="icon-btn webcam-btn" (click)="capturePhoto()">
+            <i class="fa fa-camera"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- SECCIÓN DE BOTONES -->
+      <div class="client-modal__buttons">
+        <button class="danger-btn" (click)="togglePhotosModal()">
+          Cancelar
+        </button>
+        <button class="search-btn" (click)="togglePhotosModal()">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<app-addresses-photos-modal [direccionSeleccionada]="direccionSeleccionadaFotos"
-    (toggleModalPhotos)="toggleModalPhotos()" *ngIf="modalPhotos">
+<app-addresses-photos-modal
+  [direccionSeleccionada]="direccionSeleccionadaFotos"
+  (toggleModalPhotos)="toggleModalPhotos()"
+  *ngIf="modalPhotos"
+>
 </app-addresses-photos-modal>

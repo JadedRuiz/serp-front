@@ -5,206 +5,397 @@
   <div class="mt-4 container">
     <form class="row" #corteForm:ngForm (ngSubmit)="consultarCobranza()">
       <div class="col-12 form-group">
-        <div class="d-flex flex-column">
         <label for="vendedor"><b>Cliente</b></label>
-          <input class="search-input" type="text" placeholder="cliente / RFC" aria-label="Buscar cliente"
-              title="Buscar cliente" aria-describedby="button-addon2"
-              [formControl]="searchClientControl" (focus)="onFocusClientSearch()" />
+        <div class="d-flex flex-column position-relative" [ngStyle]="{width: 'min(100%, 300px)'}">
+          <input
+            class="search-input"
+            type="text"
+            placeholder="cliente / RFC"
+            aria-label="Buscar cliente"
+            title="Buscar cliente"
+            aria-describedby="button-addon2"
+            [formControl]="searchClientControl"
+            (focus)="onFocusClientSearch()"
+          />
           <div class="search-loader w-100" *ngIf="loader; else clientsReady">
-              <i class="fa fa-spinner fa-pulse"></i>
-          </div>
-          <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
-              <h4>No se encontraron clientes</h4>
+            <i class="fa fa-spinner fa-pulse"></i>
           </div>
           <ng-template #clientsReady>
-              <ul class="search-list" *ngIf="searchList">
-                  <li class="search-list__element" *ngFor="let client of autocompleteClients"
-                      (click)="seleccionarCliente(client.id_cliente)" name="cliente">
-                      {{ client.cliente }}
-                  </li>
-              </ul>
+            <ul class="search-list" *ngIf="searchList">
+              <li
+                class="search-list__element"
+                *ngFor="let client of autocompleteClients"
+                (click)="seleccionarCliente(client.id_cliente)"
+                name="cliente"
+              >
+                {{ client.cliente }}
+              </li>
+            </ul>
           </ng-template>
-      </div>
+          <span class="position-absolute" [ngStyle]="{ top: '10px', right: '10px' }">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </span>
+        </div>
       </div>
       <div class="row ml-2">
         <div class="col-md-6 form-group">
           <label for="vendedor"><b>Vendedor</b></label>
           <div class="ng-autocomplete">
-            <input  class="iv  form-control" type="text" placeholder="Busca un vendedor"
-                title="Buscar vendedor" aria-describedby="button-addon2"
-                [formControl]="searchSellerControl" (focus)="onFocusSellerSearch()" />
-            <div class="search-loader w-100" *ngIf="loaderSeller; else sellersReady">
-                <i class="fa fa-spinner fa-pulse"></i>
+            <input
+              class="iv form-control"
+              type="text"
+              placeholder="Busca un vendedor"
+              title="Buscar vendedor"
+              aria-describedby="button-addon2"
+              [formControl]="searchSellerControl"
+              (focus)="onFocusSellerSearch()"
+            />
+            <div
+              class="search-loader w-100"
+              *ngIf="loaderSeller; else sellersReady"
+            >
+              <i class="fa fa-spinner fa-pulse"></i>
             </div>
-            <div class="d-flex w-100 justify-content-center p-2 border" *ngIf="noClients">
-                <h4>No se encontraron vendedores</h4>
+            <div
+              class="d-flex w-100 justify-content-center p-2 border"
+              *ngIf="noClients"
+            >
+              <h4>No se encontraron vendedores</h4>
             </div>
             <ng-template #sellersReady>
-                <ul class="search-list" *ngIf="searchListSeller">
-                    <li class="search-list__element" *ngFor="let seller of autocompleteSellers"
-                        (click)="seleccionarVendedor(seller.id_vendedor)" name="vendedor">
-                        {{ seller.vendedor }}
-                    </li>
-                </ul>
+              <ul class="search-list" *ngIf="searchListSeller">
+                <li
+                  class="search-list__element"
+                  *ngFor="let seller of autocompleteSellers"
+                  (click)="seleccionarVendedor(seller.id_vendedor)"
+                  name="vendedor"
+                >
+                  {{ seller.vendedor }}
+                </li>
+              </ul>
             </ng-template>
+          </div>
         </div>
+        <div class="col-md-6 form-group">
+          <label for="vendedor"><b>Cobrador</b></label>
+          <input
+            class="iv form-control"
+            type="text"
+            placeholder="Nombre del cobratario"
+            title="Buscar cobrador"
+            aria-describedby="button-addon2"
+          />
         </div>
-      <div class="col-md-6  form-group">
-        <label for="vendedor"><b>Cobrador</b></label>
-        <input  class="iv  form-control" type="text" placeholder="Nombre del cobratario"
-        title="Buscar cobrador" aria-describedby="button-addon2" />
-      </div>
       </div>
 
-<div class="col-12 mb-2 ">
-  <div class="ml-2 align-items-center justify-content-center w-100">
-    <label class="mt-3 col-12 text-center "><b>Filtrar por fechas:</b></label>
-    <div class="row">
-      <div class="input-sm col-12 col-md-6 d-flex flex-column justify-content-center mt-2">
-        <label for="fechaInicio">Fecha inicial</label>
-        <input type="date" class="form-control" name="fechaInicio" [(ngModel)]="fechaInicio" >
-      </div>
-      <div class="input-sm col-12 col-md-6 d-flex flex-column justify-content-center mt-2">
-        <label for="fechaFinal">Fecha final</label>
-        <input type="date" class="form-control" name="fechaFinal" [(ngModel)]="fechaFinal">
-      </div>
-    </div>
-  </div>
-</div>
-
-<div  class=" col-12 mt-2 d-flex justify-content-center">
-  <button type="submit" class=" pt-1 pb-1 search-btn">Buscar</button>
-</div>
-
-</form>
-<hr>
-<div class="container-fluid" >
-  <h2 id="pedidos" class="subtitle"><b>Resumen</b></h2>
-  <div class="row ">
-    <div class="col">
-      <div class="card m-2" *ngFor="let cobranza of cobranzas" >
-        <div class="card-body sh">
-          <h5 class="subtitle mb-1"><b>{{cobranza.cliente}}</b></h5>
-          <h3 class="subtitle mt-0 mb-1"><b>Fecha pago: {{cobranza.fecha_pago | date: 'dd/MM/yyyy'}}</b></h3>
-          <h3 class="subtitle mt-2 mb-1">Cobratario: <b class="text-uppercase">{{cobranza.cobratario}}</b></h3>
-          <h3 class="subtitle mb-1">Importe pagado: <br><b>{{cobranza.importe_pagado | currency: '$'}}</b></h3>
-          <div class="d-flex justify-content-end mb-0">
-            <button type="button" class="general-btn btn-sm py-1 px-2"(click)="abrirModalDetallesCobranza(cobranza)">Detalles</button>
+      <div class="col-12 mb-2">
+        <div class="ml-2 align-items-center justify-content-center w-100">
+          <label class="mt-3 col-12 text-center"
+            ><b>Filtrar por fechas:</b></label
+          >
+          <div class="row">
+            <div
+              class="input-sm col-12 col-md-6 d-flex flex-column justify-content-center mt-2"
+            >
+              <label for="fechaInicio">Fecha inicial</label>
+              <input
+                type="date"
+                class="form-control"
+                name="fechaInicio"
+                [(ngModel)]="fechaInicio"
+              />
+            </div>
+            <div
+              class="input-sm col-12 col-md-6 d-flex flex-column justify-content-center mt-2"
+            >
+              <label for="fechaFinal">Fecha final</label>
+              <input
+                type="date"
+                class="form-control"
+                name="fechaFinal"
+                [(ngModel)]="fechaFinal"
+              />
+            </div>
           </div>
         </div>
       </div>
+
+      <div class="col-12 mt-2 d-flex justify-content-center">
+        <button type="submit" class="pt-1 pb-1 search-btn">Buscar</button>
+      </div>
+    </form>
+    <hr />
+    <div class="container-fluid">
+      <h2 id="pedidos" class="subtitle"><b>Resumen</b></h2>
+      <div class="row">
+        <div class="col">
+          <div class="card m-2" *ngFor="let cobranza of cobranzas">
+            <div class="card-body sh">
+              <h5 class="subtitle mb-1">
+                <b>{{ cobranza.cliente }}</b>
+              </h5>
+              <h3 class="subtitle mt-0 mb-1">
+                <b
+                  >Fecha pago:
+                  {{ cobranza.fecha_pago | date : "dd/MM/yyyy" }}</b
+                >
+              </h3>
+              <h3 class="subtitle mt-2 mb-1">
+                Cobratario:
+                <b class="text-uppercase">{{ cobranza.cobratario }}</b>
+              </h3>
+              <h3 class="subtitle mb-1">
+                Importe pagado: <br /><b>{{
+                  cobranza.importe_pagado | currency : "$"
+                }}</b>
+              </h3>
+              <div class="d-flex justify-content-end mb-0">
+                <button
+                  type="button"
+                  class="general-btn btn-sm py-1 px-2"
+                  (click)="abrirModalDetallesCobranza(cobranza)"
+                >
+                  Detalles
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
   </div>
-</div>
-</div>
 </div>
 
 <!-- Modal -->
-  <div class="modal fade" id="detalleCobranzaModal"  role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="title text-center mb-0">Detalles</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <h5 class="subtitle mb-1"><b>Cliente:</b> {{ cobranzaSeleccionada.cliente }}</h5>
-          <span><b>Fecha pago:</b> {{ cobranzaSeleccionada.fecha_pago | date: 'dd/MM/yyyy' }}</span><br>
-          <span><b>Cobratario:</b></span><span class="text-uppercase"> {{ cobranzaSeleccionada.cobratario }}</span>
-          <hr class="mt-0 mb-1">
-          <div class="row justify-content-center">
-              <!-- PAGOS -->
-            <div class="col-md-4">
-              <div>
-                <b><h4 class="subtitle">Pagos :</h4></b>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.pago_1000 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 1000 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_1000 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.pago_500 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 500 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_500 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.pago_200 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 200 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_200 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.pago_100 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 100 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_100 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.pago_50 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 50 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_50 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.pago_20 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 20 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_20 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.pago_10 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 10 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_10 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.pago_5 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 5 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_5 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.pago_2 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 2 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_2 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.pago_1 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 1 =</b><span class="resaltado">{{ cobranzaSeleccionada.pago_1 }}</span>
-              </div>
-              <div class="contenedor-alineado total">
-                <b class="titulo-pago">Total:</b><span class="resaltado">${{ pagosTotal() }}</span>
-              </div>
-              <hr class="m-0">
+<div class="modal fade" id="detalleCobranzaModal" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="title text-center mb-0">Detalles</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Cerrar"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 class="subtitle mb-1">
+          <b>Cliente:</b> {{ cobranzaSeleccionada.cliente }}
+        </h5>
+        <span
+          ><b>Fecha pago:</b>
+          {{ cobranzaSeleccionada.fecha_pago | date : "dd/MM/yyyy" }}</span
+        ><br />
+        <span><b>Cobratario:</b></span
+        ><span class="text-uppercase">
+          {{ cobranzaSeleccionada.cobratario }}</span
+        >
+        <hr class="mt-0 mb-1" />
+        <div class="row justify-content-center">
+          <!-- PAGOS -->
+          <div class="col-md-4">
+            <div>
+              <b><h4 class="subtitle">Pagos :</h4></b>
             </div>
-
-              <!-- CAMBIO -->
-            <div class="col-md-4">
-              <div>
-                <b><h4 class="subtitle">Cambio :</h4></b>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.cambio_1000 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 1000 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_1000 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.cambio_500 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 500 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_500 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.cambio_200 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 200 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_200 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.cambio_100 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 100 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_100 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.cambio_50 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 50 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_50 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.cambio_20 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 20 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_20 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.cambio_10 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 10 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_10 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.cambio_5 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 5 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_5 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.cambio_2 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 2 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_2 }}</span>
-              </div>
-              <div *ngIf="cobranzaSeleccionada.cambio_1 > 0" class="contenedor-alineado">
-                <b class="titulo-pago">De 1 =</b><span class="resaltado">{{ cobranzaSeleccionada.cambio_1 }}</span>
-              </div>
-              <div class="contenedor-alineado total">
-                <b class="titulo-pago">Total:</b><span class="resaltado">{{ cambioTotal() }} </span>
-              </div>
+            <div
+              *ngIf="cobranzaSeleccionada.pago_1000 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 1000 =</b
+              ><span class="resaltado">{{
+                cobranzaSeleccionada.pago_1000
+              }}</span>
             </div>
+            <div
+              *ngIf="cobranzaSeleccionada.pago_500 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 500 =</b
+              ><span class="resaltado">{{
+                cobranzaSeleccionada.pago_500
+              }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.pago_200 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 200 =</b
+              ><span class="resaltado">{{
+                cobranzaSeleccionada.pago_200
+              }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.pago_100 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 100 =</b
+              ><span class="resaltado">{{
+                cobranzaSeleccionada.pago_100
+              }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.pago_50 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 50 =</b
+              ><span class="resaltado">{{ cobranzaSeleccionada.pago_50 }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.pago_20 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 20 =</b
+              ><span class="resaltado">{{ cobranzaSeleccionada.pago_20 }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.pago_10 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 10 =</b
+              ><span class="resaltado">{{ cobranzaSeleccionada.pago_10 }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.pago_5 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 5 =</b
+              ><span class="resaltado">{{ cobranzaSeleccionada.pago_5 }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.pago_2 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 2 =</b
+              ><span class="resaltado">{{ cobranzaSeleccionada.pago_2 }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.pago_1 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 1 =</b
+              ><span class="resaltado">{{ cobranzaSeleccionada.pago_1 }}</span>
+            </div>
+            <div class="contenedor-alineado total">
+              <b class="titulo-pago">Total:</b
+              ><span class="resaltado">${{ pagosTotal() }}</span>
+            </div>
+            <hr class="m-0" />
           </div>
 
-
-
+          <!-- CAMBIO -->
+          <div class="col-md-4">
+            <div>
+              <b><h4 class="subtitle">Cambio :</h4></b>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.cambio_1000 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 1000 =</b
+              ><span class="resaltado">{{
+                cobranzaSeleccionada.cambio_1000
+              }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.cambio_500 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 500 =</b
+              ><span class="resaltado">{{
+                cobranzaSeleccionada.cambio_500
+              }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.cambio_200 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 200 =</b
+              ><span class="resaltado">{{
+                cobranzaSeleccionada.cambio_200
+              }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.cambio_100 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 100 =</b
+              ><span class="resaltado">{{
+                cobranzaSeleccionada.cambio_100
+              }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.cambio_50 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 50 =</b
+              ><span class="resaltado">{{
+                cobranzaSeleccionada.cambio_50
+              }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.cambio_20 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 20 =</b
+              ><span class="resaltado">{{
+                cobranzaSeleccionada.cambio_20
+              }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.cambio_10 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 10 =</b
+              ><span class="resaltado">{{
+                cobranzaSeleccionada.cambio_10
+              }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.cambio_5 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 5 =</b
+              ><span class="resaltado">{{
+                cobranzaSeleccionada.cambio_5
+              }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.cambio_2 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 2 =</b
+              ><span class="resaltado">{{
+                cobranzaSeleccionada.cambio_2
+              }}</span>
+            </div>
+            <div
+              *ngIf="cobranzaSeleccionada.cambio_1 > 0"
+              class="contenedor-alineado"
+            >
+              <b class="titulo-pago">De 1 =</b
+              ><span class="resaltado">{{
+                cobranzaSeleccionada.cambio_1
+              }}</span>
+            </div>
+            <div class="contenedor-alineado total">
+              <b class="titulo-pago">Total:</b
+              ><span class="resaltado">{{ cambioTotal() }} </span>
+            </div>
+          </div>
         </div>
-        <div class="modal-footer d-flex justify-content-between">
-          <p class="mb-0 subtitle"><b>Pagado:</b> {{ cobranzaSeleccionada.importe_pagado | currency: '$' }}</p>
-          <button type="button" class="danger-btn btn-sm" data-dismiss="modal">Cerrar</button>
-        </div>
-
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <p class="mb-0 subtitle">
+          <b>Pagado:</b>
+          {{ cobranzaSeleccionada.importe_pagado | currency : "$" }}
+        </p>
+        <button type="button" class="danger-btn btn-sm" data-dismiss="modal">
+          Cerrar
+        </button>
       </div>
     </div>
   </div>
+</div>
