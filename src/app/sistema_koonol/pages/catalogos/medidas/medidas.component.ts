@@ -137,6 +137,7 @@ export class MedidasComponent {
 
   }
 
+  
 
   //Activo
   routeIsActive: boolean = false;

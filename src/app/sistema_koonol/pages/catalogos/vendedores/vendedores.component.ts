@@ -72,7 +72,7 @@ export class VendedoresComponent {
   isSellerSelected: boolean = false;
   sellers: Vendedor[] = [];
 
-  //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE
+  //FUNCION PARA HACER BÚSQUEDA DE VENDEDOR POR NOMBRE
   buscarVendedor(value: string) {
     let json = {
       id_vendedor: 0,
@@ -131,7 +131,7 @@ export class VendedoresComponent {
 
   //Activa campos para agregar nuevo Vendedor
   cargarCampos() {
-    this.vendedor = new Vendedor(0, 1, '', '', 1, 1);
+    this.vendedor = new Vendedor(0, 1, '', '', 1, 1,'usuario',0);
     this.searchSellerControl.setValue('');
     this.activarCampos();
   }
