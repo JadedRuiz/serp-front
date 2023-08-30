@@ -1,6 +1,7 @@
 import { Foto } from "./fotografias.model";
 
-export class Product {
+export class
+Product {
   constructor (
     public id_articulo:number,
     public id_comprador:number,
