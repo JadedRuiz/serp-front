@@ -65,7 +65,7 @@ import { MedidasComponent } from './medidas/medidas.component';
     MapsComponent,
     PuntoDeVentaComponent,
     BitacoraVisitasComponent,
-    MedidasComponent
+    MedidasComponent,
   ],
   imports: [
     CommonModule,
