@@ -29,69 +29,75 @@ export class UsuariosComponent implements OnInit {
       private usuarioService: UsuariosService,
       private almacenService: AlmacenService,
       private imageCompress: NgxImageCompressService,
-   ) {}
+   ) { }
 
    ngOnInit() {
       this.obtenerAlmacenes()
       this.obtenerPerfiles()
-    }
+   }
 
-    //COSAS DE ALMACENES
-    almacenes: Almacen[] = [];
-    almacenesSeleccionados: any[] = [];
+   //COSAS DE ALMACENES
+   almacenes: Almacen[] = [];
+   almacenesSeleccionados: any[] = [];
 
-    obtenerAlmacenes() {
+   obtenerAlmacenes() {
       let json = {
-        id_almacen: 0,
-        id_comprador: 1,
-        almacen: '',
-        solo_activos: 1,
-        token: this.miToken,
+         id_almacen: 0,
+         id_comprador: 1,
+         almacen: '',
+         solo_activos: 1,
+         token: this.miToken,
       };
       this.almacenService.obtenerAlmacenes(json).subscribe((objeto) => {
-        this.almacenes = objeto.data.map((almacen:any) => ({ ...almacen, selected: false }));
-       // console.log('this.almacenes :>> ', this.almacenes);
-        });
+         this.almacenes = objeto.data.map((almacen: any) => ({ ...almacen, selected: false }));
+         // console.log('this.almacenes :>> ', this.almacenes);
+      });
    }
 
 
 
-//COSAS PARA PERFILES
-perfiles : Perfil [] =[];
+   //COSAS PARA PERFILES
+   perfiles: Perfil[] = [];
 
-obtenerPerfiles(){
- let  json = {
-    id_perfil: 0,
-    perfil: '',
-    token: this.miToken,
-  };
-this.perfilService.obtenerPerfil(json).subscribe(
-  (resp) => {
-      if (resp.ok) {
-         this.perfiles = resp.data;
-      } else {
-         Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Error',
-            text: 'Ha ocurrido un error',
-         });
-      }
-    }
-  );
-}
-
-
+   obtenerPerfiles() {
+      let json = {
+         id_perfil: 0,
+         perfil: '',
+         token: this.miToken,
+      };
+      this.perfilService.obtenerPerfil(json).subscribe(
+         (resp) => {
+            if (resp.ok) {
+               this.perfiles = resp.data;
+            } else {
+               Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Error',
+                  text: 'Ha ocurrido un error',
+               });
+            }
+         }
+      );
+   }
 
    getSelectedOptions() {
       this.almacenesSeleccionados = this.almacenes.filter(almacen => almacen.selected);
-      console.log('Opciones seleccionadas:', this.almacenesSeleccionados);
-    }
+      this.almacenesSeleccionados.forEach(almacen => {
+         this.usuario.almacenes.push({
+            id_usuario_almacen: 0,
+            id_almacen: almacen.id_almacen,
+            id_comprador: almacen.id_comprador
+         })
+      })
+      console.log(this.usuario);
+      this.usuario.almacenes
+   }
 
    //COSAS DE USUARIOS
    usuarios: Usuario[] = [];
    autocompleteUsuario: Usuario[] = [];
-   usuario: Usuario = new Usuario(0, 1, this.miToken, '', '', '',1,1,1,0,'','',0,[]);
+   usuario: Usuario = new Usuario(0, 1, this.miToken, '', '', '', 1, 1, 1, 0, '', '', 0, []);
    status: boolean = false;
 
    @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
@@ -193,14 +199,14 @@ this.perfilService.obtenerPerfil(json).subscribe(
 
    //Activa campos para agregar nuevo Usuario
    cargarCampos() {
-      this.usuario = new Usuario(0, 1, this.miToken, '', '', '',1,1,1,0,'','',0,[]);
+      this.usuario = new Usuario(0, 1, this.miToken, '', '', '', 1, 1, 1, 0, '', '', 0, []);
       this.searchUserControl.setValue('');
       this.activarCampos();
    }
 
    //Guarda Usuario =>
    guardarUsuario(usuarioForm: NgForm) {
-    console.log('=>',this.usuario);
+      console.log('=>', this.usuario);
       if (usuarioForm.invalid) {
          return;
       }

@@ -54,28 +54,39 @@
                <!-- CUERPO DEL MODAL -->
                <div class="d-flex flex-column justify-content-start w-100 mb-3">
                   <span><b>Cliente:</b> {{pedidoSeleccionado.cliente}} </span>
-                  <span><b>Observaciones: </b>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, porro rem ratione quam animi repellendus ad doloremque, suscipit dolorem soluta iure veritatis?</span>
+                  <span><b>Observaciones: </b>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, porro
+                     rem ratione quam animi repellendus ad doloremque, suscipit dolorem soluta iure veritatis?</span>
                </div>
-               <div class="table-custom mb-2" #cotizacion>
-                  <div class="d-flex table-head">
-                     <div class="col-3 text-center">Artículo</div>
-                     <div class="col-3 text-center">Cantidad</div>
-                     <div class="col-3 text-center">Precio unitario</div>
-                     <div class="col-3 text-center">Precio total</div>
+               <div class="cotizacion" [ngStyle]="{width: '100%'}" #cotizacion>
+                  <div class="table-custom mb-2" [ngStyle]="{border: '0.1px solid grey'}">
+                     <div class="d-flex table-head" [ngStyle]="{border: '0.1px solid grey'}">
+                        <div class="col-3 text-center">Artículo</div>
+                        <div class="col-3 text-center">Cantidad</div>
+                        <div class="col-3 text-center">Precio unitario</div>
+                        <div class="col-3 text-center">Precio total</div>
+                     </div>
+                     <div class="d-flex table-body" *ngFor="let articulo of articulosPedido">
+                        <div class="col-3"
+                           [ngStyle]="{border: '0.1px solid grey', display: 'flex', 'align-items': 'center'}">
+                           {{articulo.articulo}} {{articulo.medida}} </div>
+                        <div class="col-3"
+                           [ngStyle]="{border: '0.1px solid grey', display: 'flex', 'justify-content': 'center', 'align-items': 'center'}">
+                           {{articulo.cantidad_solicitada}}</div>
+                        <div class="col-3"
+                           [ngStyle]="{border: '0.1px solid grey', display: 'flex', 'justify-content': 'center', 'align-items': 'center'}">
+                           ${{(articulo.precio_total / articulo.cantidad_solicitada)}} </div>
+                        <div class="col-3"
+                           [ngStyle]="{border: '0.1px solid grey', display: 'flex', 'justify-content': 'center', 'align-items': 'center'}">
+                           ${{articulo.precio_total}}</div>
+                     </div>
                   </div>
-                  <div class="d-flex table-body" *ngFor="let articulo of articulosPedido">
-                     <div class="col-3">{{articulo.articulo}} {{articulo.medida}} </div>
-                     <div class="col-3">{{articulo.cantidad_solicitada}}</div>
-                     <div class="col-3">${{(articulo.precio_total / articulo.cantidad_solicitada)}} </div>
-                     <div class="col-3">${{articulo.precio_total}}</div>
+                  <div class="d-flex justify-content-between w-100 mt-auto">
+                     <span><b>Total:</b></span>
+                     <span>${{pedidoSeleccionado.precio_total}}</span>
                   </div>
-               </div>
-               <div class="d-flex justify-content-between w-100 mt-auto">
-                  <span><b>Total:</b></span>
-                  <span>${{pedidoSeleccionado.precio_total}}</span>
                </div>
                <!-- BOTONES -->
-               <div class="orders-placed__buttons mt-4">
+               <div class="orders-placed__buttons mt-auto">
                   <button class="search-btn" (click)="openEditOrderVisibility()">Editar</button>
                   <button class="danger-btn" (click)="generarPdfCotizacion()">Ver cotización</button>
                   <button class="general-btn" (click)="toggleModalVisibility()">De acuerdo</button>

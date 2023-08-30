@@ -151,10 +151,14 @@ $title-font-size-desktop: 20px;
         right: 10px;
     }
 
+    .cotizacion {
+        max-height: 320px;
+    }
+
     .table-custom {
         border: 1px solid rgba(0, 0, 0, 0.100);
         border-radius: 10px;
-        max-height: 300px;
+        max-height: 80%;
         overflow-y: auto;
         width: 100%;
 
@@ -171,7 +175,6 @@ $title-font-size-desktop: 20px;
         .table-body {
 
             .col-3 {
-                border: 0.5px solid rgba(0, 0, 0, 0.100);
                 display: flex;
                 align-items: center;
                 justify-content: center;
