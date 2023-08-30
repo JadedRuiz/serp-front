@@ -36,6 +36,7 @@ import { MapsComponent } from './maps/maps.component';
 import { PuntoDeVentaComponent } from './punto-de-venta/punto-de-venta.component';
 import { BitacoraVisitasComponent } from './bitacora-visitas/bitacora-visitas.component';
 import { MedidasComponent } from './medidas/medidas.component';
+import { CotizacionComponent } from './cotizacion/cotizacion.component';
 
 
 
@@ -65,7 +66,8 @@ import { MedidasComponent } from './medidas/medidas.component';
     MapsComponent,
     PuntoDeVentaComponent,
     BitacoraVisitasComponent,
-    MedidasComponent
+    MedidasComponent,
+    CotizacionComponent
   ],
   imports: [
     CommonModule,

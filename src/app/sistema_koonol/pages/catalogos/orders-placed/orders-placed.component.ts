@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import jsPDF from 'jspdf';
 import { ArticuloFinal } from 'src/app/models/articulofinal.model';
 import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
 
@@ -45,6 +46,7 @@ export class OrdersPlacedComponent {
 
    seleccionarPedido(id_pedido: number) {
       this.pedidoSeleccionado = this.pedidos.find(pedidos => pedidos.id_pedido == id_pedido)
+      console.log(this.pedidoSeleccionado);
       this.buscarPedido(id_pedido)
       this.toggleModalVisibility()
    }
@@ -145,5 +147,17 @@ export class OrdersPlacedComponent {
    //   }
    //   this.getSubtotal()
    // }
+
+  @ViewChild('cotizacion', {static: false}) cotizacion!:ElementRef
+
+   generarPdfCotizacion() {
+      const cotizacion = new jsPDF();
+
+      // cotizacion.html(this.cotizacion.nativeElement, {
+      //   callback: (pdf) => {
+      //     pdf.save(`Cotización para ${this.pedidoSeleccionado.cliente}`);
+      //   }
+      // })
+   }
 
 }

@@ -33,6 +33,7 @@
     "fontawesome-4.7": "^4.7.0",
     "image-compressor": "^2.0.3",
     "jquery": "^3.7.0",
+    "jspdf": "^2.5.1",
     "moment": "^2.29.4",
     "ngx-bootstrap": "^10.2.0",
     "ngx-datepicker": "^0.0.0",
