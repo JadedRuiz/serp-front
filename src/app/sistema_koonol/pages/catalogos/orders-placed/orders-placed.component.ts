@@ -28,20 +28,24 @@ miToken = this.dataStorage.token;   constructor(
    ) { }
 
    ngOnInit() {
+     this.obtenerPedidos();
     this.searchClientControl.valueChanges
     .pipe(debounceTime(500))
     .subscribe((value) => {
       this.buscarCliente(value);
     });
-      this.obtenerPedidos()
-   }
+  }
 
+
+   i= true;
    obtenerPedidos() {
+
       this.pedidosRealizados.obtenerPedidos().subscribe(
          (response) => {
             this.pedidos = response.data
          }
       )
+
    }
 
    seleccionarPedido(id_pedido: number) {
