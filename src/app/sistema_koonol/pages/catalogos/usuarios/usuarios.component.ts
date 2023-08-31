@@ -301,8 +301,8 @@ export class UsuariosComponent implements OnInit {
 
    //Función para subir fotografía desde el dispositivo
    uploadImage() {
-      if (this.uploadedImages.length >= 4) {
-         alert('Solo se pueden subir un máximo de 4 imágenes');
+      if (this.uploadedImages.length >= 1) {
+         alert('Solo se pueden subir una imagen de perfil');
          return;
       }
 
@@ -325,8 +325,8 @@ export class UsuariosComponent implements OnInit {
 
    //Fucnión para abrir la cámara
    openWebcam() {
-      if (this.uploadedImages.length >= 4) {
-         alert('Solo se pueden subir un máximo de 4 imágenes');
+      if (this.uploadedImages.length >= 1) {
+         alert('Solo se pueden subir una imagen de perfil');
          return;
       }
       this.takingPhoto = true;
