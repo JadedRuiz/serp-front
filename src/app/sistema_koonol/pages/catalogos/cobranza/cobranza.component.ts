@@ -209,9 +209,6 @@ export class CobranzaComponent implements OnInit {
   }
 
 
-
-
-
   // Precio
   PrecioDinamico() {
     this.totalDinamico =

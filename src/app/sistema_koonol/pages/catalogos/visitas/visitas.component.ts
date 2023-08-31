@@ -23,6 +23,8 @@ import { PedidoGuardar } from 'src/app/models/pedidoguardar.model';
 export class VisitasComponent implements OnInit {
   //LOCAL
   dataStorage: any = JSON.parse(localStorage.getItem('dataPage')!)
+  dataLogin = JSON.parse(localStorage.getItem("dataLogin")+"");
+
   miToken = this.dataStorage.token;
   miUsuario = this.dataStorage.id_usuario;
   miAlmacen = this.dataStorage.id_almacen;
@@ -32,7 +34,7 @@ export class VisitasComponent implements OnInit {
 
 
   visitas: VisitasDTO[] = [];
-  vendedorActual: any;
+  vendedorActual=  this.dataLogin.nombre;
   pedidoFinal: PedidoGuardar = new PedidoGuardar(0, 1, 0, 0, 'TOKEN', '', '', 1, [], 0, 0);
 
 
@@ -128,7 +130,7 @@ export class VisitasComponent implements OnInit {
       if (resp.ok) {
         this.visitas = resp.data;
         if (this.visitas.length > 0) {
-          this.vendedorActual = this.visitas[0].vendedor; // Corregimos el nombre
+         // this.vendedorActual = this.visitas[0].vendedor; // Corregimos el nombre
         }
       } else {
         Swal.fire({
