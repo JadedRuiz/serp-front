@@ -24,20 +24,32 @@
       </div>
       <div class="sidebar-menu">
         <ul>
-          <li class="header-menu">
-            <span>General</span>
-          </li>
-          <li>
-            <a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/']">
-              <i class="fa fa-home" aria-hidden="true"></i>
-              <span>Inicio</span>
+          <li *ngFor="let opcion of menu" [ngClass]="{'header-menu' : opcion.hijos.length == 0,'sidebar-dropdown' : opcion.hijos.length > 0}">
+            <a *ngIf="opcion.hijos.length == 0" style="cursor: pointer;" [routerLink]="[opcion.link]" >
+              <i class="{{opcion.ico}}" aria-hidden="true"></i>
+              <span>{{opcion.modulo}}</span>
+              <span *ngIf="opcion.alert" class="badge badge-pill badge-primary">{{opcion.alert_msg}}</span>
             </a>
+            <a *ngIf="opcion.hijos.length > 0" class="{{opcion.clave}}" (click)="abrirOpcion(opcion.clave)" style="cursor: pointer;">
+              <i class="{{opcion.ico}}" aria-hidden="true"></i>
+              <span>{{opcion.modulo}}</span>
+              <span class="badge badge-pill badge-info">{{opcion.hijos.length}}</span>
+            </a>
+            <div *ngIf="opcion.hijos.length > 0" class="sidebar-submenu">
+              <ul (click)="pantallaChica ? accionMenu() : null" (click)="habilitarClickFuera()">
+                <li *ngFor="let hijo of opcion.hijos" style="list-style-type: none;">
+                  <i class="{{opcion.ico}}" aria-hidden="true"></i>
+                  <a style="cursor: pointer;" [routerLink]="[opcion.link]">
+                  {{hijo.modulo}}</a>
+                </li>
+              </ul>
+            </div>
           </li>
-          <li class="sidebar-dropdown">
+          <!-- <li class="sidebar-dropdown">
             <a class="item2" (click)="abrirOpcion('item2')" style="cursor: pointer;">
               <i class="fa fa-th-large" aria-hidden="true"></i>
               <span>Catálogos</span>
-              <!-- <span class="badge badge-pill badge-danger">3</span> -->
+              <span class="badge badge-pill badge-danger">3</span>
             </a>
             <div class="sidebar-submenu">
               <ul (click)="pantallaChica ? accionMenu() : null" (click)="habilitarClickFuera()">
@@ -71,8 +83,8 @@
                     Medidas</a></li>
               </ul>
             </div>
-          </li>
-          <li class="sidebar-dropdown">
+          </li> -->
+          <!-- <li class="sidebar-dropdown">
             <a class="item4" (click)="abrirOpcion('item4')" style="cursor: pointer;">
               <i class="fa fa-book" aria-hidden="true"></i>
               <span>Procesos</span>
@@ -101,17 +113,16 @@
                 </li>
               </ul>
             </div>
-          </li>
-          <li class="header-menu">
+          </li> -->
+          <!-- <li class="header-menu">
             <span>Extra</span>
-          </li>
-          <li>
+          </li> -->
+          <!-- <li>
             <a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/ventas']">
               <i class="fa fa-shopping-cart"></i>
               <span>Punto de venta</span>
-              <span class="badge badge-pill badge-primary">V-Pro</span>
             </a>
-          </li>
+          </li> -->
           <!-- <li>
               <a href="#">
               <i class="fa fa-calendar"></i>
