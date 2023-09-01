@@ -47,7 +47,7 @@ const routes: Routes = [
     component: ClientsComponent
   },
   {
-    path: 'buscador',
+    path: 'familias',
     component: SearchFamComponent
   },
   {

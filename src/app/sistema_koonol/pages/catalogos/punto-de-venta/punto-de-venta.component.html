@@ -1,18 +1,33 @@
-<div>
+<div [ngStyle]="{height: '100vh'}">
   <!-- HEADER -->
-  <header class="d-flex justify-content-center">
-    <h2 class="title">Punto de Venta</h2>
-  </header>
-  <!-- INFO -->
-  <section class="w-100">
-    <p class="subtitle">Información</p>
-    <div class="row">
-      <section class="col-3" [ngStyle]="{'border-right': '1px solid grey'}">Caja</section>
-      <section class="col-3" [ngStyle]="{'border-right': '1px solid grey'}">Nombre</section>
-      <section class="col-3">Fecha</section>
-      <section class="col-3">Comandos</section>
+  <header class="d-flex justify-content-center" [ngStyle]="{'background-color': 'ghostwhite'}">
+    <div class="row w-100 position-relative">
+      <section class="col-12 col-md-4" [ngStyle]="{'border-right': '1px solid grey'}">Caja</section>
+      <section class="col-12 col-md-4" [ngStyle]="{'border-right': '1px solid grey'}">Nombre</section>
+      <section class="col-12 col-md-4">Fecha</section>
+      <section class="atajos">
+        <div class="position-relative">
+          <span class="atajos-icono"><i
+              class="fa fa-question-circle" [ngStyle]="{color: 'steelblue'}"></i></span>
+          <div class="atajos-info">
+            <h4 class="subtitle mb-2 font-weight-bold">Atajos</h4>
+            <ul>
+              <li><b>F1</b> Hace algo</li>
+              <li><b>F2</b> Hace algo</li>
+              <li><b>F3</b> Hace algo</li>
+              <li><b>F4</b> Hace algo</li>
+              <li><b>F5</b> Hace algo</li>
+              <li><b>F6</b> Hace algo</li>
+              <li><b>F7</b> Hace algo</li>
+              <li><b>F8</b> Hace algo</li>
+              <li><b>F9</b> Hace algo</li>
+              <li><b>F10</b> Hace algo</li>
+            </ul>
+          </div>
+        </div>
+      </section>
     </div>
-  </section>
+  </header>
   <!-- CONTENIDO DEL PUNTO DE VENTA -->
   <div class="point-of-sale">
     <div class="row">
