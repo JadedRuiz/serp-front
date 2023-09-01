@@ -81,7 +81,6 @@ export class BaseLoggedComponent implements OnInit {
         }
       });
     });
-    console.log(this.menu);
   }
 
   clickFuera(event: MouseEvent) {
