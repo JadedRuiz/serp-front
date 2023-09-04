@@ -1,14 +1,15 @@
 <div [ngStyle]="{height: '100vh'}">
   <!-- HEADER -->
-  <header class="d-flex justify-content-center" [ngStyle]="{'background-color': 'ghostwhite'}">
+  <header class="d-flex justify-content-center" [ngStyle]="{'background-color': 'ghostwhite', height: '7vh'}">
     <div class="row w-100 position-relative">
-      <section class="col-12 col-md-4" [ngStyle]="{'border-right': '1px solid grey'}">Caja</section>
-      <section class="col-12 col-md-4" [ngStyle]="{'border-right': '1px solid grey'}">Nombre</section>
-      <section class="col-12 col-md-4">Fecha</section>
+      <section class="col-12 col-md-4 d-flex align-items-center" [ngStyle]="{'border-right': '1px solid grey'}">Caja</section>
+      <section class="col-12 col-md-4 d-flex align-items-center" [ngStyle]="{'border-right': '1px solid grey'}">Nombre</section>
+      <section class="col-12 col-md-4 d-flex align-items-center">Fecha</section>
+
+      <!-- ATAJOS -->
       <section class="atajos">
         <div class="position-relative">
-          <span class="atajos-icono"><i
-              class="fa fa-question-circle" [ngStyle]="{color: 'steelblue'}"></i></span>
+          <span class="atajos-icono"><i class="fa fa-question-circle" [ngStyle]="{color: 'steelblue', 'font-size': '20px'}"></i></span>
           <div class="atajos-info">
             <h4 class="subtitle mb-2 font-weight-bold">Atajos</h4>
             <ul>
@@ -29,8 +30,8 @@
     </div>
   </header>
   <!-- CONTENIDO DEL PUNTO DE VENTA -->
-  <div class="point-of-sale">
-    <div class="row">
+  <div class="point-of-sale" [ngStyle]="{height: '90vh'}">
+    <div class="row" [ngStyle]="{height: '70vh'}">
       <div class="col-md-8">
         <!-- Lista de productos disponibles -->
         <div class="product-list">
@@ -62,8 +63,8 @@
           </div>
         </div>
       </div>
+      <!-- Resumen de la Compra -->
       <div class="col-md-4">
-        <!-- Resumen de la Compra -->
         <div class="cart full-height">
           <h2 class="cart-title">Carrito de Compras</h2>
           <table class="table cart-table">
@@ -91,6 +92,18 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="row border radius w-100 p-3" [ngStyle]="{height: '16vh', 'margin-top': '3vh'}">
+      <h3 class="col-12 text-center font-weight-bold">Evidente</h3>
+      <section class="d-flex col-8" [ngStyle]="{gap: '5px'}">
+        <span class="p-2 border">P#</span>
+        <span class="p-2 border">Subtotal</span>
+        <span class="p-2 border">Descuento</span>
+        <span class="p-2 border">IVA</span>
+      </section> 
+      <section class="border p-3 col-4">
+        <h3 class="subtitle">Total: $1000</h3>
+      </section>
     </div>
   </div>
 </div>

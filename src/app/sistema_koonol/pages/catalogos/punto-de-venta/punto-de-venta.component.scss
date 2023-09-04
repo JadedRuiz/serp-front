@@ -60,7 +60,7 @@
 }
 
 .point-of-sale {
-  margin-top: 1.5rem;
+  margin-top: 3vh;
 
   .cart {
     border: 1px solid #ccc;
@@ -96,9 +96,9 @@
   }
 }
 
-.full-height {
-  height: calc(85vh - 40px);
-  /* 40px para el padding vertical */
-  overflow-y: auto;
-  /* Agrega scroll si es necesario */
-}
+// .full-height {
+//   height: calc(85vh - 40px);
+//   /* 40px para el padding vertical */
+//   overflow-y: auto;
+//   /* Agrega scroll si es necesario */
+// }
