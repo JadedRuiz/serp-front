@@ -31,6 +31,7 @@
   </header>
   <!-- CONTENIDO DEL PUNTO DE VENTA -->
   <div class="point-of-sale" [ngStyle]="{height: '90vh'}">
+    <!-- SECCIÓN PRINCIPAL -->
     <div class="row" [ngStyle]="{height: '70vh'}">
       <div class="col-md-8">
         <!-- Lista de productos disponibles -->
@@ -67,7 +68,7 @@
       <div class="col-md-4">
         <div class="cart full-height">
           <h2 class="cart-title">Carrito de Compras</h2>
-          <table class="table cart-table">
+          <table class="table cart-table" [ngStyle]="{height: '70%'}">
             <thead>
               <tr>
                 <th>Producto</th>
@@ -76,7 +77,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of cartItems">
+              <tr *ngFor="let item of cartItems" [ngStyle]="{'max-height': '30px'}">
                 <td>{{ item.productName }}</td>
                 <td>{{ item.quantity }}</td>
                 <td>{{ item.quantity * item.price | currency: 'MX' }}</td>
