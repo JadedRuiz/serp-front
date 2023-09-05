@@ -29,7 +29,7 @@
               <img *ngIf="item.imagenes.length > 0" [src]="item.imagenes[0].fotografia" alt="imagen de un producto" />
             </div>
             <section class="cart__product-info">
-              <h2>{{ item.articulo}}</h2>
+              <h2 [ngStyle]="{'max-height': '35px', overflow: 'hidden'}">{{ item.articulo}}</h2>
               <h4>{{ item.familia }}</h4>
               <section class="quantity-box">
                 <i class="fa fa-minus-circle btn-decrease" (click)="decreaseItemQuantity(item)"></i>
