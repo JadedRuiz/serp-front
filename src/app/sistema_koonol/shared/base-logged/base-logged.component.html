@@ -29,19 +29,19 @@
             <a *ngIf="opcion.hijos.length == 0" style="cursor: pointer;" [routerLink]="[opcion.link]">
               <i class="{{opcion.ico}}" aria-hidden="true"></i>
               <span>{{opcion.modulo}}</span>
-              <span *ngIf="opcion.alert" class="badge badge-pill badge-primary">{{opcion.alert_msg}}</span>
+              <span *ngIf="opcion.alert" >{{opcion.alert_msg}}</span>
             </a>
             <a *ngIf="opcion.hijos.length > 0" class="{{opcion.clave}}" (click)="abrirOpcion(opcion.clave)"
               style="cursor: pointer;">
               <i class="{{opcion.ico}}" aria-hidden="true"></i>
               <span>{{opcion.modulo}}</span>
-              <span class="badge badge-pill badge-info">{{opcion.hijos.length}}</span>
+              <!-- <span class="badge badge-pill badge-info">{{opcion.hijos.length}}</span> -->
             </a>
             <div *ngIf="opcion.hijos.length > 0" class="sidebar-submenu">
               <ul (click)="pantallaChica ? accionMenu() : null" (click)="habilitarClickFuera()">
-                <li *ngFor="let hijo of opcion.hijos" style="list-style-type: none;">
-                  <i class="{{opcion.ico}}" aria-hidden="true"></i>
-                  <a style="cursor: pointer;" [routerLink]="[hijo.link]">
+                <li class="d-flex  align-items-center" *ngFor="let hijo of opcion.hijos" style="list-style-type: none;">
+                  <i class="im fa fa-chevron-circle-right" aria-hidden="true"></i>
+                  <a class="p-2" style="cursor: pointer;" [routerLink]="[hijo.link]">
                     {{hijo.modulo}}</a>
                 </li>
               </ul>
