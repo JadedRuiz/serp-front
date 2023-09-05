@@ -96,9 +96,8 @@
   }
 }
 
-// .full-height {
-//   height: calc(85vh - 40px);
-//   /* 40px para el padding vertical */
-//   overflow-y: auto;
-//   /* Agrega scroll si es necesario */
-// }
+.full-height {
+  height: 100%;
+  /* 40px para el padding vertical */
+  /* Agrega scroll si es necesario */
+}
