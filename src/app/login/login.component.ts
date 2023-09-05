@@ -44,6 +44,7 @@ export class LoginComponent {
         Swal.fire('Bien hecho','Te has logueado correctamente, redireccionando ...');
         localStorage.setItem("dataLogin", JSON.stringify(resp.data[0]));
         this.router.navigate(["sis_koonol/catalogos"]);
+        console.log(resp.data);
       }else{
         Notiflix.Block.remove(".form_login");
         Notiflix.Notify.warning(resp.message);

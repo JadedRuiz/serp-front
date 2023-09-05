@@ -38,6 +38,7 @@ const routes: Routes = [
     path: 'pedidos-realizados',
     component: OrdersPlacedComponent
   },
+
   {
     path: 'ordenes',
     component: OrdenesDeCompraComponent

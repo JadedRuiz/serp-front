@@ -63,7 +63,6 @@ export class BaseLoggedComponent implements OnInit {
       this.clickFueraHabilitado = true;
     }
     this.habilitarClickFuera()
-
   }
 
   cargaMenu(){

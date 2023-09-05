@@ -41,7 +41,7 @@
               <ul (click)="pantallaChica ? accionMenu() : null" (click)="habilitarClickFuera()">
                 <li *ngFor="let hijo of opcion.hijos" style="list-style-type: none;">
                   <i class="{{opcion.ico}}" aria-hidden="true"></i>
-                  <a style="cursor: pointer;" [routerLink]="[opcion.link]">
+                  <a style="cursor: pointer;" [routerLink]="[hijo.link]">
                     {{hijo.modulo}}</a>
                 </li>
               </ul>
