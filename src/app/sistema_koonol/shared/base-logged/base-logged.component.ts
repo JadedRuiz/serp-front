@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { Perfil } from 'src/app/models/perfil.model';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -44,7 +45,7 @@ export class BaseLoggedComponent implements OnInit {
   bandMenu = true;
   id_usuario = this.dataLogin.id_usuario;
   img_user = this.dataLogin.foto != "" ? this.dataLogin.foto : "https://cdn-icons-png.flaticon.com/512/149/149071.png";
-
+  menu : any;
   //#endregion
 
   constructor(private location: Location,
@@ -54,7 +55,7 @@ export class BaseLoggedComponent implements OnInit {
   pantallaChica: boolean = false;
   tamañoPantalla: number = window.screen.width;
   ngOnInit() {
-    console.log(this.dataLogin);
+    this.cargaMenu();
     if (this.tamañoPantalla < 768) {
       this.pantallaChica = true;
       $('.chiller-theme').removeClass('toggled');
@@ -62,6 +63,24 @@ export class BaseLoggedComponent implements OnInit {
       this.clickFueraHabilitado = true;
     }
     this.habilitarClickFuera()
+
+  }
+
+  cargaMenu(){
+    this.menu = [];
+    this.dataLogin.permisos.forEach((element : any) => {
+      if(element.estitulo == 1){
+        element.hijos = [];
+        this.menu.push(element);
+      }
+    });
+    this.dataLogin.permisos.forEach((element : any) => {
+      this.menu.forEach((menu : any) => {
+        if(menu.clave.substring(-4,3) == element.clave.substring(-4,3)){
+          menu.hijos.push(element);
+        }
+      });
+    });
   }
 
   clickFuera(event: MouseEvent) {

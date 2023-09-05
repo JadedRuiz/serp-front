@@ -1,65 +1,109 @@
-<h2 class="title text-center">Punto de venta</h2>
-    <!-- Contenido del Punto de Venta -->
-    <div class="point-of-sale">
-      <div class="row">
-        <div class="col-md-8">
-          <!-- Lista de productos disponibles -->
-          <div class="product-list">
-            <table class="table product-table">
-              <thead>
-                <tr>
-                  <th>Cancelar</th>
-                  <th>Código</th>
-                  <th>Nombre</th>
-                  <th>Precio</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let product of products">
-                  <td><button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></td>
-                  <td>{{ product.price }}</td>
-                  <td>{{ product.name }}</td>
-                  <td>{{ product.price | currency: 'MX' }}</td>
+<div [ngStyle]="{height: '100vh'}">
+  <!-- HEADER -->
+  <header class="d-flex justify-content-center" [ngStyle]="{'background-color': 'ghostwhite', height: '7vh'}">
+    <div class="row w-100 position-relative">
+      <section class="col-12 col-md-4 d-flex align-items-center" [ngStyle]="{'border-right': '1px solid grey'}">Caja</section>
+      <section class="col-12 col-md-4 d-flex align-items-center" [ngStyle]="{'border-right': '1px solid grey'}">Nombre</section>
+      <section class="col-12 col-md-4 d-flex align-items-center">Fecha</section>
 
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="input-group d-flex align-items-end">
-            <input type="text" class="form-control" placeholder="Producto" >
-            <div class="input-group-append">
-              <button class="btn btn-outline-primary" type="button">Agregar</button>
-            </div>
+      <!-- ATAJOS -->
+      <section class="atajos">
+        <div class="position-relative">
+          <span class="atajos-icono"><i class="fa fa-question-circle" [ngStyle]="{color: 'steelblue', 'font-size': '20px'}"></i></span>
+          <div class="atajos-info">
+            <h4 class="subtitle mb-2 font-weight-bold">Atajos</h4>
+            <ul>
+              <li><b>F1</b> Hace algo</li>
+              <li><b>F2</b> Hace algo</li>
+              <li><b>F3</b> Hace algo</li>
+              <li><b>F4</b> Hace algo</li>
+              <li><b>F5</b> Hace algo</li>
+              <li><b>F6</b> Hace algo</li>
+              <li><b>F7</b> Hace algo</li>
+              <li><b>F8</b> Hace algo</li>
+              <li><b>F9</b> Hace algo</li>
+              <li><b>F10</b> Hace algo</li>
+            </ul>
           </div>
         </div>
-        <!-- Resumen de la Compra -->
-        <div class="col-md-4">
-          <div class="cart full-height">
-            <h2 class="cart-title">Carrito de Compras</h2>
-            <table class="table cart-table">
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Cantidad</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of cartItems">
-                  <td>{{ item.productName }}</td>
-                  <td>{{ item.quantity }}</td>
-                  <td>{{ item.quantity * item.price | currency: 'MX' }}</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="total-amount">
-              Total: {{ calculateTotal() | currency: 'MX' }}
-            </div>
-            <div class="cart-buttons d-flex justify-content-between">
-              <button class="btn btn-success checkout-btn">Cobrar</button>
-              <button class="btn btn-secondary clear-btn">Limpiar Carrito</button>
-            </div>
+      </section>
+    </div>
+  </header>
+  <!-- CONTENIDO DEL PUNTO DE VENTA -->
+  <div class="point-of-sale" [ngStyle]="{height: '90vh'}">
+    <div class="row" [ngStyle]="{height: '70vh'}">
+      <div class="col-md-8">
+        <!-- Lista de productos disponibles -->
+        <div class="product-list">
+          <h2 class="product-list-title">Lista de Productos Registrados</h2>
+          <table class="table product-table">
+            <thead>
+              <tr>
+                <th>Cancelar</th>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of products">
+                <td><button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price | currency: 'MX' }}</td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="input-group d-flex align-items-end">
+          <input type="text" class="form-control" placeholder="Producto">
+          <div class="input-group-append">
+            <button class="btn btn-outline-primary" type="button">Agregar</button>
+          </div>
+        </div>
+      </div>
+      <!-- Resumen de la Compra -->
+      <div class="col-md-4">
+        <div class="cart full-height">
+          <h2 class="cart-title">Carrito de Compras</h2>
+          <table class="table cart-table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of cartItems">
+                <td>{{ item.productName }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.quantity * item.price | currency: 'MX' }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="total-amount">
+            Total: {{ calculateTotal() | currency: 'MX' }}
+          </div>
+          <div class="cart-buttons d-flex justify-content-between">
+            <button class="btn btn-success checkout-btn">Cobrar</button>
+            <button class="btn btn-secondary clear-btn">Limpiar Carrito</button>
           </div>
         </div>
       </div>
     </div>
+    <div class="row border radius w-100 p-3" [ngStyle]="{height: '16vh', 'margin-top': '3vh'}">
+      <h3 class="col-12 text-center font-weight-bold">Evidente</h3>
+      <section class="d-flex col-8" [ngStyle]="{gap: '5px'}">
+        <span class="p-2 border">P#</span>
+        <span class="p-2 border">Subtotal</span>
+        <span class="p-2 border">Descuento</span>
+        <span class="p-2 border">IVA</span>
+      </section>
+      <section class="border p-3 col-4">
+        <h3 class="subtitle">Total: $1000</h3>
+      </section>
+    </div>
+  </div>
+</div>
