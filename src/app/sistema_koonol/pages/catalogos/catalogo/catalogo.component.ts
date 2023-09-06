@@ -15,6 +15,7 @@ import { AddProductComponent } from '../add-product/add-product.component';
   styleUrls: ['./catalogo.component.scss'],
 })
 export class CatalogoComponent implements OnInit {
+  dataLogin = JSON.parse(localStorage.getItem('dataLogin')!);
   //referencia para el modal
   @ViewChild('modalProducto') modalProducto: ElementRef | undefined;
   // Para el Modal
@@ -70,6 +71,7 @@ export class CatalogoComponent implements OnInit {
     this.cargarArticulos();
     this.allItems = [...this.items];
     this.catalogo.pedido$.subscribe((pedido) => (this.pedido = pedido));
+    console.log(this.dataLogin);
   }
 
   articulos: Articulo[] = [];

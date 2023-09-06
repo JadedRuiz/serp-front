@@ -76,7 +76,9 @@ export class BaseLoggedComponent implements OnInit {
     this.dataLogin.permisos.forEach((element : any) => {
       this.menu.forEach((menu : any) => {
         if(menu.clave.substring(-4,3) == element.clave.substring(-4,3)){
-          menu.hijos.push(element);
+          if(menu.clave !== element.clave) {
+            menu.hijos.push(element);
+          }
         }
       });
     });
