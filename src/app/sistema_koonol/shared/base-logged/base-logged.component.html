@@ -29,7 +29,7 @@
             <a *ngIf="opcion.hijos.length == 0" style="cursor: pointer;" [routerLink]="[opcion.link]">
               <i class="{{opcion.ico}}" aria-hidden="true"></i>
               <span>{{opcion.modulo}}</span>
-              <span *ngIf="opcion.alert" >{{opcion.alert_msg}}</span>
+              <span *ngIf="opcion.alert">{{opcion.alert_msg}}</span>
             </a>
             <a *ngIf="opcion.hijos.length > 0" class="{{opcion.clave}}" (click)="abrirOpcion(opcion.clave)"
               style="cursor: pointer;">
@@ -43,6 +43,11 @@
                   <i class="im fa fa-chevron-circle-right" aria-hidden="true"></i>
                   <a class="p-2" style="cursor: pointer;" [routerLink]="[hijo.link]">
                     {{hijo.modulo}}</a>
+                </li>
+                <li class="d-flex  align-items-center" style="list-style-type: none;">
+                  <i class="im fa fa-chevron-circle-right" aria-hidden="true"></i>
+                  <a class="p-2" style="cursor: pointer;" [routerLink]="['catalogos/bitacora-visitas']">
+                    Bitácora de visitas</a>
                 </li>
               </ul>
             </div>
