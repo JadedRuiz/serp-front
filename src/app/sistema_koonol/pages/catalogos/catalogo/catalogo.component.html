@@ -2,117 +2,130 @@
 <app-orders-cart-modal *ngIf="modalVisibility"
   (toggleModalVisibility)="toggleModalVisibility()"></app-orders-cart-modal>
 
-  <div class="container-fluid">
+<div class="container-fluid">
 
-    <h1 class="mb-2 title text-center m-4">Productos</h1>
-    <div class="search-bar row" [class.sticky]="isSticky" [class.active]="isSticky">
-      <input type="text" class="search-input col-10 col-md-3" placeholder="Productos" [(ngModel)]="searchTitle">
-      <input type="text" class="search-input col-10 col-md-3" placeholder="Familia" [(ngModel)]="searchFam">
-      <button type="button" class="b search-btn" (click)="buscar()" data-toggle="tooltip" title="Buscar" >Buscar</button>
-      <button *ngIf="dataLogin.pefil == 'DESARROLLADOR'" type="button" class="b add-btn" (click)="addProducto() "data-toggle="tooltip" title="HUevos Perro" >Agregar producto</button>
-    </div>
-
-    <div class="text-center" *ngIf="resultsNotFound" style="  color:red; font-size: 40px;">No se encontraron resultados.
-    </div>
-    <hr />
-
-
-
-    <div class="cards">
-      <div class="cards__card" *ngFor="let articulo of filteredItems" >
-        <div class="card">
-          <a type="button" class="mt-1 me-1 align-self-end btn_h " (click)="agregarProductoCarrito(articulo)" data-toggle="tooltip" title="Agregar producto" >+</a>
-          <div id="image-card" class="img-thumbnail" >
-            <img *ngIf="articulo.imagenes.length == 0" src="../../../../../assets/img/imgK.png" alt="Producto" class="zoom-on" (click)="abrirModalConImagenes(articulo)">
-            <img *ngIf="articulo.imagenes.length > 0" [src]="articulo.imagenes[0].fotografia" alt="Producto" class="zoom-on" (click)="abrirModalConImagenes(articulo)">
-          </div>
-          <div class="card-content">
-            <div class="container">
-              <div class="row">
-              </div>
-            </div>
-            <div class="media">
-              <div class="media-content">
-                <h1 class="titulo title mb-1">{{ articulo.articulo }}</h1>
-                <h2 class="subtitle mb-0 mt-1">{{ articulo.familia}}</h2>
-                <span class="ml-4 m-2">
-                  <b>
-                    E ( <span style="color: rgb(7, 190, 7)">{{articulo.existencia}}</span> )
-                    P ( <span style="color: rgb(238, 238, 109)">{{articulo.pedidos}}</span> )
-                    D ( <span style="color: rgb(255, 0, 0)">{{articulo.disponible}}</span> )
-                  </b>
-                </span>
-                <br>
-                <span><b>Unidad: </b> {{articulo.medida}}</span>
-              </div>
-              <a *ngIf="dataLogin.pefil == 'DESARROLLADOR'" data-toggle="tooltip" title="Editar" class="editar-link" (click)="editarArt(articulo.id_existencia)" style="font-size:18px;color: var(--color-terciario)"><i class="fa fa-pencil-square-o " aria-hidden="true"></i></a>
-            </div>
-            <span class="card-price ms-4"><strong> {{ articulo.precio_total | currency: 'MX '}}</strong></span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-<!-- //MODAL -->
-<div id="modalProducto" class="modal" [class.is-active]="isModalOpen" (click)="clickFuera($event)">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content modal-product">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h5 class="modal-title product-title mb-0">{{ selectedCard?.articulo }}</h5>
-        <button data-toggle="tooltip" title="Cerrar" type="button" class="close" (click)="closeModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <!-- Modal Body -->
-      <div class="modal-body border-radius">
-      <!-- Carrusel de imágenes -->
-<div id="productCarousel" class="carousel slide carousel-wrap border-radius">
-  <div class="carousel-inner">
-    <!-- Verificar si el artículo tiene imágenes o no -->
-    <ng-container *ngIf="selectedCard?.imagenes && selectedCard?.imagenes.length > 0; else noImages">
-      <div class="carousel-item" *ngFor="let imagen of selectedCard?.imagenes; let i = index;"
-        [ngClass]="{'active': i === inicoSlide}">
-        <div class="product-image">
-          <img [src]="imagen.fotografia" alt="Imagen del producto">
-        </div>
-      </div>
-    </ng-container>
-    <!-- Si el artículo no tiene imágenes, mostrar la imagen por defecto -->
-    <ng-template #noImages>
-      <div class="carousel-item active">
-        <div class="product-image">
-          <img src="\assets\img\frutas-ejemplo.jpg" alt="Imagen por defecto">
-        </div>
-      </div>
-    </ng-template>
+  <h1 class="mb-2 title text-center m-4">Productos</h1>
+  <div class="search-bar row" [class.sticky]="isSticky" [class.active]="isSticky">
+    <input type="text" class="search-input col-10 col-md-3" placeholder="Productos" [(ngModel)]="searchTitle">
+    <input type="text" class="search-input col-10 col-md-3" placeholder="Familia" [(ngModel)]="searchFam">
+    <button type="button" class="b search-btn" (click)="buscar()" data-toggle="tooltip" title="Buscar">Buscar</button>
+    <button *ngIf="dataLogin.pefil == 'DESARROLLADOR'" type="button" class="b add-btn" (click)="addProducto() "
+      data-toggle="tooltip" title="HUevos Perro">Agregar producto</button>
   </div>
-  <button *ngIf="selectedCard?.imagenes && selectedCard?.imagenes.length > 1" class="carousel-control-prev" type="button" (click)="anteriorSlide()">
-    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-  </button>
-  <button *ngIf="selectedCard?.imagenes && selectedCard?.imagenes.length> 1" class="carousel-control-next" type="button" (click)="siguienteSlide()">
-    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-  </button>
-</div>
+
+  <div class="text-center" *ngIf="resultsNotFound" style="  color:red; font-size: 40px;">No se encontraron resultados.
+  </div>
+  <hr />
 
 
-        <!-- Información del producto -->
-        <div id="info_producto" class="row mt-4 d-flex justify-content-center">
-          <div class="col">
-            <label class="text">Familia: </label>
-            <span>   <b>{{ selectedCard?.familia }}</b></span>
+
+  <div class="cards">
+    <div class="cards__card" *ngFor="let articulo of filteredItems">
+      <div class="card">
+        <span class="card-code">Código</span>
+        <a type="button" class="mt-1 me-1 align-self-end btn_h " (click)="agregarProductoCarrito(articulo)"
+          data-toggle="tooltip" title="Agregar producto">+</a>
+        <div id="image-card" class="img-thumbnail">
+          <img *ngIf="articulo.imagenes.length == 0" src="../../../../../assets/img/imgK.png" alt="Producto"
+            class="zoom-on" (click)="abrirModalConImagenes(articulo)">
+          <img *ngIf="articulo.imagenes.length > 0" [src]="articulo.imagenes[0].fotografia" alt="Producto"
+            class="zoom-on" (click)="abrirModalConImagenes(articulo)">
+        </div>
+        <div class="card-content">
+          <div class="container">
+            <div class="row">
+            </div>
           </div>
-          <div class="col">
-            <label class="text">Precio: </label>
-            <span> <b> {{ selectedCard?.precio_venta | currency: 'MX' }}</b></span>
+          <div class="media">
+            <div class="media-content">
+              <h1 class="titulo title mb-1">{{ articulo.articulo }}</h1>
+              <h2 class="subtitle mb-0 mt-1">{{ articulo.familia}}</h2>
+              <div class="d-flex w-100 justify-content-between mt-1 mb-1" [ngStyle]="{gap: '5px'}">
+                <span class="p-1 text-center"
+                  style="width: 50px;border-radius: 5px; color: white; background-color:rgb(7, 190, 7)">E
+                  {{articulo.existencia}}</span>
+                <span class="p-1 text-center"
+                  style="width: 50px;border-radius: 5px; color: white; background-color:rgb(238, 238, 109)">P
+                  {{articulo.pedidos}}</span>
+                <span class="p-1 text-center"
+                  style="width: 50px;border-radius: 5px; color: white; background-color: rgb(255, 0, 0);">D
+                  {{articulo.disponible}}</span>
+              </div>
+
+              <span><b>Unidad: </b> {{articulo.medida}}</span>
+            </div>
+            <a *ngIf="dataLogin.pefil == 'DESARROLLADOR'" data-toggle="tooltip" title="Editar" class="editar-link"
+              (click)="editarArt(articulo.id_existencia)" style="font-size:18px;color: var(--color-terciario)"><i
+                class="fa fa-pencil-square-o " aria-hidden="true"></i></a>
           </div>
+          <span class="card-price ms-4"><strong> {{ articulo.precio_total | currency: 'MX '}}</strong></span>
         </div>
       </div>
     </div>
   </div>
-</div>
-<!-- Fondo oscuro del modal -->
-<div class="modal-overlay" [style.display]="isModalOpen ? 'block' : 'none'"></div>
+
+
+  <!-- //MODAL -->
+  <div id="modalProducto" class="modal" [class.is-active]="isModalOpen" (click)="clickFuera($event)">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content modal-product">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title product-title mb-0">{{ selectedCard?.articulo }}</h5>
+          <button data-toggle="tooltip" title="Cerrar" type="button" class="close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body border-radius">
+          <!-- Carrusel de imágenes -->
+          <div id="productCarousel" class="carousel slide carousel-wrap border-radius">
+            <div class="carousel-inner">
+              <!-- Verificar si el artículo tiene imágenes o no -->
+              <ng-container *ngIf="selectedCard?.imagenes && selectedCard?.imagenes.length > 0; else noImages">
+                <div class="carousel-item" *ngFor="let imagen of selectedCard?.imagenes; let i = index;"
+                  [ngClass]="{'active': i === inicoSlide}">
+                  <div class="product-image">
+                    <img [src]="imagen.fotografia" alt="Imagen del producto">
+                  </div>
+                </div>
+              </ng-container>
+              <!-- Si el artículo no tiene imágenes, mostrar la imagen por defecto -->
+              <ng-template #noImages>
+                <div class="carousel-item active">
+                  <div class="product-image">
+                    <img src="\assets\img\frutas-ejemplo.jpg" alt="Imagen por defecto">
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+            <button *ngIf="selectedCard?.imagenes && selectedCard?.imagenes.length > 1" class="carousel-control-prev"
+              type="button" (click)="anteriorSlide()">
+              <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </button>
+            <button *ngIf="selectedCard?.imagenes && selectedCard?.imagenes.length> 1" class="carousel-control-next"
+              type="button" (click)="siguienteSlide()">
+              <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </button>
+          </div>
+
+
+          <!-- Información del producto -->
+          <div id="info_producto" class="row mt-4 d-flex justify-content-center">
+            <div class="col">
+              <label class="text">Familia: </label>
+              <span> <b>{{ selectedCard?.familia }}</b></span>
+            </div>
+            <div class="col">
+              <label class="text">Precio: </label>
+              <span> <b> {{ selectedCard?.precio_venta | currency: 'MX' }}</b></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Fondo oscuro del modal -->
+  <div class="modal-overlay" [style.display]="isModalOpen ? 'block' : 'none'"></div>
 </div>

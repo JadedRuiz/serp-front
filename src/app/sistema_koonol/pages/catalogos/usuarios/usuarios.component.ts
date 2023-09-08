@@ -90,7 +90,6 @@ export class UsuariosComponent implements OnInit {
             id_comprador: almacen.id_comprador
          })
       })
-      console.log(this.usuario);
       this.usuario.almacenes
    }
 
@@ -182,6 +181,7 @@ export class UsuariosComponent implements OnInit {
          this.searchUserControl.setValue(this.usuario.usuario);
          this.isUserSelected = true;
          this.searchListUser = false;
+         console.log(this.usuario);
          this.searchUserSubscription.unsubscribe();
       } else {
          return;
@@ -250,10 +250,12 @@ export class UsuariosComponent implements OnInit {
    }
 
    //habilitar los comapos del input
+   camposActivos: boolean = false; //Sólo se utiliza actualmente para el botón de añadir foto de usuario por alguna razón
    activarCampos() {
       this.provInputs.forEach((provInput) => {
          provInput.nativeElement.disabled = false;
       });
+      this.camposActivos = true
    }
 
    cambiarEstado() {
@@ -285,9 +287,8 @@ export class UsuariosComponent implements OnInit {
    extraModal: boolean = false;
    ubicacionVendedor: any;
    imageCount: number = 0;
-   uploadedImages: any[] = [];
    imageAfterResize: any;
-   mainImage: any;
+   mainImage: string = '';
    takingPhoto: boolean = false;
    private trigger: Subject<void> = new Subject<void>();
    public triggerObservable: Observable<void> = this.trigger.asObservable();
@@ -296,19 +297,15 @@ export class UsuariosComponent implements OnInit {
    togglePhotosModal() {
       this.extraModal = !this.extraModal;
       this.takingPhoto = false;
-      this.mainImage = this.uploadedImages[0];
+      console.log(this.usuario.foto_base64);
    }
 
    //Función para subir fotografía desde el dispositivo
-   uploadImage() {
-      if (this.uploadedImages.length >= 1) {
-         alert('Solo se pueden subir una imagen de perfil');
-         return;
-      }
-
+   async uploadImage() {
       return this.imageCompress
          .uploadFile()
          .then(({ image, orientation }: UploadResponse) => {
+            console.log(image);
             if (this.imageCompress.byteCount(image) > 5 * 1024 * 1024) {
                alert('El tamaño de la imagen excede el límite de 5 MB');
                return;
@@ -316,19 +313,16 @@ export class UsuariosComponent implements OnInit {
             this.imageCompress
                .compressFile(image, orientation, 40, 40, 400, 400)
                .then((result: DataUrl) => {
-                  this.uploadedImages.push(result);
-                  this.imageCount++;
-                  this.displayImage(this.uploadedImages.length - 1);
+                  this.mainImage = result
+                  this.usuario.foto_base64 = result.slice(22);
+                  this.usuario.extencion = 'jpeg';
+                  console.log(this.usuario.foto_base64);
                });
          });
    }
 
-   //Fucnión para abrir la cámara
+   //Función para abrir la cámara
    openWebcam() {
-      if (this.uploadedImages.length >= 1) {
-         alert('Solo se pueden subir una imagen de perfil');
-         return;
-      }
       this.takingPhoto = true;
    }
 
@@ -350,27 +344,9 @@ export class UsuariosComponent implements OnInit {
    //Función para mandar la fotografía al array de fotos subidas y mostrarla
    async pushPhoto(imagen: WebcamImage) {
       await this.compressImage(imagen.imageAsDataUrl).then((result: DataUrl) => {
-         this.uploadedImages.push(result);
-         this.imageCount++;
          this.mainImage = result;
+         this.usuario.foto_base64 = result.slice(22);
          this.takingPhoto = false;
       })
-   }
-
-   //Fucnión para alternar la fotografía principal
-   displayImage(index: number) {
-      this.mainImage = this.uploadedImages[index];
-   }
-
-   async savePhotos(id_usuario: number, fotos: any[]) {
-      let imagenes = fotos.filter((image) => {
-         if (image.includes('data:image/jpeg;base64')) {
-            return image;
-         } else {
-            return;
-         }
-      });
-
-      this.usuarioService.guardarFotosUsuario(id_usuario, imagenes).subscribe()
    }
 }

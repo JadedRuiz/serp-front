@@ -9,100 +9,100 @@ import { ClientsService } from 'src/app/services/clients/clients.service';
 
 
 @Component({
-   selector: 'app-orders-placed',
-   templateUrl: './orders-placed.component.html',
-   styleUrls: ['./orders-placed.component.scss']
+  selector: 'app-orders-placed',
+  templateUrl: './orders-placed.component.html',
+  styleUrls: ['./orders-placed.component.scss']
 })
 
 export class OrdersPlacedComponent {
-   modalVisibility: boolean = false
-   orderVisibility: boolean = false
-   editOrderVisibility: boolean = false
-   pedidos: any[] = []
-   articulosPedido: ArticuloFinal[] = []
-   pedidoSeleccionado: any;
- dataStorage: any = JSON.parse(localStorage.getItem('dataPage')!)
-miToken = this.dataStorage.token;   constructor(
-      private pedidosRealizados: PedidosService,
-      private clienteService: ClientsService,
-   ) { }
+  modalVisibility: boolean = false
+  orderVisibility: boolean = false
+  editOrderVisibility: boolean = false
+  pedidos: any[] = []
+  articulosPedido: ArticuloFinal[] = []
+  pedidoSeleccionado: any;
+  dataLogin = JSON.parse(localStorage.getItem('dataLogin')!);
+  miToken = this.dataLogin.token; constructor(
+    private pedidosRealizados: PedidosService,
+    private clienteService: ClientsService,
+  ) { }
 
-   ngOnInit() {
-     this.obtenerPedidos();
+  ngOnInit() {
+    this.obtenerPedidos();
     this.searchClientControl.valueChanges
-    .pipe(debounceTime(500))
-    .subscribe((value) => {
-      this.buscarCliente(value);
-    });
+      .pipe(debounceTime(500))
+      .subscribe((value) => {
+        this.buscarCliente(value);
+      });
   }
 
 
-   i= true;
-   obtenerPedidos() {
+  i = true;
+  obtenerPedidos() {
 
-      this.pedidosRealizados.obtenerPedidos().subscribe(
-         (response) => {
-            this.pedidos = response.data
-         }
-      )
+    this.pedidosRealizados.obtenerPedidos().subscribe(
+      (response) => {
+        this.pedidos = response.data
+      }
+    )
 
-   }
+  }
 
-   seleccionarPedido(id_pedido: number) {
-      this.pedidoSeleccionado = this.pedidos.find(pedidos => pedidos.id_pedido == id_pedido)
-      console.log(this.pedidoSeleccionado);
-      this.buscarPedido(id_pedido)
-      this.toggleModalVisibility()
-   }
+  seleccionarPedido(id_pedido: number) {
+    this.pedidoSeleccionado = this.pedidos.find(pedidos => pedidos.id_pedido == id_pedido)
+    console.log(this.pedidoSeleccionado);
+    this.buscarPedido(id_pedido)
+    this.toggleModalVisibility()
+  }
 
-   buscarPedido(id_pedido: number) {
-      this.pedidosRealizados.buscarPedido(id_pedido).subscribe(
-         (response) => {
-            this.articulosPedido = response.data
-         })
-   }
+  buscarPedido(id_pedido: number) {
+    this.pedidosRealizados.buscarPedido(id_pedido).subscribe(
+      (response) => {
+        this.articulosPedido = response.data
+      })
+  }
 
-   toggleModalVisibility() {
-      this.modalVisibility = !this.modalVisibility
-      this.orderVisibility = !this.orderVisibility
-   }
+  toggleModalVisibility() {
+    this.modalVisibility = !this.modalVisibility
+    this.orderVisibility = !this.orderVisibility
+  }
 
-   closeModal() {
-      this.modalVisibility = false
-      this.orderVisibility = false
-      this.editOrderVisibility = false
-   }
+  closeModal() {
+    this.modalVisibility = false
+    this.orderVisibility = false
+    this.editOrderVisibility = false
+  }
 
-   openEditOrderVisibility() {
-      this.editOrderVisibility = true
-      this.orderVisibility = false
-   }
+  openEditOrderVisibility() {
+    this.editOrderVisibility = true
+    this.orderVisibility = false
+  }
 
-   saveEditedOrder() {
-      this.editOrderVisibility = false
-      this.orderVisibility = true
-   }
+  saveEditedOrder() {
+    this.editOrderVisibility = false
+    this.orderVisibility = true
+  }
 
-   //GENERAR PDF DE COTIZACIÓN
-   @ViewChild('cotizacion', { static: false }) cotizacion!: ElementRef
+  //GENERAR PDF DE COTIZACIÓN
+  @ViewChild('cotizacion', { static: false }) cotizacion!: ElementRef
 
-   generarPdfCotizacion() {
-      html2pdf()
+  generarPdfCotizacion() {
+    html2pdf()
       .set({
-         margin: 1,
-         filename: `Cotización para ${this.pedidoSeleccionado.cliente}.pdf`,
-         html2canvas: {
-            scale: 4,
-            letterRendering: true
-         },
-         jsPDF: {
-            unit: 'in',
-            format: 'a3',
-            orientation: 'portrait'
-         }
+        margin: 1,
+        filename: `Cotización para ${this.pedidoSeleccionado.cliente}.pdf`,
+        html2canvas: {
+          scale: 4,
+          letterRendering: true
+        },
+        jsPDF: {
+          unit: 'in',
+          format: 'a3',
+          orientation: 'portrait'
+        }
       })
       .from(this.cotizacion.nativeElement).save()
-   }
+  }
 
 
 

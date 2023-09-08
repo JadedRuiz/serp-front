@@ -131,7 +131,7 @@ export class VendedoresComponent {
 
   //Activa campos para agregar nuevo Vendedor
   cargarCampos() {
-    this.vendedor = new Vendedor(0, 1, '', '', 1, 1,'usuario',0);
+    this.vendedor = new Vendedor(0, 1, '', '', 1, 1,'',0);
     this.searchSellerControl.setValue('');
     this.activarCampos();
   }

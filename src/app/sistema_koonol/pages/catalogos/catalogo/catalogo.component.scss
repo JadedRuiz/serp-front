@@ -51,6 +51,7 @@
   width: 100%;
   height: 50px;
 }
+
 .b {
   height: 50px;
 }
@@ -59,7 +60,8 @@
   background-color: var(--hover-base);
 }
 
-.search-btn, .add-btn {
+.search-btn,
+.add-btn {
   max-width: 250px;
 }
 
@@ -70,7 +72,7 @@
   font-size: 1.1rem;
 }
 
-.titulo{
+.titulo {
   font-size: 22.3px;
 }
 
@@ -89,17 +91,35 @@
   }
 }
 
-a.editar-link {
-  z-index: 1; /* Ajusta el valor del z-index según sea necesario */
+.card-code {
+  position: absolute;
+  padding: 0.5rem;
+  text-align: center;
+  top: 10px;
+  left: 10px;
+  width: 40%;
+  border-radius: 10px;
+  background-color: #b47446c2;
+  color: white;
+  font-size: 13px;
 }
-#image-card{
+
+a.editar-link {
+  z-index: 1;
+  /* Ajusta el valor del z-index según sea necesario */
+}
+
+#image-card {
   height: 250px;
   width: min(100%, 350px);
   display: flex;
   overflow: hidden;
+
   .cards__card {
-    height: 400px; /* Establece una altura fija para todas las tarjetas */
-    overflow: hidden; /* Oculta cualquier contenido que se desborde de la tarjeta */
+    height: 400px;
+    /* Establece una altura fija para todas las tarjetas */
+    overflow: hidden;
+    /* Oculta cualquier contenido que se desborde de la tarjeta */
   }
 
   img {
@@ -107,7 +127,7 @@ a.editar-link {
     object-fit: cover;
     transition: transform 0.4s;
     cursor: pointer;
-  pointer-events: auto;
+    pointer-events: auto;
   }
 
 
@@ -145,17 +165,22 @@ a.editar-link {
 //MODAL
 .modal-product {
   .modal-dialog {
-    width: 400px; /* Ajusta el ancho máximo del modal */
+    width: 400px;
+    /* Ajusta el ancho máximo del modal */
   }
 
   .modal-content {
-    border-radius: 33px; /* Agrega bordes redondeados al modal */
-    box-shadow: 0 0 10px rgb(0, 0, 0); /* Agrega sombra al modal */
+    border-radius: 33px;
+    /* Agrega bordes redondeados al modal */
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+    /* Agrega sombra al modal */
   }
 
   .modal-header {
-    background-color: #ffffff; /* Cambia el color del fondo del header */
-    border-bottom: none; /* Elimina el borde inferior del header */
+    background-color: #ffffff;
+    /* Cambia el color del fondo del header */
+    border-bottom: none;
+    /* Elimina el borde inferior del header */
   }
 
   .modal-title {
@@ -167,8 +192,10 @@ a.editar-link {
 
 
   .carousel-inner {
-    display: flex; /* Muestra los elementos del carrusel en línea */
-    transition: transform 0.7s; /* Agrega una transición suave al carrusel */
+    display: flex;
+    /* Muestra los elementos del carrusel en línea */
+    transition: transform 0.7s;
+    /* Agrega una transición suave al carrusel */
   }
 
 
@@ -187,24 +214,27 @@ a.editar-link {
     font-size: 22px;
   }
 
-  #info_producto{
+  #info_producto {
 
-      font-size: 18px;
+    font-size: 18px;
 
   }
 
 
 
   .font-weight-bold {
-    font-weight: bold; /* Agrega negrita a los títulos de información */
+    font-weight: bold;
+    /* Agrega negrita a los títulos de información */
   }
 }
 
 /* Estilos para la imagen en el modal */
 .product-image {
   width: 100%;
-  height: 250px; /* Establecer una altura fija para la imagen */
-  background-color: #f0f0f0ab; /* Color de fondo para el área de la imagen */
+  height: 250px;
+  /* Establecer una altura fija para la imagen */
+  background-color: #f0f0f0ab;
+  /* Color de fondo para el área de la imagen */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -243,7 +273,7 @@ a.editar-link {
     align-items: center;
   }
 
-  .search-bar  {
+  .search-bar {
     width: 100%;
   }
 
@@ -251,6 +281,3 @@ a.editar-link {
     width: 100%;
   }
 }
-
-
-
