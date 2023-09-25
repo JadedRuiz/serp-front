@@ -1,0 +1,104 @@
+<div class="col" style="height: 50px; text-align: center;">
+  <!-- <h1 class="title">Visitas del dia: <span style=" font-weight: bold; color: rgb(75, 114, 173);">17/07/23</span></h1> -->
+</div>
+
+<div class="row">
+  <div class="col col-md-6">
+    <!-- Barra de búsqueda -->
+    <div class="clients__search-bar">
+      <div class="d-flex flex-column position-relative" [ngStyle]="{width: 'min(100%,300px)'}">
+        <input
+          class="search-input"
+          type="text"
+          placeholder="Buscar cliente"
+          aria-label="Buscar cliente"
+          title="Buscar cliente"
+          aria-describedby="button-addon2"
+          [formControl]="searchClientControl"
+        />
+        <div class="search-loader w-100" *ngIf="loader; else clientsReady">
+          <i class="fa fa-spinner fa-pulse"></i>
+        </div>
+           <ng-template #clientsReady>
+          <ul class="search-list" *ngIf="searchList">
+            <li
+              class="search-list__element"
+              *ngFor="let client of autocompleteClients"
+              (click)="seleccionarCliente(client.id_cliente)"
+            >
+              {{ client.cliente }}
+            </li>
+          </ul>
+        </ng-template>
+        <span class="position-absolute" [ngStyle]="{ top: '10px', right: '10px' }">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+    <div class="p-1" style="width: 22rem;">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Proxima visita: <span style="font-size: 18px; color: rgb(80, 126, 153)"><b>17/07/2023</b></span> </li>
+      </ul>
+      <div class="col">
+        <!-- CALENDARIO -->
+        <mat-card class="demo-inline-calendar-card">
+          <mat-calendar [(selected)]="selected"></mat-calendar>
+        </mat-card>
+        <p>Selected date: {{selected}}</p>
+
+
+      </div>
+    </div>
+  </div>
+  <div class="col col-md-6 visitas" >
+      <div class="" *ngFor="let visita of visitas">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row mb-2">
+              <h3 class="card-title col">
+                Cliente: <b>{{ visita.cliente }}</b>
+              </h3>
+            </div>
+            <p class="card-text">
+              <b>Fecha visita: </b>{{ visita.fecha_visita }}
+            </p>
+            <p class="card-text"><b>Contacto: </b> {{ visita.contacto }}</p>
+            <div class="row mt-2">
+              <p class="card-text col">
+                Siguiente visita:
+                <b> {{ visita.fecha_siguiente_visita }}</b>
+              </p>
+            </div>
+          </div>
+          <div class="row d-flex ml-2 mb-2">
+            <div class="col-6 d-flex justify-content-center">
+              <button
+                class="p-2 search-btn btn-sm ml-2"
+
+              >
+                Nuevo Pedido
+              </button>
+            </div>
+            <div class="col-6 d-flex justify-content-center">
+              <button
+                type="button"
+                class="p-2 general-btn btn-sm"
+                data-toggle="modal"
+                data-target="#editarModal"
+                title="Editar Visita"
+
+              >
+                Editar Visita
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+    <!-- <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Selecciona una fecha" [(ngModel)]="selected">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker (dateChange)="onDateSelected($event)"></mat-datepicker>
+        </mat-form-field> -->

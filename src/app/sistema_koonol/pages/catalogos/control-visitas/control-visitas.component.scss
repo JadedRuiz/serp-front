@@ -1,0 +1,9 @@
+/* Establece una altura máxima para el contenedor del calendario */
+.visitas {
+  max-height: calc(100vh - 100px); /* Ajusta la altura según tus necesidades */
+  overflow-y: auto; /* Agrega desplazamiento vertical si es necesario */
+}
+
+.demo-inline-calendar-card {
+  width: 400px;
+}

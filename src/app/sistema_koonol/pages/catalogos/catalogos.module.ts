@@ -36,6 +36,9 @@ import { MapsComponent } from './maps/maps.component';
 import { PuntoDeVentaComponent } from './punto-de-venta/punto-de-venta.component';
 import { BitacoraVisitasComponent } from './bitacora-visitas/bitacora-visitas.component';
 import { MedidasComponent } from './medidas/medidas.component';
+import { ControlVisitasComponent } from './control-visitas/control-visitas.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -66,6 +69,7 @@ import { MedidasComponent } from './medidas/medidas.component';
     PuntoDeVentaComponent,
     BitacoraVisitasComponent,
     MedidasComponent,
+    ControlVisitasComponent,
   ],
   imports: [
     CommonModule,
@@ -77,11 +81,15 @@ import { MedidasComponent } from './medidas/medidas.component';
     MatInputModule,
     WebcamModule,
     NgxPaginationModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     NgxImageCompressService,
-    DatePipe
+    DatePipe,
+
   ],
 
 })

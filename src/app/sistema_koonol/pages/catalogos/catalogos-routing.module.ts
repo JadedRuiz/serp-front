@@ -20,6 +20,7 @@ import { MapsComponent } from './maps/maps.component';
 import { PuntoDeVentaComponent } from './punto-de-venta/punto-de-venta.component';
 import { BitacoraVisitasComponent } from './bitacora-visitas/bitacora-visitas.component';
 import { MedidasComponent } from './medidas/medidas.component';
+import { ControlVisitasComponent } from './control-visitas/control-visitas.component';
 
 
 const routes: Routes = [
@@ -106,6 +107,10 @@ const routes: Routes = [
   {
     path: 'bitacora-visitas',
     component: BitacoraVisitasComponent
+  },
+  {
+    path: 'control-visitas',
+    component: ControlVisitasComponent
   }
 ];
 
