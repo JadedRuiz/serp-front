@@ -22,7 +22,7 @@
   <div class="cards">
     <div class="cards__card" *ngFor="let articulo of filteredItems">
       <div class="card">
-        <span class="card-code">Código</span>
+        <!-- <span class="card-code">Código</span> -->
         <a type="button" class="mt-1 me-1 align-self-end btn_h " (click)="agregarProductoCarrito(articulo)"
           data-toggle="tooltip" title="Agregar producto">+</a>
         <div id="image-card" class="img-thumbnail">
@@ -31,27 +31,28 @@
           <img *ngIf="articulo.imagenes.length > 0" [src]="articulo.imagenes[0].fotografia" alt="Producto"
             class="zoom-on" (click)="abrirModalConImagenes(articulo)">
         </div>
-        <div class="card-content">
+        <div class="card-content pt-2">
           <div class="container">
             <div class="row">
             </div>
           </div>
           <div class="media">
             <div class="media-content">
-              <h1 class="titulo title mb-1">{{ articulo.articulo }}</h1>
-              <h2 class="subtitle mb-0 mt-1">{{ articulo.familia}}</h2>
-              <div class="d-flex w-100 justify-content-between mt-1 mb-1" [ngStyle]="{gap: '5px'}">
-                <span class="p-1 text-center"
-                  style="width: 50px;border-radius: 5px; color: white; background-color:rgb(7, 190, 7)">E
-                  {{articulo.existencia}}</span>
-                <span class="p-1 text-center"
-                  style="width: 50px;border-radius: 5px; color: white; background-color:rgb(238, 238, 109)">P
-                  {{articulo.pedidos}}</span>
-                <span class="p-1 text-center"
-                  style="width: 50px;border-radius: 5px; color: white; background-color: rgb(255, 0, 0);">D
-                  {{articulo.disponible}}</span>
+              <div class="row">
+                <mat-chip-listbox aria-label="Dog selection">
+                  <mat-chip style="background-color:rgba(7, 190, 7, 0.39)" >
+                    Ext {{articulo.existencia}}
+                  </mat-chip>
+                  <mat-chip style="background-color:rgba(221, 207, 11, 0.479)">
+                    Ped {{articulo.pedidos}}
+                  </mat-chip>
+                  <mat-chip style="background-color:rgba(255, 20, 20, 0.507)">
+                    Dis {{articulo.disponible}}
+                  </mat-chip>
+                </mat-chip-listbox>
               </div>
-
+              <h1 class="titulo mb-1">{{ articulo.articulo }}</h1>
+              <h2 class="subtitle mb-0 mt-1">{{ articulo.familia}}</h2>
               <span><b>Unidad: </b> {{articulo.medida}}</span>
             </div>
             <a *ngIf="dataLogin.pefil == 'DESARROLLADOR'" data-toggle="tooltip" title="Editar" class="editar-link"

@@ -21,6 +21,7 @@ import { PuntoDeVentaComponent } from './punto-de-venta/punto-de-venta.component
 import { BitacoraVisitasComponent } from './bitacora-visitas/bitacora-visitas.component';
 import { MedidasComponent } from './medidas/medidas.component';
 import { ControlVisitasComponent } from './control-visitas/control-visitas.component';
+import { UnidadMedidasComponent } from './unidad-medidas/unidad-medidas.component';
 
 
 const routes: Routes = [
@@ -59,10 +60,6 @@ const routes: Routes = [
   {
     path: 'rutas',
     component: RoutesComponent
-  },
-  {
-    path: 'medidas',
-    component: MedidasComponent
   },
   {
     path: 'prov',
@@ -111,6 +108,10 @@ const routes: Routes = [
   {
     path: 'control-visitas',
     component: ControlVisitasComponent
+  },
+  {
+    path: 'unidad-medidas',
+    component: UnidadMedidasComponent
   }
 ];
 

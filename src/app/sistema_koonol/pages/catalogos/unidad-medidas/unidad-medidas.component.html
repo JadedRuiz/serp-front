@@ -1,0 +1,113 @@
+<div class="routes container-fluid">
+  <div class="routes-container">
+    <h1 class="text-center title m-0">UNIDAD DE MEDIDAS</h1>
+
+    <div class="routes__search-bar align-self-start">
+      <div class="routes__search-bar-input d-flex">
+        <input class="search-input" type="text" placeholder="Buscar medida" aria-label="Buscar ruta"
+          aria-describedby="button-addon2" [(ngModel)]="searchRoute" />
+        <button class="search-btn"  type="button" data-toggle="tooltip" title="Buscar" (click)="filtrarMedidas()">
+          <i class="bi bi-search"> </i> Buscar
+        </button>
+      </div>
+      <div>
+        <button type="button" class=" add-btn" (click)="openModal()" data-toggle="tooltip" title="Agregar ruta">Agregar medida</button>
+      </div>
+    </div>
+
+
+    <div class="w-100">
+      <div class="row justify-content-center">
+        <div class="col-sm-10 col-md-6 col-xl-4 mb-3 mb-sm-0" *ngFor="let medida of filteredRoutes">
+          <div id="route-card" class="card" [class.active]="medida.routeIsActive">
+            <div class="card-body">
+              <!-- <a class="me-2 d-flex justify-content-end" data-toggle="tooltip" title="Editar"(click)="editarRuta(medida)"><i id="pin"
+                  class="bi bi-pencil-square"></i></a> -->
+              <h3 class="card-title">
+                Medida : <b>{{ medida.medida}}</b>
+              </h3>
+              <span class="card-ID">
+                Compuesto: <b>{{ medida.medida_compuesto }}</b>
+              </span><br>
+              <span class="card-ID">
+                Medida SAT: <b>{{ medida.medida_sat }}</b>
+              </span>
+              <div class="d-flex justify-content-end">
+                <button (click)="this.activMedida(medida.id_medida)" type="button" class="btn" data-toggle="tooltip" title="Activar/Desactivar" [ngClass]="getRouteStatusClass(medida.activo)"
+                  [attr.aria-pressed]="medida.activo === 1 ? 'true' : 'false'"
+                   style="
+                    --bs-btn-padding-y: 0.25rem;
+                    --bs-btn-padding-x: 0.5rem;
+                    --bs-btn-font-size: 0.9rem;
+                  ">
+                  {{ getRouteStatusText(medida.activo) }}
+              </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3 class="title text-center mt-3" *ngIf="resultsNotFound">
+        No se encontraron resultados
+      </h3>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL AGREGAR -->
+<div class="modal shadow-card" [class.is-active]="isModalOpen">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class=" pb-1 modal-title fs-5" id="staticBackdropLabel"><b>Nueva medida</b></h1>
+        <a type="button" class="btn-close" (click)="closeModal()" ></a>
+      </div>
+      <form #medForm="ngForm" ngNativeValidate (ngSubmit)="guardarMed(medForm)">
+        <div class="modal-body">
+          <div class="input-group">
+              <div class="col-md-10 pb-2 input-group">
+              <span class="input-group-text" id="">Medida</span>
+              <!-- AGREGAR REQUIRE -->
+              <input [(ngModel)]="medida.medida" name="medida" type="text" class="form-control" required >
+            </div>
+            <div class="col-md-4 pb-2 input-group">
+              <span class="input-group-text" id="">Cantidad</span>
+              <input [(ngModel)]="medida.cantidad" name="medida" type="text" class="form-control" required />
+            </div>
+            <div class="col-md-6 pb-2 input-group">
+              <span class="input-group-text" id="">Etiqueta</span>
+              <input [(ngModel)]="medida.etiqueta" name="medida" type="text" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+              <label class="label-label" for="inputMedida">Secundaria</label>
+              <select type="text" class="form-control" title="medida" name="medidasSEC" placeholder="..." [(ngModel)]="medida.id_medida_sec">
+                <option name="medidasSEC" value={{medida.id_medida_sec}} *ngFor="let medida of medidasSEC">
+                  {{medida.medida_compuesto}}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="label-label" for="inputMedida">SAT</label>
+              <select type="text" class="form-control" title="medida" name="medidasSAT" placeholder="..." [(ngModel)]="medida.id_medida_sat">
+                <option name="medidasSAT" value={{medida.id_medida_sat}} *ngFor="let medida of medidasSAT">
+                  {{medida.descripcion}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn danger-btn" data-bs-dismiss="modal" (click)="closeModal()">
+            Cancelar
+          </button>
+          <button type="submit" class="btn general-btn">
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+

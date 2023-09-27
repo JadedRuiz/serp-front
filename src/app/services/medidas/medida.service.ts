@@ -11,9 +11,19 @@ export class MedidaService {
 
   constructor(private http: HttpClient) { }
 
-obtenerMedidas(json:any): Observable<any>{
 
+
+obtenerMedidas(json:any): Observable<any>{
   return this.http.post<any>(SERVER_API + 'medidas/consultarMedidas', json);
+}
+
+
+guardarMedidas(json:any){
+ return this.http.post<any>(SERVER_API + 'medidas/guardarMedida', json);
+}
+
+medidasSAT(json:any){
+  return this.http.post<any>(SERVER_API + 'medidas/consultarMedidasSat', json);
 }
 
 

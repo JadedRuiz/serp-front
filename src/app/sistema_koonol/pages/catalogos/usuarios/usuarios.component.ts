@@ -181,7 +181,7 @@ export class UsuariosComponent implements OnInit {
          this.searchUserControl.setValue(this.usuario.usuario);
          this.isUserSelected = true;
          this.searchListUser = false;
-         console.log(this.usuario);
+        // console.log(this.usuario);
          this.searchUserSubscription.unsubscribe();
       } else {
          return;
@@ -206,7 +206,7 @@ export class UsuariosComponent implements OnInit {
 
    //Guarda Usuario =>
    guardarUsuario(usuarioForm: NgForm) {
-      console.log('usuario=>', this.usuario);
+      console.log('usuario=->', this.usuario);
       if (usuarioForm.invalid) {
          return;
       }
@@ -347,6 +347,8 @@ export class UsuariosComponent implements OnInit {
          this.mainImage = result;
          this.usuario.foto_base64 = result.slice(22);
          this.takingPhoto = false;
+         this.usuario.extencion = 'jpeg';
+
       })
    }
 }

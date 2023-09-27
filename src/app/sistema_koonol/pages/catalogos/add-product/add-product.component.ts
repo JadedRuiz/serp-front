@@ -16,6 +16,7 @@ import { Medida } from 'src/app/models/medidas.model';
 import { Foto } from 'src/app/models/fotografias.model';
 import { FamiliasService } from 'src/app/services/familias/familias.service';
 
+
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -82,6 +83,7 @@ export class AddProductComponent implements OnInit {
     this.obtenerFamilias();
     this.obtenerAlmacenes();
     this.obtenermedidas();
+    this.medidaSat();
   }
 
 //TRasformamos Imagenes => base64
@@ -160,6 +162,23 @@ transformarImages() {
       this.medidas = objeto.data;
     });
   }
+
+  // PARA EL SAT
+  medidasSAT: any[] = [];
+    medidaSat(){
+      let json = {
+        id_medida_sat: 0,
+        medida_sat: "",
+        solo_activos: 1,
+        token: "012354SDSDS01"
+      }
+      this.medidaService.medidasSAT(json).subscribe((resp)=>{
+        if(resp.ok){
+          this.medidasSAT= resp.data
+        }
+      })
+
+    }
 
   //para Almacen
   almacenes: Almacen[] = [];

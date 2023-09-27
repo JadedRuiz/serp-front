@@ -11,10 +11,10 @@
         </div>
       </div>
       <div class="sidebar-header d-flex">
-        <div class="user-pic">
-          <img class="img-responsive img-rounded" [src]="img_user" alt="User picture">
+        <div class="user-pic ">
+          <img class="img-responsive rounded-circle" [src]="img_user" alt="User picture">
         </div>
-        <div class="user-info">
+        <div class="user-info mt-3">
           <span class="user-name">{{ dataLogin.nombre }}</span>
           <span class="user-status d-flex align-items-center" [ngStyle]="{'line-height': 'normal'}">
             <i class="fa fa-circle"></i>
@@ -132,6 +132,10 @@
             <a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/control-visitas']">
               <i class="fa fa-calendar-check-o"></i>
               <span>Control visitas</span>
+            </a>
+            <a style="cursor: pointer;" [routerLink]="['/sis_koonol/catalogos/unidad-medidas']">
+              <i class="fa fa-arrows-h"></i>
+              <span>Unidad medidas</span>
             </a>
           </li>
           <!-- <li>

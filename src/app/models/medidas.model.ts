@@ -10,7 +10,10 @@ public activo: number,
 public cantidad: number,
 public medida_compuesto: string,
 public medida_sec: string,
-public medida_sat: string
+public medida_sat: string,
+public etiqueta?: string,
+public id_medida_sec?: number
+
   ){}
 }
 

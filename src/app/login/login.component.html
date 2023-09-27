@@ -1,18 +1,19 @@
+
 <section class="hero is-fullheight bg-auth">
   <div class="hero-body">
       <div class="container">
           <div class="column is-4 is-offset-4">
-              <div class="box" style="height: 400px;">
-                  <figure class="image is-128x128 mx-auto" >
+              <div class="box box-shadow" style="height: 400px;">
+                  <figure class="image  mx-auto" >
                       <img class="" src="../../../../assets/img/logo_empresa.png">
                   </figure>
                   <form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()" class="form_login">
                     <div class="field mb-4">
                       <div class="control form-ctrl">
                         <br>
-                        <input type="text" class="inputText" required="" formControlName = "usuario">
+                        <input style="height: 45px;" type="text" class="inputText" required formControlName = "usuario">
                         <span class="floating-label">Ingresa tu usuario</span>
-                        <i class="fa-solid fa-user I-icon"></i>
+                        <i class="fa fa-solid fa-user I-icon"></i>
                       </div>
                       <!-- <div class="control has-icons-left has-icons-right">
                         <input class="input" type="email" placeholder="Ingresa tu usuario" >
@@ -25,9 +26,9 @@
                     <div class="field">
                       <div class="control form-ctrl">
                         <br>
-                        <input type="password" class="inputText" required="" formControlName = "password">
+                        <input style="height: 45px;" type="password" class="inputText" required="" formControlName = "password">
                         <span class="floating-label">Ingresa tu contraseña</span>
-                        <i class="fa-solid fa-lock I-icon"></i>
+                        <i class="fa fa-solid fa-lock I-icon"></i>
                       </div>
                       <!-- <div class="control has-icons-left has-icons-right">
                         <input class="input" type="password" placeholder="Ingresa tu contraseña" >
@@ -36,22 +37,22 @@
                         </span>
                       </div> -->
                     </div>
-                    <div class="field">
-                        <label class="checkbox">
-                          <input type="checkbox">
+                    <div class="field mb-0">
+                        <label class="text-muted checkbox">
+                          <input class="" type="checkbox">
                           Recuerdame
                         </label>
                     </div>
                     <div class="container">
                       <div class="column has-text-centered">
-                        <button type="submit" class="btn-custom danger">Iniciar sesión <i class="fas fa-caret-right fa-lg ml-2 mt-1 hover_df"></i></button>
+                        <button type="submit" class="tb btn-custom info btn-lg btn-block"><b>Iniciar sesión</b> <i class="fa fa-caret-right fa-lg ml-2 mt-1 hover_df"></i></button>
                       </div>
                     </div>
                   </form>
 
               </div>
           </div>
-          <p class="has-text-black has-text-centered mt-3 Wp">
+          <p class="has-text-black has-text-centered mt-1 Wp">
             Elaborado por <a class="has-text-link" href="www.serteza.com">@Serteza</a>
           </p>
       </div>

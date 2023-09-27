@@ -23,8 +23,9 @@ export class LoginComponent {
     this.loginForm = this._initForm();
     Notiflix.Notify.init({
       width: '300px',
-      position: 'center-bottom',
-      closeButton: false
+      position: 'center-center',
+      closeButton: false,
+      timeout: 1500
     });
   }
 

@@ -39,6 +39,9 @@ import { MedidasComponent } from './medidas/medidas.component';
 import { ControlVisitasComponent } from './control-visitas/control-visitas.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
+import { UnidadMedidasComponent } from './unidad-medidas/unidad-medidas.component';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 
 
@@ -70,6 +73,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     BitacoraVisitasComponent,
     MedidasComponent,
     ControlVisitasComponent,
+    UnidadMedidasComponent,
   ],
   imports: [
     CommonModule,
@@ -84,7 +88,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     GoogleMapsModule,
     MatCardModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatChipsModule
+
   ],
   providers: [
     NgxImageCompressService,
