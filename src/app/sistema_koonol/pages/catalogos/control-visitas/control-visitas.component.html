@@ -39,18 +39,19 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item">Proxima visita: <span style="font-size: 18px; color: rgb(80, 126, 153)"><b>17/07/2023</b></span> </li>
       </ul>
-      <div class="col">
-        <!-- CALENDARIO -->
-        <mat-card class="demo-inline-calendar-card">
-          <mat-calendar [(selected)]="selected"></mat-calendar>
+      <!-- CALENDARIO -->
+      <div class="col-md-6">
+        <mat-card class="calendar-card">
+          <mat-calendar  (selectedChange)="onDateSelected($event)"></mat-calendar>
         </mat-card>
-        <p>Selected date: {{selected}}</p>
-
-
+        <p>Selected date: {{selectedDate}}</p>
       </div>
     </div>
   </div>
   <div class="col col-md-6 visitas" >
+    <div class="text-center">
+      <h2>Visitas programadas</h2>
+    </div>
       <div class="" *ngFor="let visita of visitas">
         <div class="card mb-4">
           <div class="card-body">
@@ -96,6 +97,7 @@
       </div>
   </div>
 </div>
+
 
     <!-- <mat-form-field>
           <input matInput [matDatepicker]="picker" placeholder="Selecciona una fecha" [(ngModel)]="selected">

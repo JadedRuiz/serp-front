@@ -63,7 +63,7 @@
       </div>
     </div>
     <div class="d-flex flex-column p-3 border rounded position-relative" *ngIf="addressSelected.calle != ''">
-      <span class="span-change-address" [ngStyle]="{'color': 'steelblue'}" *ngIf="addresses.length > 1"
+      <span class="span-change-address" [ngStyle]="{'color': 'steelblue','cursor':'pointer'}" *ngIf="addresses.length > 1"
         (click)="changeAddressSelected()">Cambiar dirección</span>
       <h3 class="subtitle mb-1"><b>Dirección</b></h3>
       <p>{{addressSelected.direccion}}</p>

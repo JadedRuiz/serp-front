@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { VisitasDTO } from 'src/app/models/visitas.model';
 import { VisitasService } from 'src/app/services/visitas/visitas.service';
 import Swal from 'sweetalert2';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatCardModule} from '@angular/material/card';
-import {MatNativeDateModule} from '@angular/material/core';
 import { ClientsService } from 'src/app/services/clients/clients.service';
 import { FormControl } from '@angular/forms';
 import { Subscription, debounceTime } from 'rxjs';
 import { Client } from 'src/app/models/clients.model';
+import { MatCalendar } from '@angular/material/datepicker';
+import { DateAdapter } from '@angular/material/core';
+
 
 
 
@@ -22,6 +22,7 @@ export class ControlVisitasComponent implements OnInit {
   constructor(
     private visitasService: VisitasService,
     private clienteService: ClientsService,
+    private dateAdapter: DateAdapter<Date>
 
     ) {
 
@@ -33,18 +34,7 @@ export class ControlVisitasComponent implements OnInit {
       .subscribe((value) => {
         this.buscarCliente(value);
       });
-
-
       this.obtenerVisitas();
-      console.log('Fecha seleccionada:', this.selected);
-    }
-    //  CALENDARIO
-    selected!: Date | null;
-
-    onDate(event: any) {
-      // El parámetro 'event' contiene la fecha seleccionada
-      this.selected = event.value;
-      // Puedes realizar acciones adicionales con la fecha seleccionada aquí
     }
 
 
@@ -57,6 +47,28 @@ vendedorId = 1
 fechaInicio: string = '';
 fechaFinal: string = '';
 visitas: VisitasDTO[] = [];
+visitasFiltradas: VisitasDTO[] = [];
+
+    //  CALENDARIO
+    selectedDate = '';
+
+// FORMATEAR FECHA
+formatDate(date: Date): string {
+  return this.dateAdapter.format(date, 'yyyy-MM-dd');
+}
+
+onDateSelected(event: any): void {
+  this.selectedDate = this.formatDate(event);
+  this.visitasFiltradas = this.visitas.filter((visita) => {
+    const visitaDate = visita.fecha_siguiente_visita.split(' ')[0]; // Extrae la fecha de visita
+    return visitaDate === this.selectedDate;
+  });
+this.obtenerVisitas();
+
+}
+
+
+
 
 obtenerVisitas() {
   let json = {
@@ -71,6 +83,7 @@ obtenerVisitas() {
   this.visitasService.consultarVisitas(json).subscribe((resp) => {
     if (resp.ok) {
       this.visitas = resp.data;
+
       if (this.visitas.length > 0) {
        // this.vendedorActual = this.visitas[0].vendedor; // Corregimos el nombre
       }

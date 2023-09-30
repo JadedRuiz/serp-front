@@ -8,4 +8,4 @@ const token_cp  = "c9a268f4-1791-4926-9177-e23f62de2eb7";
 export const SERVER_CP = API_CP;
 export const COLOR = CLASS_COLOR;
 export const TOKEN_CP = token_cp;
-export const SERVER_API = API_SERTEZA;
+export const  SERVER_API = API_SERTEZA;
