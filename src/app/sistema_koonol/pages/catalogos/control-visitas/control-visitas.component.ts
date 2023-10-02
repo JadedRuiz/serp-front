@@ -8,6 +8,8 @@ import { Subscription, debounceTime } from 'rxjs';
 import { Client } from 'src/app/models/clients.model';
 import { MatCalendar } from '@angular/material/datepicker';
 import { DateAdapter } from '@angular/material/core';
+import { Router } from '@angular/router';
+
 
 
 
@@ -22,7 +24,9 @@ export class ControlVisitasComponent implements OnInit {
   constructor(
     private visitasService: VisitasService,
     private clienteService: ClientsService,
-    private dateAdapter: DateAdapter<Date>
+    private dateAdapter: DateAdapter<Date>,
+    private router: Router,
+
 
     ) {
 
@@ -68,6 +72,10 @@ this.obtenerVisitas();
 }
 
 
+//Nueva Visita
+nuevaVisita() {
+  this.router.navigate(['/sis_koonol/catalogos/nueva-visita']);
+}
 
 
 obtenerVisitas() {
