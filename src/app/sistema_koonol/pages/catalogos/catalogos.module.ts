@@ -90,7 +90,7 @@ import {MatChipsModule} from '@angular/material/chips';
     MatDatepickerModule,
     MatNativeDateModule,
     MatChipsModule
-
+    
   ],
   providers: [
     NgxImageCompressService,
