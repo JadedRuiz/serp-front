@@ -18,6 +18,9 @@ import { RoutesComponent } from './routes/routes.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { VendedoresComponent } from './vendedores/vendedores.component';
 import { SearchFamComponent } from './search-fam/search-fam.component';
+import { InicioComponent } from './inicio/inicio.component';
+import {MatCardModule} from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -34,7 +37,8 @@ import { SearchFamComponent } from './search-fam/search-fam.component';
     ProveedoresComponent,
     AlmacenesComponent,
     VendedoresComponent,
-    SearchFamComponent
+    SearchFamComponent,
+    InicioComponent
   ],
   imports: [
     CommonModule,
@@ -43,6 +47,8 @@ import { SearchFamComponent } from './search-fam/search-fam.component';
     FormsModule,
     ReactiveFormsModule,
     AutocompleteLibModule,
+    MatCardModule,
+    MatButtonModule
 
   ],
   providers : [NgxImageCompressService]

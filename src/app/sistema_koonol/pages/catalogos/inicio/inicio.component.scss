@@ -1,0 +1,58 @@
+
+
+@media screen and (min-width:992){
+  .example-card {
+    max-width: 300px;
+  }
+}
+
+.example-header-image {
+  background-image: url('http://www.ligayucatan.org/assets/logos/logo.png');
+  background-size: cover;
+}
+
+
+
+.card-title{
+  color: aliceblue;
+}
+
+
+// -------------------------
+/* Estilos para los equipos y puntajes */
+.equipo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.imagen-equipo {
+  width: 47px; /* Ajusta el tamaño de la imagen del equipo */
+  height: 47px; /* Ajusta el tamaño de la imagen del equipo */
+  border-radius: 50%; /* Crea una imagen circular */
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.puntaje-local,
+.puntaje-visitante {
+  font-size: 34px; /* Ajusta el tamaño del puntaje */
+  font-weight: bold;
+  color: #f3ebeb; /* Cambia el color del puntaje */
+}
+
+.vs {
+  font-size: 34px; /* Ajusta el tamaño de "vs" */
+  font-weight: bold;
+  color: #2fbb0c; /* Cambia el color de "vs" para resaltarlo */
+}
+
+
+
+.card-title {
+  font-size: 18px; /* Ajusta el tamaño del título de la tarjeta */
+  font-weight: bold;
+}
+
+

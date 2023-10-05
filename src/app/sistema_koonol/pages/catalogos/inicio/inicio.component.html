@@ -1,0 +1,71 @@
+<div class="container mt-3">
+  <div class="col-12 text-center">
+    <h1 class="title">Categorias</h1>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-4 mb-3" *ngFor="let categoria of Categorias">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title class="card-title mt-1">{{categoria.Categoria}}</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="container">
+              <div class="col text-center mb-2">
+                <h1 class="text-white">JORNADA 1</h1>
+              </div>
+            <div class="row text-center border">
+
+              <!-- Equipo Local -->
+              <div class="col-5">
+                <img  [src]="imagen" class="rounded float-start imagen-equipo" alt="...">
+                <span class="puntaje-local my-3">23</span>
+              </div>
+              <!-- "vs" -->
+              <div class="col-2 text-center vs m-0 p-0">
+                VS
+              </div>
+              <!-- Equipo Visitante -->
+              <div class="col-5">
+                  <span class="puntaje-visitante">10</span>
+                  <img  [src]="imagen" class="rounded float-end imagen-equipo" alt="...">
+              </div>
+            </div>
+
+          </div>
+          <p class="edad text-white">Edades de: {{categoria.EdadMinima}} a {{categoria.EdadMaxima}} años</p>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <button class="btn btn-block btn-outline-warning" (click)="openModal()">Ver más</button>
+          </div>
+
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+
+
+  </div>
+
+
+ <!-- MODAL -->
+<div class="modal  shadow-card " [class.is-active]="isModalOpen">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Ruta</h1>
+        <a type="button" class="btn-close" (click)="closeModal()"></a>
+      </div>
+        <div class="d-grid gap-2 m-3">
+          <button class="btn btn-outline-info" type="button">Partidos</button>
+          <button class="btn btn-primary" type="button">Bateo</button>
+          <button class="btn btn-primary" type="button">Estadisticas</button>
+        </div>
+
+    </div>
+  </div>
+</div>
+

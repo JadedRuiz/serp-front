@@ -1,5 +1,5 @@
 <!-- START NAV -->
-<nav class="navbar is-white">
+<!-- <nav class="navbar is-white">
   <div class="navbar-brand">
     <a class="navbar-item" (click)="ocultarMenu()">
       <i class="fa fa-bars i-menu" aria-hidden="true"></i>
@@ -12,9 +12,9 @@
       </a>
     </div>
   </div>
-</nav>
+</nav> -->
 <!-- END NAV -->
-<div class="container-fluid contenido">
+<!-- <div class="container-fluid contenido">
   <div class="row">
     <div class="col-2 is-2 slider" *ngIf="show_menu" [@enterAnimation]>
       <aside class="menu is-hidden-mobile">
@@ -93,7 +93,106 @@
       </aside>
     </div>
     <div class="col">
-      <router-outlet></router-outlet>
     </div>
   </div>
-</div>
+</div> -->
+<!-- ------------------------------------------------- -->
+
+
+
+<nav class=" text-ligth navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+  <!-- Navbar content -->
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img [src]="imagenLogo" alt="Logo" width="40" height="54" class=" text-center d-inline-bloc">
+         <span class="mt-2">LIGA INFANTIL Y JUVENIL</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">Partidos</a>
+          </li> -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Accesos
+            </a>
+            <ul class="dropdown-menu ">
+              <li><a class="dropdown-item" href="#">Rol de juegos</a></li>
+              <li><a class="dropdown-item" href="#">Complilacion</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a  class="dropdown-item" href="#">Reglamento</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" >Estadisticas</a>
+          </li>
+        </ul>
+        <form class="d-flex " role="search">
+          <button class="me-2 btn btn-outline-info" type="submit">Registro</button>
+          <button class="btn btn-outline-warning" type="submit">Ingresar</button>
+        </form>
+      </div>
+    </div>
+
+</nav>
+
+
+
+
+<router-outlet></router-outlet>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-center text-white">
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!-- Section: Social media -->
+    <section class="mb-4">
+      <!-- Facebook -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
+
+      <!-- Twitter -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+
+      <!-- Google -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i></a>
+
+      <!-- Instagram -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-instagram"></i></a>
+    </section>
+
+
+    <!-- Section: Text -->
+    <section class="mb-4 ">
+      <p>
+        Esta página de la Liga Yucatán es recreativa y con contenido educativo para todos los aficionados del rey de los
+        deportes. No tenemos información sobre inscripciones ni temas de oficina.
+      </p>
+    </section>
+    <!-- Section: Text -->
+    <p>
+      <i class="fas fa-envelope me-3 text-secondary"></i>
+      ligayucatan@serteza.com
+    </p>
+    <p><i class="fas fa-phone me-3 text-secondary"></i> +52 981 159 2659</p>
+
+
+
+
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2023
+    <a class="text-white" href="#">Serteza.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->

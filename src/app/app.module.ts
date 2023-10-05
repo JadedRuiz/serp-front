@@ -29,6 +29,7 @@ import { SistemaKoonolModule } from './sistema_koonol/sistema_koonol.module';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InicioComponent } from './ligaYuc/pages/inicio/inicio.component';
 
 
 
@@ -36,6 +37,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   declarations: [
     AppComponent,
     LoginComponent,
+    InicioComponent,
     // CatalogoComponent,
     // OrdersCartComponent,
     // OrdersPlacedComponent,

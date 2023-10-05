@@ -34,3 +34,8 @@ export const SERV_VENDEDORES = API_VENDEDORES;
 
 
 
+//---------------------------
+const API_SERTEEZA = "https://apiliga.serteza.com/public/api/";
+
+
+export const LIGA_API = API_SERTEEZA;

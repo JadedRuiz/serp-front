@@ -30,6 +30,8 @@ export class BaseLoggedComponent {
   //#region [Variables globales]
     column_size = "is-10";
     show_menu = true;
+  imagenLogo = 'http://www.ligayucatan.org/assets/logos/logo.png';
+
 
   //#endregion
 

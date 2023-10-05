@@ -10,11 +10,12 @@ import { SearchFamComponent } from './search-fam/search-fam.component';
 import { RoutesComponent } from './routes/routes.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { VendedoresComponent } from './vendedores/vendedores.component';
+import { InicioComponent } from './inicio/inicio.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CatalogoComponent
+    component: InicioComponent
   },
   {
     path: 'add-product',
