@@ -33,41 +33,7 @@ export class BaseLoggedComponent {
   imagenLogo = 'http://www.ligayucatan.org/assets/logos/logo.png';
 
 
-  //#endregion
-
-  ocultarMenu(){
-    if(this.show_menu){
-      this.column_size = "is-10";
-      this.show_menu = false;
-    }else{
-      this.column_size = "is-12";
-      this.show_menu = true;
-    }
-
-  }
 
 
-  logout(){
-    Notiflix.Confirm.show(
-      'Estás a punto de cerrar sesión',
-      '¿Estás seguro?',
-      'Si',
-      'No',
-      () => {
-        localStorage.removeItem("token");
-        location.reload();
-      },
-      () => {
-
-      },
-      {
-        backOverlay: true,
-        backOverlayColor: 'rgba(0,0,0,0.8)',
-        titleColor: '#f34e4e',
-        okButtonBackground: '#32c682',
-        cancelButtonBackground: '#f34e4e',
-      },
-      );
-  }
 
 }
