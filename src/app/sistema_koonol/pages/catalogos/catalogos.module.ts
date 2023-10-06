@@ -10,6 +10,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import {MatCardModule} from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { ReglamentoComponent } from './reglamento/reglamento.component';
+import { PartidosComponent } from './partidos/partidos.component';
 
 
 
@@ -17,7 +18,8 @@ import { ReglamentoComponent } from './reglamento/reglamento.component';
   declarations: [
 
     InicioComponent,
-      ReglamentoComponent
+      ReglamentoComponent,
+      PartidosComponent
   ],
   imports: [
     CommonModule,

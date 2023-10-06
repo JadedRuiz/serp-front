@@ -1,0 +1,100 @@
+//TITULO
+.f18 {
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.borde-left {
+  border-left: 3px #28A745 solid;
+  border-right: 3px #28A745 solid;
+}
+
+
+//Pruebas
+.img_div {
+  width: 100px;
+  height: 88px;
+  object-fit: cover;
+  border-radius: 50%;
+
+}
+
+.div_img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+// VS
+.linea {
+  background-color: #9b9b9b;
+  width: 35px;
+}
+
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #35ad79;
+  border: 1px #9b9b9b solid;
+  font-weight: 500;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  font-size: 13px;
+  font-family: 'Kanit', sans-serif;
+  margin-top: -15px;
+}
+.marcador_gray {
+  color: #9B9B9B;
+  font-size: 60px;
+  font-weight: 400;
+}
+
+.marcador_green {
+  color: #35ad79;
+  font-size: 60px;
+  font-weight: 400;
+}
+
+.titulo2_div {
+  color: #151515;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@media screen and (max-width:768px){
+
+  .img_div {
+    height: 78px;
+
+  }
+
+  .marcador_gray {
+    font-size: 37px;
+  }
+
+  .marcador_green {
+    font-size: 37px;
+  }
+
+  .circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #35ad79;
+    border: 1px #9b9b9b solid;
+    font-weight: 500;
+    border-radius: 50%;
+    height: 23px;
+    width: 23px;
+    font-size: 13px;
+    font-family: 'Kanit', sans-serif;
+    margin-top: -15px;
+  }
+
+  .text-one{
+    display: none;
+  }
+}

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistroService } from 'src/app/services/registro/registro.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class InicioComponent implements OnInit {
 
   constructor(
     private registro_service : RegistroService,
+    private router : Router
 
 
   ){}
@@ -45,5 +47,9 @@ export class InicioComponent implements OnInit {
     this.isModalOpen = false;
   }
 
+  partidos(){
+    this.router.navigate(['/sis_koonol/catalogos/partidos']);
+
+  }
 
 }
