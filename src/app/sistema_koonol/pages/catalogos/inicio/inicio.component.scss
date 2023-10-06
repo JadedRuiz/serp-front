@@ -56,3 +56,46 @@
 }
 
 
+//TITULO
+.f18 {
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.borde-left {
+  border-left: 3px #28A745 solid;
+  border-right: 3px #28A745 solid;
+}
+
+
+/* Estilo para el modal */
+.modal {
+  border-radius: 20px; /* Agrega bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Agrega una sombra suave */
+}
+
+.modal-content{
+  background-color: rgb(42, 44, 44);
+}
+
+/* Estilo para el título del modal */
+.modal-title {
+ font-size: 25px;
+ font-weight: 600;
+}
+
+.modal-header{
+  color: #f3ebeb;
+}
+
+/* Estilo para los botones */
+.btn {
+  font-size: 16px; /* Aumenta el tamaño de fuente de los botones */
+  padding: 10px 20px; /* Aumenta el espacio alrededor de los botones */
+  margin-right: 10px; /* Agrega espacio entre los botones */
+}
+ .x{
+  color: whitesmoke;
+  font-size: 32px;
+
+ }

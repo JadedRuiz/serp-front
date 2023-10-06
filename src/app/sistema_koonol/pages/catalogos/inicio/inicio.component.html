@@ -1,7 +1,7 @@
 <div class="container mt-3">
-  <div class="col-12 text-center mb-2">
-    <h1 class="title">Categorias</h1>
-  </div>
+  <div class=" text-center col mt-3 mb-3">
+    <p class="borde-left text-one-sub f18">CATEGORIAS</p>
+</div>
   <div class="row">
     <div class="col-12 col-md-4 mb-3" *ngFor="let categoria of Categorias">
       <mat-card class="example-card">
@@ -53,16 +53,18 @@
 
  <!-- MODAL -->
 <div class="modal  shadow-card " [class.is-active]="isModalOpen">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Ruta</h1>
-        <a type="button" class="btn-close" (click)="closeModal()"></a>
+      <div class="modal-header p-0">
+        <h1 class="modal-title pb-0 mb-0 ms-3" id="staticBackdropLabel">INICIACION 5-6</h1>
+        <a type="button" class="btn me-3 p-0 x" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </a>
       </div>
-        <div class="d-grid gap-2 m-3">
-          <button class="btn btn-outline-info" type="button">Partidos</button>
-          <button class="btn btn-primary" type="button">Bateo</button>
-          <button class="btn btn-primary" type="button">Estadisticas</button>
+        <div class="d-grid gap-4 m-3 pe-5 ps-5 ">
+          <button class="btn btn-outline-warning" type="button">Partidos</button>
+          <button class="btn btn-outline-warning" type="button">Bateo</button>
+          <button class="btn btn-outline-warning" type="button">Estadisticas</button>
         </div>
 
     </div>
