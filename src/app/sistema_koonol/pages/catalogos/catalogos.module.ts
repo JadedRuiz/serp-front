@@ -9,13 +9,15 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { InicioComponent } from './inicio/inicio.component';
 import {MatCardModule} from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { ReglamentoComponent } from './reglamento/reglamento.component';
 
 
 
 @NgModule({
   declarations: [
 
-    InicioComponent
+    InicioComponent,
+      ReglamentoComponent
   ],
   imports: [
     CommonModule,

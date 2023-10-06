@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { trigger, style, animate, transition, state } from '@angular/animations';
 import * as Notiflix from 'notiflix';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-base-logged',
@@ -26,14 +28,26 @@ import * as Notiflix from 'notiflix';
   ]
 })
 
-export class BaseLoggedComponent {
+export class BaseLoggedComponent implements OnInit {
   //#region [Variables globales]
     column_size = "is-10";
     show_menu = true;
   imagenLogo = 'http://www.ligayucatan.org/assets/logos/logo.png';
 
+  constructor(
+    private router: Router,
 
+  ){
 
+  }
 
+  ngOnInit(): void {
+
+  }
+
+  reglamento(){
+    this.router.navigate(['/sis_koonol/catalogos/reglamento']);
+
+  }
 
 }
