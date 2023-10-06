@@ -12,11 +12,48 @@
         </mat-card-header>
 
         <mat-card-content>
-          <div class="container">
+          <div class="marcadores container">
               <div class="col text-center mb-2">
                 <h1 class="text-white">JORNADA 1</h1>
               </div>
-            <div class="row text-center border">
+              <!-- PARTIDO 1 -->
+            <div class="row text-center par mb-1">
+
+              <!-- Equipo Local -->
+              <div class="col-5">
+                <img  [src]="imagen" class="rounded float-start imagen-equipo" alt="...">
+                <span class="puntaje-local my-3">23</span>
+              </div>
+              <!-- "vs" -->
+              <div class="col-2 text-center vs mt-2">
+                VS
+              </div>
+              <!-- Equipo Visitante -->
+              <div class="col-5">
+                  <span class="puntaje-visitante">10</span>
+                  <img  [src]="imagen" class="rounded float-end imagen-equipo" alt="...">
+              </div>
+            </div>
+              <!-- PARTIDO 2 -->
+              <div class="row text-center par mb-1">
+
+                <!-- Equipo Local -->
+                <div class="col-5">
+                  <img  [src]="imagen" class="rounded float-start imagen-equipo" alt="...">
+                  <span class="puntaje-local my-3">23</span>
+                </div>
+                <!-- "vs" -->
+                <div class="col-2 text-center vs mt-2">
+                  VS
+                </div>
+                <!-- Equipo Visitante -->
+                <div class="col-5">
+                    <span class="puntaje-visitante">10</span>
+                    <img  [src]="imagen" class="rounded float-end imagen-equipo" alt="...">
+                </div>
+              </div>
+                <!-- PARTIDO 3 -->
+            <div class="row text-center par mb-1">
 
               <!-- Equipo Local -->
               <div class="col-5">
