@@ -1,31 +1,33 @@
-<nav class=" text-ligth navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+<nav class=" text-ligth navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
   <!-- Navbar content -->
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <img [src]="imagenLogo" alt="Logo" width="40" height="54" class=" text-center d-inline-bloc">
-         <span class="mt-2">LIGA INFANTIL Y JUVENIL</span>
+         <span class="mt-2 ms-2"><b>LIGA YUCATÁN</b></span>
       </a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" data-bs-toggle="collapse" data-bs-target="#navbar" (click)="home()">Home</a>
           </li>
           <li class="nav-item">
-            <button class="nav-link" (click)="reglamento()" >Reglamento</button>
+            <button class="nav-link active" data-bs-toggle="collapse" data-bs-target="#navbar" (click)="reglamento()" >Reglamento</button>
           </li>
         </ul>
         <form class="d-flex " role="search">
           <button class=" me-2 btn btn-outline-warning" type="submit"> Registro</button>
-          <button class=" btn btn-outline-success" type="submit">Ingresar</button>
+          <button class=" me-2 btn btn-outline-success" type="submit">Ingresar</button>
         </form>
       </div>
     </div>
 
 </nav>
+
+
 
 <app-carousel-header></app-carousel-header>
 <router-outlet></router-outlet>
@@ -36,36 +38,41 @@
   <div class="container p-4">
     <!-- Section: Social media -->
     <section class="mb-4">
-      <!-- Facebook -->
-      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
 
       <!-- Twitter -->
       <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-twitter"></i></a>
 
-      <!-- Google -->
-      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i></a>
-
+      <!-- Facebook -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
       <!-- Instagram -->
       <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-instagram"></i></a>
     </section>
 
 
     <!-- Section: Text -->
-    <section class="mb-4 ">
-      <p>
-        Esta página de la Liga Yucatán es recreativa y con contenido educativo para todos los aficionados del rey de los
-        deportes. No tenemos información sobre inscripciones ni temas de oficina.
-      </p>
+    <section class=" row justify-content-center">
+
+      <div class=" col-12 col-md-5">
+        <p>
+          Esta página de la Liga Yucatán es recreativa y con contenido educativo para todos los aficionados del rey de los
+          deportes. No tenemos información sobre inscripciones ni temas de oficina.
+        </p>
+      </div>
+      <div class="col-12 col-md-4 d-flex align-items-center">
+          <img [src]="imagenLogo" alt="Logo" width="60" height="auto" class=" text-center">
+          <div class="ml-4">
+            <p>
+              <i class="fas fa-envelope me-1 text-secondary"></i>
+              ligayucatan@serteza.com
+            </p>
+            <p><i class="fas fa-phone me-1 text-secondary"></i> +52 981 159 2659</p>
+          </div>
+
+
+      </div>
+
+
     </section>
-    <!-- Section: Text -->
-    <p>
-      <i class="fas fa-envelope me-3 text-secondary"></i>
-      ligayucatan@serteza.com
-    </p>
-    <p><i class="fas fa-phone me-3 text-secondary"></i> +52 981 159 2659</p>
-
-
-
 
   </div>
   <!-- Grid container -->
