@@ -250,7 +250,7 @@ export class UsuariosComponent implements OnInit {
    }
 
    //habilitar los comapos del input
-   camposActivos: boolean = false; //Sólo se utiliza actualmente para el botón de añadir foto de usuario por alguna razón
+  camposActivos: boolean = false; //Sólo se utiliza actualmente para el botón de añadir foto de usuario por alguna razón
    activarCampos() {
       this.provInputs.forEach((provInput) => {
          provInput.nativeElement.disabled = false;

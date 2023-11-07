@@ -12,7 +12,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./proveedores.component.scss']
 })
 export class ProveedoresComponent {
-  token = localStorage.getItem("token");
+  @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
+  // token = localStorage.getItem("token");
+  token = 'token';
   miComprador = 1;
   miToken = '';
   miPefil = 'ADMINISTRADOR';
@@ -20,7 +22,7 @@ export class ProveedoresComponent {
   searchProveedorControl: FormControl = new FormControl();
 
   constructor(
-    private provService: ProveedoresService
+    private provService: ProveedoresService,
   ) { }
 
   ngOnInit() {
@@ -32,7 +34,6 @@ export class ProveedoresComponent {
       });
   }
 
-  @ViewChildren('inputProvForm') provInputs!: QueryList<ElementRef>;
 
   editarProveedor() {
     this.provInputs.forEach(
@@ -94,7 +95,7 @@ export class ProveedoresComponent {
       id_comprador: 1,
       proveedor: '',
       solo_activos: 1,
-      token: '012354SDSDS01',
+      token: this.token,
     };
     Swal.fire({
       title: '¿Quieres DESACTIVAR este proveedor?',
