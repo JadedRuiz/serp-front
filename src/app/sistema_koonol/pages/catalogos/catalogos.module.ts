@@ -41,7 +41,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import { UnidadMedidasComponent } from './unidad-medidas/unidad-medidas.component';
 import {MatChipsModule} from '@angular/material/chips';
-
+import { MatTableModule } from '@angular/material/table';
 
 
 
@@ -89,8 +89,8 @@ import {MatChipsModule} from '@angular/material/chips';
     MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatChipsModule
-    
+    MatChipsModule,
+    MatTableModule
   ],
   providers: [
     NgxImageCompressService,
