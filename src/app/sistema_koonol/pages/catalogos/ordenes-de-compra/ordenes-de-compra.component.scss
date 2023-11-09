@@ -33,53 +33,53 @@
 
 
 // Estilos para el modal
-#editarModal {
+// #editarModal {
 
 
-  .modal-header {
-    border-bottom: none; // Sin borde inferior en el header
-    background-color: #f2f2f2; // Color de fondo del header
+//   .modal-header {
+//     border-bottom: none; // Sin borde inferior en el header
+//     background-color: #f2f2f2; // Color de fondo del header
 
-    .modal-title {
-      font-weight: 600; // Texto del título en negrita
-      color: #333; // Color del texto del título
-    }
+//     .modal-title {
+//       font-weight: 600; // Texto del título en negrita
+//       color: #333; // Color del texto del título
+//     }
 
-    button.close {
-      color: #999; // Color del botón "Cerrar"
-      font-size: 1.5rem; // Tamaño de fuente del botón "Cerrar"
-    }
-  }
+//     button.close {
+//       color: #999; // Color del botón "Cerrar"
+//       font-size: 1.5rem; // Tamaño de fuente del botón "Cerrar"
+//     }
+//   }
 
-  .modal-body {
-    padding: 20px; // Espaciado interno del cuerpo del modal
+//   .modal-body {
+//     padding: 20px; // Espaciado interno del cuerpo del modal
 
-    .form-group {
-      margin-bottom: 20px; // Espaciado inferior entre grupos de formulario
+//     .form-group {
+//       margin-bottom: 20px; // Espaciado inferior entre grupos de formulario
 
-      label {
-        font-weight: 600; // Texto del label en negrita
-      }
+//       label {
+//         font-weight: 600; // Texto del label en negrita
+//       }
 
-      input.form-control {
-        border: 1px solid #ddd; // Borde de los campos de formulario
-        border-radius: 5px; // Bordes redondeados para los campos de formulario
-      }
-    }
-  }
+//       input.form-control {
+//         border: 1px solid #ddd; // Borde de los campos de formulario
+//         border-radius: 5px; // Bordes redondeados para los campos de formulario
+//       }
+//     }
+//   }
 
-  .modal-footer {
-    border-top: none; // Sin borde superior en el footer
-    background-color: #f2f2f2; // Color de fondo del footer
+//   .modal-footer {
+//     border-top: none; // Sin borde superior en el footer
+//     background-color: #f2f2f2; // Color de fondo del footer
 
-    button.btn-secondary {
-      background-color: #ddd; // Color de fondo del botón "Cerrar"
-      color: #333; // Color del texto del botón "Cerrar"
-    }
+//     button.btn-secondary {
+//       background-color: #ddd; // Color de fondo del botón "Cerrar"
+//       color: #333; // Color del texto del botón "Cerrar"
+//     }
 
-    button.btn-primary {
-      background-color: #007bff; // Color de fondo del botón "Guardar cambios"
-      color: #fff; // Color del texto del botón "Guardar cambios"
-    }
-  }
-}
+//     button.btn-primary {
+//       background-color: #007bff; // Color de fondo del botón "Guardar cambios"
+//       color: #fff; // Color del texto del botón "Guardar cambios"
+//     }
+//   }
+// }

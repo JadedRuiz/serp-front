@@ -9,7 +9,7 @@
           <a class="nav-link active" id="datos-tab" data-toggle="tab" href="#datos" role="tab" aria-controls="datos"
             aria-selected="true">Detalles</a>
         </li>
-          </ul>
+      </ul>
     </div>
     <div id="contenido" class="container-fluid rounded shadow">
       <div class="tab-content" id="myTabContent">
@@ -23,12 +23,12 @@
                 <input type="text" class="form-control" placeholder="PROVEEDOR">
               </div>
 
-                <div class="form-group mt-2 col-md-3">
-                  <input type="date" class="form-control">
-                </div>
+              <div class="form-group mt-2 col-md-3">
+                <input type="date" class="form-control">
+              </div>
             </div>
             <div class="form-row">
-                    <div class="form-group col-md-2">
+              <div class="form-group col-md-2">
                 <label for="status">MONEDA</label>
                 <select class="form-control">
                   <option>MXM</option>
@@ -66,8 +66,8 @@
                 <label for="noCotización">OBSERVACIONES</label>
                 <textarea type="textarea" class="form-control"></textarea>
               </div>
-                </div>
-                    <hr>
+            </div>
+            <hr>
           </form>
 
           <form id="form_articulos" class="m-4">
@@ -78,15 +78,12 @@
                 <input type="text" class="form-control" placeholder="Buscar...">
               </div>
               <div class="col-md-4">
-                <button type="button"
-                class="search-btn mt-5"
-                data-toggle="modal"
-                data-target="#editarModal"
-                >Agregar</button>
+                <button type="button" class="search-btn mt-5" data-toggle="modal"
+                  data-target="#editarModal">Agregar</button>
               </div>
             </div>
 
-            <div  class="table-responsive mt-4">
+            <div class="table-responsive mt-4">
               <!-- <table class="table table-bordered">
                 <thead>
                   <tr>
@@ -149,19 +146,17 @@
                   <ng-container matColumnDef="acciones">
                     <th mat-header-cell *matHeaderCellDef> Acciones </th>
                     <td mat-cell *matCellDef="let transaction">
-                      <button  data-toggle="modal"
-                      data-target="#editarModal"
-                       class="btn btn-sm btn-primary mr-2" (click)="editarItem(transaction)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                      <button class="btn btn-sm btn-danger" (click)="borrarItem(transaction)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                      <button data-toggle="modal" data-target="#editarModal" class="btn btn-sm btn-primary mr-2"
+                        (click)="editarItem(transaction)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                      <button class="btn btn-sm btn-danger" (click)="borrarItem(transaction)"><i class="fa fa-trash"
+                          aria-hidden="true"></i></button>
                     </td>
                   </ng-container>
 
 
                   <tr class="ht" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                  <tr
-                   data-toggle="modal"
-                  data-target="#editarModal"
-                  (click)="editarItem(row)" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  <tr data-toggle="modal" data-target="#editarModal" (click)="editarItem(row)" mat-row
+                    *matRowDef="let row; columns: displayedColumns;"></tr>
                   <!-- <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr> -->
                 </table>
               </div>
@@ -253,54 +248,56 @@
   </div>
 </div>
 
-            <!-- Modal para editar artículo -->
-            <div class="modal fade" id="editarModal" >
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header text-center">
-                    <h5 class="title mb-0 text-center" id="editarModalLabel">Editar Artículo</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="row m-1">
-                      <div class="form-group col-md-4">
-                        <label for="editar_articulo">Artículo</label>
-                        <input type="text" class="form-control" id="editar_articulo" placeholder="Artículo a editar">
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label for="Unidad">Unidad</label>
-                        <input type="text" class="form-control" id="editar_codigo_barras" placeholder="Peso">
-                      </div>
-                      <div class="form-group col-md-4">
-                        <label for="editar_codigo_barras">Código de proveedor</label>
-                        <input type="text" class="form-control" id="editar_codigo_barras" placeholder="Código">
-                      </div>
-                    </div>
-                    <div class="row m-1">
-                      <div class="form-group col-md-4">
-                        <label for="cantidad">Cantidad</label>
-                        <input type="text" class="form-control" id="editar_articulo" placeholder="Cantidad">
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label for="precioUni">Precio unidad</label>
-                        <input type="text" class="form-control" id="editar_codigo_barras" placeholder="precioUni">
-                      </div>
-                      <div class="form-group col-md-4">
-                        <label for="descuento">Descuento</label>
-                        <input type="text" class="form-control" id="editar_codigo_barras" placeholder="descuento">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="editar_total">Total</label>
-                      <input type="number" class="form-control" id="editar_total" placeholder="Total">
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn search-btn" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn general-btn ">Guardar cambios</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+
+<!-- Modal para editar artículo -->
+<div class="modal fade"  id="editarModal" tabindex="-1" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h2 class="title mb-0 text-center">Editar Artículo</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row m-1">
+          <div class="form-group col-md-4">
+            <label for="editar_articulo">Artículo</label>
+            <input type="text" class="form-control" id="editar_articulo" placeholder="Artículo a editar">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="Unidad">Unidad</label>
+            <input type="text" class="form-control" id="editar_codigo_barras" placeholder="Peso">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="editar_codigo_barras">Código de proveedor</label>
+            <input type="text" class="form-control" id="editar_codigo_barras" placeholder="Código">
+          </div>
+        </div>
+        <div class="row m-1">
+          <div class="form-group col-md-4">
+            <label for="cantidad">Cantidad</label>
+            <input type="text" class="form-control" id="editar_articulo" placeholder="Cantidad">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="precioUni">Precio unidad</label>
+            <input type="text" class="form-control" id="editar_codigo_barras" placeholder="precioUni">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="descuento">Descuento</label>
+            <input type="text" class="form-control" id="editar_codigo_barras" placeholder="descuento">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="editar_total">Total</label>
+          <input type="number" class="form-control" id="editar_total" placeholder="Total">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn search-btn" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn general-btn ">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
