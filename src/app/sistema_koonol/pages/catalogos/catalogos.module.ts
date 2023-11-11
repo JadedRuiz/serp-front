@@ -42,8 +42,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { UnidadMedidasComponent } from './unidad-medidas/unidad-medidas.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
-
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 
@@ -90,7 +89,8 @@ import { MatTableModule } from '@angular/material/table';
     MatDatepickerModule,
     MatNativeDateModule,
     MatChipsModule,
-    MatTableModule
+    MatTableModule,
+    MatAutocompleteModule
   ],
   providers: [
     NgxImageCompressService,

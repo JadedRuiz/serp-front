@@ -14,24 +14,44 @@
     <div id="contenido" class="container-fluid rounded shadow">
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="datos" role="tabpanel" aria-labelledby="datos-tab">
-          <form id="form_datos" class="m-3">
+
+
+          <form #data="ngForm"  id="form_datos" class="m-3" >
             <div class="form-row">
+
+              <!-- BUSCADOR DE PROVEEDORES -->
               <div class="form-group mt-2 col-md-4">
-                <input [(ngModel)]="ordenCompra.folio" name="folio"
-                type="text" class="form-control" placeholder="FOLIO">
-              </div>
-              <div class="form-group mt-2 col-md-4">
-                <input type="text" [(ngModel)]="ordenCompra.proveedor " name="proveedor"
-                class="form-control" placeholder="PROVEEDOR">
+                <mat-form-field class="w-100">
+                  <input
+                  matInput placeholder="Proveedor" aria-label="State" [matAutocomplete]="auto" [formControl]="provCtrl">
+                  <mat-autocomplete #auto="matAutocomplete"
+                  (optionSelected)="provSelec($event)"
+                  >
+                    <mat-option *ngFor="let proveedor of provFiltrados | async"
+                     [value]="proveedor.proveedor | uppercase"
+                    [id]="proveedor"
+                     >
+                      <span>{{ proveedor.proveedor | uppercase }}</span>
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
               </div>
 
-              <div class="form-group mt-2 col-md-3">
+
+              <div class="form-group mt-3 col-md-4">
+                <input [(ngModel)]="ordenCompra.folio" name="folio"
+                value="{{ ordenCompra.folio | uppercase }}"
+
+                type="text" class="form-control" placeholder="FOLIO">
+              </div>
+
+              <div class="form-group mt-3 col-md-4">
                 <input [(ngModel)]="ordenCompra.fecha_creacion" name="fecha_creacion"
                 type="date" class="form-control">
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-2">
+              <div class="form-group col-md-3">
                 <label for="status">MONEDA</label>
                 <select [(ngModel)]="ordenCompra.moneda" name="moneda" class="form-control">
                   <option>MXM</option>
@@ -39,37 +59,37 @@
                 </select>
               </div>
               <div class="form-group col-md-3">
-                <label for="status">Forma de pago</label>
+                <label for="status">FORMA DE PAGO</label>
                 <select [(ngModel)]="ordenCompra.forma_de_pago" name="pago" class="form-control">
                   <option selected>CONTADO</option>
                   <option>CREDITO</option>
                 </select>
               </div>
-              <div class="form-group col-md-2">
+              <div class="form-group col-md-3">
                 <label
                  for="noCotización">DIAS DE CREDITO</label>
                 <input [(ngModel)]="ordenCompra.dias_credito" name="credito"
                 type="number" class="form-control">
               </div>
-              <div class="form-group col-md-2">
-                <label for="status">Status</label>
+              <div class="form-group col-md-3">
+                <label for="status">STATUS</label>
                 <select  [(ngModel)]="ordenCompra.status" name="status"
                  class="form-control">
                   <option selected>ACTIVO</option>
                   <option>ENTREGADO</option>
                 </select>
               </div>
-              <div class="form-group col-md-3">
-                <label for="status">Fecha de entrega</label>
-                <input [(ngModel)]="ordenCompra.fecha_entrega" name="fecha_entrega"
-                type="date" class="form-control">
-              </div>
             </div>
+
             <div class="form-row">
 
+              <div class="form-group col-md-4">
+                <label for="status">FECHA DE ENTREGA</label>
+                <input [(ngModel)]="ordenCompra.fecha_entrega" name="fecha_entrega"
+                type="date" class=" mt-2 form-control">
+              </div>
 
-
-              <div class="form-group col-md-10">
+              <div class="form-group col-md-8">
                 <label for="noCotización">OBSERVACIONES</label>
                 <textarea [(ngModel)]="ordenCompra.observaciones" name="observaciones"
                  placeholder="Describa sus observaciones" type="textarea" class="form-control"></textarea>
@@ -87,7 +107,7 @@
                 <input type="text" class="form-control" placeholder="Buscar...">
               </div>
               <div class="col-md-4">
-                <button type="button" class="search-btn mt-5" data-toggle="modal"
+                <button type="button" class="search-btn mt-4" data-toggle="modal"
                   data-target="#editarModal">Agregar</button>
               </div>
             </div>
@@ -171,7 +191,7 @@
             <button (click)="guardar()" type="submit" class="  general-btn">
               Confirmar
             </button>
-            <button (click)="cancelar()" type="submit" class="d-flex ml-3 danger-btn">
+            <button (click)="cancelar()"  class="d-flex ml-3 danger-btn">
               Cancelar
             </button>
           </div>
@@ -207,12 +227,12 @@
       <div class="modal-body">
         <div class="row m-1">
           <div class=" col-md-6">
-            <input [(ngModel)]="producto.producto" name="producto"
+            <input [(ngModel)]="producto.producto" name="producto" value="{{ producto.producto | uppercase }}"
             type="text" class="form-control" id="editar_articulo"
             placeholder="Artículo a editar">
           </div>
           <div class="col-md-4">
-            <input [(ngModel)]="producto.uMedida" name="uMedida"
+            <input [(ngModel)]="producto.uMedida" name="uMedida" value="{{ producto.uMedida | uppercase }}"
             type="text" class="form-control" placeholder="Unidad de medida">
           </div>
 
@@ -232,7 +252,7 @@
             <p class="nom_cantidad mt-2" >P.Unitario:</p>
           </div>
           <div class="col-3 text-center">
-            <input [(ngModel)]="producto.pUnitario" name="pUnitario"
+            <input [(ngModel)]="producto.pUnitario"  name="pUnitario"
              type="number" class="nom_input form-control" placeholder="cantidad">
           </div>
         </div>

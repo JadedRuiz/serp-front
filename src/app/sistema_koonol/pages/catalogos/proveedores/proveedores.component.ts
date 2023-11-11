@@ -88,7 +88,7 @@ export class ProveedoresComponent {
   }
 
   // =>
-  // ACTIVAR/DESACTIVAR VENDEDOR
+  // ACTIVAR/DESACTIVAR
   activarProveedor(id_proveedor: number, activo: number) {
     let json = {
       id_proveedor: 0,

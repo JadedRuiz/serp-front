@@ -12,6 +12,7 @@
           aria-label="Buscar proveedores"
           aria-describedby="button-addon2"
           [formControl]="searchProveedorControl"
+          value="{{ searchProveedorControl.value | uppercase }}"
         />
         <div class="search-loader" *ngIf="loader; else proveedoresReady">
           <i class="fa fa-spinner fa-pulse"></i>
@@ -74,6 +75,7 @@
                 id="cliente"
                 required
                 [(ngModel)]="proveedor.proveedor"
+                value="{{ proveedor.proveedor | uppercase }}"
                 #inputProvForm
                 disabled
               />
@@ -87,6 +89,7 @@
                 id="contacto"
                 required
                 [(ngModel)]="proveedor.contacto"
+                value="{{ proveedor.contacto | uppercase }}"
                 #inputProvForm
                 disabled
               />
@@ -100,6 +103,7 @@
                 id="rfc"
                 required
                 [(ngModel)]="proveedor.rfc"
+                value="{{ proveedor.rfc | uppercase }}"
                 #inputProvForm
                 disabled
               />
@@ -141,6 +145,7 @@
                 id="comercial"
                 required
                 [(ngModel)]="proveedor.nombre_comercial"
+                value="{{ proveedor.nombre_comercial | uppercase }}"
                 #inputProvForm
                 disabled
               />
@@ -224,6 +229,7 @@
                 id="descripcion"
                 required
                 [(ngModel)]="proveedor.domicilio.descripcion"
+                value="{{ proveedor.domicilio.descripcion | uppercase }}"
                 #inputProvForm
                 disabled
               />
@@ -237,6 +243,7 @@
                 id="calle"
                 required
                 [(ngModel)]="proveedor.domicilio.calle"
+                value="{{ proveedor.domicilio.calle | uppercase }}"
                 #inputProvForm
                 disabled
               />
@@ -320,6 +327,8 @@
                 id="colonia"
                 required
                 [(ngModel)]="proveedor.domicilio.colonia"
+                value="{{ proveedor.domicilio.colonia | uppercase }}"
+
                 #inputProvForm
                 disabled
               />
@@ -333,6 +342,8 @@
                 id="localidad"
                 required
                 [(ngModel)]="proveedor.domicilio.localidad"
+                value="{{ proveedor.domicilio.localidad | uppercase }}"
+
                 #inputProvForm
                 disabled
               />
@@ -346,6 +357,8 @@
                 id="municipio"
                 required
                 [(ngModel)]="proveedor.domicilio.municipio"
+                value="{{ proveedor.domicilio.municipio | uppercase }}"
+
                 #inputProvForm
                 disabled
               />
@@ -359,6 +372,8 @@
                 id="estado"
                 required
                 [(ngModel)]="proveedor.domicilio.estado"
+                value="{{ proveedor.domicilio.estado | uppercase }}"
+
                 #inputProvForm
                 disabled
               />
