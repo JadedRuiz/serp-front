@@ -54,15 +54,11 @@ transactions: Transaction[] = [
   {producto: 'Sunscreen',uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
   {producto: 'Cooler', uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
   {producto: 'Coo33', uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
-  {producto: 'Coo22', uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
-  {producto: 'Swim suit', uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
 ];
 
 /** Gets the total cost of all transactions. */
-getTotalCost() {
-  return this.transactions.map(t => t.importe).reduce((acc, value) => acc + value, 0);
-}
 
+getTotalCost(): number { return this.transactions.reduce((total, transaction) => total + transaction.importe, 0); }
 
 
 editarItem(row: any) {
@@ -71,6 +67,8 @@ editarItem(row: any) {
 }
 
 borrarItem(transaction: any) {
+  console.log('transaction :>> ', transaction);
+
   // Lógica para borrar el elemento
 }
 
