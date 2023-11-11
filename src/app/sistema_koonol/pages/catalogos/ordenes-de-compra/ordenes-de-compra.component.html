@@ -17,45 +17,52 @@
           <form id="form_datos" class="m-3">
             <div class="form-row">
               <div class="form-group mt-2 col-md-4">
-                <input type="text" class="form-control" placeholder="FOLIO">
+                <input [(ngModel)]="ordenCompra.folio" name="folio"
+                type="text" class="form-control" placeholder="FOLIO">
               </div>
               <div class="form-group mt-2 col-md-4">
-                <input type="text" class="form-control" placeholder="PROVEEDOR">
+                <input type="text" [(ngModel)]="ordenCompra.proveedor " name="proveedor"
+                class="form-control" placeholder="PROVEEDOR">
               </div>
 
               <div class="form-group mt-2 col-md-3">
-                <input type="date" class="form-control">
+                <input [(ngModel)]="ordenCompra.fecha_creacion" name="fecha_creacion"
+                type="date" class="form-control">
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-2">
                 <label for="status">MONEDA</label>
-                <select class="form-control">
+                <select [(ngModel)]="ordenCompra.moneda" name="moneda" class="form-control">
                   <option>MXM</option>
                   <option>USA</option>
                 </select>
               </div>
               <div class="form-group col-md-3">
                 <label for="status">Forma de pago</label>
-                <select class="form-control">
+                <select [(ngModel)]="ordenCompra.forma_de_pago" name="pago" class="form-control">
                   <option selected>CONTADO</option>
                   <option>CREDITO</option>
                 </select>
               </div>
               <div class="form-group col-md-2">
-                <label for="noCotización">DIAS DE CREDITO</label>
-                <input type="number" class="form-control">
+                <label
+                 for="noCotización">DIAS DE CREDITO</label>
+                <input [(ngModel)]="ordenCompra.dias_credito" name="credito"
+                type="number" class="form-control">
               </div>
               <div class="form-group col-md-2">
                 <label for="status">Status</label>
-                <select class="form-control">
+                <select  [(ngModel)]="ordenCompra.status" name="status"
+                 class="form-control">
                   <option selected>ACTIVO</option>
                   <option>ENTREGADO</option>
                 </select>
               </div>
               <div class="form-group col-md-3">
                 <label for="status">Fecha de entrega</label>
-                <input type="date" class="form-control">
+                <input [(ngModel)]="ordenCompra.fecha_entrega" name="fecha_entrega"
+                type="date" class="form-control">
               </div>
             </div>
             <div class="form-row">
@@ -64,12 +71,14 @@
 
               <div class="form-group col-md-10">
                 <label for="noCotización">OBSERVACIONES</label>
-                <textarea placeholder="Describa sus observaciones" type="textarea" class="form-control"></textarea>
+                <textarea [(ngModel)]="ordenCompra.observaciones" name="observaciones"
+                 placeholder="Describa sus observaciones" type="textarea" class="form-control"></textarea>
               </div>
             </div>
             <hr>
+            <!-- <button class="btn btn-primary" (click)="guardar()" >Guardar Orden</button> -->
           </form>
-
+            <!-- TABLA -->
           <form id="form_articulos" class="m-2">
             <h1>Lista de articulos</h1>
             <div class="row mt-4">
@@ -78,7 +87,7 @@
                 <input type="text" class="form-control" placeholder="Buscar...">
               </div>
               <div class="col-md-4">
-                <button type="button" class="search-btn mt-5 px-4" data-toggle="modal"
+                <button type="button" class="search-btn mt-5" data-toggle="modal"
                   data-target="#editarModal">Agregar</button>
               </div>
             </div>
@@ -113,18 +122,23 @@
                   </td>
                 </ng-container>
 
-                <ng-container matColumnDef="acciones">
+                <ng-container  matColumnDef="acciones">
+
                   <th mat-header-cell *matHeaderCellDef> Acciones </th>
-                  <td mat-cell *matCellDef="let transaction">
+
+                  <td style="cursor: default;" mat-cell *matCellDef="let transaction">
+
                     <button data-toggle="modal" data-target="#editarModal" class="btn btn-sm btn-primary mr-2"
                       (click)="editarItem(transaction)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                    <button class="btn btn-sm btn-danger" (click)="borrarItem(transaction)"><i class="fa fa-trash"
-                        aria-hidden="true"></i></button>
-                  </td>
-                </ng-container>
+
+                      <button class="btn btn-sm btn-danger"
+                      (click)="borrarItem(transaction); $event.stopPropagation()">
+                       <i class="fa fa-trash"aria-hidden="true"></i></button>
+                    </td>
+                    </ng-container>
 
 
-                <tr class="ht" mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+                <tr class="ht" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr data-toggle="modal" data-target="#editarModal" (click)="editarItem(row)" mat-row
                   *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
@@ -154,10 +168,10 @@
             </section>
 
             <div class="col d-flex justify-content-end ">
-            <button type="submit" class="  general-btn">
+            <button (click)="guardar()" type="submit" class="  general-btn">
               Confirmar
             </button>
-            <button type="submit" class="d-flex ml-3 danger-btn">
+            <button (click)="cancelar()" type="submit" class="d-flex ml-3 danger-btn">
               Cancelar
             </button>
           </div>
@@ -167,6 +181,7 @@
       </div>
     </div>
   </div>
+  </div>
 
 
 
@@ -175,55 +190,108 @@
 
 
 
-  <!-- Modal para editar artículo -->
-  <div class="modal fade" id="editarModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!-- <div class="modal-header">
-          <h2 class="title mb-0 text-center">Editar Artículo</h2>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div> -->
-        <div class="modal-body">
-          <div class="row m-1">
-            <div class="form-group col-md-4">
-              <label for="editar_articulo">Artículo</label>
-              <input type="text" class="form-control" id="editar_articulo" placeholder="Artículo a editar">
-            </div>
-            <!-- <div class="form-group col-md-3">
-              <label for="Unidad">Unidad</label>
-              <input type="text" class="form-control" id="editar_codigo_barras" placeholder="Peso">
-            </div>
-            <div class="form-group col-md-4">
-              <label for="editar_codigo_barras">Código de proveedor</label>
-              <input type="text" class="form-control" id="editar_codigo_barras" placeholder="Código">
-            </div>
+
+
+
+
+ <!-- Modal para editar artículo -->
+ <div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="title mb-0 text-center">Producto Agregado</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row m-1">
+          <div class=" col-md-6">
+            <input [(ngModel)]="producto.producto" name="producto"
+            type="text" class="form-control" id="editar_articulo"
+            placeholder="Artículo a editar">
           </div>
-          <div class="row m-1">
-            <div class="form-group col-md-4">
-              <label for="cantidad">Cantidad</label>
-              <input type="text" class="form-control" id="editar_articulo" placeholder="Cantidad">
-            </div>
-            <div class="form-group col-md-3">
-              <label for="precioUni">Precio unidad</label>
-              <input type="text" class="form-control" id="editar_codigo_barras" placeholder="precioUni">
-            </div>
-            <div class="form-group col-md-4">
-              <label for="descuento">Descuento</label>
-              <input type="text" class="form-control" id="editar_codigo_barras" placeholder="descuento">
-            </div>
+          <div class="col-md-4">
+            <input [(ngModel)]="producto.uMedida" name="uMedida"
+            type="text" class="form-control" placeholder="Unidad de medida">
           </div>
-          <div class="form-group">
-            <label for="editar_total">Total</label>
-            <input type="number" class="form-control" id="editar_total" placeholder="Total">
-          </div> -->
+
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn search-btn" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn general-btn ">Guardar cambios</button>
+
+        <div class="row mt-4">
+          <div class=" col-3 pr-0 text-center">
+            <p class="nom_cantidad mt-2" >Cantidad :</p>
+          </div>
+          <div class="col-3 text-center">
+            <input [(ngModel)]="producto.cantidad" name="cantidad"
+             type="number" class="nom_input form-control" placeholder="cantidad">
+          </div>
         </div>
+        <div class="row mt-4">
+          <div class=" col-3 pr-0 text-center">
+            <p class="nom_cantidad mt-2" >P.Unitario:</p>
+          </div>
+          <div class="col-3 text-center">
+            <input [(ngModel)]="producto.pUnitario" name="pUnitario"
+             type="number" class="nom_input form-control" placeholder="cantidad">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class=" col-3 pr-0 text-center">
+            <p class="nom_cantidad mt-2" >Importe:</p>
+          </div>
+          <div class="col-3 text-center">
+            <input [(ngModel)]="producto.importe " name="importe"
+             type="number" class="nom_input form-control" placeholder="cantidad">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class=" col-3 pr-0 text-center">
+            <p class="nom_cantidad mt-2" >Iva:</p>
+          </div>
+          <div class="col-3 text-center">
+            <input  name="iva"
+             type="number" class="nom_input form-control" placeholder="iva">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class=" col-3 pr-0 text-center">
+            <p class="nom_cantidad mt-2" >IEPS:</p>
+          </div>
+          <div class="col-3 text-center">
+            <input name="ieps"
+             type="number" class="nom_input form-control" placeholder="ieps">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class=" col-3 pr-0 text-center">
+            <p class="nom_cantidad mt-2" >Total:</p>
+          </div>
+          <div class="col-3 text-center">
+            <input name="total"
+             type="number" class="nom_input form-control" placeholder="total">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class=" col-3 pr-0 text-center">
+            <p class="nom_cantidad mt-2" >Descuentos:</p>
+          </div>
+          <div class="col-3 text-center">
+            <input name="descuentos"
+             type="number" class="nom_input form-control" placeholder="descuentos">
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="danger-btn" data-dismiss="modal">Cancelar</button>
+
+        <button type="button" class=" general-btn ">Guardar cambios</button>
+
       </div>
     </div>
   </div>
-  </div>
+</div>
+
+

@@ -2,14 +2,20 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { ProductProv } from 'src/app/models/producto-proveedor';
+import { OrdenDeCompra } from 'src/app/models/orden-de-compra.model';
+import Swal from 'sweetalert2';
+
 export interface Transaction {
   producto: string;
   uMedida: string;
   cantidad: number;
   pUnitario: number;
   importe: number;
-
 }
+
+
+
 
 @Component({
   selector: 'app-ordenes-de-compra',
@@ -17,36 +23,22 @@ export interface Transaction {
   styleUrls: ['./ordenes-de-compra.component.scss']
 })
 export class OrdenesDeCompraComponent implements OnInit {
-  fecha1 = new FormControl(new Date());
-  fecha2 = new FormControl(new Date());
-//  serializedDate = new FormControl((new Date()).toISOString());
+ public producto = new ProductProv('','',0,0,0);
+ public ordenCompra = new OrdenDeCompra(0,'','','','','',0,0,'','');
 constructor(
   private datePipe: DatePipe
 ) {}
 
+
 ngOnInit(): void {
-  this.fecha1 = new FormControl();
-  this.fecha2 = new FormControl();
-
-
-  console.log('>>', this.fecha1.value);
 
 }
 
-onFechaSeleccionada(event: any) {
-  console.log('entra  :>> ');
-  let fechaSeleccionada = event.value;
-  console.log('fechaSeleccionada :>> ', fechaSeleccionada);
-}
-
-
-formatearFecha(){
-  const fecha = this.fecha1.value;
-    return this.datePipe.transform(fecha, 'dd-MM-yyyy');
-}
 
 
 displayedColumns = ['producto', 'uMedida', 'cantidad', 'pUnitario', 'importe', 'acciones'];
+
+
 transactions: Transaction[] = [
   {producto: 'Beach ball',uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
   {producto: 'Towel',uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
@@ -56,21 +48,78 @@ transactions: Transaction[] = [
   {producto: 'Coo33', uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
 ];
 
-/** Gets the total cost of all transactions. */
 
 getTotalCost(): number { return this.transactions.reduce((total, transaction) => total + transaction.importe, 0); }
 
 
 editarItem(row: any) {
-  console.log('transaction :>> ', row);
-  // Lógica para editar el elemento
+  this.producto = row;
+  console.log('transaction :>> ', this.producto);
+
 }
+
+
 
 borrarItem(transaction: any) {
-  console.log('transaction :>> ', transaction);
-
-  // Lógica para borrar el elemento
+  Swal.fire({
+    title: "¿Eliminar articulo",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "SI"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      console.log('transaction a eliminar: ', transaction);
+      Swal.fire({
+        title: "Articulo eliminado",
+        icon: "success"
+      });
+    }
+  });
 }
 
+
+guardar(){
+  Swal.fire({
+    title: "¿Confirmar orden de compra?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonText: 'Revizar',
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Confirmar"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      console.log('this.ordenDeCompra :>> ', this.ordenCompra);
+      Swal.fire({
+        title: "Orden de compra confirmada",
+        icon: "success"
+      });
+    }
+  });
+}
+
+
+cancelar(){
+  Swal.fire({
+    title: "¿Cancelar orden de compra?",
+    text: "se borraran todos los datos ingresados...",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonText: 'Regresar',
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Confirmar"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      console.log('this.ordenDeCompra :>> ', this.ordenCompra);
+      Swal.fire({
+        title: "Orden de compra cancelada",
+        icon: "success"
+      });
+    }
+  });
+}
 
 }
