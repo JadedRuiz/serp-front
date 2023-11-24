@@ -87,6 +87,7 @@ filtrarProv(name: any) {
      prov.proveedor.toUpperCase().indexOf(name.toUpperCase()) === 0);
 }
 
+// PROV SELECCINADO
 provSelec(prov: any) {
  console.log('element :>> ', prov.option.id.proveedor);
 this.ordenCompra.proveedor = prov.option.id.proveedor;
@@ -94,7 +95,7 @@ this.ordenCompra.proveedor = prov.option.id.proveedor;
 
 displayedColumns = ['producto', 'uMedida', 'cantidad', 'pUnitario', 'importe', 'acciones'];
 
-
+// DATOS DE MUESTRA
 transactions: Transaction[] = [
   {producto: 'Beach ball',uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
   {producto: 'Towel',uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
@@ -104,18 +105,18 @@ transactions: Transaction[] = [
   {producto: 'Coo33', uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
 ];
 
-
+// PARA OBTENER EL TOTAL
 getTotalCost(): number { return this.transactions.reduce((total, transaction) => total + transaction.importe, 0); }
 
-
+// EDITAR UN PRODUCTO
 editarItem(row: any) {
   this.producto = row;
   console.log('transaction :>> ', this.producto);
-
 }
 
 
 
+// BORRAR UN PRODUCTO DE LA LISTA
 borrarItem(transaction: any) {
   Swal.fire({
     title: "¿Eliminar articulo",
@@ -135,14 +136,14 @@ borrarItem(transaction: any) {
   });
 }
 
-
+// GUARDAR ORDEN DE COMPRA
 guardar(){
   Swal.fire({
     title: "¿Confirmar orden de compra?",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
-    cancelButtonText: 'Revizar',
+    cancelButtonText: 'Revisar',
     cancelButtonColor: "#d33",
     confirmButtonText: "Confirmar"
   }).then((result) => {
@@ -158,7 +159,7 @@ guardar(){
   });
 }
 
-
+// CANCELAR ORDEN DE COMPRA
 cancelar(){
   Swal.fire({
     title: "¿Cancelar orden de compra?",
@@ -180,13 +181,10 @@ cancelar(){
   });
 }
 
+// VACIAR ORDEN
 vaciarOrden(){
-  console.log('entro :>> ');
   this.ordenCompra = new OrdenDeCompra(0,'','','','','',0,0,'','');
   this.ordenCompra.fecha_creacion = new Date ().toISOString ().substring (0,10);
-
-
-  console.log('fecha :>> ', this.ordenCompra.fecha_creacion);
 }
 
 }
