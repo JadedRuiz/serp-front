@@ -10,7 +10,7 @@
     <input type="text" class="search-input col-10 col-md-3" placeholder="Familia" [(ngModel)]="searchFam">
     <button type="button" class="b search-btn" (click)="buscar()" data-toggle="tooltip" title="Buscar">Buscar</button>
     <button *ngIf="dataLogin.pefil == 'DESARROLLADOR'" type="button" class="b add-btn" (click)="addProducto() "
-      data-toggle="tooltip" title="HUevos Perro">Agregar producto</button>
+      data-toggle="tooltip" title="nuevo producto">Agregar producto</button>
   </div>
 
   <div class="text-center" *ngIf="resultsNotFound" style="  color:red; font-size: 40px;">No se encontraron resultados.

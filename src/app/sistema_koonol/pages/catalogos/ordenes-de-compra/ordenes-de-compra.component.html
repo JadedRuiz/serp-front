@@ -1,13 +1,13 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-      <h1 class="title text-center">Orden de compra</h1>
+      <h1 class="title text-center"> Nueva orden de compra </h1>
     </div>
     <div id="tabs" class="col-md-12 col-lg-12">
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" id="datos-tab" data-toggle="tab" href="#datos" role="tab" aria-controls="datos"
-            aria-selected="true">Nueva orden</a>
+          <!-- <a class="nav-link active" id="datos-tab" data-toggle="tab" href="#datos" role="tab" aria-controls="datos"
+            aria-selected="true">Nueva orden</a> -->
         </li>
       </ul>
     </div>
@@ -20,7 +20,7 @@
             <div class="form-row">
 
               <!-- BUSCADOR DE PROVEEDORES -->
-              <div class="form-group mt-2 col-md-3">
+              <div class="form-group mt-2 col-md-4">
                 <mat-form-field class="w-100">
                   <input
                   matInput placeholder="Proveedor" aria-label="State" [matAutocomplete]="auto" [formControl]="provCtrl">
@@ -38,6 +38,7 @@
               </div>
 
 
+
               <div class="form-group mt-3 col-md-3">
                 <input [(ngModel)]="ordenCompra.folio" name="folio"
                 value="{{ ordenCompra.folio | uppercase }}"
@@ -51,12 +52,15 @@
               </div>
 
 
-              <div class="form-group mt-3 col-md-3">
+              <!-- <div class="form-group mt-3 col-md-3">
                 <select  [(ngModel)]="ordenCompra.status" name="status"
                  class="form-control">
                   <option selected>ACTIVO</option>
                   <option>ENTREGADO</option>
                 </select>
+              </div> -->
+              <div class="form-group mt-3 col-md-2">
+              <input type="text" class="form-control text-center" disabled  value="ACTIVA">
               </div>
 
 
@@ -71,7 +75,7 @@
                 </select>
               </div>
 
-              <div class="form-group col-md-3">
+              <div *ngIf="ordenCompra.forma_de_pago !== 'CONTADO' " class="form-group col-md-2">
                 <label
                  for="noCotización">DIAS DE CREDITO</label>
                 <input [(ngModel)]="ordenCompra.dias_credito" name="credito"
@@ -107,9 +111,10 @@
             <!-- TABLA -->
           <form id="form_articulos" class="m-2">
             <div class="row">
+
             <h1 class="ml-2">Lista de articulos</h1>
             <div class="col">
-              <button type="button" class="search-btn" data-toggle="modal"
+              <button (click)="agregarItem()"  type="button" class="search-btn" data-toggle="modal"
                 data-target="#editarModal">Agregar</button>
             </div>
             <div class="col">
@@ -213,26 +218,39 @@
 
 
  <!-- Modal para editar artículo -->
- <div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+ <div class="modal fade" id="editarModal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="title mb-0 text-center">Producto Agregado</h2>
+        <h2 class="title mb-0 text-center">
+          {{ editando ? 'Editar producto': 'Nuevo producto'}}
+        </h2>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="row m-1">
-          <div class=" col-md-6">
-            <label for="">Producto</label>
-            <input [(ngModel)]="producto.producto" name="producto" value="{{ producto.producto | uppercase }}"
-            type="text" class="form-control" id="editar_articulo"
-            placeholder="Artículo a editar">
+            <div class="col-md-6">
+            <mat-form-field class="w-100">
+              <input
+              matInput placeholder="Productos" aria-label="State" [matAutocomplete]="autoProduct2" [formControl]="productCtrl">
+              <mat-autocomplete  #autoProduct2="matAutocomplete"
+              (optionSelected)="productSelec($event)"
+              >
+                <mat-option *ngFor="let product of productFiltrados | async"
+                 [value]="product.articulo | uppercase"
+                 >
+                  <span >{{ product.articulo | uppercase }}</span>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
           </div>
+
+
           <div class="col-md-6">
             <label for="">U.Medida</label>
-            <input [(ngModel)]="producto.uMedida" name="uMedida" value="{{ producto.uMedida | uppercase }}"
+            <input
             type="text" class="form-control" placeholder="Unidad de medida">
           </div>
 
@@ -243,14 +261,14 @@
             <p class="nom_cantidad mt-2" >Cantidad :</p>
           </div>
           <div class="col-3 text-center">
-            <input [(ngModel)]="producto.cantidad" name="cantidad"
+            <input
              type="number" class="nom_input form-control" placeholder="cantidad">
           </div>
             <div class=" col-3 pr-0 text-center">
               <p class="nom_cantidad mt-2" >P.Unitario:</p>
             </div>
             <div class="col-3 text-center">
-              <input [(ngModel)]="producto.pUnitario"  name="pUnitario"
+              <input
                type="number" class="nom_input form-control" placeholder="cantidad">
             </div>
         </div>
@@ -259,7 +277,7 @@
             <p class="nom_cantidad mt-2" >Importe:</p>
           </div>
           <div class="col-3 text-center">
-            <input [(ngModel)]="producto.importe " name="importe"
+            <input
              type="number" class="nom_input form-control" placeholder="cantidad">
           </div>
           <div class=" col-3 pr-0 text-center">

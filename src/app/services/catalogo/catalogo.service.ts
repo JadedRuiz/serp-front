@@ -60,7 +60,7 @@ export class CatalogoService {
     );
   }
 
-  //Para obtener Artiuclos 
+  //Para obtener Artiuclos
   obtenerArticulos(): Observable<any> {
     const parametros = {
       id_existencia: 0,
@@ -70,6 +70,9 @@ export class CatalogoService {
       id_almacen: 1,
     };
     return this.http.post<any>(SERVER_API + 'articulos/consultarArticulos', parametros);
+  }
+  obtenerArticulos2(json) {
+    return this.http.post(SERVER_API + 'articulos/consultarArticulos', json);
   }
 
 

@@ -9,6 +9,9 @@ import Swal from 'sweetalert2';
 import { Observable, map, startWith } from 'rxjs';
 import { Proveedor } from 'src/app/models/proveedores.model';
 import { Address } from 'src/app/models/addresses.model';
+import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
+import { Articulo } from 'src/app/models/articulo.model';
+
 
 
 
@@ -32,17 +35,23 @@ export interface Transaction {
 export class OrdenesDeCompraComponent implements OnInit {
  public domicilio: Address = new Address(0, 1, 0, 0, '', '', '', '', '', '', '', 0, '', '', '', '', '', '', 1, [])
  public proveedor: Proveedor = new Proveedor(0, 1, '012354SDSDS01', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, this.domicilio);
- public producto = new ProductProv('','',0,0,0);
+ public producto: Articulo = new Articulo(0,0,0,'','','',0,0,0,0,0,0,'',true,0,[],0,0,0,0,'');
  public ordenCompra = new OrdenDeCompra(0,'','','','','',0,0,'','');
  public proveedores: Proveedor[] = [];
  public provCtrl: FormControl;
  public provFiltrados: Observable<any[]>;
+ public productos: Articulo[] = [];
+ public productCtrl: FormControl;
+ public productFiltrados: Observable<any[]>;
+ public editando = false;
+ displayedColumns = ['producto', 'uMedida', 'cantidad', 'pUnitario', 'importe', 'acciones'];
  @ViewChild('data') mytemplateForm : NgForm | undefined;
 
  constructor(
 
   private proveedor_service : ProveedoresService,
-  private datePipe: DatePipe
+  private datePipe: DatePipe,
+  private productService: CatalogoService
 ) {
   this.provCtrl = new FormControl();
   this.provFiltrados = this.provCtrl.valueChanges
@@ -50,14 +59,31 @@ export class OrdenesDeCompraComponent implements OnInit {
       startWith(''),
       map(prov => prov ? this.filtrarProv(prov) : this.proveedores.slice())
     );
+
+  this.productCtrl = new FormControl();
+  this.productFiltrados = this.productCtrl.valueChanges
+    .pipe(
+      startWith(''),
+      map(product => product ? this.filtrarProduct(product) : this.productos.slice())
+    );
 }
 
 
 ngOnInit(): void {
-  this.ordenCompra.fecha_creacion = new Date ().toISOString ().substring (0,10);
+  this.values();
  this.obtenerProveedor();
-//  console.log('fecha :>> ', this.ordenCompra.fecha_creacion);
+ this.obtenerProductos2();
 }
+
+
+//VALORES POR DEFECTO
+values(){
+  this.ordenCompra.fecha_creacion = new Date ().toISOString ().substring (0,10);
+  this.ordenCompra.forma_de_pago = 'CONTADO';
+  this.ordenCompra.moneda = 'MXM';
+
+}
+
 
 
 // AUTO PROVEEDORES
@@ -86,14 +112,45 @@ filtrarProv(name: any) {
   return this.proveedores.filter(prov =>
      prov.proveedor.toUpperCase().indexOf(name.toUpperCase()) === 0);
 }
-
 // PROV SELECCINADO
 provSelec(prov: any) {
  console.log('element :>> ', prov.option.id.proveedor);
 this.ordenCompra.proveedor = prov.option.id.proveedor;
 }
 
-displayedColumns = ['producto', 'uMedida', 'cantidad', 'pUnitario', 'importe', 'acciones'];
+
+//AUTO PRODUCTOS
+obtenerProductos2(){
+  let json = {
+    id_existencia: 0,
+    id_comprador: 1,
+    articulo: '',
+    token: '012354SDSDS01',
+    id_almacen: 1,
+  };
+  this.productService.obtenerArticulos().subscribe((resp)=>{
+    if(resp.ok){
+      this.productos = resp.data
+      console.log('resp :>> ', this.productos);
+    }
+  },
+  (error) => {
+    console.log('Error de conexión', error);
+  }
+  );
+}
+
+filtrarProduct(name:any){
+  console.log('resp :>> ', name)
+  return this.productos.filter(product =>
+    product.articulo.toUpperCase().indexOf(name.toUpperCase()) === 0)
+  }
+productSelec(product:any){}
+
+
+
+
+
 
 // DATOS DE MUESTRA
 transactions: Transaction[] = [
@@ -105,11 +162,20 @@ transactions: Transaction[] = [
   {producto: 'Coo33', uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
 ];
 
-// PARA OBTENER EL TOTAL
+// PARA OBTENER EL TOTAL DE LA TABLA
 getTotalCost(): number { return this.transactions.reduce((total, transaction) => total + transaction.importe, 0); }
+
+
+//NUEVO PRODUCTO
+agregarItem(){
+  // this.producto = new ProductProv('','','',0,0,0);
+  this.editando = false;
+
+}
 
 // EDITAR UN PRODUCTO
 editarItem(row: any) {
+  this.editando = true;
   this.producto = row;
   console.log('transaction :>> ', this.producto);
 }
