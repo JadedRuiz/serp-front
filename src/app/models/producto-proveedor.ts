@@ -1,10 +1,13 @@
 export class ProductProv {
   constructor(
-    public articulo: string,
-    public producto: string,
-    public uMedida: string,
+    public id_det_compra: number,
+    public id_existencia: number,
     public cantidad: number,
-    public pUnitario: number,
-    public importe: number,
+    public precio_unitario: number,
+    public descuento_1: number,
+    public descuento_2: number,
+    public descuento_3: number,
+    public ieps: number,
+    public tasa_iva: number,
   ){}
 }

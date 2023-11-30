@@ -2,7 +2,6 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, ReactiveFormsModule, NgForm } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { ProductProv } from 'src/app/models/producto-proveedor';
 import { OrdenDeCompra } from 'src/app/models/orden-de-compra.model';
 import { ProveedoresService } from 'src/app/services/proveedores/proveedores.service';
 import Swal from 'sweetalert2';
@@ -11,6 +10,8 @@ import { Proveedor } from 'src/app/models/proveedores.model';
 import { Address } from 'src/app/models/addresses.model';
 import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
 import { Articulo } from 'src/app/models/articulo.model';
+import { OrdenesService } from 'src/app/services/compra/ordenes.service';
+import { ProductProv } from 'src/app/models/producto-proveedor';
 
 
 
@@ -33,16 +34,24 @@ export interface Transaction {
   styleUrls: ['./ordenes-de-compra.component.scss'],
 })
 export class OrdenesDeCompraComponent implements OnInit {
+  //LOCAL
+  dataLogin = JSON.parse(localStorage.getItem("dataLogin")+"");
+  token = this.dataLogin.token;
+
+
+
+
  public domicilio: Address = new Address(0, 1, 0, 0, '', '', '', '', '', '', '', 0, '', '', '', '', '', '', 1, [])
  public proveedor: Proveedor = new Proveedor(0, 1, '012354SDSDS01', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, this.domicilio);
- public producto: Articulo = new Articulo(0,0,0,'','','',0,0,0,0,0,0,'',true,0,[],0,0,0,0,'');
- public ordenCompra = new OrdenDeCompra(0,'','','','','',0,0,'','');
  public proveedores: Proveedor[] = [];
+ public productFiltrados: Observable<any[]>;
+ public producto: Articulo = new Articulo(0,0,0,'','','',0,0,0,0,0,0,'',true,0,[],0,0,0,0,'');
+ public productoProveedor = new ProductProv(0,0,0,0,0,0,0,0,0);
+ public ordenCompra = new OrdenDeCompra(0,0,0,0,'','',0,0,'','','',this.productoProveedor);
  public provCtrl: FormControl;
  public provFiltrados: Observable<any[]>;
  public productos: Articulo[] = [];
  public productCtrl: FormControl;
- public productFiltrados: Observable<any[]>;
  public editando = false;
  displayedColumns = ['producto', 'uMedida', 'cantidad', 'pUnitario', 'importe', 'acciones'];
  @ViewChild('data') mytemplateForm : NgForm | undefined;
@@ -51,7 +60,8 @@ export class OrdenesDeCompraComponent implements OnInit {
 
   private proveedor_service : ProveedoresService,
   private datePipe: DatePipe,
-  private productService: CatalogoService
+  private productService: CatalogoService,
+  private ordeneService: OrdenesService
 ) {
   this.provCtrl = new FormControl();
   this.provFiltrados = this.provCtrl.valueChanges
@@ -70,18 +80,40 @@ export class OrdenesDeCompraComponent implements OnInit {
 
 
 ngOnInit(): void {
+  console.log('data>',this.dataLogin);
+  console.log('data>',this.dataLogin.token);
+  // console.log('page>',this.dataStorage);
   this.values();
  this.obtenerProveedor();
  this.obtenerProductos2();
+ this.obtenerOrdenes();
 }
 
 
 //VALORES POR DEFECTO
 values(){
-  this.ordenCompra.fecha_creacion = new Date ().toISOString ().substring (0,10);
-  this.ordenCompra.forma_de_pago = 'CONTADO';
-  this.ordenCompra.moneda = 'MXM';
 
+
+}
+
+
+//OBTENER ORDENES DE COMPRAS
+obtenerOrdenes(){
+  let json={
+    id_compra: 0,
+    id_almacen: 1,
+    id_proveedor: 1,
+    id_usuario: 1,
+    fecha_inicial: "",
+    fecha_final: "2023-11-25",
+    token: "VzNobUpiVm03SityMXRyN3ZROGEyaU0wWXVnYXowRjlkQzMxN0s2NjRDcz0="
+  }
+
+  this.ordeneService.obtenerCompras(json).subscribe((resp)=>{
+    if(resp.ok){
+      console.log('resp :>> ', resp);
+    }
+  })
 }
 
 
@@ -114,8 +146,7 @@ filtrarProv(name: any) {
 }
 // PROV SELECCINADO
 provSelec(prov: any) {
- console.log('element :>> ', prov.option.id.proveedor);
-this.ordenCompra.proveedor = prov.option.id.proveedor;
+//  this.ordenCompra.proveedor = prov.option.id.proveedor;
 }
 
 
@@ -145,22 +176,38 @@ filtrarProduct(name:any){
   return this.productos.filter(product =>
     product.articulo.toUpperCase().indexOf(name.toUpperCase()) === 0)
   }
-productSelec(product:any){}
+productSelec(pro:any){
+  this.productoProveedor.id_existencia = pro.option.id.id_existencia;
+}
 
 
 
+
+//AGREGAR ARTICULO A LA TABLA
+agregarProducto(){
+  console.log('object :>> ', this.productoProveedor);
+
+  // console.log('this.producto :>> ', this.producto);
+  let p = this.producto
+  this.transactions.push({
+    producto: p.articulo,
+    uMedida: p.medida,
+    cantidad: p.id_articulo,
+    pUnitario: p.precio_venta, // Ajustar según tu modelo
+    importe: p.precio_total, // Ajustar según tu modelo
+  });
+
+
+}
 
 
 
 // DATOS DE MUESTRA
 transactions: Transaction[] = [
   {producto: 'Beach ball',uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
-  {producto: 'Towel',uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
-  {producto: 'Frisbee',uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
-  {producto: 'Sunscreen',uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
-  {producto: 'Cooler', uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
   {producto: 'Coo33', uMedida: 'string', cantidad: 33, pUnitario: 10, importe: 4},
 ];
+
 
 // PARA OBTENER EL TOTAL DE LA TABLA
 getTotalCost(): number { return this.transactions.reduce((total, transaction) => total + transaction.importe, 0); }
@@ -249,8 +296,8 @@ cancelar(){
 
 // VACIAR ORDEN
 vaciarOrden(){
-  this.ordenCompra = new OrdenDeCompra(0,'','','','','',0,0,'','');
-  this.ordenCompra.fecha_creacion = new Date ().toISOString ().substring (0,10);
+  this.ordenCompra = new OrdenDeCompra(0,0,0,0,'','',0,0,'','','',this.productoProveedor);
+  // this.ordenCompra.fecha_creacion = new Date ().toISOString ().substring (0,10);
 }
 
 }

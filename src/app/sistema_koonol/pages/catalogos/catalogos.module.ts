@@ -43,6 +43,7 @@ import { UnidadMedidasComponent } from './unidad-medidas/unidad-medidas.componen
 import {MatChipsModule} from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { VistaOrdenescompraComponent } from './vista-ordenescompra/vista-ordenescompra.component';
 
 
 
@@ -73,6 +74,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MedidasComponent,
     ControlVisitasComponent,
     UnidadMedidasComponent,
+    VistaOrdenescompraComponent,
   ],
   imports: [
     CommonModule,

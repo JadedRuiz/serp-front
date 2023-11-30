@@ -1,35 +1,35 @@
 <div class="container -fluid">
-  <h3 class="title text-center">Pedidos realizados</h3>
-   <!-- Barra de búsqueda -->
-   <div class="clients__search-bar">
-    <div class="d-flex flex-column position-relative" [ngStyle]="{width: 'min(100%,300px)'}">
-      <input
-        class="search-input"
-        type="text"
-        placeholder="Buscar cliente"
-        aria-label="Buscar cliente"
-        title="Buscar cliente"
-        aria-describedby="button-addon2"
-        [formControl]="searchClientControl"
-      />
-      <div class="search-loader w-100" *ngIf="loader; else clientsReady">
-        <i class="fa fa-spinner fa-pulse"></i>
-      </div>
-         <ng-template #clientsReady>
-        <ul class="search-list" *ngIf="searchList">
-          <li
-            class="search-list__element"
-            *ngFor="let client of autocompleteClients"
-            (click)="seleccionarCliente(client.id_cliente)"
+  <h3 class="title text-center">Ordenes de compra</h3>
+  <div class="row">
+      <!-- BUSCADOR DE PROVEEDORES -->
+      <div class=" col-md-4">
+        <mat-form-field class="w-100">
+          <input
+          matInput placeholder="Proveedor" aria-label="State" [matAutocomplete]="auto" [formControl]="provCtrl">
+          <mat-autocomplete #auto="matAutocomplete"
+          (optionSelected)="provSelec($event)"
           >
-            {{ client.cliente }}
-          </li>
-        </ul>
-      </ng-template>
-      <span class="position-absolute" [ngStyle]="{ top: '10px', right: '10px' }">
-        <i class="fa fa-search" aria-hidden="true"></i>
-      </span>
-    </div>
+            <mat-option *ngFor="let proveedor of provFiltrados | async"
+             [value]="proveedor.proveedor | uppercase"
+            [id]="proveedor"
+             >
+              <span>{{ proveedor.proveedor | uppercase }}</span>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+
+            <div class="col-md-3">
+              <input type="date" class="mt-2 form-control" aria-label="fecha" name="fecha1">
+            </div>
+
+            <div class="col-md-3">
+              <input type="date" class="mt-2 form-control"  aria-label="fecha" name="fecha2">
+            </div>
+
+      <div class="col-md-2">
+        <button class="mt-2 search-btn" >Buscar orden</button>
+      </div>
   </div>
    <div  #cardPedidos class="row">
       <article class="orders-placed__container">
@@ -37,7 +37,7 @@
             <div class="row justify-content-center">
                <div class="col-sm-12 col-md-12 col-xl-6 mb-3 mb-sm-0" *ngFor="let pedido of pedidos">
                   <div class="card-body mt-5 orders-placed__order">
-                     <h3 class="subtitle mb-3"> <b>{{pedido.cliente}}</b> </h3>
+                     <h3 class="subtitle mt-0 mb-2"> <b>Proveedor maestro</b> </h3>
                      <div class="orders-placed__order__section1--subsection2">
                         <p id="folio"><b>FOLIO: </b> <span
                               (click)="seleccionarPedido(pedido.id_pedido)"><b>{{pedido.folio}}</b></span>
@@ -49,23 +49,22 @@
                      <div class="hijo">
                         <span>Fecha de entrega: <b>{{pedido.fecha_entrega}}</b></span>
                      </div>
-                     <div class="hijo">
+                     <!-- <div class="hijo">
                         <span>Fecha de pedido: <b>{{pedido.fecha_pedido}}</b></span>
-                     </div>
+                     </div> -->
                      <div>
                         <div class="orders-placed__order__section2--subsection2">
                            <span>Productos: <b>{{pedido.num_productos}}</b> </span>
                         </div>
                         <div class="orders-placed__order__section2--subsection2">
-                           <span>Peso: <b>{{pedido.peso_producto}} </b></span>
+                           <span>Tipo: <b>CONTADO</b></span>
                         </div>
                         <div class="orders-placed__order__section2--subsection2">
-                           <span>Total: <b>{{pedido.precio_total | currency: 'MX'}}</b></span>
+                           <span>Total: <b>{{pedido.precio_total | currency: ''}}</b></span>
                         </div>
                      </div>
                      <div *ngIf="dataLogin.pefil == 'DESARROLLADOR'" class="d-flex mt-5 justify-content-end mb-2 orders-placed__order__section2--subsection1">
-                        <button class="btn-general">Surtir</button>
-                        <button class="btn-search">Entregar</button>
+                        <button class="general-btn" (click)="seleccionarPedido(pedido.id_pedido)" >Ver detalles</button>
                      </div>
                   </div>
                </div>
@@ -74,7 +73,7 @@
 
 
          <!-- Modal -->
-         <div class="orders-placed__modal" *ngIf="modalVisibility">
+         <div class="orders-placed__modal modal-dialog-centered" *ngIf="modalVisibility">
             <div class="orders-placed__modal__order" *ngIf="orderVisibility">
                <button class="icon-btn" (click)="closeModal()">
                   <i class="fa fa-times"></i>
@@ -119,43 +118,10 @@
                <!-- BOTONES -->
                <div class="orders-placed__buttons mt-auto">
                   <button class="search-btn" (click)="openEditOrderVisibility()">Editar</button>
-                  <button class="danger-btn" (click)="generarPdfCotizacion()">Ver cotización</button>
-                  <button class="general-btn" (click)="toggleModalVisibility()">De acuerdo</button>
+                  <button class="danger-btn" (click)="generarPdfCotizacion()">Ver Orden de compra</button>
+                  <button class="general-btn" (click)="toggleModalVisibility()">Confirmar</button>
                </div>
             </div>
-            <!-- <div class="orders-placed__modal__edit-order" *ngIf="editOrderVisibility">
-          <h2 class="title text-center">EDITAR PEDIDO</h2>
-          <div class="orders-placed__modal__order__products">
-            <article class="orders-placed__products__product" *ngFor="let item of items">
-              <div class="d-flex flex-row">
-                <img [src]="item.imageUrl" alt="imagen de un producto" class="orders-placed__product__image" />
-                <section class="d-flex flex-column">
-                  <span class="">{{ item.title }}</span>
-                  <span class="">{{ item.fam }}</span>
-                  <section class="orders-modal__product__quantity__box">
-                    <div class="btn-decrease" [class.btn-quantity-off]="btnQuantityOff"
-                      (click)="decreaseItemQuantity(item)">
-                      -
-                    </div>
-                    <p class="orders-modal__product__quantity">
-                      {{ item.quantity }}
-                    </p>
-                    <div class="btn-increase" (click)="increaseItemQuantity(item)">
-                      +
-                    </div>
-                  </section>
-                </section>
-              </div>
-              <button class="orders-modal__product__btn-delete" (click)="deleteProduct(item)">
-                <i class="fas fa-trash"></i>
-              </button>
-            </article>
-          </div>
-          <div class="orders-placed__buttons">
-            <button class="general-btn" [routerLink]="['/catalogo']">Añadir más productos</button>
-            <button class="general-btn" (click)="saveEditedOrder()">Guardar</button>
-          </div>
-        </div> -->
          </div>
       </article>
    </div>

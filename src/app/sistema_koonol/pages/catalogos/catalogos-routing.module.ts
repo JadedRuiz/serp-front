@@ -22,6 +22,7 @@ import { BitacoraVisitasComponent } from './bitacora-visitas/bitacora-visitas.co
 import { MedidasComponent } from './medidas/medidas.component';
 import { ControlVisitasComponent } from './control-visitas/control-visitas.component';
 import { UnidadMedidasComponent } from './unidad-medidas/unidad-medidas.component';
+import { VistaOrdenescompraComponent } from './vista-ordenescompra/vista-ordenescompra.component';
 
 
 const routes: Routes = [
@@ -113,6 +114,10 @@ const routes: Routes = [
   {
     path: 'unidad-medidas',
     component: UnidadMedidasComponent
+  },
+  {
+    path: 'ordenescompra',
+    component: VistaOrdenescompraComponent
   }
 ];
 

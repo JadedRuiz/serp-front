@@ -40,14 +40,13 @@
 
 
               <div class="form-group mt-3 col-md-3">
-                <input [(ngModel)]="ordenCompra.folio" name="folio"
-                value="{{ ordenCompra.folio | uppercase }}"
+                <input
 
                 type="text" class="form-control" placeholder="FOLIO">
               </div>
 
               <div class="form-group mt-3 col-md-3">
-                <input [(ngModel)]="ordenCompra.fecha_creacion" name="fecha_creacion"
+                <input  name="fecha_creacion"
                 type="date" class="form-control">
               </div>
 
@@ -69,13 +68,13 @@
 
               <div class="form-group col-md-3">
                 <label for="status">FORMA DE PAGO</label>
-                <select [(ngModel)]="ordenCompra.forma_de_pago" name="pago" class="form-control">
+                <select [(ngModel)]="ordenCompra.forma_pago" name="pago" class="form-control">
                   <option selected>CONTADO</option>
                   <option>CREDITO</option>
                 </select>
               </div>
 
-              <div *ngIf="ordenCompra.forma_de_pago !== 'CONTADO' " class="form-group col-md-2">
+              <div *ngIf="ordenCompra.forma_pago !== 'CONTADO' " class="form-group col-md-2">
                 <label
                  for="noCotización">DIAS DE CREDITO</label>
                 <input [(ngModel)]="ordenCompra.dias_credito" name="credito"
@@ -83,7 +82,7 @@
               </div>
               <div class="form-group col-md-3">
                 <label for="status">MONEDA</label>
-                <select [(ngModel)]="ordenCompra.moneda" name="moneda" class="form-control">
+                <select name="moneda" class="form-control">
                   <option>MXM</option>
                   <option>USA</option>
                 </select>
@@ -115,7 +114,7 @@
             <h1 class="ml-2">Lista de articulos</h1>
             <div class="col">
               <button (click)="agregarItem()"  type="button" class="search-btn" data-toggle="modal"
-                data-target="#editarModal">Agregar</button>
+                data-target="#editarModal">Agregar producto</button>
             </div>
             <div class="col">
               <button type="button" class=" general-btn">Imprimir PDF 1</button>
@@ -230,8 +229,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="row m-1">
-            <div class="col-md-6">
+        <div class="row ">
+            <div class="col-md-10">
             <mat-form-field class="w-100">
               <input
               matInput placeholder="Productos" aria-label="State" [matAutocomplete]="autoProduct2" [formControl]="productCtrl">
@@ -240,6 +239,7 @@
               >
                 <mat-option *ngFor="let product of productFiltrados | async"
                  [value]="product.articulo | uppercase"
+                 [id]="product"
                  >
                   <span >{{ product.articulo | uppercase }}</span>
                 </mat-option>
@@ -248,60 +248,54 @@
           </div>
 
 
-          <div class="col-md-6">
-            <label for="">U.Medida</label>
-            <input
-            type="text" class="form-control" placeholder="Unidad de medida">
-          </div>
+          <!-- <div class="col-md-4 mt-3">
+            <input [(ngModel)]="producto.medida"
+            type="text" class="form-control" placeholder="Un.Medida">
+          </div> -->
 
         </div>
 
         <div class="row mt-4">
           <div class=" col-3 pr-0 text-center">
-            <p class="nom_cantidad mt-2" >Cantidad :</p>
+            <p class="nom_cantidad mt-2" >Cantidad:</p>
           </div>
           <div class="col-3 text-center">
-            <input
-             type="number" class="nom_input form-control" placeholder="cantidad">
+            <input [(ngModel)]="productoProveedor.cantidad" name="cantidad"
+             type="number" class="nom_input form-control" placeholder="precio venta">
           </div>
             <div class=" col-3 pr-0 text-center">
               <p class="nom_cantidad mt-2" >P.Unitario:</p>
             </div>
             <div class="col-3 text-center">
-              <input
-               type="number" class="nom_input form-control" placeholder="cantidad">
+              <input [(ngModel)]="productoProveedor.precio_unitario" name="precio_unitario"
+               type="number" class="nom_input form-control" placeholder="p.total">
             </div>
         </div>
         <div class="row mt-4">
-          <div class=" col-3 pr-0 text-center">
-            <p class="nom_cantidad mt-2" >Importe:</p>
-          </div>
-          <div class="col-3 text-center">
-            <input
-             type="number" class="nom_input form-control" placeholder="cantidad">
-          </div>
+
           <div class=" col-3 pr-0 text-center">
             <p class="nom_cantidad mt-2" >Iva:</p>
           </div>
           <div class="col-3 text-center">
-            <input  name="iva"
+            <input  name="iva" [(ngModel)]="productoProveedor.tasa_iva" name="iva"
              type="number" class="nom_input form-control" placeholder="iva">
           </div>
-        </div>
-
-        <div class="row mt-4">
           <div class=" col-3 pr-0 text-center">
             <p class="nom_cantidad mt-2" >IEPS:</p>
           </div>
           <div class="col-3 text-center">
-            <input name="ieps"
+            <input name="ieps" [(ngModel)]="productoProveedor.ieps" name="ieps"
              type="number" class="nom_input form-control" placeholder="ieps">
           </div>
+        </div>
+
+        <div class="row mt-4">
+
           <div class=" col-3 pr-0 text-center">
             <p class="nom_cantidad mt-2" >Descuentos:</p>
           </div>
           <div class="col-3 text-center">
-            <input name="descuentos"
+            <input  [(ngModel)]="producto.descuento1" name="descuentos1"
              type="number" class="nom_input form-control" placeholder="desc1">
           </div>
         </div>
@@ -310,14 +304,14 @@
             <p class="nom_cantidad mt-2" >Desc 2:</p>
           </div>
           <div class="col-3 text-center">
-            <input name="ieps"
+            <input [(ngModel)]="producto.descuento2" name="descuento2"
              type="number" class="nom_input form-control" placeholder="desc2">
           </div>
           <div class=" col-3 pr-0 text-center">
             <p class="nom_cantidad mt-2" >Desc 3:</p>
           </div>
           <div class="col-3 text-center">
-            <input name="descuentos"
+            <input [(ngModel)]="producto.descuento3" name="descuento3"
              type="number" class="nom_input form-control" placeholder="des3">
           </div>
         </div>
@@ -335,7 +329,7 @@
 
         <button type="button" class="danger-btn" data-dismiss="modal">Cancelar</button>
 
-        <button type="button" class=" general-btn ">Guardar cambios</button>
+        <button type="button" class="general-btn" (click)="agregarProducto()" >Guardar cambios</button>
 
       </div>
     </div>

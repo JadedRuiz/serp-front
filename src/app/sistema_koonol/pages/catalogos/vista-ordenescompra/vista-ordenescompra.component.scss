@@ -1,0 +1,357 @@
+@import '../breakpoints.scss';
+
+$default-font-size-mobile: 12px;
+$default-font-size-tablet: 14px;
+$default-font-size-desktop: 16px;
+
+$subtitle-font-size-mobile: 14px;
+$subtitle-font-size-tablet: 16px;
+$subtitle-font-size-desktop: 18px;
+
+$title-font-size-mobile: 16px;
+$title-font-size-tablet: 18px;
+$title-font-size-desktop: 20px;
+
+.orders-placed__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+.orders-placed__title {
+    font-size: $title-font-size-mobile;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.orders-placed__order {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid rgba(22, 22, 22, 0.384);
+    width: min(100%, 1300px);
+    border-radius: 5px;
+    padding: 20px 15px;
+    margin-top: 30px;
+    position: relative;
+
+    &:hover {
+        box-shadow: 0 10px 14px rgba(0, 0, 0, 0.15);
+        transition: 300ms;
+    }
+
+    .subtitle {
+        width: 70%;
+    }
+}
+
+.orders-placed__order__section1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &--subsection1 {
+        display: flex;
+        flex-direction: column;
+
+        p,
+        span {
+            font-size: $default-font-size-mobile;
+
+        }
+
+        p {
+            font-weight: 500;
+        }
+
+    }
+
+    &--subsection2 {
+        display: flex;
+        gap: 5px;
+        align-self: flex-start;
+
+        span {
+            color: steelblue;
+            text-decoration: underline;
+            cursor: pointer;
+
+            &:hover {
+                transition: 300ms;
+                color: var(--color-base);
+            }
+
+        }
+
+        #folio {
+            position: absolute;
+            right: 15px;
+            top: 20px;
+
+            @include xs {
+                position: inherit;
+                font-size: 26px;
+            }
+
+            b {
+                font-size: 13px;
+
+                @include xs {
+                    font-size: 16px
+                }
+            }
+        }
+    }
+}
+
+.orders-placed__order__section2 {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+
+    &--subsection1 {
+        display: flex;
+        gap: 10px;
+
+        button {
+            color: white;
+            border: none;
+            border-radius: 13px;
+            cursor: pointer;
+        }
+    }
+
+    &--subsection2 {
+        span {
+            font-size: $subtitle-font-size-mobile;
+            font-weight: 500;
+        }
+    }
+}
+
+.orders-placed__modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    background-color: rgba(15, 15, 15, 0.500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(1.5px);
+
+    .icon-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .cotizacion {
+        height: 50%;
+    }
+
+    .table-custom {
+        border: 1px solid rgba(0, 0, 0, 0.100);
+        border-radius: 10px;
+        overflow-y: auto;
+        width: 100%;
+        height: 100%;
+
+        &::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.200);
+        }
+
+        .table-head,
+        .table-body {
+
+            .col-3 {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        .table-head {
+            position: sticky;
+            top: 0;
+            background-color: ghostwhite;
+            z-index: 1;
+
+            .col-3 {
+                font-weight: 500;
+                // background-color: rgba(0, 0, 0, 0.200);
+            }
+        }
+
+        .table-body {
+            .col-3:nth-child(1) {
+                justify-content: start;
+                padding: 5px;
+            }
+        }
+    }
+}
+
+.orders-placed__modal__order,
+.orders-placed__modal__edit-order {
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    // padding: 25px 10px 25px 10px;
+    padding: 25px;
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(90%, 800px);
+    height: 95vh;
+    z-index: 1;
+
+    @include xs {
+        padding: 25px 8px;
+        height: 90vh;
+    }
+}
+
+.orders-placed__modal__order__products {
+    height: 350px;
+    width: 95%;
+    overflow-y: auto;
+    border: 1px solid rgba(0, 0, 0, 0.200);
+    border-radius: 5px;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(196, 196, 196);
+        border-radius: 10px;
+    }
+}
+
+.orders-placed__products__product {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+
+    img {
+        width: 70px;
+        object-fit: contain;
+    }
+}
+
+.orders-modal__product__quantity__box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.orders-modal__product__quantity {
+    font-weight: 500;
+}
+
+.btn-decrease,
+.btn-increase {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: 500;
+    color: white;
+    height: 20px;
+    width: 20px;
+    padding: 3px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--color-base);
+    cursor: pointer;
+}
+
+.btn-quantity-off {
+    background-color: grey;
+    cursor: default;
+}
+
+.orders-modal__product__btn-delete {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+}
+
+.fa-trash {
+    color: var(--color-base);
+    cursor: pointer;
+}
+
+.orders-placed__product-price-box {
+    display: flex;
+    align-items: center;
+}
+
+.orders-placed__buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+
+    .orders-placed__container {
+
+        p,
+        span {
+            font-size: $default-font-size-tablet;
+        }
+    }
+
+    .orders-placed__title {
+        font-size: $title-font-size-tablet;
+    }
+
+    .orders-placed__order__section2 {
+        span {
+            font-size: $subtitle-font-size-tablet;
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .orders-placed__container {
+
+        p,
+        span {
+            font-size: $default-font-size-desktop;
+        }
+    }
+
+    .orders-placed__title {
+        font-size: $title-font-size-desktop;
+    }
+
+    .orders-placed__order__section2 {
+        span {
+            font-size: $subtitle-font-size-desktop;
+        }
+    }
+}

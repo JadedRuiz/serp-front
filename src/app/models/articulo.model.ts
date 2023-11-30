@@ -23,5 +23,8 @@ export class Articulo {
     public precio_producto_completo: number,
     public precio_producto_total: number,
     public precio_completo_formateado: string,
+    public descuento1? : string,
+    public descuento2? : string,
+    public descuento3? : string
   ) { }
 }
