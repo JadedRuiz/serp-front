@@ -11,7 +11,7 @@ export class OrdenDeCompra {
     public tipo_cambio : number,
     public fecha_entrega : string,
     public observaciones : string,
-    public id_usuario : string,
-    public articulos : ProductProv
+    public id_usuario : number,
+    public articulos : ProductProv[]
     ){}
 }

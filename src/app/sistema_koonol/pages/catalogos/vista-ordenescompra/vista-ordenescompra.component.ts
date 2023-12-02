@@ -3,13 +3,14 @@ import { FormControl } from '@angular/forms';
 import * as html2pdf from 'html2pdf.js';
 import { Subscription, debounceTime } from 'rxjs';
 import { ArticuloFinal } from 'src/app/models/articulofinal.model';
-import { Client } from 'src/app/models/clients.model';
 import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
-import { ClientsService } from 'src/app/services/clients/clients.service';
 import { ProveedoresService } from 'src/app/services/proveedores/proveedores.service';
 import { Observable, map, startWith } from 'rxjs';
 import { Proveedor } from 'src/app/models/proveedores.model';
 import { Address } from 'src/app/models/addresses.model';
+import { OrdenesService } from 'src/app/services/compra/ordenes.service';
+import { OrdenDeCompra } from 'src/app/models/orden-de-compra.model';
+
 
 @Component({
   selector: 'app-vista-ordenescompra',
@@ -37,8 +38,8 @@ export class VistaOrdenescompraComponent {
 
     constructor(
       private pedidosRealizados: PedidosService,
-  private proveedor_service : ProveedoresService,
-      private clienteService: ClientsService,
+      private proveedor_service : ProveedoresService,
+      private ordeneService: OrdenesService
     ) {
       this.provCtrl = new FormControl();
   this.provFiltrados = this.provCtrl.valueChanges
@@ -49,13 +50,9 @@ export class VistaOrdenescompraComponent {
     }
 
     ngOnInit() {
-      this.obtenerPedidos();
+      this.obtenerOrdenes();
       this.obtenerProveedor();
-      this.searchClientControl.valueChanges
-        .pipe(debounceTime(500))
-        .subscribe((value) => {
-          this.buscarCliente(value);
-        });
+
     }
 
 // AUTO PROVEEDORES
@@ -92,19 +89,28 @@ provSelec(prov: any) {
 
 
 
+//OBTENER ORDENES DE COMPRAS
+obtenerOrdenes(){
+  let json={
+    id_compra: 0,
+    id_almacen: 1,
+    id_proveedor: 1,
+    id_usuario: 1,
+    fecha_inicial: "",
+    fecha_final: "2023-11-25",
+    token: "VzNobUpiVm03SityMXRyN3ZROGEyaU0wWXVnYXowRjlkQzMxN0s2NjRDcz0="
+  }
 
+  this.ordeneService.obtenerCompras(json).subscribe((resp)=>{
+    if(resp.ok){
+      console.log('resp :>> ', resp);
+      this.pedidos = resp.data
+    }
+  })
+}
 
 
     i = true;
-    obtenerPedidos() {
-
-      this.pedidosRealizados.obtenerPedidos().subscribe(
-        (response) => {
-          this.pedidos = response.data
-        }
-      )
-
-    }
 
     seleccionarPedido(id_pedido: number) {
       this.pedidoSeleccionado = this.pedidos.find(pedidos => pedidos.id_pedido == id_pedido)
@@ -164,78 +170,5 @@ provSelec(prov: any) {
 
 
 
-    //////PARA BUSCAR CLIENTES////////
-
-    clients: Client[] = [];
-    searchClient: string = '';
-    autocompleteClients: any[] = [];
-    selectedClient: Client = new Client(0, 0, 1, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 0, 0, 0, 0, 0, 1, 0);
-    searchClientSubscription: Subscription = new Subscription();
-    isClientSelected: boolean = false;
-    searchList: boolean = false;
-    loader: boolean = false
-    noClients: boolean = false
-    searchClientControl: FormControl = new FormControl();
-
-
-    //FUNCION PARA HACER BÚSQUEDA DE CLIENTES POR NOMBRE O RFC
-    buscarCliente(value: string) {
-      let json = {
-        id_cliente: 0,
-        id_comprador: 1,
-        cliente: '',
-        token: this.miToken,
-
-      }
-      if (value.length <= 3) {
-        this.autocompleteClients = [];
-        this.searchList = false;
-      } else if (!this.searchClientSubscription.closed) {
-        this.loader = true;
-        this.searchList = true;
-        this.clienteService.obtenerClientes(json).subscribe(
-          (resp) => {
-            if (resp.ok) {
-              this.clients = resp.data;
-              this.autocompleteClients = this.clients.filter(
-                (client) =>
-                  client.cliente.toLowerCase().includes(value.toLowerCase()) ||
-                  client.rfc?.toLowerCase().includes(value.toLowerCase())
-              );
-              this.loader = false;
-            }
-          },
-          (err) => {
-            console.log(err);
-            this.loader = false;
-          }
-        );
-      }
-    }
-
-    //FUNCIÓN PARA ESCOGER UN CLIENTE Y GUARDAR SU ID EN addressSelected
-    seleccionarCliente(id_cliente: number) {
-      if (id_cliente) {
-        this.selectedClient = this.autocompleteClients.find(
-          (aclient) => aclient.id_cliente === id_cliente
-        );
-        //this.visita.id_cliente = id_cliente;
-        this.isClientSelected = true;
-        this.searchList = false;
-        this.searchClientControl.setValue(this.selectedClient.cliente)
-        this.searchClientSubscription.unsubscribe();
-      } else {
-        return;
-      }
-    }
-
-    //Función para que al dar clic en el input nos suscribamos a los cambios del mismo
-    onFocusClientSearch() {
-      this.searchClientSubscription = this.searchClientControl.valueChanges
-        .pipe(debounceTime(500))
-        .subscribe((value) => {
-          this.buscarCliente(value);
-        });
-    }
 
   }

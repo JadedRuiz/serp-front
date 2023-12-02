@@ -44,27 +44,28 @@
                         </p>
                      </div>
                      <div class="hijo">
-                        <span>Status: <b style="color: rgb(97, 187, 8);">{{pedido.status}}</b></span>
+                        <span>Fecha de entrega: <b>{{pedido.fecha | date }}</b></span>
                      </div>
+                     <div class="orders-placed__order__section2--subsection2">
+                      <span>Forma de pago: <b>{{pedido.forma_pago}}</b></span>
+                   </div>
                      <div class="hijo">
-                        <span>Fecha de entrega: <b>{{pedido.fecha_entrega}}</b></span>
+                        <span>Status: <b style="color: rgb(97, 187, 8);">{{pedido.status}}</b></span>
                      </div>
                      <!-- <div class="hijo">
                         <span>Fecha de pedido: <b>{{pedido.fecha_pedido}}</b></span>
                      </div> -->
                      <div>
-                        <div class="orders-placed__order__section2--subsection2">
+
+                        <!-- <div class="orders-placed__order__section2--subsection2">
                            <span>Productos: <b>{{pedido.num_productos}}</b> </span>
-                        </div>
+                        </div> -->
                         <div class="orders-placed__order__section2--subsection2">
-                           <span>Tipo: <b>CONTADO</b></span>
+                           <span>Total: <b>{{pedido.importe_total | currency: ''}} </b> {{pedido.moneda_sat}}</span>
                         </div>
-                        <div class="orders-placed__order__section2--subsection2">
-                           <span>Total: <b>{{pedido.precio_total | currency: ''}}</b></span>
+                        <div *ngIf="dataLogin.pefil == 'DESARROLLADOR'" class="d-flex mt-1 justify-content-end mb-2 orders-placed__order__section2--subsection1">
+                           <button class="general-btn" (click)="seleccionarPedido(pedido.id_pedido)" >Ver detalles</button>
                         </div>
-                     </div>
-                     <div *ngIf="dataLogin.pefil == 'DESARROLLADOR'" class="d-flex mt-5 justify-content-end mb-2 orders-placed__order__section2--subsection1">
-                        <button class="general-btn" (click)="seleccionarPedido(pedido.id_pedido)" >Ver detalles</button>
                      </div>
                   </div>
                </div>
