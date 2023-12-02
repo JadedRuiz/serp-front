@@ -198,7 +198,6 @@ transactions: Transaction[] = [];
 //AGREGAR ARTICULO A LA TABLA
 agregarProducto() {
 if(this.articuloCompuesto && this.productoProveedor.cantidad > 0) {
-  console.log('entro :>> ');
   let nuevoProducto = {
     producto: this.articuloCompuesto,
     cantidad: this.productoProveedor.cantidad,
@@ -248,14 +247,63 @@ recalcularTotal() {
 getTotalCost(): number { return this.transactions.reduce((total, transaction) => total + transaction.importe, 0); }
 
 
-
+productoEdit = ''
 // EDITAR UN PRODUCTO
 editarItem(row: any) {
+
   this.editando = true;
-  this.producto = row;
-  console.log('transaction :>> ', this.producto);
+  this.productoProveedor = row;
+  this.productoEdit = row.producto
+ this.productoProveedor.precio_unitario =  row.pUnitario;
+ this.articuloCompuesto = row.producto;
+ this.recalcularTotal();
+  console.log('transaction :>> ', row.pUnitario);
+  console.log('transaction :>> ', this.productoProveedor);
+  console.log('transaction :>> ', this.articuloCompuesto);
 }
 
+guardarEdit(){
+  Swal.fire({
+    title: "¿Actualizar producto?",
+    icon: "info",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sí"
+  }).then((result) => {
+    if (result.isConfirmed){
+      let indice = this.transactions.findIndex(transaction => transaction.id_existencia === this.productoProveedor.id_existencia)
+      // console.log('indice :>> ', indice);
+      if(indice !==-1){
+      this.transactions = this.transactions.slice();
+        this.transactions[indice] = {
+          producto: this.productoEdit,
+          cantidad: this.productoProveedor.cantidad,
+          pUnitario: this.productoProveedor.precio_unitario,
+          importe: this.productoProveedor.cantidad * this.productoProveedor.precio_unitario,
+          id_existencia: this.productoProveedor.id_existencia,
+          id_det_compra:this.productoProveedor.id_det_compra,
+          descuento_1:this.productoProveedor.descuento_1,
+          descuento_2:this.productoProveedor.descuento_2,
+          descuento_3:this.productoProveedor.descuento_3,
+          ieps:this.productoProveedor.ieps,
+          tasa_iva:this.productoProveedor.tasa_iva,
+        }
+        console.log('this.tra :>> ', this.transactions);
+        this.productoProveedor.precio_unitario = this.transactions[indice].pUnitario
+        this.cancelModal?.nativeElement.click();
+      }
+    }
+  });
+
+}
+
+cancelarEdit(){
+  this.editando = false;
+  this.productoProveedor = new ProductProv(0,0,0,0,0,0,0,0,0);
+  this.total = 0
+
+}
 
 
 // BORRAR UN PRODUCTO DE LA LISTA
@@ -314,8 +362,8 @@ guardar(){
 nuevaOrden() {
   const nuevaOrden: OrdenDeCompra = {
     id_compra: this.ordenCompra.id_compra,
-    id_almacen: this.dataLogin.almacenes[0].id_almacen,
-    id_proveedor: this.ordenCompra.id_proveedor,
+    id_almacen: Number(this.dataLogin.almacenes[0].id_almacen),
+    id_proveedor: Number(this.ordenCompra.id_proveedor),
     id_moneda:  this.ordenCompra.id_moneda || this.monedas[0].id_moneda ,
     token: 'VzNobUpiVm03SityMXRyN3ZROGEyaU0wWXVnYXowRjlkQzMxN0s2NjRDcz0=',
     forma_pago: this.ordenCompra.forma_pago,

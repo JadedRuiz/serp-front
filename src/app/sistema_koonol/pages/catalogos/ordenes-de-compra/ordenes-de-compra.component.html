@@ -224,7 +224,7 @@
 
 
  <!-- Modal para editar artículo -->
- <div  class="modal fade" #editarModal id="editarModal"  aria-hidden="true" >
+ <div  class="modal fade" #editarModal id="editarModal"  aria-hidden="true" data-backdrop="static" >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -237,7 +237,7 @@
       </div>
       <div class="modal-body">
         <div class="row ">
-            <div class="col">
+            <div *ngIf="!this.editando" class="col">
             <mat-form-field class="w-100">
               <input
               matInput placeholder="Buscar producto..." aria-label="State" [matAutocomplete]="autoProduct2" [formControl]="productCtrl">
@@ -252,8 +252,10 @@
                 </mat-option>
               </mat-autocomplete>
             </mat-form-field>
-          </div>
-
+           </div>
+           <div *ngIf="this.editando" class="col text-center border-bottom">
+            <h2>{{articuloCompuesto}}</h2>
+           </div>
 
           <!-- <div class="col-md-4 mt-3">
             <input [(ngModel)]="producto.medida"
@@ -339,9 +341,10 @@
         </div>
       <div class="modal-footer">
 
-        <button #cancelModal type="button" class="danger-btn" data-dismiss="modal">Cancelar</button>
+        <button #cancelModal  (click)="cancelarEdit()" type="button" class="danger-btn" data-dismiss="modal">Cancelar</button>
 
-        <button type="button" class="search-btn" (click)="agregarProducto()" >Agregar</button>
+        <button *ngIf="!this.editando" type="button" class="search-btn" (click)="agregarProducto()" >Agregar</button>
+        <button *ngIf="this.editando" type="button" class="search-btn" (click)="guardarEdit()" >Actualizar</button>
 
       </div>
     </div>

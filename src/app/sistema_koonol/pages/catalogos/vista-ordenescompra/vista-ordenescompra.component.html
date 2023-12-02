@@ -20,15 +20,15 @@
       </div>
 
             <div class="col-md-3">
-              <input type="date" class="mt-2 form-control" aria-label="fecha" name="fecha1">
+              <input type="date" class="mt-2 form-control" aria-label="fecha" [formControl]="fechaInicio"  name="fecha1">
             </div>
 
             <div class="col-md-3">
-              <input type="date" class="mt-2 form-control"  aria-label="fecha" name="fecha2">
+              <input type="date" class="mt-2 form-control"  aria-label="fecha" [formControl]="fechaFinal" name="fecha2">
             </div>
 
       <div class="col-md-2">
-        <button class="mt-2 search-btn" >Buscar orden</button>
+        <button (click)="filtrarOrdenes()" class="mt-2 search-btn" >Buscar orden</button>
       </div>
   </div>
    <div  #cardPedidos class="row">
@@ -37,14 +37,14 @@
             <div class="row justify-content-center">
                <div class="col-sm-12 col-md-12 col-xl-6 mb-3 mb-sm-0" *ngFor="let pedido of pedidos">
                   <div class="card-body mt-5 orders-placed__order">
-                     <h3 class="subtitle mt-0 mb-2"> <b>Proveedor maestro</b> </h3>
+                     <h3 class="subtitle mt-0 mb-2"> <b>{{pedido.proveedor}}</b> </h3>
                      <div class="orders-placed__order__section1--subsection2">
                         <p id="folio"><b>FOLIO: </b> <span
                               (click)="seleccionarPedido(pedido.id_pedido)"><b>{{pedido.folio}}</b></span>
                         </p>
                      </div>
                      <div class="hijo">
-                        <span>Fecha de entrega: <b>{{pedido.fecha | date }}</b></span>
+                        <span>Fecha de entrega: <b>{{pedido.fecha | date:'dd/MM/yyyy' }}</b></span>
                      </div>
                      <div class="orders-placed__order__section2--subsection2">
                       <span>Forma de pago: <b>{{pedido.forma_pago}}</b></span>
@@ -64,7 +64,7 @@
                            <span>Total: <b>{{pedido.importe_total | currency: ''}} </b> {{pedido.moneda_sat}}</span>
                         </div>
                         <div *ngIf="dataLogin.pefil == 'DESARROLLADOR'" class="d-flex mt-1 justify-content-end mb-2 orders-placed__order__section2--subsection1">
-                           <button class="general-btn" (click)="seleccionarPedido(pedido.id_pedido)" >Ver detalles</button>
+                           <button class="general-btn" (click)="seleccionarPedido(pedido.id_compra)" >Ver detalles</button>
                         </div>
                      </div>
                   </div>
@@ -80,13 +80,17 @@
                   <i class="fa fa-times"></i>
                </button>
                <!-- TÍTULO -->
-               <h2 class="title text-center mt-4">Pedido {{pedidoSeleccionado.folio}} </h2>
+               <h2 class="title text-center mt-4">Orden de compra para: {{pedidoSeleccionado.proveedor}} </h2>
 
                <!-- CUERPO DEL MODAL -->
                <div class="d-flex flex-column justify-content-start w-100 mb-3">
-                  <span><b>Cliente:</b> {{pedidoSeleccionado.cliente}} </span>
-                  <span><b>Observaciones: </b>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, porro
-                     rem ratione quam animi repellendus ad doloremque, suscipit dolorem soluta iure veritatis?</span>
+                  <span><b>Folio:</b> {{pedidoSeleccionado.folio}} </span>
+                  <span><b>Fecha de orden:</b> {{pedidoSeleccionado.fecha | date:'dd/MM/YYYY'}} </span>
+                  <span><b>Tipo de Pago:</b> {{pedidoSeleccionado.forma_pago}}  <span *ngIf="pedidoSeleccionado.forma_pago == 'CREDITO'"> <b>Días de credito</b> {{pedidoSeleccionado.dias_credito}}</span> </span>
+                  <span> <b>Moneda:</b> <span>{{pedidoSeleccionado.moneda_sat}}</span> / <b>Tipo de cambio:</b> {{pedidoSeleccionado.tipo_cambio | currency}} </span>
+                  <span><b>Fecha de entrega:</b> {{pedidoSeleccionado.fecha_entrega | date:'dd/MM/YYYY'}} </span>
+
+                  <span><b>Observaciones: </b>{{pedidoSeleccionado.observaciones}}</span>
                </div>
                <div class="cotizacion" [ngStyle]="{width: '100%'}" #cotizacion>
                   <div class="table-custom mb-2" [ngStyle]="{border: '0.1px solid grey'}">
@@ -111,16 +115,17 @@
                            ${{articulo.precio_total}}</div>
                      </div>
                   </div>
-                  <div class="d-flex justify-content-between w-100 mt-auto">
+                  <div class="d-flex justify-content-between w-80 mt-auto">
                      <span><b>Total:</b></span>
-                     <span>${{pedidoSeleccionado.precio_total}}</span>
+                     <span>{{pedidoSeleccionado.importe_total | currency}}</span>
                   </div>
                </div>
                <!-- BOTONES -->
                <div class="orders-placed__buttons mt-auto">
-                  <button class="search-btn" (click)="openEditOrderVisibility()">Editar</button>
-                  <button class="danger-btn" (click)="generarPdfCotizacion()">Ver Orden de compra</button>
-                  <button class="general-btn" (click)="toggleModalVisibility()">Confirmar</button>
+                  <button class="general-btn" (click)="openEditOrderVisibility()">Editar</button>
+                  <!-- <button class="danger-btn" (click)="generarPdfCotizacion()">Ver Orden de compra</button> -->
+                  <button class="danger-btn" (click)="cancelarOrden()">Cancelar orden</button>
+                  <button class="search-btn" (click)="toggleModalVisibility()">Regresar</button>
                </div>
             </div>
          </div>
