@@ -114,15 +114,15 @@
             <div class="row">
 
             <div class="col-8">
-              <button (click)="agregarItem()"  type="button" class="search-btn" data-toggle="modal"
+              <button  type="button" class="search-btn" data-toggle="modal"
                 data-target="#editarModal">Agregar producto</button>
             </div>
-            <div class="col">
-              <button type="button" class=" general-btn">Imprimir orden</button>
+            <div class="col ">
+              <button (click)="this.printOrden()" type="button" class=" general-btn">Imprimir orden</button>
             </div>
-            <div class="col">
+            <!-- <div class="col">
               <button type="button" class="general-btn" >Imprimir PDF 2</button>
-            </div>
+            </div> -->
           </div>
 
               <h2 class="border-bottom  ml-2 mt-4">Lista de articulos</h2>
@@ -201,13 +201,17 @@
                   currency}}</span>
               </div>
             </section>
-
+            <div *ngIf="transactions.length === 0" class="row mb-4">
+              <div class="col-10 offset-1 border-bottom text-center mt-2">
+                <h2 style="color:rgba(35, 87, 117, 0.534)" >AÚN NO SE AGREGAN ARTICULOS A LA ORDEN DE COMPRA</h2>
+              </div>
+            </div>
             <div class="col d-flex justify-content-end ">
-            <button (click)="guardar()" type="submit" class="  general-btn">
+              <button (click)="cancelar()"  class="d-flex mr-3 danger-btn">
+                Cancelar
+              </button>
+            <button (click)="guardar()" type="submit" class="search-btn">
               Confirmar
-            </button>
-            <button (click)="cancelar()"  class="d-flex ml-3 danger-btn">
-              Cancelar
             </button>
           </div>
 
@@ -220,7 +224,7 @@
 
 
  <!-- Modal para editar artículo -->
- <div  class="modal fade" id="editarModal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+ <div  class="modal fade" #editarModal id="editarModal"  aria-hidden="true" >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -263,8 +267,8 @@
             <p class="nom_cantidad mt-2" >Cantidad:</p>
           </div>
           <div class="col-3 text-center">
-            <input [(ngModel)]="productoProveedor.cantidad" name="cantidad"
-             type="number" class="nom_input form-control" placeholder="precio venta"
+            <input required [(ngModel)]="productoProveedor.cantidad" name="cantidad"
+             type="number" class="nom_input form-control" placeholder="000"
              (ngModelChange)="recalcularTotal()">
           </div>
             <div class=" col-3 pr-0 text-center">
@@ -331,10 +335,11 @@
             <h3>{{total | currency}}</h3>
           </div>
         </div>
+
         </div>
       <div class="modal-footer">
 
-        <button type="button" class="danger-btn" data-dismiss="modal">Cancelar</button>
+        <button #cancelModal type="button" class="danger-btn" data-dismiss="modal">Cancelar</button>
 
         <button type="button" class="search-btn" (click)="agregarProducto()" >Agregar</button>
 
@@ -342,5 +347,3 @@
     </div>
   </div>
 </div>
-
-

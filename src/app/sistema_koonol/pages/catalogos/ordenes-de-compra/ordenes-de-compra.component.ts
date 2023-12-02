@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, ReactiveFormsModule, NgForm } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl, ReactiveFormsModule, NgForm,FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { OrdenDeCompra } from 'src/app/models/orden-de-compra.model';
 import { ProveedoresService } from 'src/app/services/proveedores/proveedores.service';
@@ -13,7 +13,7 @@ import { Articulo } from 'src/app/models/articulo.model';
 import { OrdenesService } from 'src/app/services/compra/ordenes.service';
 import { ProductProv } from 'src/app/models/producto-proveedor';
 import { MatTableDataSource } from '@angular/material/table';
-
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 
 
@@ -61,18 +61,22 @@ export class OrdenesDeCompraComponent implements OnInit {
  public editando = false;
  displayedColumns = ['producto', 'cantidad', 'pUnitario', 'importe', 'acciones'];
  @ViewChild('data') mytemplateForm : NgForm | undefined;
+ @ViewChild('cancelModal') cancelModal: ElementRef | undefined;
+
   articuloCompuesto = ''
   total: number = 0;
   fechaActual=new Date();
   tipoCambio=0;
-  modal:boolean = false;
+  modal: BsModalRef = {} as BsModalRef;
 
  constructor(
 
   private proveedor_service : ProveedoresService,
   private datePipe: DatePipe,
   private productService: CatalogoService,
-  private ordeneService: OrdenesService
+  private ordeneService: OrdenesService,
+  private modalService: BsModalService,
+  private fb: FormBuilder
 ) {
   this.provCtrl = new FormControl();
   this.provFiltrados = this.provCtrl.valueChanges
@@ -87,13 +91,14 @@ export class OrdenesDeCompraComponent implements OnInit {
       startWith(''),
       map(product => product ? this.filtrarProduct(product) : this.productos.slice())
     );
+
+
 }
 
 
 ngOnInit(): void {
 
   // console.log('data>',this.dataLogin);
-  this.values();
  this.obtenerProveedor();
  this.obtenerProductos2();
  this.values();
@@ -102,14 +107,9 @@ ngOnInit(): void {
 
 //VALORES POR DEFECTO
 values(){
-// this.fechaActual= new Date().toISOString();
-console.log('this.fechaActual :>> ', this.fechaActual);
 this.ordenCompra.forma_pago = 'CONTADO';
 this.tipoCambio = this.monedas[0].cambio;
-this.modal = true;
 }
-
-
 
 // AUTO PROVEEDORES
 obtenerProveedor() {
@@ -197,9 +197,8 @@ transactions: Transaction[] = [];
 
 //AGREGAR ARTICULO A LA TABLA
 agregarProducto() {
-
-  // console.log('object :>> ', this.productoProveedor);
-
+if(this.articuloCompuesto && this.productoProveedor.cantidad > 0) {
+  console.log('entro :>> ');
   let nuevoProducto = {
     producto: this.articuloCompuesto,
     cantidad: this.productoProveedor.cantidad,
@@ -215,9 +214,23 @@ agregarProducto() {
   };
   this.transactions = this.transactions.slice();
   this.transactions.push(nuevoProducto);
- this.productoProveedor = new ProductProv(0,0,0,0,0,0,0,0,0);
-  this.modal=false;
-  // console.log('this.transactions :>> ', this.transactions);
+  Swal.fire({
+    title: 'Articulo agregado correctamente',
+    timer: 1000,
+    icon: 'success'
+  })
+  this.productoProveedor = new ProductProv(0,0,0,0,0,0,0,0,0);
+  this.productCtrl.setValue('');
+  this.cancelModal?.nativeElement.click();
+
+}if(!this.articuloCompuesto){
+  Swal.fire({
+    title: 'Seleccione un producto',
+    timer: 2000,
+    icon: 'info'
+  })
+}
+
 }
 
 
@@ -235,12 +248,6 @@ recalcularTotal() {
 getTotalCost(): number { return this.transactions.reduce((total, transaction) => total + transaction.importe, 0); }
 
 
-//NUEVO PRODUCTO
-agregarItem(){
-  // this.producto = new ProductProv('','','',0,0,0);
-  this.editando = false;
-
-}
 
 // EDITAR UN PRODUCTO
 editarItem(row: any) {
@@ -253,8 +260,10 @@ editarItem(row: any) {
 
 // BORRAR UN PRODUCTO DE LA LISTA
 borrarItem(transaction: any) {
+  console.log('trasnsaction :>> ', transaction);
   Swal.fire({
     title: "¿Eliminar artículo?",
+    text: transaction.producto,
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -272,14 +281,14 @@ borrarItem(transaction: any) {
         // Crea una nueva referencia al array para que Angular detecte el cambio
         this.transactions = this.transactions.slice();
 
-        console.log('transaction eliminado: ', transaction);
+        // console.log('transaction eliminado: ', transaction);
 
         Swal.fire({
-          title: "Artículo eliminado",
+          title: "Artículo eliminado de la orden de compra",
           icon: "success"
         });
       } else {
-        console.error('No se pudo encontrar el artículo en el array.');
+        console.error('No se pudo encontrar el artículo.');
       }
     }
   });
@@ -346,22 +355,37 @@ nuevaOrden() {
         text: resp.data.mensaje,
         icon: "success"
       });
-      console.log('resp :>> ', resp);
+      this.vaciarOrden();
+      console.log('ORDEN GUARDADA? :>> ', resp);
     }else{
       Swal.fire('error',resp.data.mensaje,'error');
     }
   })
 
   // Lógica adicional para guardar la orden de compra con los datos creados
-  console.log('Orden de compra a guardar: ', nuevaOrden);
+  console.log('JSON ENVIADO: ', nuevaOrden);
 }
 
-
-
-
-
-
-
+//IMPRIMIR
+printOrden(){
+  Swal.fire({
+    title: "¿Imprimir orden de compra?",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonText: 'Regresar',
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Confirmar"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Enviando orden de compra",
+        icon: "success",
+        timer: 2000
+      });
+    }
+  });
+}
 
 
 
@@ -378,7 +402,7 @@ cancelar(){
     confirmButtonText: "Confirmar"
   }).then((result) => {
     if (result.isConfirmed) {
-      console.log('this.ordenDeCompra :>> ', this.ordenCompra);
+      this.vaciarOrden();
       Swal.fire({
         title: "Orden de compra cancelada",
         icon: "success"
@@ -390,7 +414,8 @@ cancelar(){
 // VACIAR ORDEN
 vaciarOrden(){
   this.ordenCompra = new OrdenDeCompra(0,0,0,0,'','',0,0,'','',0,[]);
-  // this.ordenCompra.fecha_creacion = new Date ().toISOString ().substring (0,10);
+   this.transactions=[];
+   this.values();
 }
 
 }

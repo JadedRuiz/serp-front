@@ -44,7 +44,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { VistaOrdenescompraComponent } from './vista-ordenescompra/vista-ordenescompra.component';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -92,7 +92,8 @@ import { VistaOrdenescompraComponent } from './vista-ordenescompra/vista-ordenes
     MatNativeDateModule,
     MatChipsModule,
     MatTableModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    ModalModule.forRoot(),
   ],
   providers: [
     NgxImageCompressService,
