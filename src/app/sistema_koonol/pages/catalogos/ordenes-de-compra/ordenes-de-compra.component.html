@@ -20,7 +20,7 @@
             <div class="form-row">
 
               <!-- BUSCADOR DE PROVEEDORES -->
-              <div class="form-group mt-2 col-md-6">
+              <div class="form-group mt-2 col-md-4">
                 <mat-form-field class="w-100">
                   <input
                   matInput placeholder="Proveedor" aria-label="State" [matAutocomplete]="auto" [formControl]="provCtrl">
@@ -39,11 +39,7 @@
 
 
 
-              <!-- <div class="form-group mt-3 col-md-3">
-                <input
 
-                type="text" class="form-control" placeholder="FOLIO">
-              </div> -->
               <div class="form-group mt-3 col-md-2">
                 <input type="text" class="form-control text-center" disabled  value="ACTIVA">
                 </div>
@@ -51,7 +47,9 @@
                 <input [value]="fechaActual | date:'dd/MM/yyyy'"  type="text" name="fecha_creacion"
                  class="form-control">
               </div>
-
+<div class="form-group mt-3 col-md-3">
+  <input type="text" class="form-control" placeholder="FOLIO">
+</div>
 
               <!-- <div class="form-group mt-3 col-md-3">
                 <select  [(ngModel)]="ordenCompra.status" name="status"
@@ -76,19 +74,22 @@
 
               <div *ngIf="ordenCompra.forma_pago !== 'CONTADO' " class="form-group col-md-2">
                 <label
-                 for="noCotización">DIAS DE CREDITO</label>
+                 for="noCotización">Días de credito</label>
                 <input [(ngModel)]="ordenCompra.dias_credito" name="credito"
                 type="number" class="form-control">
               </div>
               <div class="form-group col-md-3">
-                <label for="status">MONEDA</label>
-                <select (change)="monedaSelec($event)" name="moneda" class="form-control">
-                  <option *ngFor="let moneda of monedas" [value]="moneda.id_moneda">{{moneda.moneda}}</option>
+                <label for="status">Moneda</label>
+                <select (change)="monedaSelec($event)" name="moneda" class="form-control" [(ngModel)]="monDef" >
+                  <option *ngFor="let moneda of monedas" [value]="moneda.id_moneda">{{moneda.moneda_sat}}</option>
                 </select>
               </div>
-              <div class="col-auto">
-                <label for="">Tipo de cambio</label>
-                <p class=" mt-2 tipo_cambio">${{tipoCambio}}</p>
+              <div class=" form-group col-auto">
+                <label for="" class="" >Tipo cambio</label>
+                <input type="number" placeholder="$ 0.00"
+                [(ngModel)]="ordenCompra.tipo_cambio" name="tipo_cambio"
+                title="Ingresa el tipo de cambio"
+                class="form-control"/>
               </div>
 
             </div>
@@ -96,13 +97,13 @@
             <div class="form-row">
 
               <div class="form-group col-md-4">
-                <label for="status">FECHA DE ENTREGA</label>
+                <label for="status">Fecha entrega</label>
                 <input [(ngModel)]="ordenCompra.fecha_entrega" name="fecha_entrega"
                 type="date" class=" mt-2 form-control">
               </div>
 
               <div class="form-group col-md-8">
-                <label for="noCotización">OBSERVACIONES</label>
+                <label for="noCotización">Observaciones</label>
                 <textarea [(ngModel)]="ordenCompra.observaciones" name="observaciones"
                  placeholder="Describa sus observaciones" type="textarea" class="form-control"></textarea>
               </div>
@@ -264,11 +265,12 @@
 
         </div>
 
-        <div class="row mt-4">
-          <div class=" col-3 pr-0 text-center">
+        <div class="row mt-2">
+          <div class=" col-3 pr-0 ">
             <p class="nom_cantidad mt-2" >Cantidad:</p>
           </div>
-          <div class="col-3 text-center">
+          <div class="col-3 text-center pl-0">
+            <!-- <label for="" class="form-group" >Cantidad:</label> -->
             <input required [(ngModel)]="productoProveedor.cantidad" name="cantidad"
              type="number" class="nom_input form-control" placeholder="000"
              (ngModelChange)="recalcularTotal()">
@@ -276,30 +278,30 @@
             <div class=" col-3 pr-0 text-center">
               <p class="nom_cantidad mt-2" >P.Unitario:</p>
             </div>
-            <div class="col-3 text-center">
+            <div class="col-3 text-center pl-0">
               <input [(ngModel)]="productoProveedor.precio_unitario" name="precio_unitario"
                type="number" class="nom_input form-control" placeholder="p.total"
                (ngModelChange)="recalcularTotal()">
             </div>
         </div>
         <div class="row mt-4">
-
           <div class=" col-3 pr-0 text-center">
-            <p class="nom_cantidad mt-2" >Iva:</p>
+            <p class="nom_cantidad2 mt-2" >IEPS:</p>
           </div>
-          <div class="col-3 text-center">
-            <input  name="iva" [(ngModel)]="productoProveedor.tasa_iva" name="iva"
-             type="number" class="nom_input form-control" placeholder="iva"
-             (ngModelChange)="recalcularTotal()">
-          </div>
-          <div class=" col-3 pr-0 text-center">
-            <p class="nom_cantidad mt-2" >IEPS:</p>
-          </div>
-          <div class="col-3 text-center">
+          <div class="col-3 text-center pl-0">
             <input name="ieps" [(ngModel)]="productoProveedor.ieps" name="ieps"
              type="number" class="nom_input form-control" placeholder="ieps"
              (ngModelChange)="recalcularTotal()">
           </div>
+          <div class=" col-3 pr-0 text-center">
+            <p class="nom_cantidad2 mt-2" >IVA:</p>
+          </div>
+          <div class="col-3 text-center pl-0">
+            <input  name="iva" [(ngModel)]="productoProveedor.tasa_iva" name="iva"
+             type="number" class="nom_input form-control" placeholder="iva"
+             (ngModelChange)="recalcularTotal()">
+          </div>
+
         </div>
 
         <div class="row mt-4">

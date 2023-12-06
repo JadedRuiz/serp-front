@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, inject, } from '@angular/core';
 import { FormControl, ReactiveFormsModule, NgForm,FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { OrdenDeCompra } from 'src/app/models/orden-de-compra.model';
@@ -14,7 +14,9 @@ import { OrdenesService } from 'src/app/services/compra/ordenes.service';
 import { ProductProv } from 'src/app/models/producto-proveedor';
 import { MatTableDataSource } from '@angular/material/table';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-
+import { MonedaService } from 'src/app/services/monedas/moneda.service';
+import { Moneda } from 'src/app/models/moneda.model';
+import { ActivatedRoute } from '@angular/router';
 
 
 export interface Transaction {
@@ -42,9 +44,9 @@ export interface Transaction {
 export class OrdenesDeCompraComponent implements OnInit {
   //LOCAL
   dataLogin = JSON.parse(localStorage.getItem("dataLogin")+"");
-  token = this.dataLogin.token;
 
-
+  //service de moneda injectado
+private monedaService = inject(MonedaService)
 
 
  public domicilio: Address = new Address(0, 1, 0, 0, '', '', '', '', '', '', '', 0, '', '', '', '', '', '', 1, [])
@@ -68,6 +70,7 @@ export class OrdenesDeCompraComponent implements OnInit {
   fechaActual=new Date();
   tipoCambio=0;
   modal: BsModalRef = {} as BsModalRef;
+  idCompra:number=0;
 
  constructor(
 
@@ -76,7 +79,8 @@ export class OrdenesDeCompraComponent implements OnInit {
   private productService: CatalogoService,
   private ordeneService: OrdenesService,
   private modalService: BsModalService,
-  private fb: FormBuilder
+  private fb: FormBuilder,
+  private route: ActivatedRoute
 ) {
   this.provCtrl = new FormControl();
   this.provFiltrados = this.provCtrl.valueChanges
@@ -95,12 +99,12 @@ export class OrdenesDeCompraComponent implements OnInit {
 
 }
 
-
 ngOnInit(): void {
 
   // console.log('data>',this.dataLogin);
  this.obtenerProveedor();
  this.obtenerProductos2();
+ this.getMonedas();
  this.values();
 }
 
@@ -108,7 +112,11 @@ ngOnInit(): void {
 //VALORES POR DEFECTO
 values(){
 this.ordenCompra.forma_pago = 'CONTADO';
-this.tipoCambio = this.monedas[0].cambio;
+this.route.params.subscribe(p =>{
+  const id = +p['id'];
+  this.idCompra = id;
+})
+// this.tipoCambio = this.monedas[0].cambio;
 }
 
 // AUTO PROVEEDORES
@@ -172,23 +180,37 @@ filtrarProduct(name:any){
   }
 productSelec(pro:any){
   this.productoProveedor.id_existencia = pro.option.id.id_existencia;
-  console.log('object :>> ', pro.option.id.articulo_compuesto);
   this.articuloCompuesto = pro.option.id.articulo_compuesto
 }
 
 //MONEDAS
-monedas = [
-  { id_moneda: 100, moneda: 'MXN', desc: 'Peso mexicano', cambio: 10.89},
-  { id_moneda: 149, moneda: 'USD', desc: 'Dólar americano', cambio: 17.89},
-  { id_moneda: 49, moneda: 'EUR', desc: 'Euro', cambio: 20.0}
-]
+monedas:Moneda[]=[];
+monDef=100
+
+//Traer monedas ->
+getMonedas(){
+  const json = {
+    id_moneda : 0,
+    moneda: '',
+    token: this.dataLogin.token
+  }
+  this.monedaService.getMonedas(json).subscribe({
+    next: (mon)=>{
+      this.monedas = mon.data;
+    },
+    error: (err)=>{
+      Swal.fire({
+        icon: 'error',
+      })
+    }
+  })
+
+}
+
 monedaSelec(event: any) {
-  const selectedMonedaId = event.target.value;
-  const selectedMoneda = this.monedas.find(moneda => moneda.id_moneda === +selectedMonedaId);
-  this.ordenCompra.id_moneda = selectedMoneda!.id_moneda;
-  this.ordenCompra.tipo_cambio = selectedMoneda!.cambio;
-  this.tipoCambio= selectedMoneda!.cambio;
-  // console.log('Selected Moneda:', selectedMoneda);
+  const monSelect = this.monedas.find(mon=> event.target.value === mon.id_moneda)
+  this.ordenCompra.id_moneda = Number(monSelect!.id_moneda);
+  //  console.log('Selected Moneda:', monSelect);
 }
 
 
@@ -202,7 +224,8 @@ if(this.articuloCompuesto && this.productoProveedor.cantidad > 0) {
     producto: this.articuloCompuesto,
     cantidad: this.productoProveedor.cantidad,
     pUnitario: this.productoProveedor.precio_unitario,
-    importe: this.productoProveedor.cantidad * this.productoProveedor.precio_unitario,
+    // importe: this.productoProveedor.cantidad * this.productoProveedor.precio_unitario,
+    importe: this.total,
     id_existencia: this.productoProveedor.id_existencia,
     id_det_compra: this.productoProveedor.id_det_compra,
     descuento_1:this.productoProveedor.descuento_1,
@@ -237,10 +260,40 @@ if(this.articuloCompuesto && this.productoProveedor.cantidad > 0) {
 // CALCULAR TOTAL
 recalcularTotal() {
   // Lógica para recalcular el total
-  let cantidad = this.productoProveedor.cantidad
-  let pUnitario = this.productoProveedor.precio_unitario
-  this.total =  cantidad * pUnitario
+  let cantidad = this.productoProveedor.cantidad;
+  let pUnitario = this.productoProveedor.precio_unitario;
+  this.total = cantidad * pUnitario;
+
+  // Descuentos
+  if (this.productoProveedor.descuento_1) {
+    this.total = this.total - (this.total * (this.productoProveedor.descuento_1 / 100));
+  }
+  if (this.productoProveedor.descuento_2) {
+    this.total = this.total - (this.total * (this.productoProveedor.descuento_2 / 100));
+  }
+  if (this.productoProveedor.descuento_3) {
+    this.total = this.total - (this.total * (this.productoProveedor.descuento_3 / 100));
+  }
+
+  // IEPS
+  if (this.productoProveedor.ieps) {
+    this.total = this.total + (this.total * (this.productoProveedor.ieps / 100));
+  }
+
+  // Tasa de IVA
+  if (this.productoProveedor.tasa_iva) {
+    // Calcula el IVA sobre el total (incluyendo IEPS si está presente)
+    let ivaBase = this.productoProveedor.ieps ? (this.total - (this.total * (this.productoProveedor.ieps / 100))) : this.total;
+    this.total = ivaBase + (ivaBase * (this.productoProveedor.tasa_iva / 100));
+  }
+
+  // Asegúrate de sumar IEPS y tasa de IVA al total final
+  this.total = this.total + this.productoProveedor.ieps;
+
+  // Redondea el resultado si es necesario (puedes ajustar la precisión según tus necesidades)
+  // this.total = Math.round(this.total * 100) / 100;
 }
+
 
 
 // PARA OBTENER EL TOTAL DE LA TABLA
@@ -364,11 +417,12 @@ nuevaOrden() {
     id_compra: this.ordenCompra.id_compra,
     id_almacen: Number(this.dataLogin.almacenes[0].id_almacen),
     id_proveedor: Number(this.ordenCompra.id_proveedor),
-    id_moneda:  this.ordenCompra.id_moneda || this.monedas[0].id_moneda ,
+    id_moneda:  this.ordenCompra.id_moneda || this.monDef,
     token: 'VzNobUpiVm03SityMXRyN3ZROGEyaU0wWXVnYXowRjlkQzMxN0s2NjRDcz0=',
     forma_pago: this.ordenCompra.forma_pago,
     dias_credito: this.ordenCompra.dias_credito,
-    tipo_cambio: this.ordenCompra.tipo_cambio || this.monedas[0].cambio,
+    // tipo_cambio: this.ordenCompra.tipo_cambio || this.monedas[0].cambio,
+    tipo_cambio: this.ordenCompra.tipo_cambio,
     fecha_entrega: this.ordenCompra.fecha_entrega,
     observaciones: this.ordenCompra.observaciones,
     id_usuario: this.dataLogin.id_usuario,
@@ -405,8 +459,8 @@ nuevaOrden() {
       });
       this.vaciarOrden();
       console.log('ORDEN GUARDADA? :>> ', resp);
-    }else{
-      Swal.fire('error',resp.data.mensaje,'error');
+    }if (resp.ok == false){
+      Swal.fire('error',resp.message,'error');
     }
   })
 

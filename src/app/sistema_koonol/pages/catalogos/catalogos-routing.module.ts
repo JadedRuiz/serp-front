@@ -48,6 +48,10 @@ const routes: Routes = [
   },
 
   {
+    path: 'ordenes/:id',
+    component: OrdenesDeCompraComponent
+  },
+  {
     path: 'ordenes',
     component: OrdenesDeCompraComponent
   },

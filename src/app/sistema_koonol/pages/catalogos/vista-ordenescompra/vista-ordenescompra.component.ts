@@ -11,6 +11,7 @@ import { Address } from 'src/app/models/addresses.model';
 import { OrdenesService } from 'src/app/services/compra/ordenes.service';
 import { OrdenDeCompra } from 'src/app/models/orden-de-compra.model';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -34,14 +35,16 @@ export class VistaOrdenescompraComponent {
     orderVisibility: boolean = false
     editOrderVisibility: boolean = false
     pedidos: any[] = []
-    articulosPedido: ArticuloFinal[] = []
+    // articulosPedido: ArticuloFinal[] = []
+    articulosPedido:any = []
     pedidoSeleccionado: any;
     dataLogin = JSON.parse(localStorage.getItem('dataLogin')!);
 
     constructor(
       private pedidosRealizados: PedidosService,
       private proveedor_service : ProveedoresService,
-      private ordeneService: OrdenesService
+      private ordeneService: OrdenesService,
+      private router:Router
     ) {
       this.provCtrl = new FormControl();
   this.provFiltrados = this.provCtrl.valueChanges
@@ -143,16 +146,34 @@ this.ordeneService.obtenerCompras(json).subscribe((resp)=>{
 
     seleccionarPedido(id_pedido: number) {
       this.pedidoSeleccionado = this.pedidos.find(pedidos => pedidos.id_compra == id_pedido)
-      console.log(this.pedidoSeleccionado);
+      // console.log(this.pedidoSeleccionado);
       this.buscarPedido(id_pedido)
       this.toggleModalVisibility()
     }
 
     buscarPedido(id_pedido: number) {
-      this.pedidosRealizados.buscarPedido(id_pedido).subscribe(
-        (response) => {
-          this.articulosPedido = response.data
-        })
+      let json = {
+        id_compra : id_pedido,
+        // token: this.dataLogin.token,
+        token: 'VzNobUpiVm03SityMXRyN3ZROGEyaU0wWXVnYXowRjlkQzMxN0s2NjRDcz0=',
+        id_usuario: 1
+      }
+    console.log('json :>> ', json);
+      this.ordeneService.buscarCompraID(json)
+      .subscribe(res => {
+        if(res.ok){
+          console.log('res :>> ', res.data[0].articulos);
+          const articulos = res.data[0].articulos;
+          this.articulosPedido = articulos;
+        }
+      })
+
+
+      // this.pedidosRealizados.buscarPedido(id_pedido).subscribe(
+      //   (response) => {
+      //     this.articulosPedido = response.data
+      //     console.log('response.data :>> ', response.data);
+      //   })
     }
 
     toggleModalVisibility() {
@@ -166,9 +187,10 @@ this.ordeneService.obtenerCompras(json).subscribe((resp)=>{
       this.editOrderVisibility = false
     }
 
-    openEditOrderVisibility() {
-      // this.editOrderVisibility = true
-      // this.orderVisibility = false
+    openEdit(id:number) {
+      if(id){
+        this.router.navigate(['/sis_koonol/catalogos/ordenes',id])
+      }
     }
 
     saveEditedOrder() {
