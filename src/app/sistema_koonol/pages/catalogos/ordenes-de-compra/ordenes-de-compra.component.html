@@ -40,16 +40,15 @@
 
 
 
-              <div class="form-group mt-3 col-md-2">
+              <!-- <div class="form-group mt-3 col-md-2">
                 <input type="text" class="form-control text-center" disabled  value="ACTIVA">
-                </div>
+                </div> -->
               <div class="form-group mt-3 col-md-3">
-                <input [value]="fechaActual | date:'dd/MM/yyyy'"  type="text" name="fecha_creacion"
-                 class="form-control">
+                <input [value]="fechaActual | date:'dd/MM/yyyy'" type="text" name="fecha_creacion" class="form-control">
               </div>
-<div class="form-group mt-3 col-md-3">
-  <input type="text" class="form-control" placeholder="FOLIO">
-</div>
+              <div class="form-group mt-3 col-md-3">
+                <input [(ngModel)]="folio" name="folio" type="text" class="form-control" placeholder="FOLIO">
+              </div>
 
               <!-- <div class="form-group mt-3 col-md-3">
                 <select  [(ngModel)]="ordenCompra.status" name="status"

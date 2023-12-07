@@ -44,6 +44,7 @@ export interface Transaction {
 export class OrdenesDeCompraComponent implements OnInit {
   //LOCAL
   dataLogin = JSON.parse(localStorage.getItem("dataLogin")+"");
+  token = 'VzNobUpiVm03SityMXRyN3ZROGEyaU0wWXVnYXowRjlkQzMxN0s2NjRDcz0='
 
   //service de moneda injectado
 private monedaService = inject(MonedaService)
@@ -70,7 +71,7 @@ private monedaService = inject(MonedaService)
   fechaActual=new Date();
   tipoCambio=0;
   modal: BsModalRef = {} as BsModalRef;
-  idCompra:number=0;
+  idCompra:any=0;
 
  constructor(
 
@@ -109,15 +110,81 @@ ngOnInit(): void {
 }
 
 
+// DATOS DE MUESTRA
+transactions: Transaction[] = [];
+
 //VALORES POR DEFECTO
 values(){
 this.ordenCompra.forma_pago = 'CONTADO';
 this.route.params.subscribe(p =>{
   const id = +p['id'];
-  this.idCompra = id;
+  if(id){
+    this.idCompra = this.asignarOrden(id);
+  }
 })
-// this.tipoCambio = this.monedas[0].cambio;
+
 }
+
+//EDITAR ORDEN DE COMPRA
+folio:any='';
+asignarOrden(id:number){
+  let json = {
+    id_compra : id,
+    token: this.token,
+    id_usuario : this.dataLogin.id_usuario
+  }
+  this.ordeneService.buscarCompraID(json).subscribe(resp =>{
+    if(resp.ok){
+      const orden = resp.data[0];
+      const articulos = orden.articulos;
+      this.folio = orden.folio;
+      this.ordenCompra = resp.data[0];
+      this.fechaActual = orden.fecha;
+      this.provCtrl = new FormControl(orden.proveedor);
+      // this.transactions = articulos.map(art => {
+      //   return {
+      //     producto: art.articulo,
+      //     cantidad: art.cantidad,
+      //     pUnitario: art.precio_unitario,
+      //     importe: art.importe_compra_det,
+      //     id_existencia: art.id_existencia,
+      //     id_det_compra: art.id_det_compra,
+      //     descuento_1:art.descuento_1,
+      //     descuento_2:art.descuento_2,
+      //     descuento_3:art.descuento_3,
+      //     ieps:art.art.ieps,
+      //     tasa_iva:art.tasa_iva
+      //   }
+      // })
+      for (const art of articulos){
+        try {
+          const tran = {
+                producto: art.articulo,
+                cantidad: art.cantidad,
+                pUnitario: art.precio_unitario,
+                importe: art.importe_compra_det,
+                id_existencia: art.id_existencia,
+                id_det_compra: art.id_det_compra,
+                descuento_1:art.descuento_1,
+                descuento_2:art.descuento_2,
+                descuento_3:art.descuento_3,
+                ieps:art.ieps,
+                tasa_iva:art.tasa_iva
+          };
+          this.transactions = this.transactions.slice();
+          this.transactions.push(tran)
+        }catch (error){
+          console.log('error :>> ', error);
+        }
+      }
+      console.log('resp.data :>> ', this.transactions);
+      console.log('resp.data :>> ', articulos);
+    }
+  })
+}
+
+
+
 
 // AUTO PROVEEDORES
 obtenerProveedor() {
@@ -214,8 +281,7 @@ monedaSelec(event: any) {
 }
 
 
-// DATOS DE MUESTRA
-transactions: Transaction[] = [];
+
 
 //AGREGAR ARTICULO A LA TABLA
 agregarProducto() {
@@ -418,10 +484,9 @@ nuevaOrden() {
     id_almacen: Number(this.dataLogin.almacenes[0].id_almacen),
     id_proveedor: Number(this.ordenCompra.id_proveedor),
     id_moneda:  this.ordenCompra.id_moneda || this.monDef,
-    token: 'VzNobUpiVm03SityMXRyN3ZROGEyaU0wWXVnYXowRjlkQzMxN0s2NjRDcz0=',
+    token: this.token,
     forma_pago: this.ordenCompra.forma_pago,
     dias_credito: this.ordenCompra.dias_credito,
-    // tipo_cambio: this.ordenCompra.tipo_cambio || this.monedas[0].cambio,
     tipo_cambio: this.ordenCompra.tipo_cambio,
     fecha_entrega: this.ordenCompra.fecha_entrega,
     observaciones: this.ordenCompra.observaciones,
