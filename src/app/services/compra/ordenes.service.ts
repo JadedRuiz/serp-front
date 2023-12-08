@@ -44,6 +44,29 @@ export class OrdenesService {
       }));
   }
 
+  cancelarCompra(json:any){
+    let url = SERVER_API+"compras/cancelarCompra";
+    return this.http.post( url, json )
+      .pipe(map( (resp: any) => {
+        return resp;
+      }), catchError(err => {
+        Swal.fire("Ha ocurrido un error", err.error.message, 'error');
+        return throwError(err);
+      }));
+  }
+
+
+  eliminarDetalle(json:any){
+    let url = SERVER_API+"compras/eliminarDetalleCompra";
+    return this.http.post( url, json )
+      .pipe(map( (resp: any) => {
+        return resp;
+      }), catchError(err => {
+        Swal.fire("Ha ocurrido un error", err.error.message, 'error');
+        return throwError(err);
+      }));
+  }
+
 
 
 }

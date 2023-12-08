@@ -13,5 +13,6 @@ export class OrdenDeCompra {
     public observaciones : string,
     public id_usuario : number,
     public articulos : ProductProv[],
+    public folio?: string,
     ){}
 }

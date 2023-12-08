@@ -125,7 +125,7 @@
                <div class="orders-placed__buttons mt-auto">
                   <button class="general-btn" (click)="openEdit(pedidoSeleccionado.id_compra)">Editar</button>
                   <!-- <button class="danger-btn" (click)="generarPdfCotizacion()">Ver Orden de compra</button> -->
-                  <button class="danger-btn" (click)="cancelarOrden()">Cancelar orden</button>
+                  <button class="danger-btn" (click)="cancelarOrden(pedidoSeleccionado.id_compra)">Cancelar orden</button>
                   <button class="search-btn" (click)="toggleModalVisibility()">Regresar</button>
                </div>
             </div>

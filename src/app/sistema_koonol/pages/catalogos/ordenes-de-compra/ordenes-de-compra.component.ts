@@ -17,6 +17,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { MonedaService } from 'src/app/services/monedas/moneda.service';
 import { Moneda } from 'src/app/models/moneda.model';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 export interface Transaction {
@@ -81,7 +82,8 @@ private monedaService = inject(MonedaService)
   private ordeneService: OrdenesService,
   private modalService: BsModalService,
   private fb: FormBuilder,
-  private route: ActivatedRoute
+  private route: ActivatedRoute,
+  private router : Router
 ) {
   this.provCtrl = new FormControl();
   this.provFiltrados = this.provCtrl.valueChanges
@@ -266,7 +268,7 @@ monedaSelec(event: any) {
 }
 
 
-//NUEVOS CAMPOS DE ARTICULO
+//NUEVOS CAMPOS DE ORDEN
 descProveedor = 'Desc(proveedor)';
 medidaProveedor = 'U.Medida(proveedor)';
 
@@ -410,10 +412,11 @@ cancelarEdit(){
 
 
 // BORRAR UN PRODUCTO DE LA LISTA
+detallesID:number[] = [];
 borrarItem(transaction: any) {
   console.log('trasnsaction :>> ', transaction);
   Swal.fire({
-    title: "¿Eliminar artículo?",
+    title: "¿Remover articulo de la orden?",
     text: transaction.producto,
     icon: "warning",
     showCancelButton: true,
@@ -422,6 +425,10 @@ borrarItem(transaction: any) {
     confirmButtonText: "Sí"
   }).then((result) => {
     if (result.isConfirmed) {
+      //agregamos el id al array de detalles
+      if(transaction.id_det_compra !== 0){
+        this.detallesID.push(transaction.id_det_compra);
+      }
       // Encuentra el índice del artículo en el array
       const index = this.transactions.indexOf(transaction);
 
@@ -436,7 +443,8 @@ borrarItem(transaction: any) {
 
         Swal.fire({
           title: "Artículo eliminado de la orden de compra",
-          icon: "success"
+          icon: "success",
+          timer: 1000
         });
       } else {
         console.error('No se pudo encontrar el artículo.');
@@ -503,6 +511,7 @@ nuevaOrden() {
     id_compra: this.ordenCompra.id_compra,
     id_almacen: Number(this.dataLogin.almacenes[0].id_almacen),
     id_proveedor: Number(this.ordenCompra.id_proveedor),
+    folio:this.folio,
     id_moneda:  this.ordenCompra.id_moneda || this.monDef,
     token: this.token,
     forma_pago: this.ordenCompra.forma_pago,
@@ -511,7 +520,7 @@ nuevaOrden() {
     fecha_entrega: this.ordenCompra.fecha_entrega,
     observaciones: this.ordenCompra.observaciones,
     id_usuario: this.dataLogin.id_usuario,
-    articulos: []
+    articulos: [],
   };
 
   // Agregar los datos de muestra (transactions) al arreglo de artículos
@@ -537,20 +546,46 @@ nuevaOrden() {
 
   this.ordeneService.guardarCompra(nuevaOrden).subscribe(resp=>{
     if(resp.ok){
+      this.eliminarDetalle();
       Swal.fire({
         title: "Orden de compra confirmada",
         text: resp.data.mensaje,
         icon: "success"
       });
       this.vaciarOrden();
-      console.log('ORDEN GUARDADA? :>> ', resp);
     }if (resp.ok == false){
       Swal.fire('error',resp.message,'error');
     }
   })
 
+  if(this.ordenCompra.id_compra !==0){
+    this.router.navigate(['/sis_koonol/catalogos/ordenescompra'])
+  }
+
   // Lógica adicional para guardar la orden de compra con los datos creados
   console.log('JSON ENVIADO: ', nuevaOrden);
+}
+
+// ELIMINAMOS EL DETALLE DE LA ORDEN
+eliminarDetalle(){
+if(this.detallesID.length > 0){
+  this.detallesID.forEach(id => {
+    let json = {
+      id_det_compra: id,
+      token: this.token,
+      id_usuario: this.dataLogin.id_usuario
+    }
+    this.ordeneService.eliminarDetalle(json).subscribe((resp)=>{
+      if(resp.ok){
+
+      }
+    })
+  });
+
+
+
+
+}
 }
 
 //IMPRIMIR
@@ -589,6 +624,9 @@ cancelar(){
     confirmButtonText: "Confirmar"
   }).then((result) => {
     if (result.isConfirmed) {
+      if(this.ordenCompra.id_compra !==0){
+        this.router.navigate(['/sis_koonol/catalogos/ordenes'])
+      }
       this.vaciarOrden();
       Swal.fire({
         title: "Orden de compra cancelada",

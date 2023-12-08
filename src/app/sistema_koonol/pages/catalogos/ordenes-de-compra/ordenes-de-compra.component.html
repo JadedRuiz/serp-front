@@ -41,14 +41,17 @@
 
 
 
-              <div class="form-group mt-3 col-md-3">
-                <input [value]="fechaActual | date:'dd/MM/yyyy'" type="text" name="fecha_creacion" class="form-control">
+              <div class="col-md-3">
+                <label for="" class="form-group mb-1">Fecha</label>
+                <input [value]="fechaActual | date:'dd/MM/yyyy'" type="text" disabled name="fecha_creacion" class="form-control">
               </div>
-              <div class="form-group mt-3 col-md-3">
-                <input [(ngModel)]="folio" name="folio" type="text" class="form-control" placeholder="FOLIO">
+              <div *ngIf="this.ordenCompra.id_compra !==0" class="col-md-3">
+                <label for="" class="form-group mb-1">Folio</label>
+                <input [(ngModel)]="folio" name="folio" type="text" disabled class="form-control" placeholder="FOLIO">
               </div>
-              <div class="form-group mt-3 col-md-2">
-                <input type="text" class="form-control text-center" disabled  value="ACTIVA">
+              <div class="col-md-2">
+                <label for="" class="form-group mb-1">Status</label>
+                <input type="text" class="form-control text-center" disabled  value="ACTIVO">
                 </div>
 
               <!-- <div class="form-group mt-3 col-md-3">
@@ -112,19 +115,10 @@
           </form>
             <!-- TABLA -->
           <form id="form_articulos" class="m-2">
-            <div class="row">
-
-            <div class="col-8">
-              <button  type="button" class="search-btn" data-toggle="modal"
-                data-target="#editarModal">Agregar producto</button>
-            </div>
-            <div class="col ">
-              <button (click)="this.printOrden()" type="button" class=" general-btn">Imprimir orden</button>
-            </div>
-            <!-- <div class="col">
-              <button type="button" class="general-btn" >Imprimir PDF 2</button>
-            </div> -->
-          </div>
+            <div class="col-12">
+              <button (click)="this.printOrden()" type="button" class="  general-btn">Imprimir orden</button>
+              <button  type="button" class="search-btn pull-right mr-3 " data-toggle="modal"data-target="#editarModal">Agregar producto</button>
+           </div>
 
               <h2 class="border-bottom  ml-2 mt-4">Lista de articulos</h2>
 
@@ -208,7 +202,7 @@
             </section>
             <div *ngIf="transactions.length === 0" class="row mb-4">
               <div class="col-10 offset-1 border-bottom text-center mt-2">
-                <h2 style="color:rgba(35, 87, 117, 0.534)" >AÚN NO SE AGREGAN ARTICULOS A LA ORDEN DE COMPRA</h2>
+                <h2 style="color:rgba(35, 87, 117, 0.534)" >AGREGAR ARTICULOS A LA ORDEN DE COMPRA</h2>
               </div>
             </div>
             <div class="col d-flex justify-content-end ">

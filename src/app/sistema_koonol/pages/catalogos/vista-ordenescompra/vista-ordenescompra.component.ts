@@ -39,11 +39,12 @@ export class VistaOrdenescompraComponent {
     articulosPedido:any = []
     pedidoSeleccionado: any;
     dataLogin = JSON.parse(localStorage.getItem('dataLogin')!);
+    token = 'VzNobUpiVm03SityMXRyN3ZROGEyaU0wWXVnYXowRjlkQzMxN0s2NjRDcz0='
 
     constructor(
       private pedidosRealizados: PedidosService,
       private proveedor_service : ProveedoresService,
-      private ordeneService: OrdenesService,
+      private ordenService: OrdenesService,
       private router:Router
     ) {
       this.provCtrl = new FormControl();
@@ -108,7 +109,7 @@ obtenerOrdenes(){
     token: "VzNobUpiVm03SityMXRyN3ZROGEyaU0wWXVnYXowRjlkQzMxN0s2NjRDcz0="
   }
   console.log('json :>> ', json);
-  this.ordeneService.obtenerCompras(json).subscribe((resp)=>{
+  this.ordenService.obtenerCompras(json).subscribe((resp)=>{
     if(resp.ok){
       // console.log('resp :>> ', resp);
       this.pedidos = resp.data
@@ -129,7 +130,7 @@ filtrarOrdenes(){
     token: "VzNobUpiVm03SityMXRyN3ZROGEyaU0wWXVnYXowRjlkQzMxN0s2NjRDcz0="
     //  token: this.dataLogin.token
 }
-this.ordeneService.obtenerCompras(json).subscribe((resp)=>{
+this.ordenService.obtenerCompras(json).subscribe((resp)=>{
   if(resp.ok){
     this.pedidos = resp.data
     this.id_proveedor = 0;
@@ -154,26 +155,16 @@ this.ordeneService.obtenerCompras(json).subscribe((resp)=>{
     buscarPedido(id_pedido: number) {
       let json = {
         id_compra : id_pedido,
-        // token: this.dataLogin.token,
-        token: 'VzNobUpiVm03SityMXRyN3ZROGEyaU0wWXVnYXowRjlkQzMxN0s2NjRDcz0=',
+        token: this.token,
         id_usuario: 1
       }
-    console.log('json :>> ', json);
-      this.ordeneService.buscarCompraID(json)
+      this.ordenService.buscarCompraID(json)
       .subscribe(res => {
         if(res.ok){
-          console.log('res :>> ', res.data[0].articulos);
           const articulos = res.data[0].articulos;
           this.articulosPedido = articulos;
         }
       })
-
-
-      // this.pedidosRealizados.buscarPedido(id_pedido).subscribe(
-      //   (response) => {
-      //     this.articulosPedido = response.data
-      //     console.log('response.data :>> ', response.data);
-      //   })
     }
 
     toggleModalVisibility() {
@@ -215,17 +206,28 @@ this.ordeneService.obtenerCompras(json).subscribe((resp)=>{
     }
 
 
-    cancelarOrden(){
+    cancelarOrden(id:any){
       Swal.fire({
-        title: "¿Quieres cancelar esta Orden de compra?",
+        title: "¿Cancelar Orden de compra?",
         showDenyButton: true,
         confirmButtonText: "Confirmar",
-        denyButtonText: "Cancelar"
+        denyButtonText: "Cancelar",
+        icon:'question'
       }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          Swal.fire("Orden de compra", "CANCELADA", "info");
-          this.toggleModalVisibility();
+          let json = {
+            id_compra: id,
+            token: this.token,
+            id_usuario: this.dataLogin.id_usuario
+          }
+          this.ordenService.cancelarCompra(json).subscribe((resp)=>{
+            if(resp.ok){
+              Swal.fire("¡Hecho!", resp.data.mensaje, "success");
+              this.obtenerOrdenes();
+              this.toggleModalVisibility();
+            }
+          })
+
         } else if (result.isDenied) {
           // Swal.fire("Changes are not saved", "", "info");
         }
