@@ -141,35 +141,20 @@ asignarOrden(id:number){
       this.ordenCompra = resp.data[0];
       this.fechaActual = orden.fecha;
       this.provCtrl = new FormControl(orden.proveedor);
-      // this.transactions = articulos.map(art => {
-      //   return {
-      //     producto: art.articulo,
-      //     cantidad: art.cantidad,
-      //     pUnitario: art.precio_unitario,
-      //     importe: art.importe_compra_det,
-      //     id_existencia: art.id_existencia,
-      //     id_det_compra: art.id_det_compra,
-      //     descuento_1:art.descuento_1,
-      //     descuento_2:art.descuento_2,
-      //     descuento_3:art.descuento_3,
-      //     ieps:art.art.ieps,
-      //     tasa_iva:art.tasa_iva
-      //   }
-      // })
       for (const art of articulos){
         try {
           const tran = {
                 producto: art.articulo,
-                cantidad: art.cantidad,
-                pUnitario: art.precio_unitario,
-                importe: art.importe_compra_det,
-                id_existencia: art.id_existencia,
-                id_det_compra: art.id_det_compra,
-                descuento_1:art.descuento_1,
-                descuento_2:art.descuento_2,
-                descuento_3:art.descuento_3,
-                ieps:art.ieps,
-                tasa_iva:art.tasa_iva
+                cantidad: Number(art.cantidad),
+                pUnitario: Number(art.precio_unitario),
+                importe: Number(art.cantidad * art.precio_unitario),
+                id_existencia: Number(art.id_existencia),
+                id_det_compra: Number(art.id_det_compra),
+                descuento_1:Number(art.descuento_1),
+                descuento_2:Number(art.descuento_2),
+                descuento_3:Number(art.descuento_3),
+                ieps:Number(art.ieps),
+                tasa_iva:Number(art.tasa_iva)
           };
           this.transactions = this.transactions.slice();
           this.transactions.push(tran)
@@ -281,6 +266,9 @@ monedaSelec(event: any) {
 }
 
 
+//NUEVOS CAMPOS DE ARTICULO
+descProveedor = 'Desc(proveedor)';
+medidaProveedor = 'U.Medida(proveedor)';
 
 
 //AGREGAR ARTICULO A LA TABLA
@@ -360,8 +348,6 @@ recalcularTotal() {
 
 
 
-// PARA OBTENER EL TOTAL DE LA TABLA
-getTotalCost(): number { return this.transactions.reduce((total, transaction) => total + transaction.importe, 0); }
 
 
 productoEdit = ''
@@ -457,6 +443,42 @@ borrarItem(transaction: any) {
       }
     }
   });
+}
+
+
+// PARA OBTENER EL TOTAL DE LA TABLA
+getTotalCost(): number { return this.transactions.reduce((total, transaction) => total + transaction.importe, 0); }
+
+//PARA LOS IMPUESTOS DE LA TABLA
+ getImpuestos(): number {
+  return this.transactions.reduce((totalTaxes, transaction) => {
+    const iva = transaction.tasa_iva /100
+    const impuesto = transaction.importe * iva
+    return totalTaxes + impuesto;
+  }, 0);
+}
+
+//PARA LOS DESCUENTOS
+getDescuentos(){
+  return this.transactions.reduce((totalAhorro, transaction) => {
+    const porcentajeDescuento = (transaction.descuento_1 + transaction.descuento_2 + transaction.descuento_3) / 100;
+    const montoAhorro = transaction.importe * porcentajeDescuento;
+    return totalAhorro + montoAhorro;
+  }, 0);
+}
+
+//PARA LOS IMPORTES
+getImporte(){
+  return this.transactions.reduce((totalImporte, transaction) =>{
+    const importe = transaction.cantidad * transaction.pUnitario
+    return totalImporte + importe
+  },0);
+}
+
+//PARA LAS BONIFICACIONES
+getDevoliciones(){
+  const dev = 0.00
+  return dev
 }
 
 
