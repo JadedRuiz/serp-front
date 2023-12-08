@@ -322,7 +322,6 @@ if(this.articuloCompuesto && this.productoProveedor.cantidad > 0) {
 }
 
 
-
 // CALCULAR TOTAL
 recalcularTotal() {
   // Lógica para recalcular el total
@@ -342,22 +341,21 @@ recalcularTotal() {
   }
 
   // IEPS
+   let iemps:number=0
+
   if (this.productoProveedor.ieps) {
-    this.total = this.total + (this.total * (this.productoProveedor.ieps / 100));
+    iemps = (this.total * (this.productoProveedor.ieps / 100));
   }
 
   // Tasa de IVA
+  let iva = 0;
   if (this.productoProveedor.tasa_iva) {
-    // Calcula el IVA sobre el total (incluyendo IEPS si está presente)
-    let ivaBase = this.productoProveedor.ieps ? (this.total - (this.total * (this.productoProveedor.ieps / 100))) : this.total;
-    this.total = ivaBase + (ivaBase * (this.productoProveedor.tasa_iva / 100));
+    iva = (this.total + iemps ) * (this.productoProveedor.tasa_iva/100);
   }
 
-  // Asegúrate de sumar IEPS y tasa de IVA al total final
-  this.total = this.total + this.productoProveedor.ieps;
+  //  sumar IEPS y tasa de IVA al total final
+  this.total = this.total + iemps + iva;
 
-  // Redondea el resultado si es necesario (puedes ajustar la precisión según tus necesidades)
-  // this.total = Math.round(this.total * 100) / 100;
 }
 
 

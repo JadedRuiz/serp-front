@@ -193,6 +193,22 @@ this.ordeneService.obtenerCompras(json).subscribe((resp)=>{
       }
     }
 
+    //PARA RE DIRIGIR A NUEVA ORDEN
+    redirect(){
+      Swal.fire({
+        title: '¿Crear una nueva orden de compra?',
+        showDenyButton: true,
+        confirmButtonText: 'Si',
+        denyButtonText: `No`,
+        icon:'question'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['/sis_koonol/catalogos/ordenes'])
+        } else if (result.isDenied) {
+        }
+      })
+    }
+
     saveEditedOrder() {
       this.editOrderVisibility = false
       this.orderVisibility = true

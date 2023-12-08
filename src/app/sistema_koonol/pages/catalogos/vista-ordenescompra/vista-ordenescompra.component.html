@@ -19,16 +19,17 @@
         </mat-form-field>
       </div>
 
-            <div class="col-md-3">
+            <div class="col-md-2">
               <input type="date" class="mt-2 form-control" aria-label="fecha" [formControl]="fechaInicio"  name="fecha1">
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-2">
               <input type="date" class="mt-2 form-control"  aria-label="fecha" [formControl]="fechaFinal" name="fecha2">
             </div>
 
-      <div class="col-md-2">
-        <button (click)="filtrarOrdenes()" class="mt-2 search-btn" >Buscar orden</button>
+      <div class="col-md-4  ">
+        <button (click)="filtrarOrdenes()" class="mt-2 search-btn" >Filtrar</button>
+        <button (click)="redirect()" class="pull-right mt-2 general-btn" >Nueva orden</button>
       </div>
   </div>
    <div  #cardPedidos class="row">
