@@ -75,8 +75,10 @@
 
 
          <!-- Modal -->
-         <div class="orders-placed__modal modal-dialog-centered" *ngIf="modalVisibility">
-            <div class="orders-placed__modal__order" *ngIf="orderVisibility">
+         <div class="orders-placed__modal modal-dialog-centered" *ngIf="modalVisibility" >
+
+
+            <div #cotizacion  class="orders-placed__modal__order" *ngIf="orderVisibility">
                <button class="icon-btn" (click)="closeModal()">
                   <i class="fa fa-times"></i>
                </button>
@@ -93,7 +95,7 @@
 
                   <span><b>Observaciones: </b>{{pedidoSeleccionado.observaciones}}</span>
                </div>
-               <div class="cotizacion" [ngStyle]="{width: '100%'}" #cotizacion>
+               <div class="cotizacion" [ngStyle]="{width: '100%'}" >
                   <div class="table-custom mb-2" [ngStyle]="{border: '0.1px solid grey'}">
                      <div class="d-flex table-head" [ngStyle]="{border: '0.1px solid grey'}">
                         <div class="col-3 text-center">Artículo</div>
@@ -127,9 +129,10 @@
                   <!-- <button class="danger-btn" (click)="generarPdfCotizacion()">Ver Orden de compra</button> -->
                   <button class="danger-btn" (click)="cancelarOrden(pedidoSeleccionado.id_compra)">Cancelar orden</button>
                   <button class="search-btn" (click)="toggleModalVisibility()">Regresar</button>
+                  <button class="search-btn" (click)="generarPdfCotizacion()">Inprimir</button>
                </div>
-            </div>
-         </div>
+          </div>
+          </div>
       </article>
    </div>
 </div>

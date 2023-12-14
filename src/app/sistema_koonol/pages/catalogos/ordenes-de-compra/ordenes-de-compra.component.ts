@@ -622,6 +622,21 @@ printOrden(){
 }
 
 
+redirect(){
+  this.router.navigate(['/sis_koonol/catalogos/ordenescompra'])
+  // Swal.fire({
+  //   title: '¿Ir a ordenes de compra activas?',
+  //   showDenyButton: true,
+  //   confirmButtonText: 'Si',
+  //   denyButtonText: `No`,
+  //   icon:'question'
+  // }).then((result) => {
+  //   if (result.isConfirmed) {
+  //   } else if (result.isDenied) {
+  //   }
+  // })
+}
+
 
 // CANCELAR ORDEN DE COMPRA
 cancelar(){

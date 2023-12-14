@@ -52,7 +52,13 @@
               <div class="col-md-2">
                 <label for="" class="form-group mb-1">Status</label>
                 <input type="text" class="form-control text-center" disabled  value="ACTIVO">
-                </div>
+              </div>
+              <div *ngIf="this.ordenCompra.id_compra == 0" class="col-md-3 pt-3">
+                <button (click)="redirect()" class="pull-right add-btn" >
+                    Ordenes Activas
+                  <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
 
               <!-- <div class="form-group mt-3 col-md-3">
                 <select  [(ngModel)]="ordenCompra.status" name="status"
@@ -115,9 +121,12 @@
           </form>
             <!-- TABLA -->
           <form id="form_articulos" class="m-2">
-            <div class="col-12">
-              <button (click)="this.printOrden()" type="button" class="  general-btn">Imprimir orden</button>
-              <button  type="button" class="search-btn pull-right mr-3 " data-toggle="modal"data-target="#editarModal">Agregar producto</button>
+            <div class="col-12 mb-3">
+              <button  class="search-btn mr-3 " data-toggle="modal"data-target="#editarModal">
+                <i class="fa fa-plus fa-1x mr-2" aria-hidden="true">
+                </i>
+                Agregar producto
+              </button>
            </div>
 
               <h2 class="border-bottom  ml-2 mt-4">Lista de articulos</h2>
