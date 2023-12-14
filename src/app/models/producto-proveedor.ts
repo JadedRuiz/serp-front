@@ -9,5 +9,9 @@ export class ProductProv {
     public descuento_3: number,
     public ieps: number,
     public tasa_iva: number,
+    public id_articulo_prov?: number,
+    public clave_prov?: string,
+    public descrip_prov?: string,
+    public medida_prov?: string,
   ){}
 }

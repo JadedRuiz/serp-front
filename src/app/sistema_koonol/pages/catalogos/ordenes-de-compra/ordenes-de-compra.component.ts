@@ -32,6 +32,10 @@ export interface Transaction {
   descuento_3:number;
   ieps:number;
   tasa_iva:number;
+  id_articulo_prov?: number,
+  clave_prov?: string,
+  descrip_prov?: string,
+  medida_prov?: string,
 }
 
 
@@ -56,7 +60,7 @@ private monedaService = inject(MonedaService)
  public proveedores: Proveedor[] = [];
  public productFiltrados: Observable<any[]>;
  public producto: Articulo = new Articulo(0,0,0,'','','',0,0,0,0,0,0,'',true,0,[],0,0,0,0,'');
- public productoProveedor = new ProductProv(0,0,0,0,0,0,0,0,0);
+ public productoProveedor = new ProductProv(0,0,0,0,0,0,0,0,0,0,'','','');
  public ordenCompra = new OrdenDeCompra(0,0,0,0,'','',0,0,'','',0,[]);
  public provCtrl: FormControl;
  public provFiltrados: Observable<any[]>;
@@ -288,7 +292,11 @@ if(this.articuloCompuesto && this.productoProveedor.cantidad > 0) {
     descuento_2:this.productoProveedor.descuento_2,
     descuento_3:this.productoProveedor.descuento_3,
     ieps:this.productoProveedor.ieps,
-    tasa_iva:this.productoProveedor.tasa_iva
+    tasa_iva:this.productoProveedor.tasa_iva,
+    id_articulo_prov: this.productoProveedor.id_articulo_prov,
+    clave_prov: this.productoProveedor.clave_prov,
+    descrip_prov: this.productoProveedor.descrip_prov,
+    medida_prov: this.productoProveedor.medida_prov
   };
   this.transactions = this.transactions.slice();
   this.transactions.push(nuevoProducto);
@@ -534,7 +542,11 @@ nuevaOrden() {
       descuento_2: transaction.descuento_2,
       descuento_3: transaction.descuento_3,
       ieps: transaction.ieps,
-      tasa_iva: transaction.tasa_iva
+      tasa_iva: transaction.tasa_iva,
+      id_articulo_prov: transaction.id_articulo_prov,
+      clave_prov: transaction.clave_prov,
+      descrip_prov: transaction.descrip_prov,
+      medida_prov: transaction.medida_prov
     };
 
     // Agregar el nuevo producto al arreglo de artículos

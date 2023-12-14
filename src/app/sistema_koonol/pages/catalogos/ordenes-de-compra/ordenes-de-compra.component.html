@@ -236,7 +236,7 @@
       </div>
       <div class="modal-body">
         <div class="row ">
-            <div *ngIf="!this.editando" class="col">
+            <div *ngIf="!this.editando" class="col-8">
             <mat-form-field class="w-100">
               <input
               matInput placeholder="Buscar producto..." aria-label="State" [matAutocomplete]="autoProduct2" [formControl]="productCtrl">
@@ -256,23 +256,32 @@
             <h2>{{articuloCompuesto}}</h2>
            </div>
 
-          <!-- <div class="col-md-4 mt-3">
-            <input [(ngModel)]="producto.medida"
-            type="text" class="form-control" placeholder="Un.Medida">
-          </div> -->
+           <div class="col-4 mt-2 pl-0 ml-0 text-left ">
+            <!-- <label for="" class="label" >Clave</label> -->
+            <input [(ngModel)]="productoProveedor.clave_prov" name="clave_prov"
+             type="text" class="nom_input form-control" placeholder="clave proveedor...">
+            </div>
+
+          </div>
+
+        <div class="row mb-3">
+
+          <div class="col-6 text-left ">
+            <label for="" class="text" >Descripción</label>
+            <input [(ngModel)]="productoProveedor.descrip_prov" name="descrip_prov"
+             type="text" class="nom_input form-control" placeholder=" descripcion proveedor..."
+             >
+          </div>
+
+          <div class="col-6 text-left ">
+            <label for="" class="text" >U.Medida</label>
+            <input [(ngModel)]="productoProveedor.medida_prov" name="medida_prov"
+             type="text" class="nom_input form-control" placeholder="media proveedor..."
+             >
+          </div>
 
         </div>
 
-        <div class="row mt-2">
-
-          <div class="col-6 text-center ">
-            <label for="" class="form-control" >{{descProveedor}}</label>
-          </div>
-          <div class="col-6 text-center ">
-            <label for="" class="form-control" >{{medidaProveedor}}</label>
-          </div>
-
-        </div>
         <div class="row mt-2">
           <div class=" col-3 pr-0 ">
             <p class="nom_cantidad mt-2" >Cantidad:</p>
