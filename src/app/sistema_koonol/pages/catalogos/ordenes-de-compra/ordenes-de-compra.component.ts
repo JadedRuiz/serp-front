@@ -204,7 +204,9 @@ filtrarProv(name: any) {
      prov.proveedor.toUpperCase().indexOf(name.toUpperCase()) === 0);
 }
 // PROV SELECCINADO
+proSelec:boolean = false;
 provSelec(prov: any) {
+this.proSelec = true;
  this.ordenCompra.id_proveedor = prov.option.id.id_proveedor;
 //  console.log('prov :>> ', prov.option.id);
 }
@@ -271,10 +273,6 @@ monedaSelec(event: any) {
   //  console.log('Selected Moneda:', monSelect);
 }
 
-
-//NUEVOS CAMPOS DE ORDEN
-descProveedor = 'Desc(proveedor)';
-medidaProveedor = 'U.Medida(proveedor)';
 
 
 //AGREGAR ARTICULO A LA TABLA
@@ -668,6 +666,7 @@ vaciarOrden(){
   this.ordenCompra = new OrdenDeCompra(0,0,0,0,'','',0,0,'','',0,[]);
    this.transactions=[];
    this.values();
+   this.proSelec = false;
 }
 
 }

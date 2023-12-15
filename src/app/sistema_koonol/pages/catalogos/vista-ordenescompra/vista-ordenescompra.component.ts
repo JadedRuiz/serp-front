@@ -92,6 +92,7 @@ filtrarProv(name: any) {
 provSelec(prov: any) {
 //  console.log('object :>> ', prov.option.id.id_proveedor);
  this.id_proveedor = prov.option.id.id_proveedor;
+ this.filtrarOrdenes();
 }
 
 
@@ -187,10 +188,10 @@ this.ordenService.obtenerCompras(json).subscribe((resp)=>{
     //PARA RE DIRIGIR A NUEVA ORDEN
     redirect(){
       Swal.fire({
-        title: '¿Crear una nueva orden de compra?',
+        title: '¿Nueva orden de compra?',
         showDenyButton: true,
-        confirmButtonText: 'Si',
-        denyButtonText: `No`,
+        confirmButtonText: 'Confirmar',
+        denyButtonText: `Cancelar`,
         icon:'question'
       }).then((result) => {
         if (result.isConfirmed) {

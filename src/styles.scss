@@ -34,10 +34,10 @@ $color-txt : black;
   --bg-color: #F1F2F5;
   --color-base: #FE900B;
   --hover-base: #7d71f1;
-  --color-secundario: #16c7ff;
+  --color-secundario: #16a2ff;
   --color-terciario: #f82828;
   --danger-color: #6b0c0c;
-  --add-color: #2ede40;
+  --add-color: #34cc43;
 
   --red: #D50901;
   --white: #E7E8EB;
@@ -282,7 +282,7 @@ p {
   background-color: var(--color-terciario);
 
   &:hover {
-    background-color: var(--danger-color);
+    background-color: var(--hover-base);
   }
 }
 

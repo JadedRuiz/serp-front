@@ -21,9 +21,12 @@
 
               <!-- BUSCADOR DE PROVEEDORES -->
               <div class="form-group mt-2 col-md-4">
-                <mat-form-field class="w-100">
-                  <input
-                  matInput placeholder="Proveedor" aria-label="State" [matAutocomplete]="auto" [formControl]="provCtrl">
+                  <mat-form-field class="w-100">
+                    <mat-label>Proveedor</mat-label>
+                    <input matInput placeholder="Buscar proveedor" [matAutocomplete]="auto" [formControl]="provCtrl">
+                    <mat-icon *ngIf="!proSelec" matSuffix class=" fa fa-search mr-3" aria-hidden="true"></mat-icon>
+                    <mat-icon *ngIf="proSelec" matSuffix class=" fa fa-check mr-3" aria-hidden="true"></mat-icon>
+                  </mat-form-field>
                   <mat-autocomplete #auto="matAutocomplete"
                   (optionSelected)="provSelec($event)"
                   >
@@ -34,7 +37,6 @@
                       <span>{{ proveedor.proveedor | uppercase }}</span>
                     </mat-option>
                   </mat-autocomplete>
-                </mat-form-field>
               </div>
 
 
@@ -217,9 +219,11 @@
             <div class="col d-flex justify-content-end ">
               <button (click)="cancelar()"  class="d-flex mr-3 danger-btn">
                 Cancelar
+                <i class="fa fa-times-circle pt-1 ml-2" aria-hidden="true"></i>
               </button>
             <button (click)="guardar()" type="submit" class="search-btn">
               Confirmar
+              <i class="fa fa-check-square-o ml-2" aria-hidden="true"></i>
             </button>
           </div>
 

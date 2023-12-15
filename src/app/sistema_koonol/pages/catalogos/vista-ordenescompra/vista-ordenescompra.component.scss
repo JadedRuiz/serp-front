@@ -37,16 +37,16 @@ $title-font-size-desktop: 20px;
     display: flex;
     flex-direction: column;
     background-color: white;
-    border: 1px solid rgba(22, 22, 22, 0.384);
+    border: 1.1px solid rgba(141, 138, 138, 0.6);
     width: min(100%, 1300px);
-    border-radius: 5px;
-    padding: 20px 15px;
+    border-radius: 13px;
+    padding: 20px 20px;
     margin-top: 30px;
     position: relative;
 
     &:hover {
-        box-shadow: 0 10px 14px rgba(0, 0, 0, 0.15);
-        transition: 300ms;
+        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.32);
+        transition: 450ms;
     }
 
     .subtitle {
@@ -99,11 +99,10 @@ $title-font-size-desktop: 20px;
 
             @include xs {
                 position: inherit;
-                font-size: 26px;
             }
 
             b {
-                font-size: 13px;
+                font-size: 18px;
 
                 @include xs {
                     font-size: 16px
@@ -355,3 +354,6 @@ $title-font-size-desktop: 20px;
         }
     }
 }
+
+
+
