@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path : '',
     component : LoginComponent,
-    canActivate: [UnloggedGuard]
+    // canActivate: [UnloggedGuard]
   },
   {
     path: 'sis_koonol',
