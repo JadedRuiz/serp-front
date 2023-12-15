@@ -56,9 +56,9 @@
                 <input type="text" class="form-control text-center" disabled  value="ACTIVO">
               </div>
               <div *ngIf="this.ordenCompra.id_compra == 0" class="col-md-3 pt-3">
-                <button (click)="redirect()" class="pull-right add-btn" >
+                <button (click)="redirect()" class="form-text pull-right add-btn" >
                     Ordenes Activas
-                  <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                  <i class="fa fa-arrow-right ml-2" aria-hidden="true"></i>
                 </button>
               </div>
 
@@ -217,13 +217,13 @@
               </div>
             </div>
             <div class="col d-flex justify-content-end ">
-              <button (click)="cancelar()"  class="d-flex mr-3 danger-btn">
+              <button (click)="cancelar()"  class=" mr-3 form-text danger-btn">
                 Cancelar
-                <i class="fa fa-times-circle pt-1 ml-2" aria-hidden="true"></i>
+                <!-- <i class="fa fa-times ml-2" aria-hidden="true"></i> -->
               </button>
-            <button (click)="guardar()" type="submit" class="search-btn">
+            <button (click)="guardar()" type="submit" class="form-text search-btn">
               Confirmar
-              <i class="fa fa-check-square-o ml-2" aria-hidden="true"></i>
+              <i class="fa fa-check ml-2" aria-hidden="true"></i>
             </button>
           </div>
 

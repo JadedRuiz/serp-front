@@ -112,6 +112,7 @@
                   <span><b>Tipo de Pago:</b> {{pedidoSeleccionado.forma_pago}}  <span *ngIf="pedidoSeleccionado.forma_pago == 'CREDITO'"> <b>Días de credito</b> {{pedidoSeleccionado.dias_credito}}</span> </span>
                   <span> <b>Moneda:</b> <span>{{pedidoSeleccionado.moneda_sat}}</span> / <b>Tipo de cambio:</b> {{pedidoSeleccionado.tipo_cambio | currency}} </span>
                   <span><b>Fecha de entrega:</b> {{pedidoSeleccionado.fecha_entrega | date:'dd/MM/YYYY'}} </span>
+
                   <span><b>Observaciones: </b>{{pedidoSeleccionado.observaciones}}</span>
                </div>
                <div class="cotizacion" [ngStyle]="{width: '100%'}" >

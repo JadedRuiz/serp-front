@@ -150,7 +150,7 @@ this.ordenService.obtenerCompras(json).subscribe((resp)=>{
       this.pedidoSeleccionado = this.pedidos.find(pedidos => pedidos.id_compra == id_pedido)
       // console.log(this.pedidoSeleccionado);
       this.buscarPedido(id_pedido)
-      this.toggleModalVisibility()
+      this.toggleModalVisibility();
     }
 
     buscarPedido(id_pedido: number) {
