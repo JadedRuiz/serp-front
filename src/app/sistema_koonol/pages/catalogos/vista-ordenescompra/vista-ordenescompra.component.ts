@@ -170,7 +170,7 @@ this.ordenService.obtenerCompras(json).subscribe((resp)=>{
 
     toggleModalVisibility() {
       this.modalVisibility = !this.modalVisibility
-      this.orderVisibility = !this.orderVisibility
+      // this.orderVisibility = !this.orderVisibility
     }
 
     closeModal() {
@@ -180,9 +180,20 @@ this.ordenService.obtenerCompras(json).subscribe((resp)=>{
     }
 
     openEdit(id:number) {
-      if(id){
-        this.router.navigate(['/sis_koonol/catalogos/ordenes',id])
-      }
+      Swal.fire({
+        title: '¿Editar orden de compra?',
+        showDenyButton: true,
+        confirmButtonText: 'Confirmar',
+        denyButtonText: `Cancelar`,
+        icon:'question',
+        confirmButtonColor: '#16a2ff',
+      }).then((result) => {
+        if (result.isConfirmed) {
+            this.router.navigate(['/sis_koonol/catalogos/ordenes',id])
+        } else if (result.isDenied) {
+        }
+      })
+
     }
 
     //PARA RE DIRIGIR A NUEVA ORDEN
@@ -192,7 +203,8 @@ this.ordenService.obtenerCompras(json).subscribe((resp)=>{
         showDenyButton: true,
         confirmButtonText: 'Confirmar',
         denyButtonText: `Cancelar`,
-        icon:'question'
+        icon:'question',
+        confirmButtonColor: '#16a2ff',
       }).then((result) => {
         if (result.isConfirmed) {
           this.router.navigate(['/sis_koonol/catalogos/ordenes'])
@@ -237,24 +249,60 @@ this.ordenService.obtenerCompras(json).subscribe((resp)=>{
 
     //GENERAR PDF DE COTIZACIÓN
     @ViewChild('cotizacion', { static: false }) cotizacion!: ElementRef
+    vistaPdf:boolean=false;
 
-    generarPdfCotizacion() {
-      html2pdf()
-        .set({
-          margin: 1,
-          filename: `Cotización para ${this.pedidoSeleccionado.cliente}.pdf`,
-          html2canvas: {
-            scale: 4,
-            letterRendering: true
-          },
-          jsPDF: {
-            unit: 'in',
-            format: 'a3',
-            orientation: 'portrait'
+  generarPdfCotizacion() {
+    Swal.fire({
+      title: '¿Generar PDF?',
+      showDenyButton: true,
+      confirmButtonText: 'Confirmar',
+      denyButtonText: `Cancelar`,
+      icon: 'question',
+      confirmButtonColor: '#16a2ff',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.vistaPdf=true;
+        html2pdf()
+          .set({
+            margin: 1,
+            filename: `Orden de compra para ${this.pedidoSeleccionado.proveedor}.pdf`,
+            html2canvas: {
+              scale: 4,
+              letterRendering: true
+            },
+            jsPDF: {
+              unit: 'in',
+              format: 'a3',
+              orientation: 'portrait'
+            }
+          })
+          .from(this.cotizacion.nativeElement).save()
+
+        this.vistaPdf = false;
+        this.toggleModalVisibility();
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
           }
-        })
-        .from(this.cotizacion.nativeElement).save()
-    }
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Descargando Pdf"
+        });
+      } else if (result.isDenied) {
+      }
+    })
+
+  }
+
+
+
 
 
 

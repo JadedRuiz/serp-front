@@ -313,47 +313,47 @@ $title-font-size-desktop: 20px;
     width: 100%;
 }
 
-@media (min-width: 768px) {
+// @media (min-width: 768px) {
 
-    .orders-placed__container {
+//     .orders-placed__container {
 
-        p,
-        span {
-            font-size: $default-font-size-tablet;
-        }
-    }
+//         p,
+//         span {
+//             font-size: $default-font-size-tablet;
+//         }
+//     }
 
-    .orders-placed__title {
-        font-size: $title-font-size-tablet;
-    }
+//     .orders-placed__title {
+//         font-size: $title-font-size-tablet;
+//     }
 
-    .orders-placed__order__section2 {
-        span {
-            font-size: $subtitle-font-size-tablet;
-        }
-    }
-}
+//     .orders-placed__order__section2 {
+//         span {
+//             font-size: $subtitle-font-size-tablet;
+//         }
+//     }
+// }
 
-@media (min-width: 1024px) {
+// @media (min-width: 1024px) {
 
-    .orders-placed__container {
+//     .orders-placed__container {
 
-        p,
-        span {
-            font-size: $default-font-size-desktop;
-        }
-    }
+//         p,
+//         span {
+//             font-size: $default-font-size-desktop;
+//         }
+//     }
 
-    .orders-placed__title {
-        font-size: $title-font-size-desktop;
-    }
+//     .orders-placed__title {
+//         font-size: $title-font-size-desktop;
+//     }
 
-    .orders-placed__order__section2 {
-        span {
-            font-size: $subtitle-font-size-desktop;
-        }
-    }
-}
+//     .orders-placed__order__section2 {
+//         span {
+//             font-size: $subtitle-font-size-desktop;
+//         }
+//     }
+// }
 
 
 

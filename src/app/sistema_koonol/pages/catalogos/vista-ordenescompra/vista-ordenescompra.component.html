@@ -83,30 +83,35 @@
 
          <!-- Modal -->
          <div class="orders-placed__modal modal-dialog-centered" *ngIf="modalVisibility" >
+            <div   class="orders-placed__modal__order" >
+
+              <!-- TÍTULO -->
+               <div class="row d-flex justify-content-between w-100 ">
+                <h1 class="title text-left mt-2">{{pedidoSeleccionado.proveedor}}</h1>
+                <!-- <i  style="color: rgb(22, 182, 78); cursor:pointer; font-size: 33px;"
+                 title="¿Editar?"
+                 class=" mr-2 fa fa-pencil-square-o pull-right"
+                 aria-hidden="true"
+                 tipe="button"
+                 (click)="openEdit(pedidoSeleccionado.id_compra)"
+                 ></i> -->
+                 <button  title="Regresar" class="btn btn-danger rounded-circle mb-2" (click)="closeModal()">
+                   <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                 </button>
+              </div>
 
 
-            <div #cotizacion  class="orders-placed__modal__order" *ngIf="orderVisibility">
-               <button class="icon-btn" (click)="closeModal()">
-                  <i class="fa fa-times"></i>
-               </button>
-               <!-- TÍTULO -->
-               <div class="row">
-                <div class="col-8">
-                  <h1 class="title text-center mt-2">{{pedidoSeleccionado.proveedor}} </h1>
-                </div>
-                <div class="col-2  mt-2">
-                  <button class="general-btn" (click)="openEdit(pedidoSeleccionado.id_compra)">Editar</button>
-                </div>
-               </div>
+
 
                <!-- CUERPO DEL MODAL -->
+               <div #cotizacion class="">
                <div class=" datos  d-flex flex-column justify-content-start w-100 mb-3">
+                  <span ><b>Proveedor:</b> {{pedidoSeleccionado.proveedor}} </span>
                   <span><b>Folio:</b> {{pedidoSeleccionado.folio}} </span>
                   <span><b>Fecha de orden:</b> {{pedidoSeleccionado.fecha | date:'dd/MM/YYYY'}} </span>
                   <span><b>Tipo de Pago:</b> {{pedidoSeleccionado.forma_pago}}  <span *ngIf="pedidoSeleccionado.forma_pago == 'CREDITO'"> <b>Días de credito</b> {{pedidoSeleccionado.dias_credito}}</span> </span>
                   <span> <b>Moneda:</b> <span>{{pedidoSeleccionado.moneda_sat}}</span> / <b>Tipo de cambio:</b> {{pedidoSeleccionado.tipo_cambio | currency}} </span>
                   <span><b>Fecha de entrega:</b> {{pedidoSeleccionado.fecha_entrega | date:'dd/MM/YYYY'}} </span>
-
                   <span><b>Observaciones: </b>{{pedidoSeleccionado.observaciones}}</span>
                </div>
                <div class="cotizacion" [ngStyle]="{width: '100%'}" >
@@ -137,14 +142,34 @@
                      <span>{{pedidoSeleccionado.importe_total | currency}}</span>
                   </div>
                </div>
-               <!-- BOTONES -->
-               <div class="orders-placed__buttons mt-auto">
-                  <!-- <button class="danger-btn" (click)="generarPdfCotizacion()">Ver Orden de compra</button> -->
-                  <button class="danger-btn" (click)="cancelarOrden(pedidoSeleccionado.id_compra)">Cancelar orden</button>
-                  <button class="search-btn" (click)="toggleModalVisibility()">Regresar</button>
-                  <button class="search-btn" (click)="generarPdfCotizacion()">Inprimir</button>
+              </div>
+              <!-- BOTONES -->
+              <div *ngIf="!vistaPdf" class="orders-placed__buttons mt-auto">
+                 <!-- <button class="danger-btn" (click)="generarPdfCotizacion()">Ver Orden de compra</button> -->
+                 <!-- <button  title="Regresar" class="btn btn-danger rounded-circle" (click)="toggleModalVisibility()">
+                   <i class="fa fa-chevron-left mr-1 ml-0 pl-0" aria-hidden="true"></i>
+                 </button> -->
+                 <i  style="color: rgb(22, 182, 78); cursor:pointer; font-size: 33px;"
+                 title="¿Editar?"
+                 class=" mr-2 fa fa-pencil-square-o pull-right"
+                 aria-hidden="true"
+                 tipe="button"
+                 (click)="openEdit(pedidoSeleccionado.id_compra)"
+                 ></i>
+
+                 <div class="">
+
+                 <button  class="danger-btn" (click)="cancelarOrden(pedidoSeleccionado.id_compra)">Suspender
+                   <i class="fa fa-times-circle pt-1 ml-2" aria-hidden="true"></i>
+                 </button>
+                 <button  class=" hide-pdf search-btn ml-3" (click)="generarPdfCotizacion()">Inprimir
+                   <i class="fa fa-file-pdf-o pt-1 ml-2" aria-hidden="true"></i>
+                 </button>
+
                </div>
-          </div>
+
+              </div>
+            </div>
           </div>
       </article>
    </div>
